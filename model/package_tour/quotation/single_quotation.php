@@ -63,7 +63,7 @@ $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quot
 $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
 
 $sq_transport = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_transport_entries2 where quotation_id='$quotation_id'"));
-$sq_package_program = mysqlQuery("select * from  package_quotation_program where quotation_id='$quotation_id'");
+$sq_package_program = mysqlQuery("select * from package_quotation_program where quotation_id='$quotation_id'");
 $sq_train = mysqlQuery("select * from package_tour_quotation_train_entries where quotation_id='$quotation_id'");
 $sq_plane = mysqlQuery("select * from package_tour_quotation_plane_entries where quotation_id='$quotation_id'");
 
@@ -293,10 +293,8 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
                                     <div class="col-md-4" style="line-height: 26px; padding:7px 15px 7px 15px;">
                                         <span><em>Attraction :</em> <?= $row_itinarary['attraction']; ?></span>
                                     </div>
-                                    <div class="col-md-3"><span><em>Overnight stay :</em>
-                                            <?= $row_itinarary['stay']; ?></span></div>
-                                    <div class="col-md-2"><span><em>Meal Plan :</em>
-                                            <?= $row_itinarary['meal_plan']; ?></span></div>
+                                    <div class="col-md-3"><span><em>Overnight stay :</em><?= $row_itinarary['stay']; ?></span></div>
+                                    <div class="col-md-2"><span><em>Meal Plan :</em><?= $row_itinarary['meal_plan']; ?></span></div>
                                 </div>
                             </div>
                             <div id="collapse<?= $count; ?>" class="panel-collapse <?= $in; ?> collapse main_block"
@@ -342,21 +340,21 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1 col-sm-12">
                             <?php
-                                    while ($row_hotel = mysqli_fetch_assoc($sq_package_type1)) {
+                            while ($row_hotel = mysqli_fetch_assoc($sq_package_type1)) {
 
-                                        $hotel_name = mysqli_fetch_assoc(mysqlQuery("select * from hotel_master where hotel_id='$row_hotel[hotel_name]'"));
-                                        $city_name = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_hotel[city_name]'"));
-                                        $sq_hotel_count = mysqli_num_rows(mysqlQuery("select * from hotel_vendor_images_entries where hotel_id = '$row_hotel[hotel_name]'"));
-                                        if ($sq_hotel_count == '0') {
-                                            $newUrl = BASE_URL . 'images/dummy-image.jpg';
-                                        } else {
-                                            $sq_hotel_image1 = mysqli_fetch_assoc(mysqlQuery("select * from hotel_vendor_images_entries where hotel_id = '$row_hotel[hotel_name]'"));
-                                            $image = $sq_hotel_image1['hotel_pic_url'];
-                                            $newUrl = preg_replace('/(\/+)/', '/', $image);
-                                            $newUrl = explode('uploads', $newUrl);
-                                            $newUrl = BASE_URL . 'uploads' . $newUrl[1];
-                                        }
-                                    ?>
+                                $hotel_name = mysqli_fetch_assoc(mysqlQuery("select * from hotel_master where hotel_id='$row_hotel[hotel_name]'"));
+                                $city_name = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_hotel[city_name]'"));
+                                $sq_hotel_count = mysqli_num_rows(mysqlQuery("select * from hotel_vendor_images_entries where hotel_id = '$row_hotel[hotel_name]'"));
+                                if ($sq_hotel_count == '0') {
+                                    $newUrl = BASE_URL . 'images/dummy-image.jpg';
+                                } else {
+                                    $sq_hotel_image1 = mysqli_fetch_assoc(mysqlQuery("select * from hotel_vendor_images_entries where hotel_id = '$row_hotel[hotel_name]'"));
+                                    $image = $sq_hotel_image1['hotel_pic_url'];
+                                    $newUrl = preg_replace('/(\/+)/', '/', $image);
+                                    $newUrl = explode('uploads', $newUrl);
+                                    $newUrl = BASE_URL . 'uploads' . $newUrl[1];
+                                }
+                            ?>
 
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_20">
                                 <div class="single_accomodation_hotel mg_bt_10_xs">
@@ -925,10 +923,10 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
                                         $total_pax = floatval($sq_quotation['total_adult']) + floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']) + floatval($sq_quotation['total_infant']);
                                         $per_service_charge = floatval($service_charge) / floatval($total_pax);
 
-                                        $adult_cost = currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['adult_cost'] + floatval($per_service_charge))));
-                                        $child_with = currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_with'] + floatval($per_service_charge))));
-                                        $child_without = currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_without'] + floatval($per_service_charge))));
-                                        $infant_cost = currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['infant_cost'] + floatval($per_service_charge))));
+                                        $adult_cost = ($sq_quotation['total_adult']!='0')? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['adult_cost'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+                                        $child_with = ($sq_quotation['children_with_bed']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_with'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+                                        $child_without = ($sq_quotation['children_without_bed']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_without'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+                                        $infant_cost = ($sq_quotation['total_infant']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['infant_cost'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
 
                                         $tour_cost = $basic_cost + $service_charge;
                                         $service_tax_amount = 0;
