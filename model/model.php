@@ -29,12 +29,12 @@ $localIP = getHostByName(getHostName());
 $servername = "localhost";
 $username = "root";
 $password = "";
-$db_name = "v10";
+$db_name = "v11";
 global $conn;
 $conn = new mysqli($servername, $username, $password, $db_name);
 
 
-define('BASE_URL', 'http://localhost/V10/');
+define('BASE_URL', 'http://localhost/tours/V11/');
 
 mysqli_query($conn, "SET SESSION sql_mode = ''");
 $b2b_index_url = BASE_URL . 'Tours_B2B/view/index.php';
