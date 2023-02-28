@@ -3,6 +3,14 @@ include '../../../model/model.php';
 global $app_name;
 include_once "../../../Tours_B2B/layouts/login_header.php";
 ?>
+        <a href="<?php echo BASE_URL ?>Tours_B2B/login.php" target="_blank" class="c-button block full-rounded uppercase">
+            Login
+        </a>
+        </div>
+    </div>
+    </div>
+</div>
+</header>
 
     <!-- ********** Component :: Registration Page ********** -->
     <div class="c-coloredWrapper">
@@ -11,376 +19,162 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
           Registration Form
         </h2>
         <div class="loginWindow">
-          <div class="row">
-            <div class="col-lg-12">
-              <span class="c-heading sm uppercase font-2"
-                >Personal Details</span
-              >
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Company Name"
-                    autocomplete="off"
-                  />
+        <form id="frm_tab1">
+
+        <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
+
+                <h5>Basic Details</h5>                
+
+                <div class="row mg_tp_10">
+
+                    <div class="col-md-3 col-sm-6 mg_bt_10">
+                        <input class="form-control" type="text" id="company_name" name="company_name" placeholder="*Company Name" title="Company Name"  required /> 
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10">
+                        <input class="form-control" type="text" id="acc_name" name="acc_name" placeholder="Accounting Name" title="Accounting Name" />
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10">
+                        <select class="form-control" id='iata_status' title='IATA Status'  name='iata_status'>
+                          <option value=''>IATA Status</option>
+                          <option value='Approved'>Approved</option>
+                          <option value='Not Approved'>Not Approved</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10">
+                        <input class="form-control" type="text" id="iata_reg" name="txt_mobile_no1" placeholder="IATA Reg.No" title="IATA Reg.No" />
+                    </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" type="text" id="nature" name="nature" placeholder="Nature Of Business" title="Nature Of Business" />
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                      <select class="form-control" id='currency' title='Preferred Currency' name='currency' style='width:100%;' >
+                        <option value=''>Preferred Currency</option>
+                        <?php
+                        $sq_currency = mysqlQuery("select id,currency_code from currency_name_master where 1");
+                        while($row_currency = mysqli_fetch_assoc($sq_currency)){ ?>
+                          <option value="<?= $row_currency['id'] ?>"><?= $row_currency['currency_code'] ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" type="number" id="telephone" name="telephone" placeholder="Telephone" title="Telephone"/>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitude" title="Latitude"/>
+                    </div>
+                  </div>
+
+                  <div class="row mg_tp_10">
+                      <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" type="text" id="turnover_slab" name="turnover_slab" placeholder="Turnover Slab" title="Turnover Slab"/>
+                      </div>
+                      <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" class="form-control" type="text" id="skype_id" name="skype_id" placeholder="Skype ID" title="Skype ID"/>
+                      </div>
+                      <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <input class="form-control" type="text" id="website" name="website" placeholder="Website" title="Website"/>
+                      </div>
+                      <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <div class="div-upload" role='button' title="Upload Company Logo" >
+                          <div id="logo_upload_btn1" class="upload-button1"><span>Company Logo</span></div>
+                          <span id="logo_proof_status" ></span>
+                          <ul id="files" ></ul>
+                          <input type="hidden" id="logo_upload_url" name="logo_upload_url" required>
+                        </div>
+                        <p style="color: red;">Note : Upload Image size below 100KB, resolution : 220X85.</p>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Accounting Name"
-                    autocomplete="off"
-                  />
+
+              <div class="panel panel-default panel-body app_panel_style mg_tp_30 feildset-panel">
+              <h5>Address Details</h5>
+
+                <div class="row mg_tp_10">
+                  <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                    <select id='city' name='city' class='form-control' style='width:100%;' title="City Name" required>
+                      <?php get_cities_dropdown();?>
+                    </select>
+                  </div>
+                  <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                    <input class="form-control" type="text" id="address1" name="address1" placeholder="Address1" title="Address1"/>
+                  </div>
+                  <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                    <input class="form-control" type="text" id="address2" name="address2" placeholder="Address2" title="Address2"/>
+                  </div>
+                  <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                    <input class="form-control" type="text" id="pincode" name="pincode" placeholder="Pincode" title="Pincode" onkeypress="return blockSpecialChar(event)" />
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select IATA Status</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="IATA Reg. No."
-                    autocomplete="off"
-                  />
+                <div class="row mg_tp_10">
+                  
+                    <div class="col-md-3 col-xs-12">
+                      <select class="form-control" name="cust_state" id="cust_state" title="State/Country Name" style="width : 100%" required>
+                        <?php get_states_dropdown() ?>
+                      </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                      <input class="form-control" type="text" id="timezone" name="timezone" placeholder="Timezone" title="Timezone"/>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                      <div class="div-upload" role='button' title="Upload Address Proof" >
+                        <div id="address_upload_btn1" class="upload-button1"><span>Address Proof</span></div>
+                        <span id="id_proof_status" ></span>
+                        <ul id="files" ></ul>
+                        <input type="hidden" id="address_upload_url" name="address_upload_url">
+                      </div>
+                        <p style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</p>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Contact Number"
-                    autocomplete="off"
-                  />
+            <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
+
+                <h5>Contact Person Details</h5>
+                <div class="row mg_tp_10">
+                    <div class="col-md-3 col-sm-6">
+                        <input class="form-control" type="text" id="contact_personf" name="contact_personf" placeholder="*First Name" title="First Name" required> 
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <input class="form-control" type="text" id="contact_personl" name="contact_personl" placeholder="*Last Name" title="Last Name" required> 
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <input class="form-control" type="text" id="email_id" name="email_id" placeholder="*Email ID"  title="Email ID" onchange="validate_email(this.id)" required >
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="*Mobile No" title="Mobile No" onchange="mobile_validate(this.id);" required>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="PAN / TAN No."
-                    autocomplete="off"
-                  />
+                <div class="row mg_tp_10">
+                  <div class="col-md-3 col-sm-6">
+                      <input class="form-control" type="text"  id="whatsapp_no" name="whatsapp_no" placeholder="Whatsapp No" title="Whatsapp No">
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                      <input class="form-control" type="text" id="designation" name="designation" placeholder="Designation" title="Designation">
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                      <input class="form-control" type="text"  id="pan_card" name="pan_card" placeholder="PAN/TAN No" title="PAN/TAN No">
+                  </div>
+                  <div class="col-md-3 col-sm-6 text-left">
+                    <div class="div-upload" role='button' title="Upload ID Proof" >
+                      <div id="photo_upload_btn_p" class="upload-button1"><span>ID Proof</span></div>
+                      <span id="photo_status" ></span>
+                      <ul id="files" ></ul>
+                      <input type="hidden" id="photo_upload_url" name="photo_upload_url">
+                    </div>
+                    <div class="col-xs-12"> 
+                        <div style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</div>
+                    </div>
+                  </div>
                 </div>
+            </div>
+            <div class="row text-center mg_tp_20">
+              <div class="col-md-12 col-md-offset-4">
+              <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Send</button>
               </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="GSTIN"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select Currency</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Rental / Own"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Website URL"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <span class="c-heading sm uppercase font-2">Address Details</span>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Address Line 1"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Address Line 1"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Pin Code"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select State</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select City</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select Country</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Timezone"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <span class="c-heading sm uppercase font-2"
-                >Contact Person Details</span
-              >
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="First Name"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Last Name"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Contact Number"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Whtsapp No."
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select Designation</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Address"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <input
-                    type="text"
-                    class="c-textbox rounded"
-                    placeholder="Pin Code"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select State</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select City</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <select class="form-control c-textbox rounded">
-                  <option>Select Country</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <span class="c-heading sm uppercase font-2">Documents</span>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <label>ID Proof/Address Proof</label>
-                  <input
-                    type="file"
-                    class="c-textbox rounded"
-                    placeholder="ID Proof/Address Proof"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <div class="c-select2DD">
-                  <label>Registration Certificate</label>
-                  <input
-                    type="file"
-                    class="c-textbox rounded"
-                    placeholder="Registration Certificate"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col text-center">
-              <button class="c-button md">Register</button>
-            </div>
-          </div>
+        </form>
         </div>
       </div>
     </div>
@@ -392,38 +186,29 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
         <div class="row align-items-center">
           <div class="col-lg-5 col-md-6 col-sm-12">
             <div class="about-image">
-              <img src="./images/about.jpg" alt="about" />
+              <img src="<?php echo BASE_URL ?>Tours_B2B/images/about.jpg" alt="about" />
             </div>
           </div>
           <div class="col-lg-7 col-md-6 col-sm-12">
             <div class="subheading uppercase">
-              MORE THAN 13 YEARS OF TOUR & TRAVEL EXPERIENCE
+              GET AMAZING EXPERIECNED WITH US
             </div>
-            <div class="mainheading uppercase">WE ARE ARTIO TRAVEL!</div>
+            <div class="mainheading uppercase">ACROSS THE WORLD</div>
             <div class="staticText">
-              We are a travel agency which has more than 13 years of tour
-              experience in Istanbul, Cappadocia, Ephesus, Gallipoli, Pamukkale,
-              Mediterranean coast, East Turkey, Troy, Blacksea region and other
-              popular destinations in Turkey.
+              We built on this strong foundation aims to provide great customer satisfaction and an exemplary holiday experience. Planning a once to travel with us and get the great experience. Our experts can get you what you want and in the minimal time. 
             </div>
             <div class="staticText">
-              We are a travel agency which has more than 13 years of tour
-              experience in Istanbul, Cappadocia, Ephesus, Gallipoli, Pamukkale,
-              Mediterranean coast, East Turkey, Troy, Blacksea region and other
-              popular destinations in Turkey.
-            </div>
-            <div class="staticText">
-              We are a travel agency which has more than 13 years of tour
-              experience in Istanbul, Cappadocia, Ephesus, Gallipoli, Pamukkale,
-              Mediterranean coast, East Turkey, Troy, Blacksea region and other
-              popular destinations in Turkey.
+              We're one of the best travel management companies across the world, it has the experience and infrastructure to handle any customer demand. In addition, we provide customize tours, hotels, flights, visa, transfer, bus, train & activities world wide, We also plans corporate tours, incentive trips, college/school excursions, business travel and much, much more.
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- ********** Component :: Login Page ********** -->
-
+    <?php
+    $sq_cms_q = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2b_settings`"));
+    if($sq_cms_q['why_choose_flag'] != 'Hide'){
+    ?>
     <!-- ********** Component :: Info Section ********** -->
     <section class="c-container with-gray-background">
       <div class="container">
@@ -433,86 +218,28 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
         <div class="c-cardPallet">
           <div class="overflow-hidden">
             <div class="cardPalletBox column-5-no-margin">
+              <?php
+              $images = ($sq_cms_q['why_choose_us']!='')?json_decode($sq_cms_q['why_choose_us']):[];
+              for($i=0;$i<sizeof($images);$i++){
+                  $url = $images[$i]->image_url;
+                  $pos = strstr($url,'uploads');
+                  if ($pos != false){
+                      $newUrl1 = preg_replace('/(\/+)/','/',$images[$i]->image_url); 
+                      $download_url = BASE_URL.str_replace('../', '', $newUrl1);
+                  }else{
+                      $download_url = $images[$i]->image_url; 
+                  }
+                  ?>
               <article class="icon-box">
                 <div class="imageBox">
-                  <img src="images/icon/whyUs/best-price.png" alt="img" />
+                  <img src="<?= $download_url ?>" alt="img" />
                 </div>
-                <h5 class="boxTitle">Competitive Pricing</h5>
+                <h5 class="boxTitle"><?= $images[$i]->title ?></h5>
                 <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
+                <?= $images[$i]->description ?>
                 </p>
               </article>
-
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/award-winning.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">Award Winning Services</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img
-                    src="images/icon/whyUs/worldWide-coverage.png"
-                    alt="img"
-                  />
-                </div>
-                <h5 class="boxTitle">Worldwide Coverage</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/support.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">24X7 Support</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/unlimited-offers.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">Ultimate Offers</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/secure-payment.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">Secure Payment</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/transaction.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">Easy Online Transaction</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
-              <article class="icon-box">
-                <div class="imageBox">
-                  <img src="images/icon/whyUs/review.png" alt="img" />
-                </div>
-                <h5 class="boxTitle">Reviews & Ratings</h5>
-                <p class="boxSubTitle">
-                  Lorem Ipsum is simply dumy typesetting industry.
-                </p>
-              </article>
+                  <?php } ?>
             </div>
           </div>
         </div>
@@ -520,6 +247,7 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
       </div>
     </section>
     <!-- ********** Component :: Info Section ********** -->
+    <?php } ?>
 
     <!-- ********** Component :: Destination Ideas Section ********** -->
     <div class="c-container with-map">
@@ -613,59 +341,53 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
     </div>
     <!-- ********** Component :: Destination Ideas Section End ********** -->
 
+    <?php if($sq_cms_q['popular_activities_flag'] != 'Hide'){
+        $popular_activities = ($sq_cms_q['popular_activities']!='' && $sq_cms_q['popular_activities']!='null')?json_decode($sq_cms_q['popular_activities']):[];
+      ?>
     <!-- ********** Component :: Trending ********** -->
     <div class="c-container with-gray-background">
       <div class="container">
-        <h2 class="container-heading">Trending Destinations</h2>
+        <h2 class="container-heading">Trending Activities</h2>
 
         <div class="c-popularDestinations">
           <div class="grid-section">
-            <div
-              class="grid"
-              style="
-                background-image: url('./images/Luggage-Factory-The-Travel-Experts-Destinations-Miami-Flordia-Beach-3-700x466.jpg');
-              "
-            >
-              <span>India</span>
-            </div>
-            <div
-              class="grid"
-              style="background-image: url('./images/santorini_1-700x466.jpg')"
-            >
-              <span>Miami</span>
-            </div>
-            <div class="grid"><span>Rome</span></div>
-            <div class="grid"><span>Tokyo</span></div>
-            <div
-              class="grid"
-              style="
-                background-image: url('./images/Luggage-Factory-The-Travel-Experts-Destinations-Miami-Flordia-Beach-3-700x466.jpg');
-              "
-            >
-              <span>India</span>
-            </div>
-            <div
-              class="grid"
-              style="background-image: url('./images/santorini_1-700x466.jpg')"
-            >
-              <span>Miami</span>
-            </div>
-            <div class="grid"><span>Rome</span></div>
-            <div class="grid"><span>Tokyo</span></div>
+            <?php
+            for($i=0;$i<sizeof($popular_activities);$i++){
+              $exc_id = $popular_activities[$i]->exc_id;
+              //Activity Image
+              $sq_exc = mysqli_fetch_assoc(mysqlQuery("select entry_id from excursion_master_tariff where excursion_name='$exc_id'"));
+              $sq_dest1 = mysqli_fetch_assoc(mysqlQuery("select image_url from excursion_master_images where exc_id='$sq_exc[entry_id]'"));
+              $newUrl1 = preg_replace('/(\/+)/','/',$sq_dest1['image_url']); 
+              $newUrl = BASE_URL.str_replace('../', '', $newUrl1);
+              $newUrl = ($sq_dest1['image_url'] != '') ? $newUrl : BASE_URL."Tours_B2B/images/activity.png";
+              ?>
+              <div class="grid" style="background-image: url('<?= $newUrl ?>');">
+                <!-- <span>India</span> -->
+              </div>
+            <?php } ?>
           </div>
         </div>
       </div>
     </div>
     <!-- ********** Component :: Trending End ********** -->
+    <?php } ?>
+<div id="site_alert"></div>
 
+<!-- <script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script> -->
+<script src="<?= BASE_URL ?>js/app/field_validation.js"></script>
+<script src="<?= BASE_URL ?>js/ajaxupload.3.5.js"></script>
 <?php
 include_once "../../../Tours_B2B/layouts/login_footer.php";
 ?>
-<script src="<?= BASE_URL ?>js/app/field_validation.js"></script>
-<script src="<?= BASE_URL ?>js/ajaxupload.3.5.js"></script>
+<link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="<?php echo BASE_URL ?>js/app/data_reflect.js"></script>
+<script src="<?php echo BASE_URL ?>js/app/validation.js"></script> 
+<script src="<?php echo BASE_URL ?>js/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASE_URL ?>js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo BASE_URL ?>js/bootstrap-tagsinput.min.js"></script>  
 
 <script>
-$('#currency').select2();
+$('#currency,#cust_state').select2();
 $('#city').select2({minimumInputLength:1});
 
 upload_logo_proof();
@@ -678,8 +400,8 @@ function upload_logo_proof(){
       onSubmit: function(file, ext){  
 
         if (! (ext && /^(png|jpg|jpeg)$/.test(ext))){ 
-         error_msg_alert('Only PNG,JPG or JPEG files are allowed');
-         return false;
+          error_msg_alert('Only PNG,JPG or JPEG files are allowed');
+          return false;
         }
         $(btnUpload).find('span').text('Uploading...');
       },
@@ -713,8 +435,8 @@ function upload_address_proof(){
       onSubmit: function(file, ext){  
 
         if (! (ext && /^(jpg|png|jpeg|pdf)$/.test(ext))){ 
-         error_msg_alert('Only PDF,JPG, PNG files are allowed');
-         return false;
+          error_msg_alert('Only PDF,JPG, PNG files are allowed');
+          return false;
         }
         $(btnUpload).find('span').text('Uploading...');
       },
@@ -769,10 +491,13 @@ $('#frm_tab1').validate({
 	},
 	submitHandler:function(form){
   
+  $('#btn_save').prop('disabled',true);
   var base_url = $('#base_url').val();
   var company_logo = $("#logo_upload_url").val();
   if(company_logo==''){
-    error_msg_alert('Company logo required!'); return false;
+    error_msg_alert('Company logo required!'); 
+    $('#btn_save').prop('disabled',false);
+    return false;
   }
   //Basic Details
   var company_name = $("#company_name").val();
@@ -819,17 +544,18 @@ $('#frm_tab1').validate({
         if(data[0] == 'error'){
           error_msg_alert(data[1]); 
           $('#btn_save').button('reset');
+          $('#btn_save').prop('disabled',false);
           return false;
         }
         else{
           success_msg_alert(message);
-          $('#save_modal').modal('hide');
+          $('#btn_save').prop('disabled',false);
           setInterval(() => {
             window.location.replace('../../../Tours_B2B/login.php');
-          },1000);
+          },2000);
         }
       }
-      });
+    });
   }
 });
 });

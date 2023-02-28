@@ -64,7 +64,7 @@ while($row_quotation = mysqli_fetch_assoc($sq_quotation)){
 		get_date_user($row_quotation['created_at']),
 		$cust_name,
 		$sq_curr['currency_code'].' '.number_format($quotation_cost,2),
-		'<a style="color: white !important;" data-toggle="tooltip" onclick="loadOtherPage(\''.$url1.'\')" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>&nbsp;&nbsp;<button style="color: white !important;" data-toggle="tooltip" id="send-'.$row_quotation['quotation_id'].'" onclick="send_quotation(\''.$row_quotation['quotation_id'].'+'.$email_id.'+'.$url2.'\')" class="btn btn-info btn-sm" title="Mail & Whatsapp Quotation"><i class="fa fa-envelope-o"></i></button>',
+		'<a style="color: white !important;" data-toggle="tooltip" onclick="loadOtherPage(\''.$url1.'\')" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>&nbsp;&nbsp;<button style="color: white !important;" data-toggle="tooltip" id="send-'.$row_quotation['quotation_id'].'" onclick="send_quotation(\''.$row_quotation['quotation_id'].'+'.$email_id.'+'.$url2.'\')" class="btn btn-info btn-sm" title="Mail & Whatsapp Quotation"><i class="fa fa-envelope-o"></i></button>&nbsp;&nbsp;<a style="color: white !important;" data-toggle="tooltip" onclick="" class="btn btn-info btn-sm" title="Proceed To Checkout"><i class="fa fa-paper-plane-o"></i></a>',
 	);
 array_push($array_s,$temp_arr); 
 }

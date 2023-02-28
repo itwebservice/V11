@@ -12,7 +12,7 @@ class b2b_customer{
                 <table style="width:100%">
                     <tr>
                         <td colspan="2">
-                            <a style="font-weight:500;font-size:14px;display:block;color:#ffffff;background:#009898;text-decoration:none;padding:5px 10px;border-radius:25px;width: 95px;text-align: center;" href="'.BASE_URL.'view/b2b_customer/registration/index.php">Register</a> 
+                            <a style="font-weight:500;font-size:14px;display:block;color:#ffffff;background:#009898;text-decoration:none;padding:5px 10px;border-radius:25px;width: 95px;text-align: center;" href="'.BASE_URL.'view/b2b_customer/registration/registration.php">Register</a> 
                         </td> 
                     </tr>
                 </table>

@@ -21,8 +21,10 @@ $query1 = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2b_settings_second`"));
         <link rel="stylesheet" href="<?php echo BASE_URL ?>css/jquery.wysiwyg.css">
         <link rel="stylesheet" href="<?php echo BASE_URL ?>css/jquery-labelauty.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo BASE_URL ?>css/dynforms.vi.css">
-        <link rel="stylesheet" href="<?php echo BASE_URL ?>css/vi.alert.css">
         <script src="https://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+        <link rel="stylesheet" href="<?php echo BASE_URL ?>css/vi.alert.css">
+        <link rel="stylesheet" href="<?php echo BASE_URL ?>css/bootstrap-tagsinput.css">
+        <link rel="stylesheet" href="<?php echo BASE_URL ?>css/app/app.php">
     </head>
     <body>
         <header class="c-header">
@@ -40,11 +42,3 @@ $query1 = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2b_settings_second`"));
                 </a>
                 </div>
                 <div class="col-sm-8 col-6 text-right">
-                <a href="<?php echo BASE_URL ?>view/b2b_customer/registration/index.php" target="_blank" class="c-button block full-rounded uppercase">
-                    Registration
-                </a>
-                </div>
-            </div>
-            </div>
-        </div>
-        </header>

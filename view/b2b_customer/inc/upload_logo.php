@@ -1,13 +1,13 @@
 <?php
- $year = date("Y");
- $month = date("M");
- $day = date("d");
- $timestamp = date('U');
- $year_status = false;
- $month_status = false;
- $day_status = false;
- 
- function check_dir($current_dir, $type)
+$year = date("Y");
+$month = date("M");
+$day = date("d");
+$timestamp = date('U');
+$year_status = false;
+$month_status = false;
+$day_status = false;
+
+function check_dir($current_dir, $type)
 {	 	
 	if(!is_dir($current_dir."/".$type)){
 		mkdir($current_dir."/".$type);		

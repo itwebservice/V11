@@ -3,6 +3,11 @@ include '../model/model.php';
 global $app_name;
 include_once "layouts/login_header.php";
 ?>
+<a href="<?php echo BASE_URL ?>view/b2b_customer/registration/registration.php" target="_blank" class="c-button block full-rounded uppercase">
+    Registration
+</a>
+</div></div></div></div>
+</header>
 
   <!-- ********** Component :: Login Page ********** -->
   <div class="clearfix">
@@ -11,8 +16,8 @@ include_once "layouts/login_header.php";
         <div class="row align-items-center">
           <div class="col-lg-8 col-sm-12">
             <div class="m20-btm">
-              <div class="creative-heading md">Welcome to</div>
-              <div class="creative-heading lg uppercase">Summer season</div>
+              <!-- <div class="creative-heading md">Welcome to</div>
+              <div class="creative-heading lg uppercase">Summer season</div> -->
             </div>
           </div>
           <div class="col-lg-4 col-sm-12">
@@ -30,19 +35,17 @@ include_once "layouts/login_header.php";
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="c-select2DD">
+                <div class="row">
+                  <div class="col-md-10">
                     <input type="password" class="c-textbox rounded" placeholder="*Password" id='password'/>
-                      <label class="c-buttonLink" id='send_btn' onclick="show_password('password');">View Password?</label>
                   </div>
+                  <div class="col-md-1">
+                      <label style="padding-top: 14px;font-size: 14px;" class="c-buttonLink" id='send_btn' onclick="show_password('password');"><i class="fa fa-eye"></i></label>
+                  </div>
+                </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="form-group c-checkbox">
-                      <!-- <input type="checkbox" class="form-check-input" id="remindCheckbox" /> -->
-                      <!-- <label onclick="show_password('password')" class="form-check-label" for="remindCheckbox">View Password</label> -->
-                    </div>
-                  </div>
-                  <div class="col text-right">
                     <button type="button" class="c-buttonLink" id='send_btn' onclick="open_modal();">Forgot Password?</button>
                   </div>
                 </div>
