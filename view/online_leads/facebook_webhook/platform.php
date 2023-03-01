@@ -12,7 +12,8 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     FB.init({
       appId: '<?= $data['facebook_appid'] ?>',
       xfbml: true,
-      version: 'v15.0'
+      version: 'v15.0',
+        cookie     : true,
     });
   };
 
@@ -193,12 +194,20 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     );
   }
 
-  function getSingleLead(leadId) {
+  function getSingleLead(leadId,unqId) {
+      var url = '<?= BASE_URL ?>';
     FB.api(
       '/' + leadId,
       'GET', {},
       function(response) {
         console.log(response);
+        if(response.field_data != "" || response.field_data != undefined)
+        {
+           $.post(url + 'controller/online_leads/facebook_set_data.php', {mainData:response.field_data,unqId:unqId}, function(data) {
+                    
+            
+    });  
+        }
         // Insert your code here
       }
     );
@@ -225,7 +234,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     $.post(url + 'controller/online_leads/facebook_fetch_data.php', {}, function(data) {
       var decodeData = JSON.parse(data);
       console.log(decodeData[0]);
-      getSingleLead(decodeData[0]['leadgen_id']);
+      getSingleLead(decodeData[0]['leadgen_id'],decodeData[0]['unqId']);
     });
   }
 </script>
