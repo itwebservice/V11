@@ -47,7 +47,7 @@ include_once "layouts/login_header.php";
                     <input type="password" class="c-textbox rounded" placeholder="*Password" id='password'/>
                   </div>
                   <div class="col-md-1">
-                      <label style="padding-top: 14px;font-size: 14px;" class="c-buttonLink" id='send_btn' onclick="show_password('password');"><i class="fa fa-eye"></i></label>
+                      <label style="padding-top: 14px;font-size: 14px;cursor:pointer;" class="c-buttonLink" id='send_btn' onclick="show_password('password');"><i class="fa fa-eye"></i></label>
                   </div>
                 </div>
                 </div>
