@@ -302,4 +302,13 @@ function quotlist_reflect(){
 	});
 }
 quotlist_reflect();
+function proceed_to_direct_checkout(quotation_id,register_id){
+
+  var base_url = $('#base_url').val();
+	$.post(base_url+'controller/b2b_customer/quotation_to_checkout.php', {quotation_id:quotation_id,register_id:register_id}, function(data){
+    var link_to_redirect = data.split("==");
+		localStorage.setItem('cart_list_arr', (link_to_redirect[1]));
+		window.open(link_to_redirect[0]);
+	});
+}
 </script>

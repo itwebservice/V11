@@ -1,6 +1,13 @@
 <?php
 include '../model/model.php';
 global $app_name;
+$tokenUser = md5(uniqid(mt_rand(), true));
+if(isset($_SESSION['username'])){ 
+      destroy_all();
+      recreate($tokenUser);  
+}
+global $app_version;
+$_SESSION['token'] =$tokenUser; 
 include_once "layouts/login_header.php";
 ?>
 <a href="<?php echo BASE_URL ?>view/b2b_customer/registration/registration.php" target="_blank" class="c-button block full-rounded uppercase">
@@ -64,6 +71,19 @@ include_once "layouts/login_header.php";
   <!-- ********** Component :: Login Page End ********** -->
 <?php
 include_once "layouts/login_footer.php";
+?>
+<?php 
+  function destroy_all()
+  {
+    session_destroy();
+  }
+  function recreate($tokenUser)
+    {
+      
+      session_start();
+      $_SESSION['token'] =$tokenUser;       
+    }
+
 ?>
 <Script>
 //(Local+Seesion)Storage Data clearance

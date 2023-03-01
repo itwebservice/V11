@@ -881,5 +881,14 @@ class b2b_customer{
 
         $sq_update = mysqlQuery("UPDATE `b2b_registration` SET `cart_data`='$cart_list_arr' WHERE register_id='$register_id'");
     }
+    function quotation_direct_checkout(){
+        
+        $quotation_id = $_POST['quotation_id'];
+        $register_id = $_POST['register_id'];
+
+        $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select cart_list_arr from b2b_quotations where quotation_id='$quotation_id'"));
+        mysqlQuery("UPDATE `b2b_registration` SET `cart_data`='$sq_quotation[cart_list_arr]' WHERE register_id='$register_id'");
+        echo BASE_URL ."Tours_B2B/checkout_pages/cartPage.php".'=='.$sq_quotation['cart_list_arr'];
+    }
 
 }
