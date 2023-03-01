@@ -24,7 +24,7 @@ if(isset($b2b_agent_code)&&isset($username)&&isset($password)){
             if(empty($images)){
               ?>
               <div class="item">
-                <img src="<?php echo BASE_URL.'Tours_B2B/images/london_dusk_cityscape_4k-2560x1440.jpg' ?>" alt="<?= $app_name ?>" />
+                <img src="<?php echo BASE_URL.'Tours_B2B/images/b2b-index-banner.jpg' ?>" alt="<?= $app_name ?>" />
               </div>
               <?php
             }else{

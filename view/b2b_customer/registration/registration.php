@@ -171,7 +171,7 @@ include_once "../../../Tours_B2B/layouts/login_header.php";
             </div>
             <div class="row text-center mg_tp_20">
               <div class="col-md-12 col-md-offset-4">
-              <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Send</button>
+              <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
               </div>
             </div>
         </form>

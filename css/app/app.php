@@ -2205,6 +2205,7 @@ font-weight: 500;
 padding-left: 40px;
 padding: 17px 10px 17px 40px;
 color: #212529 ;
+cursor:pointer;
 }
 .div_left.type-02 .nav-pills>li>a:hover{
 color: #6c5ffc;
