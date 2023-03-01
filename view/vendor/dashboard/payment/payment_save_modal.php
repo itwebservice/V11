@@ -293,11 +293,11 @@ $(function(){
         var rowCount = table.rows.length;
         for(var i=0; i<rowCount; i++){
           var row = table.rows[i];
-          if(row.cells[5].childNodes[0].checked){
+          if(row.cells[6].childNodes[0].checked){
             var purchase_type = row.cells[1].childNodes[0].value;
             var estimate_id = row.cells[2].childNodes[0].value;
             var purchase_id = row.cells[3].childNodes[0].value;
-            var purchase_amount = row.cells[4].childNodes[0].value; 
+            var purchase_amount = row.cells[5].childNodes[0].value; 
             
             // Payment is equal to the purchase amount
             if(parseFloat(temp_payment) == parseFloat(purchase_amount)){

@@ -69,6 +69,49 @@ include_once "layouts/login_header.php";
     </div>
   </div>
   <!-- ********** Component :: Login Page End ********** -->
+    <?php
+    $sq_cms_q = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2b_settings`"));
+    if($sq_cms_q['why_choose_flag'] != 'Hide'){
+    ?>
+    <!-- ********** Component :: Info Section ********** -->
+    <section class="c-container with-gray-background">
+      <div class="container">
+        <h2 class="container-heading">Why Choose Us?</h2>
+
+        <!-- *** Component :: Card Pallet ***** -->
+        <div class="c-cardPallet">
+          <div class="overflow-hidden">
+            <div class="cardPalletBox column-5-no-margin">
+              <?php
+              $images = ($sq_cms_q['why_choose_us']!='')?json_decode($sq_cms_q['why_choose_us']):[];
+              for($i=0;$i<sizeof($images);$i++){
+                  $url = $images[$i]->image_url;
+                  $pos = strstr($url,'uploads');
+                  if ($pos != false){
+                      $newUrl1 = preg_replace('/(\/+)/','/',$images[$i]->image_url); 
+                      $download_url = BASE_URL.str_replace('../', '', $newUrl1);
+                  }else{
+                      $download_url = $images[$i]->image_url; 
+                  }
+                  ?>
+              <article class="icon-box">
+                <div class="imageBox">
+                  <img src="<?= $download_url ?>" alt="img" />
+                </div>
+                <h5 class="boxTitle"><?= $images[$i]->title ?></h5>
+                <p class="boxSubTitle">
+                <?= $images[$i]->description ?>
+                </p>
+              </article>
+                  <?php } ?>
+            </div>
+          </div>
+        </div>
+        <!-- *** Component :: Card Pallet End ***** -->
+      </div>
+    </section>
+    <!-- ********** Component :: Info Section ********** -->
+    <?php } ?>
 <?php
 include_once "layouts/login_footer.php";
 ?>
