@@ -610,7 +610,7 @@ $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master wher
           </section>
           <?php } ?>
           
-          <?php if($sq_terms_cond['terms_and_conditions']!=''){?>
+          <?php if($sq_terms_cond['terms_and_conditions']!=''){ ?>
           <section class="pageSection main_block">
             <!-- background Image -->
               <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
