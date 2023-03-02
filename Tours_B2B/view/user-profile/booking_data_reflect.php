@@ -24,51 +24,55 @@ $balance_total = 0;
 $bg = '';
 $sq_customer = mysqlQuery($query);
 while($row_customer = mysqli_fetch_assoc($sq_customer)){
+	
 	$hotel_total = 0;
 	$transfer_total = 0;
 	$activity_total = 0;
 	$tours_total = 0;
 	$ferry_total = 0;
 	$servie_total = 0;
-    $yr = explode("-", get_datetime_db($row_customer['created_at']));
-    $sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_customer[customer_id]'"));
+	$yr = explode("-", get_datetime_db($row_customer['created_at']));
+	$sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_customer[customer_id]'"));
 	$cart_checkout_data = ($row_customer['cart_checkout_data'] != '' && $row_customer['cart_checkout_data'] != 'null') ? json_decode($row_customer['cart_checkout_data']) : [];
-    for($i=0;$i<sizeof($cart_checkout_data);$i++){
-        if($cart_checkout_data[$i]->service->name == 'Hotel'){
-            $tax_arr = explode(',',$cart_checkout_data[$i]->service->hotel_arr->tax);
-            for($j=0;$j<sizeof($cart_checkout_data[$i]->service->item_arr);$j++){
-                $room_types = explode('-',$cart_checkout_data[$i]->service->item_arr[$j]);
-                $room_cost = $room_types[2];
+	
+	for($i=0;$i<sizeof($cart_checkout_data);$i++){
+		if($cart_checkout_data[$i]->service->name == 'Hotel'){
+			$hotel_flag = 1;
+			$tax_arr = explode(',',$cart_checkout_data[$i]->service->hotel_arr->tax);
+			for($j=0;$j<sizeof($cart_checkout_data[$i]->service->item_arr);$j++){
+				$room_types = explode('-',$cart_checkout_data[$i]->service->item_arr[$j]);
+				$room_cost = $room_types[2];
 				$h_currency_id = $room_types[3];
 				$tax_amount = 0;
-                
+				
 				$tax_arr1 = explode('+',$tax_arr[0]);
 				for($t=0;$t<sizeof($tax_arr1);$t++){
 					if($tax_arr1[$t]!=''){
 						$tax_arr2 = explode(':',$tax_arr1[$t]);
 						if($tax_arr2[2] == "Percentage"){
-						$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
+							$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
 						}else{
-						$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+							$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
 						}
 					}
 				}
-                $total_amount = $room_cost + $tax_amount;
-            
+				$total_amount = $room_cost + $tax_amount;
+
 				//Convert into default currency
 				$sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
 				$from_currency_rate = $sq_from['currency_rate'];
-                $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
-                
-                $hotel_total += $total_amount;
-            }
-        }
+				$total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
+			
+				$hotel_total += $total_amount;
+			}
+		}
 		if($cart_checkout_data[$i]->service->name == 'Transfer'){
+
 			$services = ($cart_checkout_data[$i]->service!='') ? $cart_checkout_data[$i]->service : [];
 			for($j=0;$j<count(array($services));$j++){
 				$tax_amount = 0;
-                $tax_arr = explode(',',$services->service_arr[0]->taxation);
-                $transfer_cost = explode('-',$services->service_arr[$j]->transfer_cost);
+				$tax_arr = explode(',',$services->service_arr[$j]->taxation);
+				$transfer_cost = explode('-',$services->service_arr[$j]->transfer_cost);
 				$room_cost = $transfer_cost[0];
 				$h_currency_id = $transfer_cost[1];
 				
@@ -88,14 +92,16 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				//Convert into default currency
 				$sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
 				$from_currency_rate = $sq_from['currency_rate'];
-				$total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+				$total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
 			
 				$transfer_total += $total_amount;
 			}
 		}
 		if($cart_checkout_data[$i]->service->name == 'Activity'){
+			$activity_flag = 1;
 			$services = ($cart_checkout_data[$i]->service!='') ? $cart_checkout_data[$i]->service : [];
 			for($j=0;$j<count(array($services));$j++){
+			
 				$tax_amount = 0;
 				$tax_arr = explode(',',$services->service_arr[$j]->taxation);
 				$transfer_cost = explode('-',$services->service_arr[$j]->transfer_type);
@@ -107,9 +113,9 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 					if($tax_arr1[$t]!=''){
 						$tax_arr2 = explode(':',$tax_arr1[$t]);
 						if($tax_arr2[2] === "Percentage"){
-						$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
+							$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
 						}else{
-						$tax_amount = $tax_amount + ($room_cost + $tax_arr2[1]);
+							$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
 						}
 					}
 				}
@@ -118,7 +124,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				//Convert into default currency
 				$sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
 				$from_currency_rate = $sq_from['currency_rate'];
-				$total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+				$total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
 			
 				$activity_total += $total_amount;
 			}
@@ -128,19 +134,19 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 			for($j=0;$j<count(array($services));$j++){
 			
 				$tax_amount = 0;
-			    $taxation_arr = explode(',',$services->service_arr[$j]->taxation);
+			    $tax_arr = explode(',',$services->service_arr[$j]->taxation);
 				$package_item = explode('-',$services->service_arr[$j]->package_type);
 				$room_cost = $package_item[1];
 				$h_currency_id = $package_item[2];
 				
-				$tax_arr1 = explode('+',$taxation_arr[0]);
+				$tax_arr1 = explode('+',$tax_arr[0]);
 				for($t=0;$t<sizeof($tax_arr1);$t++){
 					if($tax_arr1[$t]!=''){
 						$tax_arr2 = explode(':',$tax_arr1[$t]);
 						if($tax_arr2[2] == "Percentage"){
-						$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
+							$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
 						}else{
-						$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+							$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
 						}
 					}
 				}
@@ -149,7 +155,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				//Convert into default currency
 				$sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
 				$from_currency_rate = $sq_from['currency_rate'];
-				$total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+				$total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
 			
 				$tours_total += $total_amount;
 			}
@@ -159,7 +165,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 			for($j=0;$j<count(array($services));$j++){
 			
 				$tax_amount = 0;
-				$tax_arr = explode(',',$services->service_arr[$j]->taxation);
+			    $tax_arr = explode(',',$services->service_arr[$j]->taxation);
 				$package_item = explode('-',$services->service_arr[$j]->total_cost);
 				$room_cost = $package_item[0];
 				$h_currency_id = $package_item[1];
@@ -180,12 +186,13 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				//Convert into default currency
 				$sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
 				$from_currency_rate = $sq_from['currency_rate'];
-				$total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+				$total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
 			
 				$ferry_total += $total_amount;
 			}
 		}
-    }
+	}
+
 	$servie_total = $servie_total + $hotel_total + $transfer_total + $activity_total + $tours_total + $ferry_total;
 
     if($row_customer['coupon_code'] != ''){
@@ -211,7 +218,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
     $invoice_no = get_b2b_booking_id($row_customer['booking_id'],$yr[0]);	
 	$service_url = BASE_URL."model/app_settings/print_html/voucher_html/b2b_voucher.php?booking_id=$row_customer[booking_id]";
 
-	// $bal_amount =  $servie_total - $payment_amount;
+	$cancel_amount = $row_customer['cancel_amount'];
 	if($row_customer['status'] == 'Cancel'){
 		$bg='table-danger';
 		if($payment_amount > 0){
