@@ -43,9 +43,12 @@ $(function () {
 				return false;
 			}
 			if(trip_type === "roundtrip"){
-				if(return_date == ""){ error_msg_alert('Please select Return Date & Time '); return false; }
+				if(return_date == ""){
+					error_msg_alert('Please select Return Date & Time ');
+					return false;
+				}
 				var valid = check_valid_date_trs();
-				if (!valid) {
+				if (!valid){
 					error_msg_alert('Invalid Pickup and Return Date!');
 					return false;
 				}
