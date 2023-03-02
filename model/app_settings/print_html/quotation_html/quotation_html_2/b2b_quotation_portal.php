@@ -485,7 +485,7 @@ $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master wher
                           <div class="col-md-1 no-pad"></div>
                           <div class="itneraryContent col-md-11 no-pad text-left mg_tp_20 mg_bt_20">
                             <div class="itneraryImg col-md-4 no-pad">
-                              <img src="<?= $daywise_image ?>" class="img-responsive">
+                              <img src="http://itourscloud.com/quotation_format_images/dummy-image.jpg" class="img-responsive">
                             </div>
                             <div class="itneraryText col-md-8 no-pad">
                               <h5 class="specialAttraction no-marg"><?= $row_itinarary['attraction'] ?></h5>

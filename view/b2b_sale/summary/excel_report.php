@@ -20,7 +20,7 @@ function cellColor($cells,$color){
     $objPHPExcel->getActiveSheet()->getStyle($cells)->getFill()->applyFromArray(array(
         'type' => PHPExcel_Style_Fill::FILL_SOLID,
         'startcolor' => array(
-             'rgb' => $color
+        'rgb' => $color
         )
     ));
 }
@@ -216,24 +216,17 @@ $row_count = 11;
             $servie_total = 0;
             $yr = explode("-", get_datetime_db($row_customer['created_at']));
             $sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_customer[customer_id]'"));
-            $cart_checkout_data = json_decode($row_customer['cart_checkout_data']);
-
-            $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$row_customer[emp_id]'"));
-            if($sq_emp['first_name'] == '') { $emp_name='Admin';}
-            else{ $emp_name = $sq_emp['first_name'].' '.$sq_emp['last_name']; }
-
-            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$sq_emp[branch_id]'"));
-            $branch_name = $sq_branch['branch_name']==''?'NA':$sq_branch['branch_name'];
+            $cart_checkout_data = ($row_customer['cart_checkout_data'] != '' && $row_customer['cart_checkout_data'] != 'null') ? json_decode($row_customer['cart_checkout_data']) : [];
             
             for($i=0;$i<sizeof($cart_checkout_data);$i++){
                 if($cart_checkout_data[$i]->service->name == 'Hotel'){
                     $hotel_flag = 1;
                     $tax_arr = explode(',',$cart_checkout_data[$i]->service->hotel_arr->tax);
-                    $tax_amount = 0;
                     for($j=0;$j<sizeof($cart_checkout_data[$i]->service->item_arr);$j++){
                         $room_types = explode('-',$cart_checkout_data[$i]->service->item_arr[$j]);
                         $room_cost = $room_types[2];
                         $h_currency_id = $room_types[3];
+                        $tax_amount = 0;
                         
                         $tax_arr1 = explode('+',$tax_arr[0]);
                         for($t=0;$t<sizeof($tax_arr1);$t++){
@@ -247,17 +240,17 @@ $row_count = 11;
                             }
                         }
                         $total_amount = $room_cost + $tax_amount;
-
+        
                         //Convert into default currency
                         $sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
                         $from_currency_rate = $sq_from['currency_rate'];
-                        $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+                        $total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
                     
                         $hotel_total += $total_amount;
                     }
                 }
                 if($cart_checkout_data[$i]->service->name == 'Transfer'){
-
+        
                     $services = ($cart_checkout_data[$i]->service!='') ? $cart_checkout_data[$i]->service : [];
                     for($j=0;$j<count(array($services));$j++){
                         $tax_amount = 0;
@@ -278,11 +271,11 @@ $row_count = 11;
                             }
                         }
                         $total_amount = $room_cost + $tax_amount;
-
+        
                         //Convert into default currency
                         $sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
                         $from_currency_rate = $sq_from['currency_rate'];
-                        $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+                        $total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
                     
                         $transfer_total += $total_amount;
                     }
@@ -310,11 +303,11 @@ $row_count = 11;
                             }
                         }
                         $total_amount = $room_cost + $tax_amount;
-
+        
                         //Convert into default currency
                         $sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
                         $from_currency_rate = $sq_from['currency_rate'];
-                        $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+                        $total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
                     
                         $activity_total += $total_amount;
                     }
@@ -328,7 +321,7 @@ $row_count = 11;
                         $package_item = explode('-',$services->service_arr[$j]->package_type);
                         $room_cost = $package_item[1];
                         $h_currency_id = $package_item[2];
-
+                        
                         $tax_arr1 = explode('+',$tax_arr[0]);
                         for($t=0;$t<sizeof($tax_arr1);$t++){
                             if($tax_arr1[$t]!=''){
@@ -341,11 +334,11 @@ $row_count = 11;
                             }
                         }
                         $total_amount = $room_cost + $tax_amount;
-
+        
                         //Convert into default currency
                         $sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
                         $from_currency_rate = $sq_from['currency_rate'];
-                        $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+                        $total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
                     
                         $tours_total += $total_amount;
                     }
@@ -376,13 +369,13 @@ $row_count = 11;
                         //Convert into default currency
                         $sq_from = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$h_currency_id'"));
                         $from_currency_rate = $sq_from['currency_rate'];
-                        $total_amount = ($from_currency_rate / $to_currency_rate * $total_amount);
+                        $total_amount = ($to_currency_rate!='') ? ($from_currency_rate / $to_currency_rate * $total_amount) : 0;
                     
                         $ferry_total += $total_amount;
                     }
                 }
             }
-
+        
             $servie_total = $servie_total + $hotel_total + $transfer_total + $activity_total + $tours_total + $ferry_total;
             
             if($row_customer['coupon_code'] != ''){
