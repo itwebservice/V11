@@ -137,7 +137,7 @@ background-color: #e5ffe773;
 }
 .table td, .modal table.dataTable td {
 border: 0 !important;
-font-size: 13px;
+font-size: 12px;
 font-weight: 400;
 color: #22262E;
 padding: 15px 8px 10px 25px !important;
