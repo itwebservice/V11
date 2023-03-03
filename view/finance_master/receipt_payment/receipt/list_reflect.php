@@ -32,7 +32,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 <table class="table table-hover" id="deposit_table" style="margin: 20px 0 !important;">
 	<thead>
 		<tr class="table-heading-row">
-			<th>S_No.</th>
+			<th>Trans_ID</th>
 			<th>Transaction_Type</th>
 			<th>Date</th>
 			<th class="text-right">Amount</th>
@@ -62,7 +62,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 			}
 			?>
 			<tr class="<?= $bg ?>">
-				<td><?= ++$count ?></td>
+				<td><?= $row_deposit['id'] ?></td>
 				<td><?= $row_deposit['receipt_type'] ?></td>
 				<td><?= get_date_user($row_deposit['payment_date']) ?></td>
 				<td class="text-right success"><?= number_format($row_deposit['payment_amount'],2) ?></td>

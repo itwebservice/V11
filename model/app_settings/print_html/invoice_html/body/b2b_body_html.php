@@ -10,6 +10,8 @@ $booking_id = $_GET['booking_id'];
 $invoice_date = $_GET['invoice_date'];
 $customer_id = $_GET['customer_id'];
 $service_name = $_GET['service_name'];
+$canc_amount = $_GET['cancel_amount'];
+$bg = $_GET['bg'];
 $sac_code = 'NA';
 
 $query = mysqli_fetch_assoc(mysqlQuery("select * from b2b_booking_master where booking_id='$booking_id'"));
@@ -371,6 +373,11 @@ echo 'hi-'.$branch_status;
             $sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from b2b_payment_master where booking_id='$booking_id' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
             $payment_amount = $sq_payment_info['sum'];
             $cur_due = $final_total1 - $payment_amount;
+            if($bg != ''){
+              $cur_due = ($payment_amount > $canc_amount) ? 0 : floatval($canc_amount) - floatval($payment_amount);
+            }else{
+              $cur_due = floatval($final_total1) - floatval($payment_amount);
+            }
             ?>
           </tbody>
         </table>
@@ -411,6 +418,13 @@ echo 'hi-'.$branch_status;
           <div class="col-md-6 text-left"><span class="font_5">ADVANCE PAID</span></div>
           <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($payment_amount,2) ?></span></div></p>
         </div>
+        <?php
+        if($bg != ''){ ?>
+          <div class="col-md-12 border_lt"><p>
+            <div class="col-md-6 text-left"><span class="font_5">CANCELLATION CHARGES</span></div>
+            <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($canc_amount,2) ?></span></div></p>
+          </div>
+        <? } ?>
         <div class="col-md-12 border_lt"><p>
           <div class="col-md-6 text-left"><span class="font_5">CURRENT DUE</span></div>
           <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($cur_due,2) ?></span></div></p>

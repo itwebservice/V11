@@ -751,13 +751,7 @@ $(function() {
                 total_days_arr.push(total_days1);
                 hotel_entry_id_arr.push(hotel_entry_id);
             }
-            if (parseInt(count) != 0) {
-                if (parseInt(total_night) != parseInt(total_nights)) {
-                    error_msg_alert("Invalid total hotel stay nights!");
-                    g_validate_status = false;
-                    return false
-                }
-            } else {
+            if (parseInt(count) == 0)  {
                 error_msg_alert("Atleast one hotel is required!");
                 return false;
             }

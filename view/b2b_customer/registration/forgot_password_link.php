@@ -14,8 +14,8 @@ include "../../../model/model.php";
                 <input
                 type="text"
                 class="input-txtbox"
-                placeholder="Enter Ajent Code"
-                title="Please Enter Ajent Code"
+                placeholder="*Agent Code"
+                title="Please Enter Agent Code"
                 id='fagent_code' name='agent_code' required
                 />
             </div>
@@ -23,7 +23,7 @@ include "../../../model/model.php";
                 <input
                 type="text"
                 class="input-txtbox"
-                placeholder="Enter User Name"
+                placeholder="*User Name"
                 title="Please Enter User Name"
                 id='fuser_name' name='user_name' required
                 />

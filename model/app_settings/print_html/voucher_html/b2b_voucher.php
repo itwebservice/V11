@@ -59,7 +59,7 @@ if (sizeof($hotel_list_arr) > 0) {
     $email_id = $encrypt_decrypt->fnDecrypt($sq_hotel['email_id'], $secret_key);
     $confirmation_number_db = mysqli_fetch_assoc(mysqlQuery("SELECT confirmation_no_details FROM b2b_booking_master where booking_id = '$booking_id'"));
     $confirmation_number = json_decode($confirmation_number_db['confirmation_no_details']);
-    ?>
+?>
     <div class="repeat_section main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
 
       <!-- header Start -->
@@ -678,7 +678,7 @@ if (sizeof($ferry_list_arr) > 0) {
     $sq_ferry = mysqli_fetch_assoc(mysqlQuery("select * from ferry_master where entry_id='$sq_ferryt[entry_id]'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block">
+      <section class="print_header main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
         <div class="col-md-6 no-pad">
           <span class="title"><i class="fa fa-file-text"></i> FERRY SERVICE VOUCHER</span>
           <div class="print_header_logo">

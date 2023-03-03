@@ -21,20 +21,29 @@ if(isset($b2b_agent_code)&&isset($username)&&isset($password)){
             <!-- Slide1 -->
             <?php
             $images = ($sq_cms_q['banners']!='')?json_decode($sq_cms_q['banners']):[];
-            for($i=0;$i<sizeof($images);$i++){
-                $url = $images[$i]->image_url;
-                $pos = strstr($url,'uploads');
-                if ($pos != false){
+            if(empty($images)){
+              ?>
+              <div class="item">
+                <img src="<?php echo BASE_URL.'Tours_B2B/images/b2b-index-banner.jpg' ?>" alt="<?= $app_name ?>" />
+              </div>
+              <?php
+            }else{
+            
+              for($i=0;$i<sizeof($images);$i++){
+                  $url = $images[$i]->image_url;
+                  $pos = strstr($url,'uploads');
+                  if ($pos != false){
                     $newUrl1 = preg_replace('/(\/+)/','/',$images[$i]->image_url); 
                     $download_url = BASE_URL.str_replace('../', '', $newUrl1);
-                }else{
+                  }else{
                     $download_url =  $images[$i]->image_url; 
-                }
-            ?>
-            <div class="item">
-              <img src="<?php echo $download_url ?>" alt="<?= $app_name ?>" />
-            </div>
-            <?php } ?>
+                  }
+              ?>
+              <div class="item">
+                <img src="<?php echo $download_url ?>" alt="<?= $app_name ?>" />
+              </div>
+              <?php }
+            } ?>
           </div>
         </div>
         <!-- ********** Component :: Main Slider End ********** -->

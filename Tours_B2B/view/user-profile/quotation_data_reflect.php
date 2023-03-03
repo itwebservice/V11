@@ -57,6 +57,8 @@ while($row_quotation = mysqli_fetch_assoc($sq_quotation)){
 	$currency = $row_quotation['currency'];
 	$url1 = BASE_URL.'model/app_settings/print_html/quotation_html/quotation_html_2/b2b_quotation_html.php?pdf_data_array='.urlencode($pdf_data_array).'&cart_list_arr='.urlencode($cart_list_arr).'&quotation_currency='.$currency.'&flag_value='.'true'.'&created_at='.get_date_user($row_quotation['created_at']);
 	$url2 = BASE_URL.'model/app_settings/print_html/quotation_html/quotation_html_2/b2b_quotation_portal.php?quotation_id='.$quotation_no;
+
+	$proceed_button = '<a style="margin-left:2px;color: white !important;" onclick="proceed_to_direct_checkout(\''.$row_quotation['quotation_id'].'\','.'\''.$row_quotation['register_id'].'\')" class="btn btn-info btn-sm" title="Proceed to checkout"><i class="fa fa-paper-plane-o"></i></a>';
 	
 	$sq_curr = mysqli_fetch_assoc(mysqlQuery("select currency_code from currency_name_master where id='$currency'"));
 	$temp_arr = array(
@@ -64,7 +66,7 @@ while($row_quotation = mysqli_fetch_assoc($sq_quotation)){
 		get_date_user($row_quotation['created_at']),
 		$cust_name,
 		$sq_curr['currency_code'].' '.number_format($quotation_cost,2),
-		'<a style="color: white !important;" data-toggle="tooltip" onclick="loadOtherPage(\''.$url1.'\')" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>&nbsp;&nbsp;<button style="color: white !important;" data-toggle="tooltip" id="send-'.$row_quotation['quotation_id'].'" onclick="send_quotation(\''.$row_quotation['quotation_id'].'+'.$email_id.'+'.$url2.'\')" class="btn btn-info btn-sm" title="Mail & Whatsapp Quotation"><i class="fa fa-envelope-o"></i></button>',
+		'<a style="color: white !important;" data-toggle="tooltip" onclick="loadOtherPage(\''.$url1.'\')" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>&nbsp;&nbsp;<button style="color: white !important;" data-toggle="tooltip" id="send-'.$row_quotation['quotation_id'].'" onclick="send_quotation(\''.$row_quotation['quotation_id'].'+'.$email_id.'+'.$url2.'\')" class="btn btn-info btn-sm" title="Mail & Whatsapp Quotation"><i class="fa fa-envelope-o"></i></button>&nbsp;&nbsp;'.$proceed_button,
 	);
 array_push($array_s,$temp_arr); 
 }

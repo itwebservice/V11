@@ -36,7 +36,7 @@ if($branch_status=='yes' && $role=='Branch Admin'){
 			<tr class="<?= $bg ?>">
 				<td><?= ++$count ?></td>
 				<td><?= $row_terms['type'] ?></td>
-				<td><?= ($row_terms['dest_id']!='0')?$sq_dest['dest_name']:'NA' ?></td>
+				<td><?= ($row_terms['dest_id']!='0')?$sq_dest['dest_name']:'All' ?></td>
 				<td>
 					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_terms['terms_and_conditions_id'] ?>);btnDisableEnable(this.id)" id="update_modal_terms_edit_btn<?= $row_terms['terms_and_conditions_id'] ?>" title="Edit"><i class="fa fa-pencil-square-o"></i></button>
 				</td>

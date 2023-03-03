@@ -12,7 +12,7 @@ class b2b_customer{
                 <table style="width:100%">
                     <tr>
                         <td colspan="2">
-                            <a style="font-weight:500;font-size:14px;display:block;color:#ffffff;background:#009898;text-decoration:none;padding:5px 10px;border-radius:25px;width: 95px;text-align: center;" href="'.BASE_URL.'view/b2b_customer/registration/index.php">Register</a> 
+                            <a style="font-weight:500;font-size:14px;display:block;color:#ffffff;background:#009898;text-decoration:none;padding:5px 10px;border-radius:25px;width: 95px;text-align: center;" href="'.BASE_URL.'view/b2b_customer/registration/registration.php">Register</a> 
                         </td> 
                     </tr>
                 </table>
@@ -880,6 +880,15 @@ class b2b_customer{
         $cart_list_arr = json_encode($_POST['cart_list_arr']);
 
         $sq_update = mysqlQuery("UPDATE `b2b_registration` SET `cart_data`='$cart_list_arr' WHERE register_id='$register_id'");
+    }
+    function quotation_direct_checkout(){
+        
+        $quotation_id = $_POST['quotation_id'];
+        $register_id = $_POST['register_id'];
+
+        $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select cart_list_arr from b2b_quotations where quotation_id='$quotation_id'"));
+        mysqlQuery("UPDATE `b2b_registration` SET `cart_data`='$sq_quotation[cart_list_arr]' WHERE register_id='$register_id'");
+        echo BASE_URL ."Tours_B2B/checkout_pages/cartPage.php".'=='.$sq_quotation['cart_list_arr'];
     }
 
 }
