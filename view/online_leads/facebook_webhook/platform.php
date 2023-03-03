@@ -3,7 +3,7 @@ include '../../../model/model.php';
 $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsecret`, `facebook_callback` FROM `app_settings`"));
 
 ?>
-<h2>Facebook Platform</h2>
+<legend>Facebook Platform</legend>
 
 <!--<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>-->
 
@@ -13,7 +13,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
       appId: '<?= $data['facebook_appid'] ?>',
       xfbml: true,
       version: 'v15.0',
-        cookie     : true,
+      cookie: true,
     });
   };
 
@@ -90,7 +90,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
       },
       function(response) {
         console.log(response);
-        
+
       }
     );
   }
@@ -196,20 +196,22 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     );
   }
 
-  function getSingleLead(leadId,unqId) {
-      var url = '<?= BASE_URL ?>';
+  function getSingleLead(leadId, unqId) {
+    var url = '<?= BASE_URL ?>';
     FB.api(
       '/' + leadId,
       'GET', {},
       function(response) {
         console.log(response);
-        
-        if(response.field_data != "" || response.field_data != undefined)
-        {
-           $.post(url + 'controller/online_leads/facebook_set_data.php', {mainData:response.field_data,unqId:unqId}, function(data) {
-                    
-            
-             });  
+
+        if (response.field_data != "" || response.field_data != undefined) {
+          $.post(url + 'controller/online_leads/facebook_set_data.php', {
+            mainData: response.field_data,
+            unqId: unqId
+          }, function(data) {
+
+
+          });
         }
         // Insert your code here
       }
@@ -231,39 +233,34 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     });
   }
 
-  function fetchData()
-  {
-      checkLogin();
+  function fetchData() {
+    checkLogin();
     var url = '<?= BASE_URL ?>';
     $.post(url + 'controller/online_leads/facebook_fetch_data.php', {}, function(data) {
-      
+
       var decodeData = JSON.parse(data);
-      for(var i=0;i<decodeData.length; i++ )
-      {
-          if(decodeData[i]['leadgen_id'] != "")
-          {
-      console.log(decodeData[i]);
-      getSingleLead(decodeData[i]['leadgen_id'],decodeData[i]['unqId']);
-          }
+      for (var i = 0; i < decodeData.length; i++) {
+        if (decodeData[i]['leadgen_id'] != "") {
+          console.log(decodeData[i]);
+          getSingleLead(decodeData[i]['leadgen_id'], decodeData[i]['unqId']);
+        }
       }
       alert('completed');
     });
   }
-  function checkLogin()
-  {
-      FB.getLoginStatus(function(response) {
-             if (response.status === 'connected') {
-            return true;
-          }
-          else
-          {
-              alert("Login With facebook First");
-              return false;
-          }
-      });
+
+  function checkLogin() {
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        return true;
+      } else {
+        alert("Login With facebook First");
+        return false;
+      }
+    });
   }
 </script>
-<div class="row">
+<div class="row mg_bt_10">
   <!--<div class="col-md-3 mg_bt_10">Pages:-->
   <!--  <select name="" id="pageId">-->
   <!--    <option value="">Select Page</option>-->
@@ -275,43 +272,81 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
   <!--    <option value="">Select Form</option>-->
   <!--  </select>-->
   <!--</div>-->
-  <div class="col-md-3 mg_bt_10">
-    App Id:
+  <div class="col-md-12 mg_bt_10">
+    <h6>App Id:</h6>
     <input type="text" name="appId" id="formappId" value="<?= $data['facebook_appid'] ?>" placeholder="App Id">
 
   </div>
-  <div class="col-md-3 mg_bt_10">
-  
-  App Secret:
+  <div class="col-md-12 mg_bt_10">
+
+    <h6>App Secret:</h6>
 
     <input type="text" name="appSecret" id="formappSecret" value="<?= $data['facebook_appsecret'] ?>" placeholder="App Secret">
 
   </div>
-  
-</div>
-<div class="row">
-<div class="col-md-12 mg_bt_10">
-  Callback Url:
+
+  <div class="col-md-12 mg_bt_10">
+    <h6>Callback Url:</h6>
     <input type="text" name="callbackUrl" id="formcallbackUrl" value="<?= $data['facebook_callback'] ?>" placeholder="Callback Url">
 
   </div>
 </div>
+
 <input type="hidden" name="" id="page_access_token">
 
 
 
 
 
-<button onclick="setApp()">Set App</button>
+<button class="btn btn-success" onclick="setApp()"><i class="fa fa-check"></i>Set App</button>
 
 
-<button onclick="makeSubscription()">Subscribe with Facebook</button>
-<button onclick="myFacebookLogin()">Login with Facebook</button>
+<button class="btn btn-primary" onclick="makeSubscription()"><i class="fa fa-facebook"></i>Subscribe with Facebook</button>
+<button class="btn btn-primary" onclick="myFacebookLogin()"><i class="fa fa-facebook"></i>Login with Facebook</button>
 <!--<button onclick="getAccountDetail()">Account Details</button>-->
 <!--<button onclick="getPageDetails()">Page Details</button>-->
 <!--<button onclick="getformDetails()">form Details</button>-->
 <!--<button onclick="getSingleLead('1235858640370001')">SIngle Lead</button>-->
-<button onclick="fetchData()">Fetch Data</button>
+<button class="btn btn-success" onclick="fetchData()"><i class="fa fa-arrow-down"></i>Fetch Data</button>
 
 <ul id="list"></ul>
 <div id="datas"></div>
+
+
+
+
+
+<style>
+  .btn-primary {
+    transition: .5s ease-out;
+    color: #fff;
+    box-shadow: none;
+    padding-left: 35px;
+    margin-right: 10px;
+    position: relative;
+    border: 1px solid #58a653;
+    border-radius: 25px !important;
+    line-height: 22px;
+  }
+
+  .btn-primary:hover {
+    color: #4285f4 !important;
+    background-color: #fff !important;
+    border-color: #4285f4;
+  }
+
+  .btn-primary i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 32px;
+    width: 32px;
+  }
+
+  .btn-success {
+    margin-right: 10px;
+  }
+</style>
