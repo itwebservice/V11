@@ -3,9 +3,9 @@ include '../../../model/model.php';
 $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsecret`, `facebook_callback` FROM `app_settings`"));
 
 ?>
-<h2>My Platform</h2>
+<h2>Facebook Platform</h2>
 
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>-->
 
 <script>
   window.fbAsyncInit = function() {
@@ -38,6 +38,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
       },
       function(response) {
         console.log('Successfully subscribed page', response);
+        alert('Successfully subscribed page');
       }
     );
   }
@@ -48,6 +49,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
     var dropdown = "";
     FB.login(function(response) {
       console.log('Successfully logged in', response);
+      alert('Successfully logged in');
       FB.api('/me/accounts', function(response) {
         console.log('Successfully retrieved pages', response);
         var pages = response.data;
@@ -201,12 +203,13 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
       'GET', {},
       function(response) {
         console.log(response);
+        
         if(response.field_data != "" || response.field_data != undefined)
         {
            $.post(url + 'controller/online_leads/facebook_set_data.php', {mainData:response.field_data,unqId:unqId}, function(data) {
                     
             
-    });  
+             });  
         }
         // Insert your code here
       }
@@ -230,26 +233,48 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
 
   function fetchData()
   {
+      checkLogin();
     var url = '<?= BASE_URL ?>';
     $.post(url + 'controller/online_leads/facebook_fetch_data.php', {}, function(data) {
+      
       var decodeData = JSON.parse(data);
-      console.log(decodeData[0]);
-      getSingleLead(decodeData[0]['leadgen_id'],decodeData[0]['unqId']);
+      for(var i=0;i<decodeData.length; i++ )
+      {
+          if(decodeData[i]['leadgen_id'] != "")
+          {
+      console.log(decodeData[i]);
+      getSingleLead(decodeData[i]['leadgen_id'],decodeData[i]['unqId']);
+          }
+      }
+      alert('completed');
     });
+  }
+  function checkLogin()
+  {
+      FB.getLoginStatus(function(response) {
+             if (response.status === 'connected') {
+            return true;
+          }
+          else
+          {
+              alert("Login With facebook First");
+              return false;
+          }
+      });
   }
 </script>
 <div class="row">
-  <div class="col-md-3 mg_bt_10">Pages:
-    <select name="" id="pageId">
-      <option value="">Select Page</option>
-    </select>
-  </div>
-  <div class="col-md-3 mg_bt_10">
-    Forms:
-    <select name="" id="formId">
-      <option value="">Select Form</option>
-    </select>
-  </div>
+  <!--<div class="col-md-3 mg_bt_10">Pages:-->
+  <!--  <select name="" id="pageId">-->
+  <!--    <option value="">Select Page</option>-->
+  <!--  </select>-->
+  <!--</div>-->
+  <!--<div class="col-md-3 mg_bt_10">-->
+  <!--  Forms:-->
+  <!--  <select name="" id="formId">-->
+  <!--    <option value="">Select Form</option>-->
+  <!--  </select>-->
+  <!--</div>-->
   <div class="col-md-3 mg_bt_10">
     App Id:
     <input type="text" name="appId" id="formappId" value="<?= $data['facebook_appid'] ?>" placeholder="App Id">
@@ -282,10 +307,10 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
 
 <button onclick="makeSubscription()">Subscribe with Facebook</button>
 <button onclick="myFacebookLogin()">Login with Facebook</button>
-<button onclick="getAccountDetail()">Account Details</button>
-<button onclick="getPageDetails()">Page Details</button>
-<button onclick="getformDetails()">form Details</button>
-<button onclick="getSingleLead('1124367711796696')">SIngle Lead</button>
+<!--<button onclick="getAccountDetail()">Account Details</button>-->
+<!--<button onclick="getPageDetails()">Page Details</button>-->
+<!--<button onclick="getformDetails()">form Details</button>-->
+<!--<button onclick="getSingleLead('1235858640370001')">SIngle Lead</button>-->
 <button onclick="fetchData()">Fetch Data</button>
 
 <ul id="list"></ul>

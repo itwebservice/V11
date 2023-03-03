@@ -35,19 +35,44 @@ class facebook
         {
             foreach($mainData as $main)
             {
-                if($main['name'] == "FULL_NAME")
+                if($main['name'] == "full_name")
                 {
                     $dataFilter['name'] = implode(" ",$main['values']);
                 }
-                if($main['name'] == "EMAIL")
+                if($main['name'] == "email")
                 {
                     $dataFilter['email'] = implode(" ",$main['values']);
                 }
-                if($main['name'] == "PHONE")
+                if($main['name'] == "phone_number")
                 {
                     $dataFilter['phone'] = implode(" ",$main['values']);
                 }
+                if($main['name'] == "total_adults")
+                {
+                    $dataFilter['total_adults'] = implode(" ",$main['values']);
+                }
+                if($main['name'] == "total_children_with_bed")
+                {
+                    $dataFilter['total_children_with_bed'] = implode(" ",$main['values']);
+                }
+                if($main['name'] == "total_children_without_bed")
+                {
+                    $dataFilter['total_children_without_bed'] = implode(" ",$main['values']);
+                }
+                if($main['name'] == "total_children_without_bed")
+                {
+                    $dataFilter['total_children_without_bed'] = implode(" ",$main['values']);
+                }
+                  if($main['name'] == "total_infants")
+                {
+                    $dataFilter['total_infants'] = implode(" ",$main['values']);
+                }
                 
+                
+                if($main['name'] == "interested_tour")
+                {
+                    $dataFilter['interested_tour'] = implode(" ",$main['values']);
+                }
                     
             }
         }
@@ -56,14 +81,16 @@ class facebook
         $dataMain['lastName'] = ' ';
         $dataMain['email'] = !empty($dataFilter['email']) ? $dataFilter['email'] : null;
         $dataMain['phoneNumber'] = !empty($dataFilter['phone']) ? $dataFilter['phone'] : null;
-        $dataMain['adult'] =  1;
-        $dataMain['children'] = !empty($_POST['childs']) ? (int)$_POST['childs'] : null;
+        $dataMain['adult'] =  !empty($dataFilter['total_adults']) ? (int)$dataFilter['total_adults'] : 1;
+        $dataMain['children'] = !empty($dataFilter['total_children_with_bed']) ? (int)$dataFilter['total_children_with_bed'] : 0;
+        $dataMain['children_without_bed'] = !empty($dataFilter['total_children_without_bed']) ? (int)$dataFilter['total_children_without_bed'] : 0;
+        $dataMain['total_infants'] = !empty($dataFilter['total_infants']) ? (int)$dataFilter['total_infants'] : 0;
         $dataMain['travelCheckInDate'] = !empty($_POST['from_date']) ? $_POST['from_date'] : '01-01-2022';
         $dataMain['travelCheckOutDate'] = !empty($_POST['to_date']) ? $_POST['to_date'] : '03-01-2022';
         $dataMain['hotelCategory'] = " ";
         $dataMain['requirement'] =  null;
         $dataMain['budget'] = 0;
-        $dataMain['location'] = " ";
+        $dataMain['location'] = $dataFilter['interested_tour'];
         $dataMain['landline_no'] = !empty($dataFilter['phone']) ? $dataFilter['phone'] : null;
 
 // $json_data_add = json_decode(file_get_contents('response_data.json'));
@@ -88,6 +115,14 @@ $contentData = [
       'value' => $dataMain['children']
 
     ],
+        [
+
+      'name' => 'children_without_bed',
+
+      'value' => $dataMain['children_without_bed']
+
+    ],
+    
 
     [
 
@@ -122,7 +157,7 @@ $contentData = [
 
       'name' => 'total_infant',
 
-      'value' => 0
+      'value' => $dataMain['total_infants']
 
     ],
     [
@@ -156,7 +191,7 @@ $contentData = [
 
     $enquiry_id =  (int)$query_enquiry_id['enquiry_id'] + 1;
     
-    $master_query = "INSERT INTO enquiry_master VALUES('$enquiry_id','1','1','" . $financial_year['financial_year_id'] . "','Package Booking','Strong','".$dataMain['firstName']." ".$dataMain['lastName']." ','+91','".$dataMain['phoneNumber']."','".$dataMain['landline_no']."','".$dataMain['email']."','".$dataMain['location']."','".$dataMain['requirement']."',' $current_date',' $current_date ','2','1','$contents','','$entry_id','".$dataMain['firstName']." ".$dataMain['lastName']."')";
+    $master_query = "INSERT INTO enquiry_master VALUES('$enquiry_id','1','1','" . $financial_year['financial_year_id'] . "','Package Booking','Strong','".$dataMain['firstName']." ".$dataMain['lastName']." ','+91','".$dataMain['phoneNumber']."','".$dataMain['landline_no']."','".$dataMain['email']."','".$dataMain['location']."','".$dataMain['requirement']."',' $current_date',' $current_date ','1','1','$contents','','$entry_id','".$dataMain['firstName']." ".$dataMain['lastName']."')";
 
     
     $query1 = mysqlQuery($master_query)or die("error5");
