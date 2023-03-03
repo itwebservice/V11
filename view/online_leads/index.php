@@ -12,6 +12,7 @@ require_once('../layouts/admin_header.php');
             Facebook
             </a>
         </li>
+        
         <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onclick="reflect_data('2')">
             Instagram
@@ -34,7 +35,7 @@ require_once('../layouts/admin_header.php');
 function reflect_data(section,dest_id1=''){
 
     if(section === '1'){
-        $.post('facebook/facebook.php', { }, function(data){
+        $.post('facebook_webhook/platform.php', { }, function(data){
             $('#section_data_form').html(data);
         });
     }
