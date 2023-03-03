@@ -1,121 +1,133 @@
 <?php
 include '../model/model.php';
-global $currency;
-$sq_curr = mysqli_fetch_assoc(mysqlQuery("select id from currency_name_master where id='$currency'"));
+global $app_name;
+$tokenUser = md5(uniqid(mt_rand(), true));
+if(isset($_SESSION['username'])){ 
+      destroy_all();
+      recreate($tokenUser);  
+}
+global $app_version;
+$_SESSION['token'] =$tokenUser; 
+include_once "layouts/login_header.php";
 ?>
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Login</title>
-    <meta
-      name="description"
-      content="Author: ITWEB Services-iTours, Category: Tours & Travels Product"
-    />
-    <meta name="robots" content="none" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>Tours_B2B/css/css-styles.css" />
+<a href="<?php echo BASE_URL ?>view/b2b_customer/registration/registration.php" target="_blank" class="c-button block full-rounded uppercase">
+    Registration
+</a>
+</div></div></div></div>
+</header>
 
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>Tours_B2B/css/bootstrap-4.min.css" />
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/jquery.wysiwyg.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/jquery-labelauty.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/dynforms.vi.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>css/vi.alert.css">
-    <link id="main-style" rel="stylesheet" href="<?php echo BASE_URL ?>Tours_B2B/css/itours-styles.css" />
-  </head>
-  <body>
-  <input type='hidden' id='base_url' value='<?= BASE_URL ?>'/>
-  <input type='hidden' id='global_currency' value='<?= $sq_curr['id'] ?>'/>
-    <!-- ********** Login Page :: Start ********** -->
-    <div class="c-loginContainer">
-
-      <!-- ******** Login Window :: Start ******** -->
-      <div class="login_modal">
-
-        <!-- ****** Login Form :: Start ****** -->
-        <form id="frm_login" method='post'>
-        <div class="login_form">
-
-          <!-- **** Headings :: Start **** -->
-          <span class="login_heading">Login</span>
-          <span class="login_subheading">Discover a competitive pricing</span>
-          <!-- **** Headings :: End **** -->
-
-          <!-- **** Form Field :: Start **** -->
-          <div class="formField">
-            <input
-              type="text"
-              class="input-txtbox"
-              placeholder="Enter Agent Code"
-              title="Please Enter Agent Code"
-              id='agent_code' name='agent_code' required
-            />
+  <!-- ********** Component :: Login Page ********** -->
+  <div class="clearfix">
+    <div class="c-loginFullpage">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-lg-8 col-sm-12">
+            <div class="m20-btm">
+              <!-- <div class="creative-heading md">Welcome to</div>
+              <div class="creative-heading lg uppercase">Summer season</div> -->
+            </div>
           </div>
-          <div class="formField">
-            <input
-              type="text"
-              class="input-txtbox"
-              placeholder="Enter User Name"
-              title="Please Enter User Name"
-              id='user_name' name='user_name' required
-            />
+          <div class="col-lg-4 col-sm-12">
+            <form id="frm_login" method='post'>
+              <div class="loginWindow">
+                <h3 class="c-heading">Agent Login<pre> Discover a competitive pricing</pre></h3>
+                <div class="form-group">
+                  <div class="c-select2DD">
+                    <input type="text" class="c-textbox rounded" placeholder="*Agent Code" id='agent_code'/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="c-select2DD">
+                    <input type="text" class="c-textbox rounded" placeholder="*User Name" id='user_name'/>
+                  </div>
+                </div>
+                <div class="form-group">
+                <div class="row">
+                  <div class="col-md-10">
+                    <input type="password" class="c-textbox rounded" placeholder="*Password" id='password'/>
+                  </div>
+                  <div class="col-md-1">
+                      <label style="padding-top: 14px;font-size: 14px;cursor:pointer;" class="c-buttonLink" id='send_btn' onclick="show_password('password');"><i class="fa fa-eye"></i></label>
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button type="button" class="c-buttonLink" id='send_btn' onclick="open_modal();">Forgot Password?</button>
+                  </div>
+                </div>
+                <div class="form-group type-1">
+                  <button class="c-button lg rounded" id="sign_in">Login</button>
+                </div>
+              </div>
+            </form>
+            <div id='div_modal'></div>
+            <div id="site_alert"></div>
           </div>
-          <div class="formField">
-            <input
-              type="password"
-              class="input-txtbox pass"
-              placeholder="Enter Password"
-              title="Please Enter Password"
-              id='password' name='password' required
-            /><a onclick="show_password('password')" target="_BLANK" class="btn app_btn" title="View Password"><i class="fa fa-eye"></i></a>
-          </div>
-          <!-- **** Form Field :: End **** -->
-
-          <!-- ****  forgot password Button :: Start **** -->
-          <div class="btnContainer type-link text-right">
-          <input type='button' class="btn-link bold underline" id='send_btn' onclick="open_modal();" value='Forgot Password?'/>
-          </div>
-          <!-- ****  forgot password Button :: End **** -->
-          <div id="site_alert"></div>
-
-          <!-- **** Sign In Button :: Start **** -->
-          <div class="btnContainer">
-            <button class="btn-submit" type='submit' id='sign_in'>Sign In</button>
-          </div>
-          <!-- **** Sign In Button :: End **** -->
-
-          <!-- **** Register Button :: Start **** -->
-          <div class="btnContainer type-link text-center">
-            <span class="beforeText">Not a member Yet..?</span>
-            <!-- <button class="btn-link bold underline">Register Here</button> -->
-            <a class="btn-link bold underline" target='_blank' href="../view/b2b_customer/registration/index.php">Register Here</a> 
-          </div>
-          <!-- **** Register Button :: End **** -->
-
         </div>
-        </form>
-        <!-- ****** Login Form :: End ****** -->
-          <div id='div_modal'></div>
       </div>
-      <!-- ******** Login Window ::   End ******** -->
-
     </div>
-    <!-- ********** Login Page :: End ********** -->
-  </body>
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="<?php echo BASE_URL ?>Tours_B2B/js/bootstrap-4.min.js"></script>
-    <script src="<?php echo BASE_URL ?>js/jquery.wysiwyg.js"></script>  
-    <script src="<?php echo BASE_URL ?>js/script.js"></script>
-    <script src="<?php echo BASE_URL ?>js/jquery-labelauty.js"></script>
-    <script src="<?php echo BASE_URL ?>js/dynforms.vi.js"></script>
-    <script src="<?php echo BASE_URL ?>js/jquery.validate.min.js"></script>
-    <script src="<?php echo BASE_URL ?>js/vi.alert.js"></script>
-    <script src="js/scripts.js"></script>
-</html>
+  </div>
+  <!-- ********** Component :: Login Page End ********** -->
+    <?php
+    $sq_cms_q = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2b_settings`"));
+    if($sq_cms_q['why_choose_flag'] != 'Hide'){
+    ?>
+    <!-- ********** Component :: Info Section ********** -->
+    <section class="c-container with-gray-background">
+      <div class="container">
+        <h2 class="container-heading">Why Choose Us?</h2>
+
+        <!-- *** Component :: Card Pallet ***** -->
+        <div class="c-cardPallet">
+          <div class="overflow-hidden">
+            <div class="cardPalletBox column-5-no-margin">
+              <?php
+              $images = ($sq_cms_q['why_choose_us']!='')?json_decode($sq_cms_q['why_choose_us']):[];
+              for($i=0;$i<sizeof($images);$i++){
+                  $url = $images[$i]->image_url;
+                  $pos = strstr($url,'uploads');
+                  if ($pos != false){
+                      $newUrl1 = preg_replace('/(\/+)/','/',$images[$i]->image_url); 
+                      $download_url = BASE_URL.str_replace('../', '', $newUrl1);
+                  }else{
+                      $download_url = $images[$i]->image_url; 
+                  }
+                  ?>
+              <article class="icon-box">
+                <div class="imageBox">
+                  <img src="<?= $download_url ?>" alt="img" />
+                </div>
+                <h5 class="boxTitle"><?= $images[$i]->title ?></h5>
+                <p class="boxSubTitle">
+                <?= $images[$i]->description ?>
+                </p>
+              </article>
+                  <?php } ?>
+            </div>
+          </div>
+        </div>
+        <!-- *** Component :: Card Pallet End ***** -->
+      </div>
+    </section>
+    <!-- ********** Component :: Info Section ********** -->
+    <?php } ?>
+<?php
+include_once "layouts/login_footer.php";
+?>
+<?php 
+  function destroy_all()
+  {
+    session_destroy();
+  }
+  function recreate($tokenUser)
+    {
+      
+      session_start();
+      $_SESSION['token'] =$tokenUser;       
+    }
+
+?>
 <Script>
 //(Local+Seesion)Storage Data clearance
 window.onload = function () {
@@ -131,13 +143,15 @@ function show_password(password) {
 	var x = document.getElementById(password);
 	if (x.type === 'password') {
 		x.type = 'text';
+		x.placeholder = '*Enter password!';
 	}
 	else {
 		x.type = 'password';
 	}
 }
 function open_modal(){
-	$.post('../view/b2b_customer/registration/forgot_password_link.php', { }, function(data){
+  var base_url = $('#base_url').val();
+	$.post(base_url+'view/b2b_customer/registration/forgot_password_link.php', { }, function(data){
 			$('#div_modal').html(data);
 	});
 } 
@@ -145,11 +159,35 @@ $('#frm_login').validate({
   rules:{
   },
   submitHandler:function(form){
+    
+    $('#sign_in').prop('disabled',true);
+
+    var base_url = $('#base_url').val();
     var agent_code = $('#agent_code').val();
     var username = $('#user_name').val();
     var password = $('#password').val();
+    if(agent_code == ''){
+      $('#sign_in').prop('disabled',false);
+      $('#sign_in').button('reset');
+      error_msg_alert("Enter Agent Code!");
+      return false;
+    }
+    if(username == ''){
+      $('#sign_in').prop('disabled',false);
+      $('#sign_in').button('reset');
+      error_msg_alert("Enter Username!");
+      return false;
+    }
+    if(password == ''){
+      $('#sign_in').prop('disabled',false);
+      $('#sign_in').button('reset');
+      error_msg_alert("Enter Password!");
+      return false;
+    }
     $('#sign_in').button('loading');
-    $.post('../controller/b2b_customer/login/login_verify.php', { agent_code:agent_code,username : username, password : password }, function(data){
+    $.post(base_url+'controller/b2b_customer/login/login_verify.php', { agent_code:agent_code,username : username, password : password }, function(data){
+      $('#sign_in').prop('disabled',false);
+      $('#sign_in').button('reset');
         var data1 = data.split('--');
         if(data1[0]=="valid"){
           var global_currency = $('#global_currency').val();
@@ -176,7 +214,6 @@ $('#frm_login').validate({
           window.location.href = "view/index.php";
         } 
         else{
-          $('#sign_in').button('reset');
           error_msg_alert(data1[0]);
         }
     });

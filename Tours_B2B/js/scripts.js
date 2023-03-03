@@ -113,20 +113,20 @@ $(document).ready(function () {
 function error_msg_alert(message){
 	var base_url = $('#base_url').val();
 	var class_name = 'alert-danger';
-	$.post(base_url+'Tours_B2B/notification_modal.php', {message:message,class_name:class_name}, function(data){
+	// $.post(base_url+'Tours_B2B/notification_modal.php', {message:message,class_name:class_name}, function(data){
 		// $('#site_alert').html(data);
 		$('#site_alert').empty(); // to only display one error message
-		$('#site_alert').vialert({ type: 'error', title: 'Error', message: data, delay: 3000 });
-	});
+		$('#site_alert').vialert({ type: 'error', title: 'Error', message: message, delay: 3000 });
+	// });
 }
 function success_msg_alert(message){
 	var base_url = $('#base_url').val();
 	var class_name = 'alert-success';
-	$.post(base_url+'Tours_B2B/notification_modal.php', {message:message,class_name:class_name}, function(data){
+	// $.post(base_url+'Tours_B2B/notification_modal.php', {message:message,class_name:class_name}, function(data){
 		// $('#site_alert').html(data);
 		$('#site_alert').empty(); // to only display one error message
-		$('#site_alert').vialert({ message: data, delay: 3000 });
-	});
+		$('#site_alert').vialert({ type: 'success', message: message, delay: 3000 });
+	// });
 }
 
 function blockSpecialChar(e) {

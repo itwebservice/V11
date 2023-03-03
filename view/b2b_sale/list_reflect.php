@@ -227,6 +227,10 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 	$sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from b2b_payment_master where booking_id='$row_customer[booking_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
 	$payment_amount = $sq_payment_info['sum'];
 	$paid_amount +=$sq_payment_info['sum'];
+	
+	$bg = ($row_customer['status'] == 'Cancel') ? 'danger' : '';
+	$cancel_amount = $row_customer['cancel_amount'];
+	$cancel_total += $cancel_amount;
 
 	$sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='b2b_sale/index.php'"));
 	$branch_status = $sq['branch_status'];
@@ -242,7 +246,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 	if($app_invoice_format == 4)
 	$url1 = BASE_URL."model/app_settings/print_html/invoice_html/body/b2b_tax_invoice.php?invoice_no=$invoice_no&invoice_date=$invoice_date&customer_id=$customer_id&service_name=$service_name&booking_id=$booking_id&sac_code=$sac_code&branch_status=$branch_status";
 	else
-	$url1 = BASE_URL."model/app_settings/print_html/invoice_html/body/b2b_body_html.php?invoice_no=$invoice_no&invoice_date=$invoice_date&customer_id=$customer_id&service_name=$service_name&booking_id=$booking_id&sac_code=$sac_code&branch_status=$branch_status";
+	$url1 = BASE_URL."model/app_settings/print_html/invoice_html/body/b2b_body_html.php?invoice_no=$invoice_no&invoice_date=$invoice_date&customer_id=$customer_id&service_name=$service_name&booking_id=$booking_id&sac_code=$sac_code&branch_status=$branch_status&cancel_amount=$cancel_amount&bg=$bg";
 
 	//Receipt
 	$payment_id_name = "Receipt ID";
@@ -261,9 +265,6 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 	else{
 		$service_voucher = '<a data-toggle="tooltip" onclick="loadOtherPage(\''. $service_url .'\')" class="btn btn-info btn-sm" title="Generate Service Voucher"><i class="fa fa-print"></i></a>';
 	}
-	$bg = ($row_customer['status'] == 'Cancel') ? 'danger' : '';
-	$cancel_amount = $row_customer['cancel_amount'];
-	$cancel_total += $cancel_amount;
 	if($row_customer['status'] == 'Cancel'){
 		if($payment_amount > 0){
 			if($cancel_amount >0){

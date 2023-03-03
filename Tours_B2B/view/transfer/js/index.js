@@ -14,16 +14,6 @@ $(function () {
 					var trip_type = ele[i].value;
 				}
 			}
-			if(trip_type === "roundtrip"){
-				if(return_date == ""){ error_msg_alert('Please select Return Date & Time '); return false; }
-				var valid = check_valid_date_trs();
-				if (!valid) {
-					error_msg_alert('Invalid Pickup and Return Date!');
-					return false;
-				}
-			}else{
-				return_date = '';
-			}
 			var pickup_type = 0;
 			var pickup_from = 0;
 			var drop_type = 0;
@@ -51,6 +41,19 @@ $(function () {
 			if(passengers == ''){
 				error_msg_alert("Please select passengers");
 				return false;
+			}
+			if(trip_type === "roundtrip"){
+				if(return_date == ""){
+					error_msg_alert('Please select Return Date & Time ');
+					return false;
+				}
+				var valid = check_valid_date_trs();
+				if (!valid){
+					error_msg_alert('Invalid Pickup and Return Date!');
+					return false;
+				}
+			}else{
+				return_date = '';
 			}
 			var pick_drop_array = [];
 			pick_drop_array.push({

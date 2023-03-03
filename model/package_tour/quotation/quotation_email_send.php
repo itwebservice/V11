@@ -657,10 +657,10 @@ class quotation_email_send
 								$total_pax = floatval($sq_quotation['total_adult'])+floatval($sq_quotation['children_with_bed'])+floatval($sq_quotation['children_without_bed'])+floatval($sq_quotation['total_infant']);
 								$per_service_charge = floatval($service_charge)/floatval($total_pax);
 						
-								$adult_cost = currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['adult_cost']+floatval($per_service_charge))));
-								$child_with = currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['child_with']+floatval($per_service_charge))));
-								$child_without = currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['child_without']+floatval($per_service_charge))));
-								$infant_cost = currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['infant_cost']+floatval($per_service_charge))));
+								$adult_cost = ($sq_quotation['total_adult']!='0')? currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['adult_cost']+floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+								$child_with = ($sq_quotation['children_with_bed']!='0') ? currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['child_with']+floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+								$child_without = ($sq_quotation['children_without_bed']!='0') ? currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['child_without']+floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
+								$infant_cost = ($sq_quotation['total_infant']!='0') ? currency_conversion($currency,$sq_quotation['currency_code'],(floatval($sq_costing['infant_cost']+floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
 						
 								$service_tax_amount = 0;
 								$tax_show = '';

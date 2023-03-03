@@ -1,5 +1,6 @@
 <?php
 include "../../../model/model.php";
+include_once('vendor_generic_functions.php');
 
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='vendor/dashboard/index.php'"));
 $branch_status = $sq['branch_status'];
@@ -22,9 +23,10 @@ $sq_supplier = mysqlQuery($query);
 		<thead>
 			<tr  class="table-heading-row">
 				<th>S_No.</th>
-				<th>Purchase</th>
+				<th>Purchase Type</th>
 				<th>Purchase ID</th>
 				<th class="hidden">Purchase ID</th>
+				<th>Purchase(Customer_name)</th>
 				<th class="text-right">Amount</th>
 				<th class="text-center">Select</th>
 			</tr>
@@ -37,6 +39,13 @@ $sq_supplier = mysqlQuery($query);
 			$sq_supplier_p = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as payment_amount from vendor_payment_master where estimate_id='$row_supplier[estimate_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
 			$total_paid = $sq_supplier_p['payment_amount'];
 			$cancel_est = $row_supplier['cancel_amount'];
+
+			$vendor_type_val = get_vendor_name($row_supplier['vendor_type'], $row_supplier['vendor_type_id']);
+			$estimate_type_val = get_estimate_type_name($row_supplier['estimate_type'], $row_supplier['estimate_type_id']);
+			$date = $row_supplier['purchase_date'];
+			$yr = explode("-", $date);
+			$year = $yr[0];
+			$purchase = get_vendor_estimate_id($row_supplier['estimate_id'],$year).": ".$vendor_type_val."(".$row_supplier['vendor_type'].") : ".$estimate_type_val;
 
 			if($row_supplier['purchase_return'] == '1'){
 				if($total_paid > 0){
@@ -71,10 +80,11 @@ $sq_supplier = mysqlQuery($query);
 					$title = $estimate_type_val;
 				} ?>
 			<tr>
-				<td class="col-md-2"><?= $count ?></td>
-				<td class="col-md-4"><input type="text" id="pr_payment_type<?= $count ?>" name="pr_payment_type" value="<?= $row_supplier['estimate_type'] ?>" readonly></td>
-				<td class="col-md-2"><input type="text" id="pr_estimate_id<?= $count ?>" name="pr_estimate_id" title="<?= $title ?>" value="<?= $row_supplier['estimate_id'] ?>" readonly></td>
+				<td class="col-md-1"><?= $count ?></td>
+				<td class="col-md-3"><input type="text" id="pr_payment_type<?= $count ?>" name="pr_payment_type" value="<?= $row_supplier['estimate_type'] ?>" readonly></td>
+				<td class="col-md-1"><input type="text" id="pr_estimate_id<?= $count ?>" name="pr_estimate_id" title="<?= $title ?>" value="<?= $row_supplier['estimate_id'] ?>" readonly></td>
 				<td class="col-md-2 hidden"><input type="text" id="pr_payment_id<?= $count ?>" name="pr_payment_id" title="<?= $title ?>" value="<?= $row_supplier['estimate_type_id'] ?>" readonly></td>
+				<td class="col-md-5"><input type="text" id="pr_customer_name<?= $count ?>" name="pr_customer_name" title="<?= $title ?>" value="<?= $purchase ?>" readonly></td>
 				<td class="col-md-2"><input type="text" id="pr_payment_<?= $count ?>" name="pr_payment"  value="<?= $balance_amount ?>" class="text-right" readonly></td>
 				<td class="text-center col-md-2"><input type="checkbox" id="chk_pr_payment_<?= $count ?>" name="chk_pr_payment" onchange="calculate_total_purchase('<?= 'pr_payment_'.$count ?>','<?= 'chk_pr_payment_'.$count ?>')"></td>	
 			</tr>
