@@ -281,7 +281,7 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
 
     <h6>App Secret:</h6>
 
-    <input type="text" name="appSecret" id="formappSecret" value="<?= $data['facebook_appsecret'] ?>" placeholder="App Secret">
+    <input type="text" name="appSecret" id="formappSecret"  value="<?= $data['facebook_appsecret'] ?>" placeholder="App Secret">
 
   </div>
 
@@ -301,13 +301,13 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
 <button class="btn btn-success" onclick="setApp()"><i class="fa fa-check"></i>Set App</button>
 
 
-<button class="btn btn-primary" onclick="makeSubscription()"><i class="fa fa-facebook"></i>Subscribe with Facebook</button>
-<button class="btn btn-primary" onclick="myFacebookLogin()"><i class="fa fa-facebook"></i>Login with Facebook</button>
-<!--<button onclick="getAccountDetail()">Account Details</button>-->
-<!--<button onclick="getPageDetails()">Page Details</button>-->
-<!--<button onclick="getformDetails()">form Details</button>-->
-<!--<button onclick="getSingleLead('1235858640370001')">SIngle Lead</button>-->
-<button class="btn btn-success" onclick="fetchData()"><i class="fa fa-arrow-down"></i>Fetch Data</button>
+<button class="btn btn-primary" onclick="makeSubscription();btnDisableEnable(this.id)" id="makeSubscription"><i class="fa fa-facebook"></i>Subscribe with Facebook</button>
+<button class="btn btn-primary" onclick="myFacebookLogin();btnDisableEnable(this.id)" id="myFacebookLogin"><i class="fa fa-facebook"></i>Login with Facebook</button>
+<!--<button onclick="getAccountDetail();btnDisableEnable(this.id)">Account Details</button>-->
+<!--<button onclick="getPageDetails();btnDisableEnable(this.id)">Page Details</button>-->
+<!--<button onclick="getformDetails();btnDisableEnable(this.id)">form Details</button>-->
+<!--<button onclick="getSingleLead(';btnDisableEnable(this.id)1235858640370001')">SIngle Lead</button>-->
+<button class="btn btn-success" onclick="fetchData();btnDisableEnable(this.id)" id="fetchData"><i class="fa fa-arrow-down"></i>Fetch Data</button>
 
 <ul id="list"></ul>
 <div id="datas"></div>
