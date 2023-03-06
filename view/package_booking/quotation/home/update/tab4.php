@@ -2,271 +2,371 @@
 
     <div class="app_panel">
 
-        <?php
-
-		?>
         <div class="container">
-
             <div class="row">
+                <div class="col-md-12 app_accordion">
+                    <div class="panel-group main_block" id="accordion" role="tablist" aria-multiselectable="true">
 
-                <div class="col-xs-12">
-                    <h3 class="editor_title">Group Costing</h3>
-                    <div class="panel panel-default panel-body app_panel_style">
-                        <div class="row mg_bt_20_sm_xs">
-                            <div class="col-xs-12">
+                        <!-- Accordian-1 Start --><!-- Group Costing -->
+                        <div class="accordion_content main_block mg_bt_20">
 
-                                <div class="table-responsive">
-                                    <table id="tbl_package_tour_quotation_dynamic_costing"
-                                        name="tbl_package_tour_quotation_dynamic_costing" class="table no-marg border_0"
-                                        disabled>
-                                        <?php
-										$count = 0;
-										$sq_q_costing = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' ");
-										while ($row_q_costing = mysqli_fetch_assoc($sq_q_costing)) {
-											$count++;
-											$sq_package = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$row_q_costing[package_id]'"));
-											$package_id = $sq_package['package_name'];
-
-											$add_class1 = '';
-											if ($role == 'B2b') {
-												$add_class1 = "hidden";
-											} else {
-												$add_class1 = "text";
-											}
-											$basic_cost = $row_q_costing['basic_amount'];
-											$service_charge = $row_q_costing['service_charge'];
-											$bsmValues = json_decode($row_q_costing['bsmValues']);
-											$service_tax_amount = 0;
-											if ($sq_quotation['service_tax_subtotal'] !== 0.00 && ($sq_quotation['service_tax_subtotal']) !== '') {
-												$service_tax_subtotal1 = explode(',', $sq_quotation['service_tax_subtotal']);
-												for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
-													$service_tax = explode(':', $service_tax_subtotal1[$i]);
-													$service_tax_amount = $service_tax_amount + $service_tax[2];
-												}
-											}
-
-											foreach ($bsmValues[0] as $key => $value) {
-												switch ($key) {
-													case 'basic':
-														$basic_cost = ($value != "") ? $basic_cost + $service_tax_amount : $basic_cost;
-														$inclusive_b = $value;
-														break;
-													case 'service':
-														$service_charge = ($value != "") ? $service_charge + $service_tax_amount : $service_charge;
-														$inclusive_s = $value;
-														break;
-												}
-											}
-											$readonly = ($inclusive_d != '') ? 'readonly' : '';
-                                            if($bsmValues[0]->tax_apply_on == '1') {
-                                                $tax_apply_on = 'Basic Amount';
-                                            }
-                                            else if($bsmValues[0]->tax_apply_on == '2') { 
-                                                $tax_apply_on = 'Service Charge';
-                                            }
-                                            else if($bsmValues[0]->tax_apply_on == '3') { 
-                                                $tax_apply_on = 'Total';
-                                            }else{
-                                                $tax_apply_on = '';
-                                            }
-										?>
-                                        <tr>
-                                            <td class="header_btn hidden" style="display:none;"><small>&nbsp;</small><input class="css-checkbox"
-                                                    id="chk_costing<?= $count ?>" type="checkbox" checked disabled><span
-                                                    class="css-label" for="chk_costing1"></span></td>
-
-                                            <td class="header_btn hidden" style="display:none;">
-                                                <small>&nbsp;</small><input maxlength="15" value="1" type="text"
-                                                    name="username" placeholder="Sr. No." class="form-control"
-                                                    disabled /><span>SR.NO</span></td>
-                                            <td><small>&nbsp;</small><input type="text" id="package_type-<?= $count ?>"
-                                                    name="package_type-" placeholder="Package Type" title="Package Type"
-                                                    style="width:150px" value="<?= $row_q_costing['package_type'] ?>"
-                                                    readonly><span>Package Type</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="tour_cost-<?= $count ?>" name="tour_cost"
-                                                    placeholder="Hotel Cost" title="Hotel Cost"
-                                                    onchange="validate_balance(this.id);quotation_cost_calculate1(this.id);"
-                                                    value="<?php echo $row_q_costing['tour_cost']; ?>"
-                                                    style="width:100px"><span>Hotel Cost</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="transport_cost-<?= $count ?>" name="transport_cost"
-                                                    placeholder="Transport Cost" title="Transport Cost"
-                                                    onchange="validate_balance(this.id);quotation_cost_calculate1(this.id)"
-                                                    value="<?php echo $row_q_costing['transport_cost']; ?>"
-                                                    style="width:100px"><span>Transport Cost</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="excursion_cost-<?= $count ?>" name="excursion_cost"
-                                                    onchange="quotation_cost_calculate1(this.id); validate_balance(this.id)"
-                                                    placeholder="Activity Cost" title="Activity Cost"
-                                                    value="<?= $row_q_costing['excursion_cost'] ?>"
-                                                    style="width:150px"><span>Activity Cost</span></td>
-
-                                            <td class="header_btn"><small id="basic_show-"
-                                                    style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
-                                                    id="basic_amount-<?= $count ?>" name="basic_amount" onchange="quotation_cost_calculate1(this.id);get_business(this.id,'true');validate_balance(this.id)"
-                                                    placeholder="Basic Amount" title="Basic Amount" style="width:100px"
-                                                    value="<?= $row_q_costing['basic_amount'] ?>" readonly><span>Basic
-                                                    Amount</span></td>
-
-                                            <td class="header_btn"><small id="service_show-"
-                                                    style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
-                                                    id="service_charge-<?= $count ?>" name="service_charge"
-                                                    onchange="get_business(this.id,'false');quotation_cost_calculate1(this.id); validate_balance(this.id)" style="width:150px" placeholder="Service charge" title="Service charge" value="<?= $row_q_costing['service_charge'] ?>"><span>Service charge</span></td>
-                                            <td style="display: none !important;" class="header_btn"><small id="tax_apply_show-" style="color:#000000">&nbsp;</small><select title="Tax Apply On" id="tax_apply_on-<?= $count ?>" name="tax_apply_on-" class="hidden form-control" onchange="get_business(this.id,'true');" style="width: 150px!important;display: none">
-                                            <option value="<?php echo $bsmValues[0]->tax_apply_on ?>"><?php echo $tax_apply_on ?></option>
-                                                </select></td>
-                                            <td style="display: none !important;" class="header_btn"><small id="tax_show-" style="color:#000000">&nbsp;</small><select title="Select Tax" id="tax_value1-<?= $count ?>" name="tax_value1-" class="hidden form-control" onchange="get_business(this.id,'true');" style="width: 180px!important;display: none">
-    <option value="<?php echo $bsmValues[0]->tax_value ?>"><?php echo $bsmValues[0]->tax_value ?></option>
-		</select></td>
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="service_tax_subtotal-<?= $count ?>" name="service_tax_subtotal"
-                                                    readonly placeholder="Tax Amount" title="Tax Amount"
-                                                    value="<?= $row_q_costing['service_tax_subtotal'] ?>"
-                                                    style="width:150px"><span>Tax Amount</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="total_tour_cost-<?= $count ?>"
-                                                    class="amount_feild_highlight text-right" name="total_tour_cost"
-                                                    placeholder="Total Cost" title="Total Cost"
-                                                    value="<?= $row_q_costing['total_tour_cost'] ?>"
-                                                    style="width: 100px;" readonly><span>Total Cost</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="package_name1-<?= $count ?>" name="package_name1"
-                                                    placeholder="Package Name" title="Package Name"
-                                                    value="<?php echo $package_id; ?>" style="display: none" readonly>
-                                            </td>
-                                            <td class="header_btn"><input type="hidden"
-                                                    value="<?= $bsmValues[0]->tax_apply_on ?>" id="atax_apply_on-<?= $count ?>"></td>
-
-                                            <td class="header_btn"><input type="hidden"
-                                                    value="<?= $row_q_costing['id'] ?>"></td>
-
-                                        </tr>
-
-                                        <?php
-
-										}
-
-										?>
-
-                                    </table>
-
+                            <div class="panel panel-default main_block">
+                                <div class="panel-heading main_block" role="tab" id="headingl1">
+                                    <div class="Normal main_block" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapsel1" aria-expanded="true"
+                                        aria-controls="collapsel1" id="collapsedl1">
+                                        <div class="col-md-12"><span>Group Costing</span></div>
+                                    </div>
                                 </div>
+                                <div id="collapsel1" class="panel-collapse collapse in main_block" role="tabpanel"
+                                    aria-labelledby="headingl1">
+                                    <div class="panel-body">
 
+                                        <div class="row">
+
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Land Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <div class="row mg_bt_20_sm_xs">
+                                                        <div class="col-xs-12">
+
+                                                            <div class="table-responsive">
+                                                                <table id="tbl_package_tour_quotation_dynamic_costing"
+                                                                    name="tbl_package_tour_quotation_dynamic_costing" class="table no-marg border_0"
+                                                                    disabled>
+                                                                    <?php
+                                                                    $count = 0;
+                                                                    $sq_q_costing = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' ");
+                                                                    while ($row_q_costing = mysqli_fetch_assoc($sq_q_costing)) {
+                                                                        $count++;
+                                                                        $sq_package = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$row_q_costing[package_id]'"));
+                                                                        $package_id = $sq_package['package_name'];
+
+                                                                        $add_class1 = '';
+                                                                        if ($role == 'B2b') {
+                                                                            $add_class1 = "hidden";
+                                                                        } else {
+                                                                            $add_class1 = "text";
+                                                                        }
+                                                                        $basic_cost = $row_q_costing['basic_amount'];
+                                                                        $service_charge = $row_q_costing['service_charge'];
+                                                                        $bsmValues = json_decode($row_q_costing['bsmValues']);
+                                                                        $service_tax_amount = 0;
+                                                                        if ($sq_quotation['service_tax_subtotal'] !== 0.00 && ($sq_quotation['service_tax_subtotal']) !== '') {
+                                                                            $service_tax_subtotal1 = explode(',', $sq_quotation['service_tax_subtotal']);
+                                                                            for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
+                                                                                $service_tax = explode(':', $service_tax_subtotal1[$i]);
+                                                                                $service_tax_amount = $service_tax_amount + $service_tax[2];
+                                                                            }
+                                                                        }
+
+                                                                        foreach ($bsmValues[0] as $key => $value) {
+                                                                            switch ($key) {
+                                                                                case 'basic':
+                                                                                    $basic_cost = ($value != "") ? $basic_cost + $service_tax_amount : $basic_cost;
+                                                                                    $inclusive_b = $value;
+                                                                                    break;
+                                                                                case 'service':
+                                                                                    $service_charge = ($value != "") ? $service_charge + $service_tax_amount : $service_charge;
+                                                                                    $inclusive_s = $value;
+                                                                                    break;
+                                                                            }
+                                                                        }
+                                                                        $readonly = ($inclusive_d != '') ? 'readonly' : '';
+                                                                        if($bsmValues[0]->tax_apply_on == '1') {
+                                                                            $tax_apply_on = 'Basic Amount';
+                                                                        }
+                                                                        else if($bsmValues[0]->tax_apply_on == '2') { 
+                                                                            $tax_apply_on = 'Service Charge';
+                                                                        }
+                                                                        else if($bsmValues[0]->tax_apply_on == '3') { 
+                                                                            $tax_apply_on = 'Total';
+                                                                        }else{
+                                                                            $tax_apply_on = '';
+                                                                        }
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td class="header_btn hidden" style="display:none;"><small>&nbsp;</small><input class="css-checkbox"
+                                                                                id="chk_costing<?= $count ?>" type="checkbox" checked disabled><span
+                                                                                class="css-label" for="chk_costing1"></span></td>
+
+                                                                        <td class="header_btn hidden" style="display:none;">
+                                                                            <small>&nbsp;</small><input maxlength="15" value="1" type="text"
+                                                                                name="username" placeholder="Sr. No." class="form-control"
+                                                                                disabled /><span>SR.NO</span></td>
+                                                                        <td><small>&nbsp;</small><input type="text" id="package_type-<?= $count ?>"
+                                                                                name="package_type-" placeholder="Package Type" title="Package Type"
+                                                                                style="width:150px" value="<?= $row_q_costing['package_type'] ?>"
+                                                                                readonly><span>Package Type</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="tour_cost-<?= $count ?>" name="tour_cost"
+                                                                                placeholder="Hotel Cost" title="Hotel Cost"
+                                                                                onchange="validate_balance(this.id);quotation_cost_calculate1(this.id);"
+                                                                                value="<?php echo $row_q_costing['tour_cost']; ?>"
+                                                                                style="width:100px"><span>Hotel Cost</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="transport_cost-<?= $count ?>" name="transport_cost"
+                                                                                placeholder="Transport Cost" title="Transport Cost"
+                                                                                onchange="validate_balance(this.id);quotation_cost_calculate1(this.id)"
+                                                                                value="<?php echo $row_q_costing['transport_cost']; ?>"
+                                                                                style="width:100px"><span>Transport Cost</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="excursion_cost-<?= $count ?>" name="excursion_cost"
+                                                                                onchange="quotation_cost_calculate1(this.id); validate_balance(this.id)"
+                                                                                placeholder="Activity Cost" title="Activity Cost"
+                                                                                value="<?= $row_q_costing['excursion_cost'] ?>"
+                                                                                style="width:150px"><span>Activity Cost</span></td>
+
+                                                                        <td class="header_btn"><small id="basic_show-"
+                                                                                style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
+                                                                                id="basic_amount-<?= $count ?>" name="basic_amount" onchange="quotation_cost_calculate1(this.id);get_business(this.id,'true');validate_balance(this.id)"
+                                                                                placeholder="Basic Amount" title="Basic Amount" style="width:100px"
+                                                                                value="<?= $row_q_costing['basic_amount'] ?>" readonly><span>Basic
+                                                                                Amount</span></td>
+
+                                                                        <td class="header_btn"><small id="service_show-"
+                                                                                style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
+                                                                                id="service_charge-<?= $count ?>" name="service_charge"
+                                                                                onchange="get_business(this.id,'false');quotation_cost_calculate1(this.id); validate_balance(this.id)" style="width:150px" placeholder="Service charge" title="Service charge" value="<?= $row_q_costing['service_charge'] ?>"><span>Service charge</span></td>
+                                                                        <td style="display: none !important;" class="header_btn"><small id="tax_apply_show-" style="color:#000000">&nbsp;</small><select title="Tax Apply On" id="tax_apply_on-<?= $count ?>" name="tax_apply_on-" class="hidden form-control" onchange="get_business(this.id,'true');" style="width: 150px!important;display: none">
+                                                                        <option value="<?php echo $bsmValues[0]->tax_apply_on ?>"><?php echo $tax_apply_on ?></option>
+                                                                            </select></td>
+                                                                        <td style="display: none !important;" class="header_btn"><small id="tax_show-" style="color:#000000">&nbsp;</small><select title="Select Tax" id="tax_value1-<?= $count ?>" name="tax_value1-" class="hidden form-control" onchange="get_business(this.id,'true');" style="width: 180px!important;display: none">
+                                                                            <option value="<?php echo $bsmValues[0]->tax_value ?>"><?php echo $bsmValues[0]->tax_value ?></option>
+                                                                            </select></td>
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="service_tax_subtotal-<?= $count ?>" name="service_tax_subtotal"
+                                                                                readonly placeholder="Tax Amount" title="Tax Amount"
+                                                                                value="<?= $row_q_costing['service_tax_subtotal'] ?>"
+                                                                                style="width:150px"><span>Tax Amount</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="total_tour_cost-<?= $count ?>"
+                                                                                class="amount_feild_highlight text-right" name="total_tour_cost"
+                                                                                placeholder="Total Cost" title="Total Cost"
+                                                                                value="<?= $row_q_costing['total_tour_cost'] ?>"
+                                                                                style="width: 100px;" readonly><span>Total Cost</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="package_name1-<?= $count ?>" name="package_name1"
+                                                                                placeholder="Package Name" title="Package Name"
+                                                                                value="<?php echo $package_id; ?>" style="display: none" readonly>
+                                                                        </td>
+                                                                        <td class="header_btn"><input type="hidden"
+                                                                                value="<?= $bsmValues[0]->tax_apply_on ?>" id="atax_apply_on-<?= $count ?>"></td>
+
+                                                                        <td class="header_btn"><input type="hidden"
+                                                                                value="<?= $row_q_costing['id'] ?>"></td>
+
+                                                                    </tr>
+
+                                                                    <?php
+
+                                                                    }
+
+                                                                    ?>
+
+                                                                </table>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mg_tp_10">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Travel Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <!-- Other costs -->
+                                                    <div class="row">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Cost</span>
+                                                            <input type="text" id="flight_cost1" value="<?php echo $sq_quotation['flight_cost']; ?>"
+                                                                name="flight_cost" placeholder="Flight Cost" title="Flight Cost"
+                                                                onchange="validate_balance(this.id)">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Cost</span>
+                                                            <input type="text" id="train_cost1" name="train_cost"
+                                                                value="<?php echo $sq_quotation['train_cost']; ?>" placeholder="Train Cost"
+                                                                title="Train Cost" onchange="validate_balance(this.id)">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn mg_bt_10">
+                                                            <span>Cruise Cost</span>
+                                                            <input type="text" id="cruise_cost1" name="cruise_cost1" placeholder="Cruise Cost"
+                                                                value="<?php echo $sq_quotation['cruise_cost']; ?>" title="Cruise Cost"
+                                                                onchange="validate_balance(this.id)">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-                    </div>
-                </div>
+                        <!-- Accordian-1 End --><!-- Group Costing -->
+                        <!-- Accordian-2 Start --><!-- Per person Costing -->
+                        <div class="accordion_content main_block">
 
-            </div>
+                            <div class="panel panel-default main_block">
+                                <div class="panel-heading main_block" role="tab" id="headingl_2">
+                                    <div class="Normal main_block" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapsel2" aria-expanded="true"
+                                        aria-controls="collapsel2" id="collapsedl2">
+                                        <div class="col-md-12"><span>Per Person Costing</span></div>
+                                    </div>
+                                </div>
+                                <div id="collapsel2" class="panel-collapse collapse main_block" role="tabpanel"
+                                    aria-labelledby="headingl_2">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Land Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <!-- Adult & child cost -->
+                                                    <?php
+                                                    $count = 0;
+                                                    $countp = 1;
+                                                    $sq_cost_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id'"));
+                                                    ?>
+                                                    <input type="hidden" id="sq_ppcost_count" value="<?= $sq_cost_count ?>" />
+                                                    <?php
+                                                    $sq_q_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' ");
+                                                    while ($row_q_costing1 = mysqli_fetch_assoc($sq_q_costing1)) {
 
+                                                        $sq_package = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$row_q_costing1[package_id]'"));
+                                                        $id = $row_q_costing1['id'];
+                                                    ?>
+                                                    <div class="row mg_tp_10">
+                                                        <div class="col-md-3">
+                                                            <span>Package Type</span>
+                                                            <input type="text" id="package_type1" onchange="validate_balance(this.id);"
+                                                                name="package_type" placeholder="Package Type" title="Package Type"
+                                                                value="<?= $row_q_costing1['package_type'] ?>" readonly>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <span>Adult Cost</span>
+                                                            <input type="text" id='adult_cost1<?= $countp ?>' onchange="validate_balance(this.id);"
+                                                                name="adult_cost1" placeholder="Adult Cost" title="Adult Cost"
+                                                                value="<?= $row_q_costing1['adult_cost'] ?>">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <span>Child with Bed Cost</span>
+                                                            <input type="text" id="child_with1<?= $countp ?>" onchange="validate_balance(this.id);"
+                                                                name="child_with1" placeholder="Child with Bed Cost" title="Child with Bed Cost"
+                                                                value="<?= $row_q_costing1['child_with'] ?>">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <span>Child w/o Bed Cost</span>
+                                                            <input type="text" id="child_without1<?= $countp ?>"
+                                                                onchange="validate_balance(this.id);" name="child_without1"
+                                                                placeholder="Child w/o Bed Cost" title="Child w/o Bed Cost"
+                                                                value="<?= $row_q_costing1['child_without'] ?>">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <span>Infant Cost</span>
+                                                            <input type="text" id="infant_cost1<?= $countp ?>" onchange="validate_balance(this.id);"
+                                                                name="infant_cost1" placeholder="Infant Cost" title="Infant Cost"
+                                                                value="<?= $row_q_costing1['infant_cost'] ?>">
+                                                        </div>
+                                                        <input type="hidden" id="entry_id1<?= $countp ?>" value="<?= $row_q_costing1['id'] ?>">
+                                                    </div>
+                                                    <?php $countp++;
+                                                    } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row mg_tp_20">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Travel Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <!-- Other costs -->
+                                                    <div class="row">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Adult Cost</span>
+                                                            <input type="number" id="flight_acost1" name="flight_acost" placeholder="Flight Adult Cost" title="Flight Adult Cost" value="<?php echo $sq_quotation['flight_acost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Child Cost</span>
+                                                            <input type="number" id="flight_ccost1" name="flight_ccost" placeholder="Flight Child Cost" title="Flight Child Cost" value="<?php echo $sq_quotation['flight_ccost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Infant Cost</span>
+                                                            <input type="number" id="flight_icost1" name="flight_icost" placeholder="Flight Infant Cost" title="Flight Infant Cost" value="<?php echo $sq_quotation['flight_icost']; ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mg_tp_10">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Adult Cost</span>
+                                                            <input type="number" id="train_acost1" name="train_acost" placeholder="Train Adult Cost" title="Train Adult Cost" value="<?php echo $sq_quotation['train_acost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Child Cost</span>
+                                                            <input type="number" id="train_ccost1" name="train_ccost" placeholder="Train Child Cost" title="Train Child Cost" value="<?php echo $sq_quotation['train_ccost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Infant Cost</span>
+                                                            <input type="number" id="train_icost1" name="train_icost" placeholder="Train Infant Cost" title="Train Infant Cost" value="<?php echo $sq_quotation['train_icost']; ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mg_tp_10">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Adult Cost</span>
+                                                            <input type="number" id="cruise_acost1" name="cruise_acost" placeholder="Cruise Adult Cost" title="Cruise Adult Cost" value="<?php echo $sq_quotation['cruise_acost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Child Cost</span>
+                                                            <input type="number" id="cruise_ccost1" name="cruise_ccost" placeholder="Cruise Child Cost" title="Cruise Child Cost" value="<?php echo $sq_quotation['cruise_ccost']; ?>">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Infant Cost</span>
+                                                            <input type="number" id="cruise_icost1" name="cruise_icost" placeholder="Cruise Infant Cost" title="Cruise Infant Cost" value="<?php echo $sq_quotation['cruise_icost']; ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div></div></div>
             <div class="row">
                 <div class="col-xs-12">
-                    <h3 class="editor_title">Travel & Other Costing for group</h3>
+                    <h3 class="editor_title">Other Costing</h3>
                     <div class="panel panel-default panel-body app_panel_style">
-                        <!-- Other costs -->
-                        <div class="row">
-                            <div class="col-md-2 header_btn col-xs-12 mg_bt_10">
-                                <span>Train Cost</span>
-                                <input type="text" id="train_cost1" name="train_cost"
-                                    value="<?php echo $sq_quotation['train_cost']; ?>" placeholder="Train Cost"
-                                    title="Train Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn col-xs-12 mg_bt_10">
-                                <span>Flight Cost</span>
-                                <input type="text" id="flight_cost1" value="<?php echo $sq_quotation['flight_cost']; ?>"
-                                    name="flight_cost" placeholder="Flight Cost" title="Flight Cost"
-                                    onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Cruise Cost</span>
-                                <input type="text" id="cruise_cost1" name="cruise_cost1" placeholder="Cruise Cost"
-                                    value="<?php echo $sq_quotation['cruise_cost']; ?>" title="Cruise Cost"
-                                    onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn col-xs-12 mg_bt_10">
-                                <span>Visa Cost</span>
-                                <input type="text" id="visa_cost1" value="<?php echo $sq_quotation['visa_cost']; ?>"
-                                    name="visa_cost" placeholder="Visa Cost" title="Visa Cost"
-                                    onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Guide Cost</span>
-                                <input type="text" id="guide_cost1" name="guide_cost1" placeholder="Guide Cost"
-                                    value="<?php echo $sq_quotation['guide_cost']; ?>" title="Guide Cost"
-                                    onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Miscellaneous Cost</span>
-                                <input type="text" id="misc_cost1" name="misc_cost1" placeholder="Miscellaneous Cost"
-                                    value="<?php echo $sq_quotation['misc_cost']; ?>" title="Miscellaneous Cost"
-                                    onchange="validate_balance(this.id)">
-                            </div>
+                        <div class="col-md-3 header_btn col-xs-12 mg_bt_10">
+                            <span>Visa Cost</span>
+                            <input type="text" id="visa_cost1" value="<?php echo $sq_quotation['visa_cost']; ?>"
+                                name="visa_cost" placeholder="Visa Cost" title="Visa Cost"
+                                onchange="validate_balance(this.id)">
                         </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3 class="editor_title">Per Person Costing</h3>
-                    <div class="panel panel-default panel-body app_panel_style">
-                        <!-- Adult & child cost -->
-                        <?php
-						$count = 0;
-						$countp = 1;
-						$sq_cost_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id'"));
-						?>
-                        <input type="hidden" id="sq_ppcost_count" value="<?= $sq_cost_count ?>" />
-                        <?php
-						$sq_q_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' ");
-						while ($row_q_costing1 = mysqli_fetch_assoc($sq_q_costing1)) {
-
-							$sq_package = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$row_q_costing1[package_id]'"));
-							$id = $row_q_costing1['id'];
-						?>
-                        <div class="row mg_tp_10">
-                            <div class="col-md-3">
-                                <span>Package Type</span>
-                                <input type="text" id="package_type1" onchange="validate_balance(this.id);"
-                                    name="package_type" placeholder="Package Type" title="Package Type"
-                                    value="<?= $row_q_costing1['package_type'] ?>" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <span>Adult Cost</span>
-                                <input type="text" id='adult_cost1<?= $countp ?>' onchange="validate_balance(this.id);"
-                                    name="adult_cost1" placeholder="Adult Cost" title="Adult Cost"
-                                    value="<?= $row_q_costing1['adult_cost'] ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <span>Child with Bed Cost</span>
-                                <input type="text" id="child_with1<?= $countp ?>" onchange="validate_balance(this.id);"
-                                    name="child_with1" placeholder="Child with Bed Cost" title="Child with Bed Cost"
-                                    value="<?= $row_q_costing1['child_with'] ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <span>Child w/o Bed Cost</span>
-                                <input type="text" id="child_without1<?= $countp ?>"
-                                    onchange="validate_balance(this.id);" name="child_without1"
-                                    placeholder="Child w/o Bed Cost" title="Child w/o Bed Cost"
-                                    value="<?= $row_q_costing1['child_without'] ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <span>Infant Cost</span>
-                                <input type="text" id="infant_cost1<?= $countp ?>" onchange="validate_balance(this.id);"
-                                    name="infant_cost1" placeholder="Infant Cost" title="Infant Cost"
-                                    value="<?= $row_q_costing1['infant_cost'] ?>">
-                            </div>
-                            <input type="hidden" id="entry_id1<?= $countp ?>" value="<?= $row_q_costing1['id'] ?>">
+                        <div class="col-md-3 header_btn mg_bt_10">
+                            <span>Guide Cost</span>
+                            <input type="text" id="guide_cost1" name="guide_cost1" placeholder="Guide Cost"
+                                value="<?php echo $sq_quotation['guide_cost']; ?>" title="Guide Cost"
+                                onchange="validate_balance(this.id)">
                         </div>
-                        <?php $countp++;
-						} ?>
+                        <div class="col-md-3 header_btn mg_bt_10">
+                            <span>Miscellaneous Cost</span>
+                            <input type="text" id="misc_cost1" name="misc_cost1" placeholder="Miscellaneous Cost"
+                                value="<?php echo $sq_quotation['misc_cost']; ?>" title="Miscellaneous Cost"
+                                onchange="validate_balance(this.id)">
+                        </div>
+                        <div class="col-md-3 header_btn mg_bt_10">
+                            <span>Other Description</span>
+                            <textarea id="other_desc1" name="other_desc1" placeholder="Miscellaneous Description" title="Miscellaneous Description"><?php echo $sq_quotation['other_desc']; ?></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,7 +399,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-3 col-sm-12 text-right">
+                <div class="col-md-3 col-sm-12">
                     <div class="div-upload">
                         <div id="price_structure1" class="upload-button1"><span>Price Structure</span></div>
                         <span id="photo_status"></span>
@@ -327,6 +427,8 @@
                             class="fa fa-floppy-o"></i>&nbsp;&nbsp;Update</button>
                 </div>
             </div>
+        </div>
+    </div>
 </form>
 <?= end_panel(); ?>
 <script>
@@ -904,6 +1006,18 @@ $('#frm_tab4').validate({
             child_without_arr.push(child_without);
             entry_id_arr.push(entry_id);
         }
+        //Per person travel costing
+        var flight_acost = $('#flight_acost1').val();
+        var flight_ccost = $('#flight_ccost1').val();
+        var flight_icost = $('#flight_icost1').val();
+        var train_acost = $('#train_acost1').val();
+        var train_ccost = $('#train_ccost1').val();
+        var train_icost = $('#train_icost1').val();
+        var cruise_acost = $('#cruise_acost1').val();
+        var cruise_ccost = $('#cruise_ccost1').val();
+        var cruise_icost = $('#cruise_icost1').val();
+        var other_desc = $('#other_desc1').val();
+
         var costing_type = $('#costing_type1').val();
         var inclusions = $('#inclusions1').val();
         var exclusions = $('#exclusions1').val();
@@ -1041,7 +1155,8 @@ $('#frm_tab4').validate({
                             chwb_arr: chwb_arr,
                             chwob_arr: chwob_arr,
                             infant_arr: infant_arr,
-                            discount: discount
+                            discount: discount,
+                            flight_acost : flight_acost,flight_ccost:flight_ccost,flight_icost:flight_icost,train_acost:train_acost,train_ccost:train_ccost,train_icost:train_icost,cruise_acost:cruise_acost,cruise_ccost:cruise_ccost,cruise_icost:cruise_icost,other_desc:other_desc
                         },
 
                         success: function(message) {

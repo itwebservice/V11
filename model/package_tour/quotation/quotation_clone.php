@@ -12,7 +12,7 @@ public function quotation_master_clone()
 
 	$result = mysqlQuery("SHOW COLUMNS FROM package_tour_quotation_master"); 
 	while ($r=mysqli_fetch_assoc($result)) {
-	   $cols[]= $r["Field"];
+		$cols[]= $r["Field"];
 	}
 
 	$result = mysqlQuery("SELECT * FROM package_tour_quotation_master WHERE quotation_id='$quotation_id'");
@@ -26,6 +26,10 @@ public function quotation_master_clone()
 					$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(quotation_id) as max from package_tour_quotation_master"));
 					$quotation_max = $sq_max['max']+1;
 					$insertSQL .= "'".$quotation_max."'";	
+				}
+				else if($col=='other_desc'){
+					$other_desc = addslashes($r[$col]);
+					$insertSQL .= "'".$other_desc."'";
 				}
 				else if($col=='inclusions' || $col=='exclusions'){
 					$incl_excl = addslashes($r[$col]);

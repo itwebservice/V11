@@ -100,7 +100,7 @@
                         <div class="accordion_content main_block mg_bt_10">
 
                             <div class="panel panel-default main_block">
-                                <div class="panel-heading main_block" role="tab" id="heading_<?= $count ?>">
+                                <div class="panel-heading main_block" role="tab" id="heading1">
                                     <div class="Normal main_block" role="button" data-toggle="collapse"
                                         data-parent="#accordion" href="#collapse1" aria-expanded="true"
                                         aria-controls="collapse1" id="collapsed1">
@@ -633,9 +633,11 @@ event_airport('tbl_package_tour_quotation_dynamic_plane');
 jQuery(document).ready(function() {
     jQuery(".panel-heading").click(function() {
         jQuery('#accordion .panel-heading').not(this).removeClass('isOpen');
+        jQuery('#accordionl .panel-heading').not(this).removeClass('isOpen');
         jQuery(this).toggleClass('isOpen');
         jQuery(this).next(".panel-collapse").addClass('thePanel');
         jQuery('#accordion .panel-collapse').not('.thePanel').slideUp("slow");
+        jQuery('#accordionl .panel-collapse').not('.thePanel').slideUp("slow");
         jQuery(".thePanel").slideToggle("slow").removeClass('thePanel');
     });
 });

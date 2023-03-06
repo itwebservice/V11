@@ -115,6 +115,16 @@ public function quotation_master_save()
 
 	$package_id_arr = $_POST['package_id_arr'] ?: [];
 	$discount = $_POST['discount'];
+	$flight_acost = $_POST['flight_acost'];
+	$flight_ccost = $_POST['flight_ccost'];
+	$flight_icost = $_POST['flight_icost'];
+	$train_acost = $_POST['train_acost'];
+	$train_ccost = $_POST['train_ccost'];
+	$train_icost = $_POST['train_icost'];
+	$cruise_acost = $_POST['cruise_acost'];
+	$cruise_ccost = $_POST['cruise_ccost'];
+	$cruise_icost = $_POST['cruise_icost'];
+	$other_desc = addslashes($_POST['other_desc']);
 
 	// Package Program
 	$attraction_arr = $_POST['attraction_arr'];
@@ -141,7 +151,7 @@ public function quotation_master_save()
 		$quotation_id = $sq_max['max']+1;
 	    $quotation_id_arr[$i] = $quotation_id;
 
-		$sq_quotation = mysqlQuery("insert into package_tour_quotation_master ( quotation_id,enquiry_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, email_id,mobile_no, total_adult, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type, train_cost, flight_cost, cruise_cost, visa_cost, guide_cost,misc_cost, price_str_url, package_id, created_at, login_id,emp_id,inclusions,exclusions,costing_type,currency_code,discount,status) values ( '$quotation_id','$enquiry_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$email_id','$mobile_no', '$total_adult', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$train_cost','$flight_cost','$cruise_cost','$visa_cost','$guide_cost','$misc_cost','$price_str_url','$package_id_arr[$i]', '$created_at', '$login_id', '$emp_id','$incl','$excl','$costing_type','$currency_code','$discount','1')");
+		$sq_quotation = mysqlQuery("insert into package_tour_quotation_master ( quotation_id,enquiry_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, email_id,mobile_no, total_adult, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type, train_cost, flight_cost, cruise_cost, visa_cost, guide_cost,misc_cost, price_str_url, package_id, created_at, login_id,emp_id,inclusions,exclusions,costing_type,currency_code,discount,status, train_acost, flight_acost, cruise_acost, train_ccost, flight_ccost, cruise_ccost, train_icost, flight_icost, cruise_icost,other_desc) values ( '$quotation_id','$enquiry_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$email_id','$mobile_no', '$total_adult', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$train_cost','$flight_cost','$cruise_cost','$visa_cost','$guide_cost','$misc_cost','$price_str_url','$package_id_arr[$i]', '$created_at', '$login_id', '$emp_id','$incl','$excl','$costing_type','$currency_code','$discount','1','$train_acost','$flight_acost','$cruise_acost','$train_ccost','$flight_ccost','$cruise_ccost','$train_icost','$flight_icost','$cruise_icost','$other_desc')");
 
 		$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(id) as max from package_tour_quotation_images"));
 		$image_id = $sq_max['max']+1;

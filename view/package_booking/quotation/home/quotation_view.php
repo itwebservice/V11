@@ -540,8 +540,8 @@ $count = 0;
 				<th>Infant</th>
 				<th>Service_Charge</th>
 				<th>Tax</th>
+				<th>Flight(A/C/I)</th>
 				<th>Train</th>
-				<th>Flight</th>
 				<th>Cruise</th>
 				<th>Visa</th>
 				<th>Guide</th>
@@ -561,9 +561,9 @@ $count = 0;
 				<td><?= number_format($sq_cost['infant_cost'],2)  ?></td>
 				<td><?= number_format($sq_cost['service_charge'],2) ?></td>
 				<td><?= ($sq_cost['service_tax_subtotal']!='')?$sq_cost['service_tax_subtotal']:'0.00' ?></td>
-				<td><?= number_format($sq_quotation['train_cost'],2)  ?></td>
-				<td><?= number_format($sq_quotation['flight_cost'],2)  ?></td>
-				<td><?= number_format($sq_quotation['cruise_cost'],2)  ?></td>
+				<td><?= number_format($sq_quotation['flight_acost'],2).'/'.number_format($sq_quotation['flight_ccost'],2).'/'.number_format($sq_quotation['flight_icost'],2)  ?></td>
+				<td><?= number_format($sq_quotation['train_acost'],2).'/'.number_format($sq_quotation['train_ccost'],2).'/'.number_format($sq_quotation['train_icost'],2)  ?></td>
+				<td><?= number_format($sq_quotation['cruise_acost'],2).'/'.number_format($sq_quotation['cruise_ccost'],2).'/'.number_format($sq_quotation['cruise_icost'],2)  ?></td>
 				<td><?= number_format($sq_quotation['visa_cost'],2)  ?></td>
 				<td><?= number_format($sq_quotation['guide_cost'],2)  ?></td>
 				<td><?= number_format($sq_quotation['misc_cost'],2)  ?></td>
@@ -577,6 +577,7 @@ $count = 0;
 </div>
 
 
+<?php if($sq_quotation['inclusions'] != ''){ ?>
 <div class="row mg_tp_30">
 	<div class="col-md-12">
 		<h3 class="editor_title">Inclusions</h3>
@@ -585,6 +586,8 @@ $count = 0;
 		</div>
 	</div>
 </div>
+<?php }
+if($sq_quotation['exclusions'] != ''){ ?>
 <div class="row mg_tp_10">
 	<div class="col-md-12">
 		<h3 class="editor_title">Exclusions</h3>
@@ -593,6 +596,8 @@ $count = 0;
 		</div>
 	</div>
 </div>
+<?php }
+if($sq_package['note'] != ''){ ?>
 <div class="row mg_tp_10">
 	<div class="col-md-12">
 		<h3 class="editor_title">Note</h3>
@@ -601,6 +606,17 @@ $count = 0;
 		</div>
 	</div>
 </div>
+<?php }
+if($sq_quotation['other_desc'] != ''){ ?>
+<div class="row mg_tp_10">
+	<div class="col-md-12">
+		<h3 class="editor_title">Other Description</h3>
+		<div class="panel panel-default panel-body app_panel_style">
+			<?= $sq_quotation['other_desc'] ?>
+		</div>
+	</div>
+</div>
+<?php } ?>
 <div class="row mg_tp_10 hidden">
 	<div class="col-md-12">
 		<h3 class="editor_title">Terms & Conditions</h3>

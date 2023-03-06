@@ -2,201 +2,302 @@
     <div class="app_panel">
 
         <div class="container">
-            <div class="row mg_tp_10">
-                <div class="col-xs-12">
-                    <h3 class="editor_title">Group Costing</h3>
-                    <div class="panel panel-default panel-body app_panel_style">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="table-responsive">
-                                    <table id="tbl_package_tour_quotation_dynamic_costing"
-                                        name="tbl_package_tour_quotation_dynamic_costing"
-                                        class="table border_0 no-marg">
-                                        <tr>
-                                            <td class="header_btn" style="display:none;"><input class="css-checkbox"
-                                                    id="chk_costing1" type="checkbox" checked disabled><span
-                                                    class="css-label" for="chk_costing1"> </span></td>
-                                            <td class="header_btn hidden" style="display:none;">
-                                                <small>&nbsp;</small><input type="text" maxlength="15" value="1"
-                                                    name="username" placeholder="Sr. No." class="form-control"
-                                                    disabled /></td>
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="package_type-" name="package_type-" placeholder="Package Type"
-                                                    title="Package Type" style="width:150px" readonly><span>Package
-                                                    Type</span></td>
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="tour_cost-" name="tour_cost-" placeholder="Hotel Cost"
-                                                    title="Hotel Cost" value="0"
-                                                    onchange="quotation_cost_calculate(this.id);validate_balance(this.id)"
-                                                    style="width:100px"><span>Hotel Cost</span></td>
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="transport_cost1-" name="transport_cost1-"
-                                                    placeholder="Transport Cost" title="Transport Cost"
-                                                    onchange="quotation_cost_calculate(this.id);validate_balance(this.id)"
-                                                    style="width:100px" value="0"><span>Transport Cost</span></td>
-                                            <?php
-											$add_class1 = '';
-											if ($role == 'B2b') {
-												$add_class1 = "hidden";
-											} else {
-												$add_class1 = "text";
-											} ?>
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="excursion_cost-" name="excursion_cost-"
-                                                    onchange="quotation_cost_calculate(this.id);validate_balance(this.id);"
-                                                    placeholder="Activity Cost" title="Activity Cost"
-                                                    style="width:100px" value="0"><span>Activity Cost</span></td>
-
-                                            <td class="header_btn"><small id="basic_show-"
-                                                    style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
-                                                    id="basic_amount-" name="basic_amount-"
-                                                    onchange="get_business(this.id,'true');validate_balance(this.id);"
-                                                    placeholder="Basic Amount" title="Basic Amount" style="width:100px"
-                                                    readonly><span>Basic Amount</span></td>
-
-                                            <td class="header_btn"><small id="service_show-"
-                                                    style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
-                                                    id="service_charge-" name="service_charge-"
-                                                    onchange="get_business(this.id,'false');quotation_cost_calculate(this.id); validate_balance(this.id)"
-                                                    value="0.00" placeholder="Service charge" title="Service charge"
-                                                    style="width:100px"><span>Service charge</span></td>
-
-                                            <td class="header_btn"><small id="tax_apply_show-" style="color:#000000">&nbsp;</small><select title="Tax Apply On" id="tax_apply_on-" name="tax_apply_on-" class="form-control" onchange="get_business(this.id,'true');" style="width: 150px!important;">
-			<option value="">*Tax Apply On</option>
-			<option value="1">Basic Amount</option>
-			<option value="2">Service Charge</option>
-			<option value="3">Total</option>
-		</select><span>Tax Apply On</span></td>
-                                            <td class="header_btn"><small id="tax_show-" style="color:#000000">&nbsp;</small><select title="Select Tax" id="tax_value-" name="tax_value-" class="form-control" onchange="get_business(this.id,'true');" style="width: 180px!important;">
-			<option value="">*Select Tax</option>
-			<?php get_tax_dropdown('Income') ?>
-		</select><span>Select Tax</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="service_tax_subtotal-" name="service_tax_subtotal-" readonly
-                                                    placeholder="Tax Amount" title="Tax Amount"
-                                                    style="width:180px"><span>Tax Amount</span></td>
-
-                                            <td class="header_btn"><small>&nbsp;</small><input type="text"
-                                                    id="total_tour_cost-" class="amount_feild_highlight text-right"
-                                                    name="total_tour_cost-" placeholder="Total Cost" title="Total Cost"
-                                                    style="width: 100px;" readonly><span>Total Cost</span></td>
-
-                                            <td class="header_btn hidden" style="display:none;">
-                                                <small>&nbsp;</small><input type="text" id="package_name1"
-                                                    name="package_name1" placeholder="Package Name" title="Package Name"
-                                                    style="width: 160px;display:none;" readonly></td>
-
-                                            <td class="header_btn hidden" style="display:none;">
-                                                <small>&nbsp;</small><input type="text" id="package_id1"
-                                                    name="package_id1" placeholder="Package ID" title="Package ID"
-                                                    style="display:none;"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
-                <div class="col-xs-12">
-                    <h3 class="editor_title">Travel & Other Costing for group</h3>
-                    <div class="panel panel-default panel-body app_panel_style">
-                        <!-- Other costs -->
-                        <div class="row">
-                            <div class="col-md-2 header_btn col-xs-12 mg_bt_10">
-                                <span>Train Cost</span>
-                                <input type="text" id="train_cost" name="train_cost" placeholder="Train Cost"
-                                    title="Train Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Flight Cost</span>
-                                <input type="text" id="flight_cost" name="flight_cost" placeholder="Flight Cost"
-                                    title="Flight Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Cruise Cost</span>
-                                <input type="text" id="cruise_cost" name="cruise_cost" placeholder="Cruise Cost"
-                                    title="Cruise Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Visa Cost</span>
-                                <input type="text" id="visa_cost" name="visa_cost" placeholder="Visa Cost"
-                                    title="Visa Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Guide Cost</span>
-                                <input type="text" id="guide_cost" name="guide_cost" placeholder="Guide Cost"
-                                    title="Guide Cost" onchange="validate_balance(this.id)">
-                            </div>
-                            <div class="col-md-2 header_btn mg_bt_10">
-                                <span>Miscellaneous Cost</span>
-                                <input type="text" id="misc_cost" name="misc_cost" placeholder="Miscellaneous Cost"
-                                    title="Miscellaneous Cost" onchange="validate_balance(this.id)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3 class="editor_title">Per Person Costing</h3>
-                    <div class="panel panel-default panel-body app_panel_style">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="table-responsive">
-                                    <table id="tbl_adult_child_head" name="tbl_adult_child_head"
-                                        class="table border_0 no-marg">
-                                        <tr>
-                                            <td class="col-md-3"><span>Package Type</span></th>
-                                            <td><span>Adult_Cost</span></th>
-                                            <td><span>Child_with_bed</span></th>
-                                            <td><span>Child_w/o_bed</span></th>
-                                            <td><span>Infant_Cost</span></th>
-                                        </tr>
-                                    </table>
-                                    <div>
+                <div class="col-md-12 app_accordion">
+                    <div class="panel-group main_block" id="accordion" role="tablist" aria-multiselectable="true">
+
+                        <!-- Accordian-1 Start --><!-- Group Costing -->
+                        <div class="accordion_content main_block mg_bt_20">
+
+                            <div class="panel panel-default main_block">
+                                <div class="panel-heading main_block" role="tab" id="headingl1">
+                                    <div class="Normal main_block" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapsel1" aria-expanded="true"
+                                        aria-controls="collapsel1" id="collapsedl1">
+                                        <div class="col-md-12"><span>Group Costing</span></div>
                                     </div>
                                 </div>
-                                <!-- Adult & child cost -->
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="table-responsive">
-                                            <table id="tbl_package_tour_quotation_adult_child"
-                                                name="tbl_package_tour_quotation_adult_child"
-                                                class="table border_0 no-marg">
-                                                <tr>
-                                                    <td class="col-md-3"><input type="text" id="ppackage_type1"
-                                                            name="ppackage_type1" placeholder="Package Type"
-                                                            title="Package Type" readonly></td>
-                                                    <td><input type="text" onchange="validate_balance(this.id);"
-                                                            id="adult_cost" name="adult_cost" placeholder="Adult Cost"
-                                                            title="Adult Cost"></td>
-                                                    <td><input type="text" onchange="validate_balance(this.id);"
-                                                            id="child_with" name="child_with"
-                                                            placeholder="Child with Bed Cost"
-                                                            title="Child with Bed Cost"></td>
-                                                    <td><input type="text" onchange="validate_balance(this.id);"
-                                                            id="child_without" name="child_without"
-                                                            placeholder="Child w/o Bed Cost" title="Child w/o Bed Cost">
-                                                    </td>
-                                                    <td><input type="text" onchange="validate_balance(this.id);"
-                                                            id="infant_cost" name="infant_cost"
-                                                            placeholder="Infant Cost" title="Infant Cost"></td>
-                                                    <td><input type="hidden" id="pacakge_id2" name="pacakge_id2"
-                                                            placeholder="Package Id" title="Package Id"></td>
-                                                </tr>
-                                            </table>
+                                <div id="collapsel1" class="panel-collapse collapse in main_block" role="tabpanel"
+                                    aria-labelledby="headingl1">
+                                    <div class="panel-body">
+                                        <div class="row mg_tp_10">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Land Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="table-responsive">
+                                                                <table id="tbl_package_tour_quotation_dynamic_costing"
+                                                                    name="tbl_package_tour_quotation_dynamic_costing"
+                                                                    class="table border_0 no-marg">
+                                                                    <tr>
+                                                                        <td class="header_btn" style="display:none;"><input class="css-checkbox"
+                                                                                id="chk_costing1" type="checkbox" checked disabled><span
+                                                                                class="css-label" for="chk_costing1"> </span></td>
+                                                                        <td class="header_btn hidden" style="display:none;">
+                                                                            <small>&nbsp;</small><input type="text" maxlength="15" value="1"
+                                                                                name="username" placeholder="Sr. No." class="form-control"
+                                                                                disabled /></td>
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="package_type-" name="package_type-" placeholder="Package Type"
+                                                                                title="Package Type" style="width:150px" readonly><span>Package
+                                                                                Type</span></td>
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="tour_cost-" name="tour_cost-" placeholder="Hotel Cost"
+                                                                                title="Hotel Cost" value="0"
+                                                                                onchange="quotation_cost_calculate(this.id);validate_balance(this.id)"
+                                                                                style="width:100px"><span>Hotel Cost</span></td>
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="transport_cost1-" name="transport_cost1-"
+                                                                                placeholder="Transport Cost" title="Transport Cost"
+                                                                                onchange="quotation_cost_calculate(this.id);validate_balance(this.id)"
+                                                                                style="width:100px" value="0"><span>Transport Cost</span></td>
+                                                                        <?php
+                                                                        $add_class1 = '';
+                                                                        if ($role == 'B2b') {
+                                                                            $add_class1 = "hidden";
+                                                                        } else {
+                                                                            $add_class1 = "text";
+                                                                        } ?>
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="excursion_cost-" name="excursion_cost-"
+                                                                                onchange="quotation_cost_calculate(this.id);validate_balance(this.id);"
+                                                                                placeholder="Activity Cost" title="Activity Cost"
+                                                                                style="width:100px" value="0"><span>Activity Cost</span></td>
+
+                                                                        <td class="header_btn"><small id="basic_show-"
+                                                                                style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
+                                                                                id="basic_amount-" name="basic_amount-"
+                                                                                onchange="get_business(this.id,'true');validate_balance(this.id);"
+                                                                                placeholder="Basic Amount" title="Basic Amount" style="width:100px"
+                                                                                readonly><span>Basic Amount</span></td>
+
+                                                                        <td class="header_btn"><small id="service_show-"
+                                                                                style="color:#000000">&nbsp;</small><input type="<?= $add_class1 ?>"
+                                                                                id="service_charge-" name="service_charge-"
+                                                                                onchange="get_business(this.id,'false');quotation_cost_calculate(this.id); validate_balance(this.id)"
+                                                                                value="0.00" placeholder="Service charge" title="Service charge"
+                                                                                style="width:100px"><span>Service charge</span></td>
+
+                                                                        <td class="header_btn"><small id="tax_apply_show-" style="color:#000000">&nbsp;</small><select title="Tax Apply On" id="tax_apply_on-" name="tax_apply_on-" class="form-control" onchange="get_business(this.id,'true');" style="width: 150px!important;">
+                                                                            <option value="">*Tax Apply On</option>
+                                                                            <option value="1">Basic Amount</option>
+                                                                            <option value="2">Service Charge</option>
+                                                                            <option value="3">Total</option>
+                                                                        </select><span>Tax Apply On</span></td>
+                                                                        <td class="header_btn"><small id="tax_show-" style="color:#000000">&nbsp;</small><select title="Select Tax" id="tax_value-" name="tax_value-" class="form-control" onchange="get_business(this.id,'true');" style="width: 180px!important;">
+                                                                            <option value="">*Select Tax</option>
+                                                                            <?php get_tax_dropdown('Income') ?>
+                                                                        </select><span>Select Tax</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="service_tax_subtotal-" name="service_tax_subtotal-" readonly
+                                                                                placeholder="Tax Amount" title="Tax Amount"
+                                                                                style="width:180px"><span>Tax Amount</span></td>
+
+                                                                        <td class="header_btn"><small>&nbsp;</small><input type="text"
+                                                                                id="total_tour_cost-" class="amount_feild_highlight text-right"
+                                                                                name="total_tour_cost-" placeholder="Total Cost" title="Total Cost"
+                                                                                style="width: 100px;" readonly><span>Total Cost</span></td>
+
+                                                                        <td class="header_btn hidden" style="display:none;">
+                                                                            <small>&nbsp;</small><input type="text" id="package_name1"
+                                                                                name="package_name1" placeholder="Package Name" title="Package Name"
+                                                                                style="width: 160px;display:none;" readonly></td>
+
+                                                                        <td class="header_btn hidden" style="display:none;">
+                                                                            <small>&nbsp;</small><input type="text" id="package_id1"
+                                                                                name="package_id1" placeholder="Package ID" title="Package ID"
+                                                                                style="display:none;"></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <div class="row mg_tp_20">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Travel Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <!-- Other costs -->
+                                                    <div class="row">
+                                                        <div class="col-md-4 header_btn mg_bt_10">
+                                                            <span>Flight Cost</span>
+                                                            <input type="text" id="flight_cost" name="flight_cost" placeholder="Flight Cost" title="Flight Cost" onchange="validate_balance(this.id)">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Cost</span>
+                                                            <input type="text" id="train_cost" name="train_cost" placeholder="Train Cost" title="Train Cost" onchange="validate_balance(this.id)">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn mg_bt_10">
+                                                            <span>Cruise Cost</span>
+                                                            <input type="text" id="cruise_cost" name="cruise_cost" placeholder="Cruise Cost" title="Cruise Cost" onchange="validate_balance(this.id)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div></div></div></div>
+                        <!-- Accordian-1 End-->
+                        <!-- Accordian-2 Start --><!-- Per person Costing -->
+                        <div class="accordion_content main_block">
+
+                            <div class="panel panel-default main_block">
+                                <div class="panel-heading main_block" role="tab" id="headingl_2">
+                                    <div class="Normal main_block" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapsel2" aria-expanded="true"
+                                        aria-controls="collapsel2" id="collapsedl2">
+                                        <div class="col-md-12"><span>Per Person Costing</span></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                                <div id="collapsel2" class="panel-collapse collapse in main_block" role="tabpanel"
+                                    aria-labelledby="headingl_2">
+                                    <div class="panel-body">
+                                        <div class="row mg_tp_10">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Land Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="table-responsive">
+                                                                <table id="tbl_adult_child_head" name="tbl_adult_child_head"
+                                                                    class="table border_0 no-marg">
+                                                                    <tr>
+                                                                        <td class="col-md-3"><span>Package Type</span></th>
+                                                                        <td><span>Adult_Cost</span></th>
+                                                                        <td><span>Child_with_bed</span></th>
+                                                                        <td><span>Child_w/o_bed</span></th>
+                                                                        <td><span>Infant_Cost</span></th>
+                                                                    </tr>
+                                                                </table>
+                                                                <div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Adult & child cost -->
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <div class="table-responsive">
+                                                                        <table id="tbl_package_tour_quotation_adult_child"
+                                                                            name="tbl_package_tour_quotation_adult_child"
+                                                                            class="table border_0 no-marg">
+                                                                            <tr>
+                                                                                <td class="col-md-3"><input type="text" id="ppackage_type1"
+                                                                                        name="ppackage_type1" placeholder="Package Type"
+                                                                                        title="Package Type" readonly></td>
+                                                                                <td><input type="text" onchange="validate_balance(this.id);"
+                                                                                        id="adult_cost" name="adult_cost" placeholder="Adult Cost"
+                                                                                        title="Adult Cost"></td>
+                                                                                <td><input type="text" onchange="validate_balance(this.id);"
+                                                                                        id="child_with" name="child_with"
+                                                                                        placeholder="Child with Bed Cost"
+                                                                                        title="Child with Bed Cost"></td>
+                                                                                <td><input type="text" onchange="validate_balance(this.id);"
+                                                                                        id="child_without" name="child_without"
+                                                                                        placeholder="Child w/o Bed Cost" title="Child w/o Bed Cost">
+                                                                                </td>
+                                                                                <td><input type="text" onchange="validate_balance(this.id);"
+                                                                                        id="infant_cost" name="infant_cost"
+                                                                                        placeholder="Infant Cost" title="Infant Cost"></td>
+                                                                                <td><input type="hidden" id="pacakge_id2" name="pacakge_id2"
+                                                                                        placeholder="Package Id" title="Package Id"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mg_tp_20">
+                                            <div class="col-xs-12">
+                                                <h3 class="editor_title">Travel Cost</h3>
+                                                <div class="panel panel-default panel-body app_panel_style">
+                                                    <!-- Other costs -->
+                                                    <div class="row">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Adult Cost</span>
+                                                            <input type="number" id="flight_acost" name="flight_acost" placeholder="Flight Adult Cost" title="Flight Adult Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Child Cost</span>
+                                                            <input type="number" id="flight_ccost" name="flight_ccost" placeholder="Flight Child Cost" title="Flight Child Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Flight Infant Cost</span>
+                                                            <input type="number" id="flight_icost" name="flight_icost" placeholder="Flight Infant Cost" title="Flight Infant Cost">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mg_tp_10">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Adult Cost</span>
+                                                            <input type="number" id="train_acost" name="train_acost" placeholder="Train Adult Cost" title="Train Adult Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Child Cost</span>
+                                                            <input type="number" id="train_ccost" name="train_ccost" placeholder="Train Child Cost" title="Train Child Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Train Infant Cost</span>
+                                                            <input type="number" id="train_icost" name="train_icost" placeholder="Train Infant Cost" title="Train Infant Cost">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mg_tp_10">
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Adult Cost</span>
+                                                            <input type="number" id="cruise_acost" name="cruise_acost" placeholder="Cruise Adult Cost" title="Cruise Adult Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Child Cost</span>
+                                                            <input type="number" id="cruise_ccost" name="cruise_ccost" placeholder="Cruise Child Cost" title="Cruise Child Cost">
+                                                        </div>
+                                                        <div class="col-md-4 header_btn col-xs-12 mg_bt_10">
+                                                            <span>Cruise Infant Cost</span>
+                                                            <input type="number" id="cruise_icost" name="cruise_icost" placeholder="Cruise Infant Cost" title="Cruise Infant Cost">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div></div></div></div>
+                        <!-- Accordian-2 End-->
 
-                    <div class="row mg_tp_20">
+        </div></div></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="editor_title">Other Costing</h3>
+                <div class="panel panel-default panel-body app_panel_style">
+                    <div class="col-md-3 header_btn mg_bt_10">
+                        <span>Visa Cost</span>
+                        <input type="text" id="visa_cost" name="visa_cost" placeholder="Visa Cost"
+                            title="Visa Cost" onchange="validate_balance(this.id)">
+                    </div>
+                    <div class="col-md-3 header_btn mg_bt_10">
+                        <span>Guide Cost</span>
+                        <input type="text" id="guide_cost" name="guide_cost" placeholder="Guide Cost"
+                            title="Guide Cost" onchange="validate_balance(this.id)">
+                    </div>
+                    <div class="col-md-3 header_btn mg_bt_10">
+                        <span>Miscellaneous Cost</span>
+                        <input type="text" id="misc_cost" name="misc_cost" placeholder="Miscellaneous Cost"
+                            title="Miscellaneous Cost" onchange="validate_balance(this.id)">
+                    </div>
+                    <div class="col-md-3 header_btn mg_bt_10">
+                        <span>Other Description</span>
+                        <textarea id="other_desc" name="other_desc" placeholder="Miscellaneous Description" title="Miscellaneous Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="row">
                         <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10">
                             <input type="number" id="discount" name="discount" placeholder="Discount"
                                 title="Discount" />
@@ -230,7 +331,7 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="col-md-3 col-sm-12 text-right">
+                        <div class="col-md-3 col-sm-12">
                             <div class="div-upload">
                                 <div id="price_structure" class="upload-button1"><span>Price Structure</span></div>
                                 <span id="photo_status"></span>
@@ -259,13 +360,16 @@
                     </div>
                 </div>
                 <input type="hidden" id="login_id" name="login_id" value="<?= $login_id ?>">
+            </div>
+        </div>
+    </div>
 </form>
 <?= end_panel() ?>
 
 <script>
 $('#currency_code').select2();
-upload_price_struct();
 
+upload_price_struct();
 function upload_price_struct() {
     var btnUpload = $('#price_structure');
     $(btnUpload).find('span').text('Price Structure');
@@ -363,7 +467,17 @@ $('#frm_tab4').validate({
         var visa_cost = $('#visa_cost').val();
         var branch_admin_id = $('#branch_admin_id1').val();
         var financial_year_id = $('#financial_year_id').val();
-
+        //Per person travel costing
+        var flight_acost = $('#flight_acost').val();
+        var flight_ccost = $('#flight_ccost').val();
+        var flight_icost = $('#flight_icost').val();
+        var train_acost = $('#train_acost').val();
+        var train_ccost = $('#train_ccost').val();
+        var train_icost = $('#train_icost').val();
+        var cruise_acost = $('#cruise_acost').val();
+        var cruise_ccost = $('#cruise_ccost').val();
+        var cruise_icost = $('#cruise_icost').val();
+        var other_desc = $('#other_desc').val();
 
         var guide_cost = $('#guide_cost').val();
         var misc_cost = $('#misc_cost').val();
@@ -1106,7 +1220,8 @@ $('#frm_tab4').validate({
                             costing_type: costing_type,
                             bsmValues: bsmValues,
                             currency_code: currency_code,
-                            discount: discount
+                            discount: discount,
+                            flight_acost : flight_acost,flight_ccost:flight_ccost,flight_icost:flight_icost,train_acost:train_acost,train_ccost:train_ccost,train_icost:train_icost,cruise_acost:cruise_acost,cruise_ccost:cruise_ccost,cruise_icost:cruise_icost,other_desc:other_desc
                         },
                         success: function(message) {
 
