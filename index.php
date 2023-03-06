@@ -30,7 +30,6 @@ $_SESSION['token'] =$tokenUser;
   <script src="<?php echo BASE_URL ?>js/jquery-3.1.0.min.js"></script>
   <script src="<?php echo BASE_URL ?>js/bootstrap.min.js"></script>
   <script src="<?php echo BASE_URL ?>js/jquery.validate.min.js"></script>
-  <!-- <script src="<?php echo BASE_URL ?>js/jquery-ui.min.js"></script> -->
   <script src="<?php echo BASE_URL ?>js/vi.alert.js"></script>
   <script src="<?php echo BASE_URL ?>js/script.js"></script>
 
