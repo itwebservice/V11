@@ -357,7 +357,8 @@ border-bottom: 0;
 color: #fff;
 }
 .in_ex_tab ul.nav.nav-tabs li.active a[href="#home"], .in_ex_tab ul.nav.nav-tabs li.active a[href="#terms"], .in_ex_tab
-ul.nav.nav-tabs li.active a[href="#note"] {
+ul.nav.nav-tabs li.active a[href="#note"], .in_ex_tab
+ul.nav.nav-tabs li.active a[href="#misc_desc"] {
 background: green;
 border: 1px solid green;
 }
