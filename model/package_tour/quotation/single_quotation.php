@@ -69,6 +69,9 @@ $sq_plane = mysqlQuery("select * from package_tour_quotation_plane_entries where
 
 $sq_package = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$sq_quotation[package_id]'"));
 $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions where type='FIT Quotation' and active_flag='Active'"));
+$sq_plane_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_plane_entries where quotation_id='$quotation_id'"));
+$sq_train_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_train_entries where quotation_id='$quotation_id'"));
+$sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
 ?>
 <!DOCTYPE html>
 <html>
@@ -497,8 +500,6 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
             <!-- Transport -->
 
             <?php
-
-            $sq_trans_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_transport_entries2 where quotation_id='$quotation_id'"));
             if ($sq_trans_count > 0) {
 
             ?>
@@ -597,11 +598,6 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
             <!-- Train -->
 
             <?php
-
-            $sq_train_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_train_entries where quotation_id='$quotation_id'"));
-
-
-
             if ($sq_train_count > 0) {
 
             ?>
@@ -684,11 +680,6 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
             <!-- Flight -->
 
             <?php
-
-            $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
-
-
-
             if ($sq_cruise_count > 0) { ?>
 
             <section id="11" class="main_block link_page_section">
@@ -936,6 +927,8 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
                                             </tbody>
                                         </table>
                             </div></div></div>
+							              <?php
+                            if($sq_plane_count > 0 || $sq_train_count > 0 || $sq_cruise_count > 0){ ?>
                             <div class="row mg_tp_10">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -949,30 +942,38 @@ $sq_terms = mysqli_fetch_assoc(mysqlQuery("select * from terms_and_conditions wh
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                                if($sq_plane_count>0){ ?>
                                                 <tr>
                                                     <td><?= 'Flight' ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_acost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_ccost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_icost'])) ?></td>
                                                 </tr>
+                                            <?php }
+                                                if($sq_train_count>0){ ?>
                                                 <tr>
                                                     <td><?= 'Train' ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_acost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_ccost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_icost'])) ?></td>
                                                 </tr>
+                                            <?php }
+                                                if($sq_cruise_count>0){ ?>
                                                 <tr>
                                                     <td><?= 'Cruise' ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_acost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_ccost'])) ?></td>
                                                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_icost'])) ?></td>
                                                 </tr>
+							                    <?php } ?>
                                             </tbody>
                                         </table>
                                 </div>
                             </div>
                         </div>
                     <?php }
+                    }
                     } ?>
 
                     <?php
