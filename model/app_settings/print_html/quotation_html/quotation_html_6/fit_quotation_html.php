@@ -733,6 +733,20 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                           }
                         }
                         $service_tax_amount_show = currency_conversion($currency,$sq_quotation['currency_code'],$service_tax_amount);
+                        // if($bsmValues[0]->service != ''){   //inclusive service charge
+                        //   $newBasic = $tour_cost + $service_tax_amount;
+                        //   $tax_show = '';
+                        // }
+                        // else{
+                        //   $tax_show =  rtrim($name, ', ').' : ' . ($service_tax_amount);
+                        //   $newBasic = $tour_cost;
+                        // }
+                        
+                        // ////////////Basic Amount Rules
+                        // if($bsmValues[0]->basic != ''){ //inclusive markup
+                        //   $newBasic = $tour_cost + $service_tax_amount;
+                        //   $tax_show = '';
+                        // }
                         $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
                         ////////////////Currency conversion ////////////
                         $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code'],$quotation_cost);
