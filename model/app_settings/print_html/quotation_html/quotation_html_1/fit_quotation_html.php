@@ -429,8 +429,12 @@ if($bsmValues[0]->basic != ''){ //inclusive markup
             <?php } ?>
             <?php
             $discount1 = currency_conversion($currency,$sq_quotation['currency_code'],$sq_quotation['discount']);
-            if($sq_quotation['discount']!=0){ $discount = ' (Applied Discount : '.$discount1.')'; } else{ $discount = ''; }
-            ?><p class="costBankTitle mg_tp_10"><?= $discount ?></p>
+            if($sq_quotation['discount']!=0){ $discount = ' (Applied Discount : '.$discount1.')'; } else{ $discount = ''; } ?>
+            <p class="costBankTitle mg_tp_10"><?= $discount ?></p>
+            <?php
+            if($sq_quotation['other_desc'] != ''){ ?>
+              <p class="costBankTitle">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></p>
+            <?php } ?>
           </div>
         </div>
         </div>

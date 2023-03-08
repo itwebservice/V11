@@ -610,7 +610,7 @@ if($sq_package['note'] != ''){ ?>
 if($sq_quotation['other_desc'] != ''){ ?>
 <div class="row mg_tp_10">
 	<div class="col-md-12">
-		<h3 class="editor_title">Other Description</h3>
+		<h3 class="editor_title">Miscellaneous Description</h3>
 		<div class="panel panel-default panel-body app_panel_style">
 			<?= $sq_quotation['other_desc'] ?>
 		</div>
