@@ -170,7 +170,7 @@ if ($sq_quotation['discount'] != 0) {
 </section>
 
 <!-- traveling Information -->
-<?php if ($sq_hotel_count != 0 || $sq_plane_count != 0 ||$sq_transport_count != 0) { ?>
+<?php if ($sq_hotel_count != 0 || $sq_plane_count != 0 || $sq_transport_count != 0) { ?>
     <section class="travelingDetails main_block mg_tp_30">
         <!-- Hotel -->
         <?php
@@ -750,186 +750,185 @@ if ($sq_quotation['discount'] != 0) {
 </section>
 <section class="pageSection main_block">
     <!-- background Image -->
-    <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
-    <section class="incluExcluTerms pageSectionInner main_block costing_bank_details_bk">
+    <!-- <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg"> -->
+    <section class="incluExcluTerms main_block costing_bank_details_bk">
         <!-- Costing & Bank Detail -->
         <div class="costBankSec main_block mg_tp_30">
             <div class="costBankInner main_block side_pad mg_tp_20 mg_bt_20">
                 <!-- Group Costing -->
                 <?php
                 if ($sq_quotation['costing_type'] == 1) {
-                    ?>
+                ?>
                     <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="costBankTitle text-center no-pad">COSTING DETAILS</h3>
-                        <h5 class="costBankTitle text-center"><?= $discount ?></h5>
-                        <div class="row mg_tp_30">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered no-marg" style="width:100% !important;" id="tbl_emp_list">
-                                        <thead>
-                                            <tr class="table-heading-row">
-                                                <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
-                                                    Package Type</th>
-                                                <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
-                                                    Tour Cost</th>
-                                                <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
-                                                    Tax</th>
-                                                <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
-                                                    TRAVEL/OTHER</th>
-                                                <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
-                                                    Total Cost</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $sq_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' order by package_type");
-                                            while ($sq_costing = mysqli_fetch_assoc($sq_costing1)) {
-                                                $basic_cost = $sq_costing['basic_amount'];
-                                                $service_charge = $sq_costing['service_charge'];
-                                                $tour_cost = $basic_cost + $service_charge;
-                                                $service_tax_amount = 0;
-                                                $tax_show = '';
-                                                $bsmValues = json_decode($sq_costing['bsmValues']);
-                                                $name = '';
-                                                if ($sq_costing['service_tax_subtotal'] !== 0.00 && ($sq_costing['service_tax_subtotal']) !== '') {
-                                                    $service_tax_subtotal1 = explode(',', $sq_costing['service_tax_subtotal']);
-                                                    for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
-                                                        $service_tax = explode(':', $service_tax_subtotal1[$i]);
-                                                        $service_tax_amount +=  $service_tax[2];
-                                                        $name .= $service_tax[0] . $service_tax[1] . ', ';
-                                                    }
-                                                }
-                                                $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
-                                                $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
-                                                ////////////////Currency conversion ////////////
-                                                $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
-
-                                                $newBasic = currency_conversion($currency, $sq_quotation['currency_code'], $tour_cost);
-                                                $travel_cost = floatval($sq_quotation['train_cost']) + floatval($sq_quotation['flight_cost']) + floatval($sq_quotation['cruise_cost']) + floatval($sq_quotation['visa_cost']) + floatval($sq_quotation['guide_cost']) + floatval($sq_quotation['misc_cost']);
-                                                $travel_cost = currency_conversion($currency, $sq_quotation['currency_code'], $travel_cost);
-                                                ?>
-                                                <tr>
-                                                    <td style="font-size: 14px !important; padding: 8px  20px !important;">
-                                                        <?php echo $sq_costing['package_type'] ?></td>
-                                                    <td style="font-size: 14px !important; padding: 8px  20px !important;">
-                                                        <?= $newBasic ?></td>
-                                                    <td style="font-size: 14px !important; padding: 8px  20px !important;">
-                                                        <?= str_replace(',', '', $name) . $service_tax_amount_show ?></td>
-                                                    <td style="font-size: 14px !important; padding: 8px  20px !important;">
-                                                        <?= $travel_cost ?></td>
-                                                    <td style="font-size: 14px !important; padding: 8px  20px !important;">
-                                                        <?= $currency_amount1 ?></td>
+                        <div class="col-md-12">
+                            <h3 class="costBankTitle text-center no-pad">COSTING DETAILS</h3>
+                            <h5 class="costBankTitle text-center"><?= $discount ?></h5>
+                            <div class="row mg_tp_30">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered no-marg" style="width:100% !important;" id="tbl_emp_list">
+                                            <thead>
+                                                <tr class="table-heading-row">
+                                                    <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
+                                                        Package Type</th>
+                                                    <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
+                                                        Tour Cost</th>
+                                                    <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
+                                                        Tax</th>
+                                                    <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
+                                                        TRAVEL/OTHER</th>
+                                                    <th style="font-size: 16px !important; font-weight: 600 !important; padding: 8px  20px !important;">
+                                                        Total Cost</th>
                                                 </tr>
-                                            <?php
-                                            } ?>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $sq_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id' order by package_type");
+                                                while ($sq_costing = mysqli_fetch_assoc($sq_costing1)) {
+                                                    $basic_cost = $sq_costing['basic_amount'];
+                                                    $service_charge = $sq_costing['service_charge'];
+                                                    $tour_cost = $basic_cost + $service_charge;
+                                                    $service_tax_amount = 0;
+                                                    $tax_show = '';
+                                                    $bsmValues = json_decode($sq_costing['bsmValues']);
+                                                    $name = '';
+                                                    if ($sq_costing['service_tax_subtotal'] !== 0.00 && ($sq_costing['service_tax_subtotal']) !== '') {
+                                                        $service_tax_subtotal1 = explode(',', $sq_costing['service_tax_subtotal']);
+                                                        for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
+                                                            $service_tax = explode(':', $service_tax_subtotal1[$i]);
+                                                            $service_tax_amount +=  $service_tax[2];
+                                                            $name .= $service_tax[0] . $service_tax[1] . ', ';
+                                                        }
+                                                    }
+                                                    $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
+                                                    $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
+                                                    ////////////////Currency conversion ////////////
+                                                    $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
+
+                                                    $newBasic = currency_conversion($currency, $sq_quotation['currency_code'], $tour_cost);
+                                                    $travel_cost = floatval($sq_quotation['train_cost']) + floatval($sq_quotation['flight_cost']) + floatval($sq_quotation['cruise_cost']) + floatval($sq_quotation['visa_cost']) + floatval($sq_quotation['guide_cost']) + floatval($sq_quotation['misc_cost']);
+                                                    $travel_cost = currency_conversion($currency, $sq_quotation['currency_code'], $travel_cost);
+                                                ?>
+                                                    <tr>
+                                                        <td style="font-size: 14px !important; padding: 8px  20px !important;">
+                                                            <?php echo $sq_costing['package_type'] ?></td>
+                                                        <td style="font-size: 14px !important; padding: 8px  20px !important;">
+                                                            <?= $newBasic ?></td>
+                                                        <td style="font-size: 14px !important; padding: 8px  20px !important;">
+                                                            <?= str_replace(',', '', $name) . $service_tax_amount_show ?></td>
+                                                        <td style="font-size: 14px !important; padding: 8px  20px !important;">
+                                                            <?= $travel_cost ?></td>
+                                                        <td style="font-size: 14px !important; padding: 8px  20px !important;">
+                                                            <?= $currency_amount1 ?></td>
+                                                    </tr>
+                                                <?php
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    <?php
-                }
-                else {
-                        ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="costBankTitle text-center no-pad">COSTING DETAILS</h3>
-                                <h5 class="costBankTitle text-center"><?= $discount ?></h5>
-                                <?php
-                                $sq_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id'  order by package_type");
-                                while($sq_costing = mysqli_fetch_assoc($sq_costing1)){
-                    
-                                    $service_charge = $sq_costing['service_charge'];
-                                    $total_pax = floatval($sq_quotation['total_adult']) + floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']) + floatval($sq_quotation['total_infant']);
-                                    $per_service_charge = floatval($service_charge) / floatval($total_pax);
-                    
-                                    $adult_cost = ($sq_quotation['total_adult']!='0')? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['adult_cost'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
-                                    $child_with = ($sq_quotation['children_with_bed']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_with'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
-                                    $child_without = ($sq_quotation['children_without_bed']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_without'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
-                                    $infant_cost = ($sq_quotation['total_infant']!='0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['infant_cost'] + floatval($per_service_charge)))) : currency_conversion($currency,$sq_quotation['currency_code'],0);
-                    
-                                    // Without currency
-                                    $adult_costw = ($sq_quotation['total_adult']!='0')? (floatval($sq_costing['adult_cost'] + floatval($per_service_charge))) : 0;
-                                    $child_withw = ($sq_quotation['children_with_bed']!='0') ? (floatval($sq_costing['child_with'] + floatval($per_service_charge))) : 0;
-                                    $child_withoutw = ($sq_quotation['children_without_bed']!='0') ? (floatval($sq_costing['child_without'] + floatval($per_service_charge))) : 0;
-                                    $infant_costw = ($sq_quotation['total_infant']!='0') ? (floatval($sq_costing['infant_cost'] + floatval($per_service_charge))) : 0;
-                    
-                                    $tour_cost = $basic_cost + $service_charge;
-                                    $service_tax_amount = 0;
+                <?php
+                } else {
+                ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="costBankTitle text-center no-pad">COSTING DETAILS</h3>
+                            <h5 class="costBankTitle text-center"><?= $discount ?></h5>
+                            <?php
+                            $sq_costing1 = mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id='$quotation_id'  order by package_type");
+                            while ($sq_costing = mysqli_fetch_assoc($sq_costing1)) {
+
+                                $service_charge = $sq_costing['service_charge'];
+                                $total_pax = floatval($sq_quotation['total_adult']) + floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']) + floatval($sq_quotation['total_infant']);
+                                $per_service_charge = floatval($service_charge) / floatval($total_pax);
+
+                                $adult_cost = ($sq_quotation['total_adult'] != '0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['adult_cost'] + floatval($per_service_charge)))) : currency_conversion($currency, $sq_quotation['currency_code'], 0);
+                                $child_with = ($sq_quotation['children_with_bed'] != '0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_with'] + floatval($per_service_charge)))) : currency_conversion($currency, $sq_quotation['currency_code'], 0);
+                                $child_without = ($sq_quotation['children_without_bed'] != '0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['child_without'] + floatval($per_service_charge)))) : currency_conversion($currency, $sq_quotation['currency_code'], 0);
+                                $infant_cost = ($sq_quotation['total_infant'] != '0') ? currency_conversion($currency, $sq_quotation['currency_code'], (floatval($sq_costing['infant_cost'] + floatval($per_service_charge)))) : currency_conversion($currency, $sq_quotation['currency_code'], 0);
+
+                                // Without currency
+                                $adult_costw = ($sq_quotation['total_adult'] != '0') ? (floatval($sq_costing['adult_cost'] + floatval($per_service_charge))) : 0;
+                                $child_withw = ($sq_quotation['children_with_bed'] != '0') ? (floatval($sq_costing['child_with'] + floatval($per_service_charge))) : 0;
+                                $child_withoutw = ($sq_quotation['children_without_bed'] != '0') ? (floatval($sq_costing['child_without'] + floatval($per_service_charge))) : 0;
+                                $infant_costw = ($sq_quotation['total_infant'] != '0') ? (floatval($sq_costing['infant_cost'] + floatval($per_service_charge))) : 0;
+
+                                $tour_cost = $basic_cost + $service_charge;
+                                $service_tax_amount = 0;
+                                $tax_show = '';
+                                $bsmValues = json_decode($sq_costing['bsmValues']);
+                                $name = '';
+                                if ($sq_costing['service_tax_subtotal'] !== 0.00 && ($sq_costing['service_tax_subtotal']) !== '') {
+                                    $service_tax_subtotal1 = explode(',', $sq_costing['service_tax_subtotal']);
+                                    for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
+                                        $service_tax = explode(':', $service_tax_subtotal1[$i]);
+                                        $service_tax_amount +=  $service_tax[2];
+                                        $name .= $service_tax[0] . $service_tax[1] . ', ';
+                                    }
+                                }
+                                $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
+                                if ($bsmValues[0]->service != '') {   //inclusive service charge
+                                    $newBasic = $tour_cost + $service_tax_amount;
                                     $tax_show = '';
-                                    $bsmValues = json_decode($sq_costing['bsmValues']);
-                                    $name = '';
-                                    if ($sq_costing['service_tax_subtotal'] !== 0.00 && ($sq_costing['service_tax_subtotal']) !== '') {
-                                        $service_tax_subtotal1 = explode(',', $sq_costing['service_tax_subtotal']);
-                                        for ($i = 0; $i < sizeof($service_tax_subtotal1); $i++) {
-                                            $service_tax = explode(':', $service_tax_subtotal1[$i]);
-                                            $service_tax_amount +=  $service_tax[2];
-                                            $name .= $service_tax[0] . $service_tax[1] . ', ';
-                                        }
-                                    }
-                                    $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
-                                    if ($bsmValues[0]->service != '') {   //inclusive service charge
-                                        $newBasic = $tour_cost + $service_tax_amount;
-                                        $tax_show = '';
-                                    } else {
-                                        $tax_show =  rtrim($name, ', ') . ' : ' . ($service_tax_amount);
-                                        $newBasic = $tour_cost;
-                                    }
-                    
-                                    ////////////Basic Amount Rules
-                                    if ($bsmValues[0]->basic != '') { //inclusive markup
-                                        $newBasic = $tour_cost + $service_tax_amount;
-                                        $tax_show = '';
-                                    }
-                    
-                                    $total_child = floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']);
-                                    //Flight
-                                    $flight_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['flight_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-                                    $flight_child_cost = ($total_child!='0')?  (floatval($sq_quotation['flight_ccost'] * floatval($total_child))) : 0;
-                                    $flight_infant_cost = ($sq_quotation['total_infant']!='0')? (floatval($sq_quotation['flight_icost'] * floatval($sq_quotation['total_infant']))) : 0;
-                                    //Train
-                                    $train_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['train_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-                                    $train_child_cost = ($total_child!='0')?  (floatval($sq_quotation['train_ccost'] * floatval($total_child))) : 0;
-                                    $train_infant_cost = ($sq_quotation['total_infant']!='0')? (floatval($sq_quotation['train_icost'] * floatval($sq_quotation['total_infant']))) : 0;
-                                    //Cruise
-                                    $cruise_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['cruise_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-                                    $cruise_child_cost = ($total_child!='0') ? (floatval($sq_quotation['cruise_ccost'] * floatval($total_child))) : 0;
-                                    $cruise_infant_cost = ($sq_quotation['total_infant']!='0') ? (floatval($sq_quotation['cruise_icost'] * floatval($sq_quotation['total_infant']))) : 0;
-                    
-                                    $basic_cost = $sq_costing['basic_amount'];
-                                    $quotation_cost = floatval($adult_costw) + floatval($child_withw) + floatval($child_withoutw) + floatval($infant_costw) + $service_tax_amount + $sq_quotation['flight_ccost'] + $sq_quotation['flight_icost'] + $sq_quotation['flight_acost'] + $sq_quotation['train_ccost'] + $sq_quotation['train_icost'] + $sq_quotation['train_acost'] + $sq_quotation['cruise_acost'] + $sq_quotation['cruise_icost'] + $sq_quotation['cruise_ccost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
-                                    ////////////////Currency conversion ////////////
-                                    $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost); ?>
+                                } else {
+                                    $tax_show =  rtrim($name, ', ') . ' : ' . ($service_tax_amount);
+                                    $newBasic = $tour_cost;
+                                }
+
+                                ////////////Basic Amount Rules
+                                if ($bsmValues[0]->basic != '') { //inclusive markup
+                                    $newBasic = $tour_cost + $service_tax_amount;
+                                    $tax_show = '';
+                                }
+
+                                $total_child = floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']);
+                                //Flight
+                                $flight_adult_cost = ($sq_quotation['total_adult'] != '0') ? (floatval($sq_quotation['flight_acost'] * floatval($sq_quotation['total_adult']))) : 0;
+                                $flight_child_cost = ($total_child != '0') ?  (floatval($sq_quotation['flight_ccost'] * floatval($total_child))) : 0;
+                                $flight_infant_cost = ($sq_quotation['total_infant'] != '0') ? (floatval($sq_quotation['flight_icost'] * floatval($sq_quotation['total_infant']))) : 0;
+                                //Train
+                                $train_adult_cost = ($sq_quotation['total_adult'] != '0') ? (floatval($sq_quotation['train_acost'] * floatval($sq_quotation['total_adult']))) : 0;
+                                $train_child_cost = ($total_child != '0') ?  (floatval($sq_quotation['train_ccost'] * floatval($total_child))) : 0;
+                                $train_infant_cost = ($sq_quotation['total_infant'] != '0') ? (floatval($sq_quotation['train_icost'] * floatval($sq_quotation['total_infant']))) : 0;
+                                //Cruise
+                                $cruise_adult_cost = ($sq_quotation['total_adult'] != '0') ? (floatval($sq_quotation['cruise_acost'] * floatval($sq_quotation['total_adult']))) : 0;
+                                $cruise_child_cost = ($total_child != '0') ? (floatval($sq_quotation['cruise_ccost'] * floatval($total_child))) : 0;
+                                $cruise_infant_cost = ($sq_quotation['total_infant'] != '0') ? (floatval($sq_quotation['cruise_icost'] * floatval($sq_quotation['total_infant']))) : 0;
+
+                                $basic_cost = $sq_costing['basic_amount'];
+                                $quotation_cost = floatval($adult_costw) + floatval($child_withw) + floatval($child_withoutw) + floatval($infant_costw) + $service_tax_amount + $sq_quotation['flight_ccost'] + $sq_quotation['flight_icost'] + $sq_quotation['flight_acost'] + $sq_quotation['train_ccost'] + $sq_quotation['train_icost'] + $sq_quotation['train_acost'] + $sq_quotation['cruise_acost'] + $sq_quotation['cruise_icost'] + $sq_quotation['cruise_ccost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
+                                ////////////////Currency conversion ////////////
+                                $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost); ?>
                                 <div class="row mg_tp_30">
-                                    <div class="col-md-12"><?php echo $sq_costing['package_type'].' (<b>'.$currency_amount1.'</b>)' ?>
+                                    <div class="col-md-12"><?php echo $sq_costing['package_type'] . ' (<b>' . $currency_amount1 . '</b>)' ?>
                                         <div class="table-responsive">
                                             <table class="table table-bordered no-marg" id="tbl_emp_list">
                                                 <thead>
-                                                <tr class="table-heading-row">
-                                                    <th>ADULT</th>
-                                                    <th>CWB</th>
-                                                    <th>CWOB</th>
-                                                    <th>INFANT</th>
-                                                    <th>TAX</th>
-                                                    <th>Visa</th>
-                                                    <th>Guide</th>
-                                                    <th>Misc</th>
-                                                </tr>
+                                                    <tr class="table-heading-row">
+                                                        <th>ADULT</th>
+                                                        <th>CWB</th>
+                                                        <th>CWOB</th>
+                                                        <th>INFANT</th>
+                                                        <th>TAX</th>
+                                                        <th>Visa</th>
+                                                        <th>Guide</th>
+                                                        <th>Misc</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td><?= $adult_cost ?></td>
-                                                    <td><?= $child_with ?></td>
-                                                    <td><?= $child_without  ?></td>
-                                                    <td><?= $infant_cost ?></td>
-                                                    <td><?= str_replace(',','',$name).'<b>'.$service_tax_amount_show.'</b>' ?></td>
-                                                    <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['visa_cost']) ?></td>
-                                                    <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['guide_cost'])  ?></td>
-                                                    <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['misc_cost'])  ?></td>
-                                                </tr>
+                                                    <tr>
+                                                        <td><?= $adult_cost ?></td>
+                                                        <td><?= $child_with ?></td>
+                                                        <td><?= $child_without  ?></td>
+                                                        <td><?= $infant_cost ?></td>
+                                                        <td><?= str_replace(',', '', $name) . '<b>' . $service_tax_amount_show . '</b>' ?></td>
+                                                        <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['visa_cost']) ?></td>
+                                                        <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['guide_cost'])  ?></td>
+                                                        <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['misc_cost'])  ?></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -972,13 +971,13 @@ if ($sq_quotation['discount'] != 0) {
                                     </div>
                                 </div>
                             <?php } ?>
-                            </div>
                         </div>
+                    </div>
                 <?php } ?>
                 <!-- Per Person Costing End -->
                 <?php
-                if($sq_quotation['other_desc'] != ''){ ?>
-                <h5 class="costBankTitle mg_tp_10">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></h5> 
+                if ($sq_quotation['other_desc'] != '') { ?>
+                    <h5 class="costBankTitle mg_tp_10">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></h5>
                 <?php } ?>
             </div>
         </div>
