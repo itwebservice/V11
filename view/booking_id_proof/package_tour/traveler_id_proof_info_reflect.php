@@ -20,7 +20,7 @@ $booking_id = $sq_traveler_info['booking_id'];
           <div class="col-md-4 col-sm-4 mg_bt_10_xs">
             <input type="text" name="expiry_date" id="expiry_date" title="Expiry Date" class="form-control" value="<?= ($sq_traveler_info['passport_expiry_date']) == "1970-01-01" ? date('d-m-Y'): get_date_user($sq_traveler_info['passport_expiry_date']) ?>"  placeholder="Expiry Date" title="Expiry Date" onchange="validate_validDate('issue_date','expiry_date');">
           </div>
-          <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
+          <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
               <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
                 <div id="id_proof_upload" class="upload-button1"><span>ID Proof-1</span></div>
                 <span id="id_proof_status" ></span>
@@ -65,7 +65,7 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $pan_carddownload_url = preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url3']);
                 $pan_carddownload_url2 = BASE_URL.str_replace('../', '', $pan_carddownload_url);
                 if($sq_traveler_info['pan_card_url3']!=""){ ?>
-                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-2" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-3" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
                 <?php } ?>
             </div>
           </div>
@@ -81,7 +81,7 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $pan_carddownload_url = preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url4']);
                 $pan_carddownload_url2 = BASE_URL.str_replace('../', '', $pan_carddownload_url);
                 if($sq_traveler_info['pan_card_url4']!=""){ ?>
-                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-2" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-4" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
                 <?php } ?>
             </div>
           </div>
@@ -100,9 +100,7 @@ $booking_id = $sq_traveler_info['booking_id'];
 </div>
 
 <script type="text/javascript">
-
 $('#issue_date,#expiry_date').datetimepicker({ timepicker:false, format:'d-m-Y' });
-
 $('#frm_save').validate({
   rules:{
           },
@@ -132,7 +130,7 @@ function id_proof_upload()
 {
     var type="id_proof";
     var btnUpload=$('#id_proof_upload');
-    $(btnUpload).find('span').text('ID Proof');
+    $(btnUpload).find('span').text('ID Proof-1');
     var status=$('#id_proof_status');
     new AjaxUpload(btnUpload, {
       action: 'package_tour/upload_id_proof_file.php',
@@ -142,7 +140,7 @@ function id_proof_upload()
         var id_proof_url = $("#txt_id_proof_upload_dir").val();
         if(tour_id=='')
         {
-          error_msg_alert('Please select tour name.');
+          error_msg_alert('Please select booking!');
           return false;
         }
         if (! (ext && /^(jpg|png|jpeg|pdf)$/.test(ext))){ 
@@ -159,7 +157,7 @@ function id_proof_upload()
         //Add uploaded file to list
         if(response1[0]=="error"){     
           error_msg_alert("File size exceeds");    
-          $(btnUpload).find('span').text('ID Proof');
+          $(btnUpload).find('span').text('ID Proof-1');
           return false;         
         }else if(response1[0]=="success"){ 
           document.getElementById("txt_id_proof_upload_dir").value = response1[1];
@@ -167,7 +165,7 @@ function id_proof_upload()
           upload_tour_id_proof();
         }else{
           error_msg_alert("File not uploaded");    
-          $(btnUpload).find('span').text('ID Proof');
+          $(btnUpload).find('span').text('ID Proof-1');
           return false;
         }
       }
@@ -213,7 +211,7 @@ function pan_card_upload()
         var id_proof_url = $("#txt_pan_card_upload_dir").val();
         if(tour_id=='')
         {
-          error_msg_alert('Please select tour name.');
+          error_msg_alert('Please select booking!');
           return false;
         }
         if (! (ext && /^(jpg|png|jpeg|pdf)$/.test(ext))){ 
@@ -262,7 +260,7 @@ function pan_card_upload3()
         var id_proof_url = $("#txt_pan_card_upload_dir3").val();
         if(tour_id=='')
         {
-          error_msg_alert('Please select tour name.');
+          error_msg_alert('Please select booking!');
           return false;
         }
         if (! (ext && /^(jpg|png|jpeg|pdf)$/.test(ext))){ 
@@ -310,7 +308,7 @@ function pan_card_upload4()
         var id_proof_url = $("#txt_pan_card_upload_dir4").val();
         if(tour_id=='')
         {
-          error_msg_alert('Please select tour name.');
+          error_msg_alert('Please select booking!');
           return false;
         }
         if (! (ext && /^(jpg|png|jpeg|pdf)$/.test(ext))){ 
