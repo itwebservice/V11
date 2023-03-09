@@ -45,6 +45,7 @@
 		</div>	
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 	    	<input type="text" id="customer_name" name="customer_name" onchange="fname_validate(this.id)" placeholder="*Customer Name" title="Customer Name">
+            <input type="hidden" id="cust_data" name="cust_data" value='<?= get_customer_hint() ?>'>
 	    </div>
 	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
@@ -142,6 +143,23 @@
 	</div>
 </form>
 <script>
+$("#customer_name").autocomplete({
+    source: JSON.parse($('#cust_data').val()),
+    select: function(event, ui) {
+        $("#customer_name").val(ui.item.label);
+        $('#mobile_no').val(ui.item.country_id+ui.item.contact_no);
+        $('#email_id').val(ui.item.email_id);
+    },
+    open: function(event, ui) {
+        $(this).autocomplete("widget").css({
+            "width": document.getElementById("customer_name").offsetWidth
+        });
+    }
+}).data("ui-autocomplete")._renderItem = function(ul, item) {
+    return $("<li disabled>")
+        .append("<a>" + item.label + "</a>")
+        .appendTo(ul);
+};
 $('#from_date,#to_date').datetimepicker({ timepicker:false,format:'d-m-Y' });
 $('#traveling_date').datetimepicker({ format:'d-m-Y H:i' });
 
