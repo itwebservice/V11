@@ -339,7 +339,6 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                 $quotation_cost += ($sq_plane_count > 0) ? $sq_quotation['flight_ccost'] + $sq_quotation['flight_icost'] + $sq_quotation['flight_acost'] : 0;
                 $quotation_cost += ($sq_train_count > 0) ? $sq_quotation['train_ccost'] + $sq_quotation['train_icost'] + $sq_quotation['train_acost'] : 0;
                 $quotation_cost +=($sq_cruise_count > 0) ?  $sq_quotation['cruise_acost'] + $sq_quotation['cruise_icost'] + $sq_quotation['cruise_ccost'] : 0;
-                ////////////////Currency conversion ////////////
                 $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost); ?>
               <div class="row mg_tp_30">
               <div class="col-md-12"><?php echo $sq_costing['package_type'].' (<b>'.$currency_amount1.'</b>)' ?>
@@ -368,10 +367,10 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['guide_cost'])  ?></td>
                     <td><?= currency_conversion($currency, $sq_quotation['currency_code'], $sq_quotation['misc_cost'])  ?></td>
                   </tr>
-                                  </tbody>
-                              </table>
-                      </div>
-                  </div>
+                  </tbody>
+              </table>
+            </div>
+          </div>
               </div>
               <?php
               if($sq_plane_count > 0 || $sq_train_count > 0 || $sq_cruise_count > 0){ ?>
@@ -396,7 +395,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_ccost'])) ?></td>
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_icost'])) ?></td>
                                       </tr>
-                                    <?php }
+                                      <?php }
                                         if($sq_train_count>0){ ?>
                                       <tr>
                                           <td><?= 'Train' ?></td>
@@ -404,7 +403,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_ccost'])) ?></td>
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_icost'])) ?></td>
                                       </tr>
-                                    <?php }
+                                      <?php }
                                         if($sq_cruise_count>0){ ?>
                                       <tr>
                                           <td><?= 'Cruise' ?></td>
@@ -412,7 +411,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_ccost'])) ?></td>
                                           <td><?= currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_icost'])) ?></td>
                                       </tr>
-							                    <?php } ?>
+							                      <?php } ?>
                                   </tbody>
                               </table>
                       </div>
