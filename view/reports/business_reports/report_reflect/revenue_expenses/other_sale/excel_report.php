@@ -587,9 +587,6 @@ if($sale_type == 'Hotel'){
 				$profit_loss_per = ($total_sale > 0 ) ? ($profit_amount / $total_sale) * 100 : 0;
 				$profit_loss_per = round($profit_loss_per, 2);
 				$var = ($total_sale > $total_purchase) ? 'Profit':'Loss';
-
-				$sq_exc_entry = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_passport[booking_id]'"));
-        $sq_exc_cancel = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_passport[booking_id]' and status = 'Cancel'"));
         
           $objPHPExcel->setActiveSheetIndex(0)
               ->setCellValue('B'.$row_count, $count++)
