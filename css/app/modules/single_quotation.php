@@ -366,7 +366,7 @@ border: 1px solid green;
 background: red;
 border: 1px solid red;
 }
-.in_ex_tab .tab-content div[id="home"], .in_ex_tab .tab-content div[id="terms"], .in_ex_tab .tab-content div[id="note"]
+.in_ex_tab .tab-content div[id="home"], .in_ex_tab .tab-content div[id="terms"], .in_ex_tab .tab-content div[id="note"], .in_ex_tab .tab-content div[id="misc_desc"]
 {
 padding: 20px;
 border: 1px solid green;

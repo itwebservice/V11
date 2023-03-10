@@ -411,24 +411,24 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                     }
                                 }
                                 $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
-                                if ($bsmValues[0]->service != '') {   //inclusive service charge
-                                    $newBasic = $tour_cost + $service_tax_amount;
-                                    $tax_show = '';
-                                } else {
-                                    $tax_show =  rtrim($name, ', ') . ' : ' . ($service_tax_amount);
-                                    $newBasic = $tour_cost;
-                                }
+                                // if ($bsmValues[0]->service != '') {   //inclusive service charge
+                                //     $newBasic = $tour_cost + $service_tax_amount;
+                                //     $tax_show = '';
+                                // } else {
+                                //     $tax_show =  rtrim($name, ', ') . ' : ' . ($service_tax_amount);
+                                //     $newBasic = $tour_cost;
+                                // }
 
-                                ////////////Basic Amount Rules
-                                if ($bsmValues[0]->basic != '') { //inclusive markup
-                                    $newBasic = $tour_cost + $service_tax_amount;
-                                    $tax_show = '';
-                                }
+                                // ////////////Basic Amount Rules
+                                // if ($bsmValues[0]->basic != '') { //inclusive markup
+                                //     $newBasic = $tour_cost + $service_tax_amount;
+                                //     $tax_show = '';
+                                // }
                                 $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
                                 ////////////////Currency conversion ////////////
                                 $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
 
-                                $newBasic = currency_conversion($currency, $sq_quotation['currency_code'], $newBasic);
+                                $newBasic = currency_conversion($currency, $sq_quotation['currency_code'], $tour_cost);
                                 $travel_cost = floatval($sq_quotation['train_cost']) + floatval($sq_quotation['flight_cost']) + floatval($sq_quotation['cruise_cost']) + floatval($sq_quotation['visa_cost']) + floatval($sq_quotation['guide_cost']) + floatval($sq_quotation['misc_cost']);
                                 $travel_cost = currency_conversion($currency, $sq_quotation['currency_code'], $travel_cost);
                                 ?>
@@ -1034,6 +1034,7 @@ if($sq_ex_count>0){ ?>
               <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Exclusions</a></li>
               <li role="presentation" class="active"><a href="#terms" aria-controls="terms" role="tab" data-toggle="tab">Terms & conditions</a></li>
               <li role="presentation"><a href="#note" aria-controls="note" role="tab" data-toggle="tab">Note</a></li>
+              <li role="presentation"><a href="#misc_desc" aria-controls="misc_desc" role="tab" data-toggle="tab">Miscellaneous Description</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -1055,6 +1056,9 @@ if($sq_ex_count>0){ ?>
               </div>
               <div role="tabpanel" class="tab-pane" id="note">
                 <pre><?php echo $sq_tours_package['note']; ?></pre>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="misc_desc">
+                  <pre><?php echo $sq_quotation['other_desc']; ?></pre>
               </div>
 
             </div>

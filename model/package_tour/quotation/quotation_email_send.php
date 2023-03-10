@@ -574,21 +574,36 @@ class quotation_email_send
 								<td style="text-align:left;border: 1px solid #888888;width:100%"><pre>'. $sq_quotation['exclusions'].'</pre></td></tr>
 						</table>
 					</tr>';
-					$content .= '<tr>
-						<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
-							<tr><td style="text-align:center;border: 1px solid #888888;width:1000%;color: #fff;
-							background: #009898;">NOTE</td></tr>
-						</table>
-					</tr>
-					<tr>
-						<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
-							<tr>
-								<td style="text-align:left;border: 1px solid #888888;width:100%"><pre>'. $sq_tours_package['note'].'</pre></td></tr>
-						</table>
-					</tr>';
-							
-						$content .= '   
-						
+					if($sq_tours_package['note'] != ''){
+						$content .= '<tr>
+							<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+								<tr><td style="text-align:center;border: 1px solid #888888;width:1000%;color: #fff;
+								background: #009898;">NOTE</td></tr>
+							</table>
+						</tr>
+						<tr>
+							<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+								<tr>
+									<td style="text-align:left;border: 1px solid #888888;width:100%"><pre>'. $sq_tours_package['note'].'</pre></td></tr>
+							</table>
+						</tr>';
+					}
+					if($sq_quotation['other_desc'] != ''){
+						$content .= '<tr>
+							<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+								<tr><td style="text-align:center;border: 1px solid #888888;width:1000%;color: #fff;
+								background: #009898;">MISCELLANEOUS DESCRIPTION</td></tr>
+							</table>
+						</tr>
+						<tr>
+							<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+								<tr>
+									<td style="text-align:left;border: 1px solid #888888;width:100%"><pre>'. $sq_quotation['other_desc'].'</pre></td></tr>
+							</table>
+						</tr>';
+					}
+
+					$content .= '
 						<tr>
 							<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
 								<tr><td style="text-align:center;border: 1px solid #888888;width:1000%;color: #fff;
@@ -681,21 +696,11 @@ class quotation_email_send
 								$service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
 	
 								$total_child = floatval($sq_quotation['children_with_bed']) + floatval($sq_quotation['children_without_bed']);
-								//Flight
-								$flight_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['flight_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-								$flight_child_cost = ($total_child!='0')?  (floatval($sq_quotation['flight_ccost'] * floatval($total_child))) : 0;
-								$flight_infant_cost = ($sq_quotation['total_infant']!='0')? (floatval($sq_quotation['flight_icost'] * floatval($sq_quotation['total_infant']))) : 0;
-								//Train
-								$train_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['train_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-								$train_child_cost = ($total_child!='0')?  (floatval($sq_quotation['train_ccost'] * floatval($total_child))) : 0;
-								$train_infant_cost = ($sq_quotation['total_infant']!='0')? (floatval($sq_quotation['train_icost'] * floatval($sq_quotation['total_infant']))) : 0;
-								//Cruise
-								$cruise_adult_cost = ($sq_quotation['total_adult']!='0')? (floatval($sq_quotation['cruise_acost'] * floatval($sq_quotation['total_adult']))) : 0;
-								$cruise_child_cost = ($total_child!='0') ? (floatval($sq_quotation['cruise_ccost'] * floatval($total_child))) : 0;
-								$cruise_infant_cost = ($sq_quotation['total_infant']!='0') ? (floatval($sq_quotation['cruise_icost'] * floatval($sq_quotation['total_infant']))) : 0;
 	
-								$basic_cost = $sq_costing['basic_amount'];
-								$quotation_cost = floatval($adult_costw) + floatval($child_withw) + floatval($child_withoutw) + floatval($infant_costw) + $service_tax_amount + $sq_quotation['flight_ccost'] + $sq_quotation['flight_icost'] + $sq_quotation['flight_acost'] + $sq_quotation['train_ccost'] + $sq_quotation['train_icost'] + $sq_quotation['train_acost'] + $sq_quotation['cruise_acost'] + $sq_quotation['cruise_icost'] + $sq_quotation['cruise_ccost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
+								$quotation_cost = floatval($adult_costw) + floatval($child_withw) + floatval($child_withoutw) + floatval($infant_costw) + $service_tax_amount + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
+								$quotation_cost += ($sq_plane_count > 0) ? $sq_quotation['flight_ccost'] + $sq_quotation['flight_icost'] + $sq_quotation['flight_acost'] : 0;
+								$quotation_cost += ($sq_train_count > 0) ? $sq_quotation['train_ccost'] + $sq_quotation['train_icost'] + $sq_quotation['train_acost'] : 0;
+								$quotation_cost +=($sq_cruise_count > 0) ?  $sq_quotation['cruise_acost'] + $sq_quotation['cruise_icost'] + $sq_quotation['cruise_ccost'] : 0;
 								////////////////Currency conversion ////////////
 								$currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
 			
@@ -742,7 +747,7 @@ class quotation_email_send
 											<td style="text-align:left;border: 1px solid #888888;width:30%">Flight</td>
 											<td style="text-align:left;border: 1px solid #888888;">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_acost'])).'</td>
 											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_ccost'])).'</td> 
-											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_ccost'])).'</td>
+											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['flight_icost'])).'</td>
 										</tr>';
 								}
 								if($sq_train_count>0){
@@ -752,7 +757,7 @@ class quotation_email_send
 											<td style="text-align:left;border: 1px solid #888888;width:30%">Train</td>
 											<td style="text-align:left;border: 1px solid #888888;">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_acost'])).'</td>
 											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_ccost'])).'</td> 
-											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_ccost'])).'</td>
+											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['train_icost'])).'</td>
 										</tr>';
 								}
 								if($sq_cruise_count>0){
@@ -762,7 +767,7 @@ class quotation_email_send
 											<td style="text-align:left;border: 1px solid #888888;width:30%">Cruise</td>
 											<td style="text-align:left;border: 1px solid #888888;">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_acost'])).'</td>
 											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_ccost'])).'</td> 
-											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_ccost'])).'</td>
+											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_icost'])).'</td>
 										</tr>';
 								}
 								$content .='
@@ -790,22 +795,22 @@ class quotation_email_send
 									}
 								}
 								$service_tax_amount_show = currency_conversion($currency,$sq_quotation['currency_code'],$service_tax_amount);
-								if($bsmValues[0]->service != ''){   //inclusive service charge
-									$newBasic = $tour_cost + $service_tax_amount;
-								}
-								else{
-									$newBasic = $tour_cost;
-								}
+								// if($bsmValues[0]->service != ''){   //inclusive service charge
+								// 	$newBasic = $tour_cost + $service_tax_amount;
+								// }
+								// else{
+								// 	$newBasic = $tour_cost;
+								// }
 								
-								////////////Basic Amount Rules
-								if($bsmValues[0]->basic != ''){ //inclusive markup
-									$newBasic = $tour_cost + $service_tax_amount;
-								}
+								// ////////////Basic Amount Rules
+								// if($bsmValues[0]->basic != ''){ //inclusive markup
+								// 	$newBasic = $tour_cost + $service_tax_amount;
+								// }
 								$quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
 								////////////////Currency conversion ////////////
 								$currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code'],$quotation_cost);
 								
-								$newBasic = currency_conversion($currency,$sq_quotation['currency_code'],$newBasic);
+								$newBasic = currency_conversion($currency,$sq_quotation['currency_code'],$tour_cost);
 								$travel_cost = floatval($sq_quotation['train_cost']) + floatval($sq_quotation['flight_cost']) + floatval($sq_quotation['cruise_cost']) + floatval($sq_quotation['visa_cost']) + floatval($sq_quotation['guide_cost'])+ floatval($sq_quotation['misc_cost']);
 								$travel_cost = currency_conversion($currency,$sq_quotation['currency_code'],$travel_cost);
 								$content .= '
