@@ -36,9 +36,9 @@ else{ ?>
               <tbody><tr>
               <td><input class="css-checkbox mg_bt_10 labelauty" id="chk_program1" type="checkbox" checked style="display: none;"><label for="chk_program1"><span class="labelauty-unchecked-image"></span><span class="labelauty-checked-image"></span></label></td>
               <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." class="form-control" disabled=""></td>
-              <td style="padding-left: 5px !important;"><input type="text" id="special_attaraction" onchange="validate_spaces(this.id);" name="special_attaraction" class="form-control mg_bt_10" placeholder="*Special Attraction" title="Special Attraction" required></td>
-              <td style="padding-left: 5px !important;"><textarea id="day_program" name="day_program" class="form-control mg_bt_10" title="Day-wise Program" rows="3" placeholder="*Day-wise Program" onchange="validate_spaces(this.id);" required></textarea></td>
-              <td style="padding-left: 5px !important;"><input type="text" id="overnight_stay" name="overnight_stay" onchange="validate_spaces(this.id);" class="form-control mg_bt_10" placeholder="*Overnight Stay" title="Overnight Stay" required></td>
+              <td style="padding-left: 5px !important;"><input type="text" id="special_attaraction" onchange="validate_spaces(this.id);" name="special_attaraction" class="form-control mg_bt_10" placeholder="Special Attraction" title="Special Attraction"></td>
+              <td style="padding-left: 5px !important;"><textarea id="day_program" name="day_program" class="form-control mg_bt_10" title="Day-wise Program" rows="3" placeholder="*Day-wise Program" onchange="validate_spaces(this.id);"></textarea></td>
+              <td style="padding-left: 5px !important;"><input type="text" id="overnight_stay" name="overnight_stay" onchange="validate_spaces(this.id);" class="form-control mg_bt_10" placeholder="Overnight Stay" title="Overnight Stay"></td>
               <td style="padding-left: 5px !important;"><select id="meal_plan" title="meal plan" name="meal_plan" class="form-control mg_bt_10" data-original-title="Meal Plan">
                       <?php get_mealplan_dropdown(); ?>
                       </select></td>

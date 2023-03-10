@@ -240,30 +240,11 @@ $(function () {
 				for (var i = 0; i < rowCount; i++) {
 					var row = table.rows[i];
 					if (row.cells[0].childNodes[0].checked) {
-						if (row.cells[2].childNodes[0].value == '') {
-							error_msg_alert('Special Attraction is mandatory in row-' + (i + 1) + '<br>');
-							return false;
-						}
 						if (row.cells[3].childNodes[0].value == '') {
 							error_msg_alert('Daywise Program is mandatory in row-' + (i + 1) + '<br>');
 							return false;
 						}
-						if (row.cells[4].childNodes[0].value == '') {
-							error_msg_alert('Overnight Stay is mandatory in row-' + (i + 1) + '<br>');
-							return false;
-						}
-						// var flag1 = validate_spattration(row.cells[2].childNodes[0].id);
-						// var flag2 = validate_dayprogram(row.cells[3].childNodes[0].id);
-						// var flag3 = validate_onstay(row.cells[4].childNodes[0].id);
-						// if (!flag1 || !flag2 || !flag3) {
-						// 	return false;
-						// }
-						checkedRowCount++;
 					}
-				}
-				if (checkedRowCount < 1) {
-					error_msg_alert('Atleast one day program is required!');
-					return false;
 				}
 				//Hotel info
 				var table = document.getElementById('tbl_package_hotel_infomration');
