@@ -55,9 +55,9 @@ var column = [
 	{ title : "Booking_ID"},
 	{ title : "Booking_date"},
 	{ title : "Sale_Amount"},
-	{ title : "User_Name"},
 	{ title : "Purchase/Expenses"},
-	{ title : "Other_Expense"}	
+	{ title : "Other_Expense"},
+	{ title : "User_Name"}
 ];
 function group_tour_expense_save_reflect(){
 	var tour_id = $('#cmb_tour_name').val();

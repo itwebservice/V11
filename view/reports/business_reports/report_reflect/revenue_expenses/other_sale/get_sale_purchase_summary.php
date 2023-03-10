@@ -26,11 +26,13 @@ if($sale_type == 'Visa'){
 	$sq_query = mysqlQuery("select * from visa_master where delete_status='0' order by visa_id desc");
 	while ($row_visa = mysqli_fetch_assoc($sq_query)) {
 
+	$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_visa[customer_id]'"));
+	$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 	$vendor_type = '';
 	$vendor_name = '';
 	$date = $row_visa['created_at'];
 	$yr = explode("-", $date);
-	$year =$yr[0];
+	$year = $yr[0];
 
 	$sq_visa_entry = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id='$row_visa[visa_id]'"));
 	$sq_visa_cancel = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id='$row_visa[visa_id]' and status = 'Cancel'"));
@@ -97,12 +99,13 @@ if($sale_type == 'Visa'){
 		(int)($count++),
 		get_visa_booking_id($row_visa['visa_id'],$year),
 		get_date_user($row_visa['created_at']),
-		$emp,
+		$customer_name,
 		number_format($total_sale,2),
 		($vendor_type !='')?$vendor_type:'NA',
 		($vendor_name !='')?$vendor_name:'NA',
 		'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Visa Booking'.'\','.$row_visa['visa_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-		$profit_loss_per.'%('.$var.')'
+		'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+		$emp
 		), "bg" =>$bg);
 	array_push($array_s,$temp_arr);
 	}
@@ -112,6 +115,8 @@ if($sale_type == 'Excursion'){
 	$sq_passport = mysqlQuery("select * from excursion_master where delete_status='0' order by exc_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$date = $row_passport['created_at'];
@@ -177,20 +182,19 @@ if($sale_type == 'Excursion'){
 		$profit_loss_per = round($profit_loss_per, 2);
 		$var = ($total_sale > $total_purchase) ? 'Profit':'Loss';
 
-			$temp_arr = array( "data" => array(
-				(int)($count++),
-				get_exc_booking_id($row_passport['exc_id'],$year) ,
-				get_date_user($row_passport['created_at']),
-				$emp,
-				number_format($total_sale,2),
-				($vendor_type !='')?$vendor_type:'NA',
-				($vendor_name !='')?$vendor_name:'NA',
-				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Excursion Booking'.'\','.$row_passport['exc_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-				$profit_loss_per.'%('.$var.')'
-				
-				), "bg" =>$bg);
-			array_push($array_s,$temp_arr);
-	} 
+		$temp_arr = array( "data" => array(
+			(int)($count++),
+			get_exc_booking_id($row_passport['exc_id'],$year) ,
+			get_date_user($row_passport['created_at']),
+			$customer_name,
+			number_format($total_sale,2),
+			($vendor_type !='')?$vendor_type:'NA',
+			($vendor_name !='')?$vendor_name:'NA',
+			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Excursion Booking'.'\','.$row_passport['exc_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+			$emp), "bg" =>$bg);
+		array_push($array_s,$temp_arr);
+	}
 }
 if($sale_type == 'Bus'){
 
@@ -198,6 +202,8 @@ if($sale_type == 'Bus'){
 	$sq_passport = mysqlQuery("select * from bus_booking_master where 1 and delete_status='0' order by booking_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 		
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$date = $row_passport['created_at'];
@@ -267,13 +273,13 @@ if($sale_type == 'Bus'){
 				(int)($count++),
 				get_bus_booking_id($row_passport['booking_id'],$year) ,
 				get_date_user($row_passport['created_at']),
-				$emp,
+				$customer_name,
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
 				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Bus Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-				$profit_loss_per.'%('.$var.')'
-				
+				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+				$emp				
 				), "bg" =>$bg);
 			array_push($array_s,$temp_arr);
 	} 
@@ -284,6 +290,8 @@ if($sale_type == 'Hotel'){
 	$sq_passport = mysqlQuery("select * from hotel_booking_master where delete_status='0' order by booking_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$date = $row_passport['created_at'];
@@ -354,12 +362,13 @@ if($sale_type == 'Hotel'){
 				(int)($count++),
 				get_hotel_booking_id($row_passport['booking_id'],$year) ,
 				get_date_user($row_passport['created_at']),
-				$emp,
+				$customer_name,
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='') ? $vendor_name : 'NA',
 				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Hotel Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-				$profit_loss_per.'%('.$var.')'
+				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+				$emp
 			), "bg" =>$bg);
 			array_push($array_s,$temp_arr);
 	} 
@@ -370,6 +379,8 @@ if($sale_type == 'Car Rental'){
 	$sq_passport = mysqlQuery("select * from car_rental_booking where delete_status='0' order by booking_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$date = $row_passport['created_at'];
@@ -437,13 +448,13 @@ if($sale_type == 'Car Rental'){
 			(int)($count++),
 			get_car_rental_booking_id($row_passport['booking_id'],$year) ,
 			get_date_user($row_passport['created_at']),
-			$emp,
+			$customer_name,
 			number_format($total_sale,2),
 			($vendor_type !='')?$vendor_type:'NA',
 			($vendor_name !='')?$vendor_name:'NA',
 			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Car Rental'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-			$profit_loss_per.'%('.$var.')'
-			
+			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+			$emp
 			), "bg" =>$bg);
 		array_push($array_s,$temp_arr);
 		
@@ -456,6 +467,8 @@ if($sale_type == 'Flight Ticket'){
 	$sq_passport = mysqlQuery("select * from ticket_master where delete_status='0' order by ticket_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$cancel_type = $row_passport['cancel_type'];
 		$vendor_type = '';
 		$vendor_name = '';
@@ -540,23 +553,25 @@ if($sale_type == 'Flight Ticket'){
 				(int)($count++),
 				get_ticket_booking_id($row_passport['ticket_id'],$year) ,
 				get_date_user($row_passport['created_at']),
-				$emp,
+				$customer_name,
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
 				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Ticket Booking'.'\','.$row_passport['ticket_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-				$profit_loss_per.'%('.$var.')'
-				
+				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+				$emp
 				), "bg" =>$bg);
 			array_push($array_s,$temp_arr);
 	} 
- } 
+} 
 if($sale_type == 'Train Ticket'){ 
 
 	$count = 1;
 	$sq_passport = mysqlQuery("select * from train_ticket_master where delete_status='0' order by train_ticket_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$sq_paid_amount = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from train_ticket_payment_master where train_ticket_id='$row_passport[train_ticket_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
@@ -620,13 +635,13 @@ if($sale_type == 'Train Ticket'){
 				(int)($count++),
 				get_train_ticket_booking_id($row_passport['train_ticket_id'],$year) ,
 				get_date_user($row_passport['created_at']),
-				$emp,
+				$customer_name,
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
 				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Train Ticket Booking'.'\','.$row_passport['train_ticket_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-				$profit_loss_per.'%('.$var.')'
-				
+				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+				$emp				
 				), "bg" =>$bg);
 			array_push($array_s,$temp_arr);
 	} 
@@ -637,6 +652,8 @@ if($sale_type == 'Miscellaneous'){
 	$sq_query = mysqlQuery("select * from miscellaneous_master where 1 and delete_status='0' order by misc_id desc");
 	while ($row_visa = mysqli_fetch_assoc($sq_query)){
 
+		$sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_visa[customer_id]'"));
+		$customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
 		$vendor_type = '';
 		$vendor_name = '';
 		$sq_paid_amount1 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(credit_charges) as sumc from miscellaneous_payment_master where misc_id='$row_visa[misc_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
@@ -706,12 +723,13 @@ if($sale_type == 'Miscellaneous'){
 			(int)($count++),
 			get_misc_booking_id($row_visa['misc_id'],$year) ,
 			get_date_user($row_visa['created_at']),
-			$emp,
+			$customer_name,
 			number_format($total_sale,2),
 			($vendor_type !='')?$vendor_type:'NA',
 			($vendor_name !='') ? $vendor_name : 'NA',
 			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Miscellaneous Booking'.'\','.$row_visa['misc_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
-			$profit_loss_per.'%('.$var.')'
+			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
+			$emp
 		), "bg" =>$bg);
 		array_push($array_s,$temp_arr);
 	} 
