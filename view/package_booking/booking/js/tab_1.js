@@ -395,21 +395,21 @@ function package_tour_booking_tab1_validate() {
 				validate_message += 'Enter traveller age in row-' + (i + 1) + '<br>';
 			}
 			var tour_type_main = $('#tour_type').val();
-			if(tour_type_main == "International")
-			{
-				if (row.cells[10].childNodes[0].value == '') {
-					validate_message += "Enter Passport No. in row -" + (i + 1) + '<br>';
+			// if(tour_type_main == "International")
+			// {
+			// 	if (row.cells[10].childNodes[0].value == '') {
+			// 		validate_message += "Enter Passport No. in row -" + (i + 1) + '<br>';
 						
-				}
-				if (row.cells[11].childNodes[0].value == '') {
-					validate_message +="Enter Issue Date in row -" + (i + 1), + '<br>';
+			// 	}
+			// 	if (row.cells[11].childNodes[0].value == '') {
+			// 		validate_message +="Enter Issue Date in row -" + (i + 1), + '<br>';
 						
-				}
-				if (row.cells[12].childNodes[0].value == '') {
-					validate_message +="Enter Expiry Date in row -" + (i + 1), + '<br>';
+			// 	}
+			// 	if (row.cells[12].childNodes[0].value == '') {
+			// 		validate_message +="Enter Expiry Date in row -" + (i + 1), + '<br>';
 						
-				}
-			}
+			// 	}
+			// }
 		}
 	}
 

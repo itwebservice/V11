@@ -12,7 +12,7 @@ $pan_url = BASE_URL.str_replace('../', '', $pan_url);
 $pan_url3= preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url3']);
 $pan_url3 = BASE_URL.str_replace('../', '', $pan_url3); 
 $pan_url4= preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url4']);
-$pan_url4 = BASE_URL.str_replace('../', '', $pan_url4); 
+$pan_url4 = BASE_URL.str_replace('../', '', $pan_url4);
 
 $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
 ?>
@@ -33,7 +33,7 @@ $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
       <div class="col-md-4 col-sm-4 mg_bt_10_xs">
         <input type="text" name="expiry_date" id="expiry_date" title="Expiry Date" class="form-control" value="<?= ($sq_traveler_info['passport_expiry_date']) == "1970-01-01" ?'': get_date_user($sq_traveler_info['passport_expiry_date']) ?>"  placeholder="Expiry Date" onchange="validate_validDate('issue_date','expiry_date');">
       </div>
-      <div class="col-md-2 mg_tp_20 col-sm-6 text_left_xs">
+      <div class="col-md-3 mg_tp_20 col-sm-6 text_left_xs">
           <div  class="div-upload col-md-8" id="div_upload_button">
               <div id="id_proof_upload_g" class="upload-button1"><span>ID Proof</span></div>
               <span id="id_proof_status1" ></span>
@@ -42,12 +42,12 @@ $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
           </div>
           <div class="text_left_xs col-md-2">          
             <?php if($sq_traveler_info['id_proof_url']!=""){ ?>
-            <a href="<?= $download_url ?>" style="padding: 15px 24px;" title="Download ID Proof" class="btn btn-info ico_left" download><i class="fa fa-download"></i>
+            <a href="<?= $download_url ?>" style="padding: 15px 24px;" title="Download ID Proof" class="btn btn-info ico_left" download><i class="fa fa-download i-download"></i>
           </a>
             <?php } ?>
           </div>
       </div>   
-      <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+      <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
         <div  class="div-upload col-md-8" style="margin-bottom: 5px;"  id="div_upload_button">
             <div id="pan_card_upload_g" class="upload-button1"><span>ID Proof-2</span></div>
             <span id="pan_card_status1" ></span>
@@ -56,11 +56,11 @@ $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
         </div>
         <div class="col-md-2 col-sm-6 text_left_xs">          
           <?php if($sq_traveler_info['pan_card_url']!=""){ ?>
-          <a href="<?= $pan_url ?>" style="padding: 15px 24px;" title="Download ID Proof-2" class="btn btn-info btn-sm ico_left" download><i class="fa fa-download"></i></a>
+          <a href="<?= $pan_url ?>" style="padding: 15px 24px;" title="Download ID Proof-2" class="btn btn-info ico_left" download><i class="fa fa-download i-download"></i></a>
           <?php } ?>
         </div>
       </div> 
-        <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+        <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
           <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
             <div id="pan_card_upload3" class="upload-button1"><span>ID Proof-3</span></div>
               <span id="pan_card_status3"></span>
@@ -69,11 +69,11 @@ $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
           </div>
           <div class="col-md-2 col-sm-6 text_left_xs">          
             <?php if($sq_traveler_info['pan_card_url3']!=""): ?>
-            <a href="<?= $pan_url3 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-3"  style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+            <a href="<?= $pan_url3 ?>" class="btn btn-info ico_left" title="Download ID Proof-3"  style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i></a>
             <?php endif; ?>
           </div>
         </div>
-        <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+        <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
           <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
             <div id="pan_card_upload4" class="upload-button1"><span>ID Proof-4</span></div>
               <span id="pan_card_status4"></span>
@@ -82,13 +82,13 @@ $bg = ($sq_traveler_info['status']=="Cancel") ? "danger" : "";
           </div>
           <div class="col-md-2 col-sm-6 text_left_xs">          
             <?php if($sq_traveler_info['pan_card_url4']!=""): ?>
-            <a href="<?= $pan_url4 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-4"  style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+            <a href="<?= $pan_url4 ?>" class="btn btn-info ico_left" title="Download ID Proof-4"  style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i></a>
             <?php endif; ?>
           </div>
         </div>
   </div>
   <div class="row mg_tp_10">
-    <div class="col-md-12"><span class="note">(Note size : upto 5MB. Only pdf, jpg, png files)</span></div>
+    <div class="col-md-12"><span class="note">(Note: size upto 5MB. Only pdf, jpg, png files are allowed)</span></div>
   </div>
   <div class="row mg_tp_20">
     <div class="col-md-12 text-center">
@@ -357,26 +357,11 @@ $('#frm_save').validate({
       var expiry_date = $('#expiry_date').val();
       var traveler_id = $('#traveler_id').val();
 
-      var msg = '';
-      if(tour_type == 'International' && passport_no==''){
-        msg = "Passport no required!"+'<br/>';
-      }
-      if(tour_type == 'International' && issue_date==''){
-        msg += "Issue date required!"+'<br/>';
-      }
-      if(tour_type == 'International' && expiry_date==''){
-        msg += "Expiry date required!";
-      }
-      if(msg!=''){
-        error_msg_alert(msg);
-        return false;
-      }
       $('#btn_save').button('loading');
-
       $.ajax({
         type: 'post',
         url: base_url()+'controller/passport_id_details/info_save.php',
-        data:{ passport_no : passport_no, issue_date : issue_date, expiry_date : expiry_date, traveler_id : traveler_id_proof_info_reflect },
+        data:{ passport_no : passport_no, issue_date : issue_date, expiry_date : expiry_date, traveler_id : traveler_id },
         success: function(result){
           msg_alert(result);
           $('#btn_save').button('reset');

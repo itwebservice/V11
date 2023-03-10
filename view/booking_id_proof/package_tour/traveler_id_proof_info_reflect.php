@@ -20,7 +20,7 @@ $booking_id = $sq_traveler_info['booking_id'];
           <div class="col-md-4 col-sm-4 mg_bt_10_xs">
             <input type="text" name="expiry_date" id="expiry_date" title="Expiry Date" class="form-control" value="<?= ($sq_traveler_info['passport_expiry_date']) == "1970-01-01" ? date('d-m-Y'): get_date_user($sq_traveler_info['passport_expiry_date']) ?>"  placeholder="Expiry Date" title="Expiry Date" onchange="validate_validDate('issue_date','expiry_date');">
           </div>
-          <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+          <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
               <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
                 <div id="id_proof_upload" class="upload-button1"><span>ID Proof-1</span></div>
                 <span id="id_proof_status" ></span>
@@ -32,12 +32,12 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $download_url = preg_replace('/(\/+)/','/',$sq_traveler_info['id_proof_url']);
                 $download_url2 = BASE_URL.str_replace('../', '', $download_url);
                 if($sq_traveler_info['id_proof_url']!=""): ?>
-                  <a href="<?= $download_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof" style="padding: 15px 24px;" download><i class="fa fa-download"></i> </a>
+                  <a href="<?= $download_url2 ?>" class="btn btn-info ico_left" title="Download ID Proof" style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i> </a>
                 <?php endif; ?>
               </div>
           </div>
 
-          <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+          <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
             <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
               <div id="pan_card_upload" class="upload-button1"><span>ID Proof-2</span></div>
               <span id="pan_card_status" ></span>
@@ -49,11 +49,11 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $pan_carddownload_url = preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url']);
                 $pan_carddownload_url2 = BASE_URL.str_replace('../', '', $pan_carddownload_url);
                 if($sq_traveler_info['pan_card_url']!=""){ ?>
-                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-2" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info ico_left" title="Download ID Proof-2" style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i></a>
                 <?php } ?>
             </div>
           </div>
-          <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+          <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
             <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
               <div id="pan_card_upload3" class="upload-button1"><span>ID Proof-3</span></div>
               <span id="pan_card_status3" ></span>
@@ -65,11 +65,11 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $pan_carddownload_url = preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url3']);
                 $pan_carddownload_url2 = BASE_URL.str_replace('../', '', $pan_carddownload_url);
                 if($sq_traveler_info['pan_card_url3']!=""){ ?>
-                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-3" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info ico_left" title="Download ID Proof-3" style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i></a>
                 <?php } ?>
             </div>
           </div>
-          <div class="col-md-2 col-sm-6 mg_tp_20 text_left_xs">
+          <div class="col-md-3 col-sm-6 mg_tp_20 text_left_xs">
             <div class="div-upload col-md-8" style="margin-bottom: 5px;" id="div_upload_button">
               <div id="pan_card_upload4" class="upload-button1"><span>ID Proof-4</span></div>
               <span id="pan_card_status4" ></span>
@@ -81,13 +81,13 @@ $booking_id = $sq_traveler_info['booking_id'];
                 $pan_carddownload_url = preg_replace('/(\/+)/','/',$sq_traveler_info['pan_card_url4']);
                 $pan_carddownload_url2 = BASE_URL.str_replace('../', '', $pan_carddownload_url);
                 if($sq_traveler_info['pan_card_url4']!=""){ ?>
-                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info btn-sm ico_left" title="Download ID Proof-4" style="padding: 15px 24px;" download><i class="fa fa-download"></i></a>
+                  <a href="<?= $pan_carddownload_url2 ?>" class="btn btn-info ico_left" title="Download ID Proof-4" style="padding: 15px 24px;" download><i class="fa fa-download i-download"></i></a>
                 <?php } ?>
             </div>
           </div>
         </div>
         <div class="row mg_tp_10">
-          <div class="col-md-8"><span class="note">(Note size : upto 5MB. Only pdf, jpg, png files)</span></div>
+          <div class="col-md-8"><span class="note">(Note: size upto 5MB. Only pdf, jpg, png files are allowed)</span></div>
         </div>
         <div class="row mg_tp_20">
           <div class="col-md-12 text-center">
