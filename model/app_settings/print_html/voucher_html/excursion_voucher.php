@@ -114,8 +114,10 @@ if ($emp_id == '0') {
                             <th>CITY NAME</th>
                             <th>Activity NAME</th>
                             <th>TRANSFER OPTION</th>
-                            <th>Total Adult(s)</th>
-                            <th>Total Child(ren)</th>
+                            <th>Adult</th>
+                            <th>Child</th>
+                            <th>Infant</th>
+                            <th>Vehicle</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,6 +133,8 @@ if ($emp_id == '0') {
                             <td><?= $sq_exc_name['excursion_name'] ?></td>
                             <td><?= $row_exc_acc['transfer_option'] ?></td>
                             <td><?= $row_exc_acc['total_adult'] ?></td>
+                            <td><?= $row_exc_acc['total_child'] ?></td>
+                            <td><?= $row_exc_acc['total_child'] ?></td>
                             <td><?= $row_exc_acc['total_child'] ?></td>
                         </tr>
                         <?php } ?>
