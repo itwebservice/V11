@@ -207,9 +207,9 @@ $sq_query = mysqlQuery("select * from visa_master where delete_status='0' order 
 				$total_sale = $row_visa['visa_total_cost'] - $service_tax_amount - $markupservice_tax_amount+ $credit_charges;
 
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Visa Booking' and estimate_type_id ='$row_visa[visa_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Visa Booking' and estimate_type_id ='$row_visa[visa_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -295,9 +295,9 @@ if($sale_type == 'Miscellaneous'){
         $total_sale = $row_visa['misc_total_cost'] - $service_tax_amount - $markupservice_tax_amount + $credit_card_charges;
 				
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Miscellaneous Booking' and estimate_type_id ='$row_visa[misc_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Miscellaneous Booking' and estimate_type_id ='$row_visa[misc_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -384,9 +384,9 @@ if($sale_type == 'Excursion'){
 		$total_sale = $row_passport['exc_total_cost'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
 
     //Purchase
-    $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Excursion Booking' and estimate_type_id ='$row_passport[exc_id]' and delete_status='0'");
+    $sq_purchase = mysqlQuery("select * from vendor_estimate where estimate_type='Excursion Booking' and estimate_type_id ='$row_passport[exc_id]' and delete_status='0'");
     while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-      if($sq_pquery['purchase_return'] == 0){
+      if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
         $total_purchase += $sq_pquery['net_total'];
       }
       else if($sq_pquery['purchase_return'] == 2){
@@ -473,9 +473,9 @@ $sq_passport = mysqlQuery("select * from bus_booking_master where 1 and delete_s
 				$total_sale = $row_passport['net_total'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
 				
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Bus Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Bus Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -559,9 +559,9 @@ if($sale_type == 'Hotel'){
 				  $total_sale = $row_passport['total_fee'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Hotel Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Hotel Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -646,9 +646,9 @@ if($sale_type == 'Car Rental'){
 				$total_sale = $row_passport['total_fees'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Car Rental' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Car Rental' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -742,9 +742,9 @@ if($sale_type == 'Flight Ticket'){
         $total_sale = $sale_amount - $service_tax_amount - $markupservice_tax_amount + $credit_card_charges;
 			
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Ticket Booking' and estimate_type_id ='$row_passport[ticket_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Ticket Booking' and estimate_type_id ='$row_passport[ticket_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -824,9 +824,9 @@ if($sale_type == 'Train Ticket'){
         $total_sale = $row_passport['net_total'] - $service_tax_amount + $credit_card_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Train Ticket Booking' and estimate_type_id ='$row_passport[train_ticket_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Train Ticket Booking' and estimate_type_id ='$row_passport[train_ticket_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){

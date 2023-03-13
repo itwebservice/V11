@@ -612,18 +612,17 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
     </section>
   </section>
 <?php } ?>
-
 <!-- Terms and Conditions -->
-<?php if ($sq_terms_cond['terms_and_conditions'] != '' || $sq_package_name['note'] != '' || $quot_note != '') { ?>
+<?php if ($sq_terms_cond['terms_and_conditions'] != '' ) { ?>
   <section class="pageSection main_block">
     <!-- background Image -->
     <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
     <section class="incluExcluTerms main_block side_pad mg_tp_30 pageSectionInner">
 
+      <!-- Terms and Conditions -->
       <?php
       if ($sq_terms_cond['terms_and_conditions'] != '') { ?>
         <div class="row side_pad mg_tp_10">
-          <!-- Terms and Conditions -->
           <div class="col-md-12">
             <div class="incluExcluTermsTabPanel inclusions main_block">
               <h3 class="incexTitle">TERMS AND CONDITIONS</h3>
@@ -633,7 +632,17 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
             </div>
           </div>
         </div>
-      <?php }
+      <?php } ?>
+    </section>
+  </section>
+<?php } ?>
+<?php if ($sq_package_name['note'] != '' || $quot_note != '') { ?>
+  <section class="pageSection main_block">
+    <!-- background Image -->
+    <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
+    <section class="incluExcluTerms main_block side_pad mg_tp_30 pageSectionInner">
+
+      <?php
       if ($sq_package_name['note'] != '') { ?>
         <!-- Note -->
         <div class="row side_pad">

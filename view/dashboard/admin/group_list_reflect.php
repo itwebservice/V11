@@ -109,10 +109,10 @@ $sq_traveler_personal_info = mysqli_fetch_assoc(mysqlQuery("select * from travel
                   <td><?php echo get_date_user($row_entry1['birth_date']); ?></td>
                   <td><?php echo $row_entry1['age']; ?></td>
                   <td>
-                    <button class="btn btn-info btn-sm" title="ID Proof" id="gid-proof-<?= $count ?>" onclick="display_group_id_proof('<?php echo $row_entry1['id_proof_url']; ?>',<?= $count ?>,'<?php echo $row_entry['pan_card_url']; ?>','<?php echo $row_entry['pan_card_url3']; ?>','<?php echo $row_entry['pan_card_url4']; ?>')"><i class="fa fa-id-card-o"></i></button>
+                    <button class="btn btn-info btn-sm" title="ID Proof" id="gid-proof-<?= $count ?>" onclick="display_group_id_proof('<?php echo $row_entry1['id_proof_url']; ?>',<?= $count ?>,'<?php echo $row_entry1['pan_card_url']; ?>','<?php echo $row_entry1['pan_card_url3']; ?>','<?php echo $row_entry1['pan_card_url4']; ?>')"><i class="fa fa-id-card-o"></i></button>
                   </td>
                 </tr>
-                  <?php 
+                <?php 
               } ?>
               </tbody>
             </table>

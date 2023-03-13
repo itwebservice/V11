@@ -541,8 +541,8 @@ $count = 0;
 				<th>Service_Charge</th>
 				<th>Tax</th>
 				<th>Flight(A/C/I)</th>
-				<th>Train</th>
-				<th>Cruise</th>
+				<th>Train(A/C/I)</th>
+				<th>Cruise(A/C/I)</th>
 				<th>Visa</th>
 				<th>Guide</th>
 				<th>Misc</th>

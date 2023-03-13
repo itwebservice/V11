@@ -633,7 +633,7 @@ if ($sq_quotation['discount'] != 0) {
 <?php } ?>
 
 <!-- Terms/Note -->
-<?php if ($sq_package_name['note'] != '' || $sq_terms_cond['terms_and_conditions'] != '' || $quot_note != '') { ?>
+<?php if ($sq_terms_cond['terms_and_conditions'] != '') { ?>
     <section class="pageSection main_block">
         <!-- background Image -->
         <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
@@ -641,7 +641,7 @@ if ($sq_quotation['discount'] != 0) {
         <section class="incluExcluTerms pageSectionInner main_block mg_tp_30">
 
             <!-- Terms and Conditions -->
-            <?php if ($sq_terms_cond['terms_and_conditions'] != '') { ?>
+            <?php if($sq_terms_cond['terms_and_conditions'] != ''){ ?>
                 <div class="row">
                     <div class="col-md-12 mg_bt_30">
                         <div class="incluExcluTermsTabPanel inclusions main_block">
@@ -653,9 +653,21 @@ if ($sq_quotation['discount'] != 0) {
                     </div>
                 </div>
             <?php } ?>
+        </section>
+    </section>
+<?php } ?>
+
+<!-- Terms/Note -->
+<?php if ($sq_package_name['note'] != '' || $quot_note != '') { ?>
+    <section class="pageSection main_block">
+        <!-- background Image -->
+        <img src="<?= BASE_URL ?>images/quotation/p6/pageBGF.jpg" class="img-responsive pageBGImg">
+
+        <section class="incluExcluTerms pageSectionInner main_block mg_tp_30">
+
             <!-- Note -->
             <div class="row">
-                <?php if ($sq_package_name['note'] != '') { ?>
+                <?php if($sq_package_name['note'] != ''){ ?>
                     <div class="col-md-12 mg_tp_30 mg_bt_30">
                         <div class="incluExcluTermsTabPanel exclusions main_block">
                             <h3 class="lgTitle" style="margin-left:20px!important;">NOTE</h3>
@@ -666,7 +678,7 @@ if ($sq_quotation['discount'] != 0) {
                     </div>
                 <?php } ?>
             </div>
-            <?php if ($quot_note != '') { ?>
+            <?php if($quot_note != ''){ ?>
                 <div class="row">
                     <div class="col-md-12">
                         <pre class="real_text" style="margin-left:20px!important;"><?php echo $quot_note; ?></pre>
@@ -676,6 +688,7 @@ if ($sq_quotation['discount'] != 0) {
         </section>
     </section>
 <?php } ?>
+
 
 <!-- Ending Page -->
 <section class="pageSection main_block">

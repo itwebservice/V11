@@ -34,7 +34,7 @@ function mail_send(){
 			$sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
 			while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
 
-				$sq_enquiry_entry = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status='Active' and DATE(followup_date) = '$today')"));
+				$sq_enquiry_entry = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today')"));
 				if($sq_enquiry_entry > 0){
 					$followup_count++;
 				}
@@ -46,11 +46,11 @@ function mail_send(){
 		$sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
 		while($row_emp = mysqli_fetch_assoc($sq_emp)){
 
-			$sq_enquiry_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status='Active' and DATE(followup_date) = '$today')"));
+			$sq_enquiry_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today')"));
 			if($sq_enquiry_count > 0){
 
 				// $row_enq = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
-				$content1 .= '
+				$content1 = '
 				<tr>
 					<td>
 					<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
@@ -80,7 +80,7 @@ function mail_send(){
 							if($enquiry_content_arr1[$count]['name']=="tour_name"){
 								$tour_name = $enquiry_content_arr1[$count]['value']; 
 							}
-							if($sq_enquiry_entry['followup_status']=="Active" && date('Y-m-d', strtotime($sq_enquiry_entry['followup_date'])) == $today){
+							if(($sq_enquiry_entry['followup_status']=="Active" || $sq_enquiry_entry['followup_status']=="In-Followup") && date('Y-m-d', strtotime($sq_enquiry_entry['followup_date'])) == $today){
 								$followup_date = explode(':',(explode(' ',$sq_enquiry_entry['followup_date'])[1]));
 								$count++;
 								$content1 .= '<tr>
