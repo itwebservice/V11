@@ -9,6 +9,20 @@ $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='pac
 $branch_status = $sq['branch_status'];
 
 $booking_id = $_GET['booking_id'];
+
+$sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+if (intval($sq_booking['quotation_id']) == 0) {
+    $adults = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Adult'"));
+    $children = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Children'"));
+    $infants = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Infant'"));
+}
+else{
+    $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$sq_booking[quotation_id]'"));
+    $adults = $sq_quotation['total_adult'];
+    $children = intval($sq_quotation['children_without_bed']) + intval($sq_quotation['children_with_bed']);
+    $infants = $sq_quotation['total_infant'];
+}
+
 $sq_service_voucher_hotel = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_hotel_service_voucher1 where hotel_accomodation_id='$booking_id'"));
 $sq_accomodation1_hotel = mysqlQuery("select * from package_hotel_accomodation_master where booking_id='$booking_id'");
 while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
@@ -19,7 +33,7 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
     $email_id = $encrypt_decrypt->fnDecrypt($sq_hotel['email_id'], $secret_key);
 
     $booking_id = $sq_accomodation['booking_id'];
-    $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+    // $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
     $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
     if ($sq_traveler['type'] == 'Corporate' || $sq_traveler['type'] == 'B2B') {
         $name = $sq_traveler['company_name'];
@@ -31,17 +45,17 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
     $total_days1 = strtotime($sq_accomodation['to_date']) - strtotime($sq_accomodation['from_date']);
     $total_days = round($total_days1 / 86400);
 
-    if ($sq_booking['quotation_id'] == 0) {
+    if (intval($sq_booking['quotation_id']) == 0) {
         $adults = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Adult'"));
         $children = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Children'"));
         $infants = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Infant'"));
-    }else{
+    }
+    else{
         $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$sq_booking[quotation_id]'"));
         $adults = $sq_quotation['total_adult'];
         $children = intval($sq_quotation['children_without_bed']) + intval($sq_quotation['children_with_bed']);
         $infants = $sq_quotation['total_infant'];
     }
-
     $emp_id = $_SESSION['emp_id'];
     $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
     if ($emp_id == '0') {
@@ -213,7 +227,6 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
 $booking_id = $_GET['booking_id'];
 
 $sq_service_voucher = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_transport_service_voucher where booking_id='$booking_id'"));
-$sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
 $row_transport =  mysqli_fetch_assoc(mysqlQuery("select * from package_tour_transport_master where booking_id='$booking_id'"));
 
 $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
@@ -258,7 +271,7 @@ if ($sq_count != 0) {
     $sq_service_voucher = mysqli_fetch_assoc(mysqlQuery("select * from excursion_service_voucher where booking_id='$booking_id' and booking_type='package'"));
     $sq_excname = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_excursion_master where booking_id='$booking_id'"));
 
-    $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+    // $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
     // $sq_pass_count = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id'"));
     $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
     if ($sq_traveler['type'] == 'Corporate' || $sq_traveler['type'] == 'B2B') {
@@ -423,7 +436,6 @@ if ($sq_count != 0) {
     </div>
 <?php } ?>
 <!-- Transport Voucher -->
-
 <section class="print_header main_block">
     <img src="<?= BASE_URL ?>images/vouchers/transfer-service-voucher.jpg" class="watermark">
 

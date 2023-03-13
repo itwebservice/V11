@@ -782,6 +782,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                             <th>CWB</th>
                                             <th>CWOB</th>
                                             <th>Infant</th>
+                                            <th>Vehicle</th>
                                         </tr>
 
                                     </thead>
@@ -806,6 +807,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                             <td><?= $row_ex['chwb']; ?></td>
                                             <td><?= $row_ex['chwob']; ?></td>
                                             <td><?= $row_ex['infant']; ?></td>
+                                            <td><?= $row_ex['vehicles'] ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

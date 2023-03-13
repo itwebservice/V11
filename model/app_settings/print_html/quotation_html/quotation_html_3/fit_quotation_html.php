@@ -446,10 +446,11 @@ $sq_exc_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation
                     <th>Activity Date/Time</th>
                     <th>Activity Name</th>
                     <th>Transfer Option</th>
-                    <th>Adult(s)</th>
+                    <th>Adult</th>
                     <th>CWB</th>
                     <th>CWOB</th>
-                    <th>Infant(s)</th>
+                    <th>Infant</th>
+                    <th>Vehicle</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -469,6 +470,7 @@ $sq_exc_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation
                       <td><?= $row_ex['chwb'] ?></td>
                       <td><?= $row_ex['chwob'] ?></td>
                       <td><?= $row_ex['infant'] ?></td>
+                      <td><?= $row_ex['vehicles'] ?></td>
                     </tr>
                   <?php }  ?>
                 </tbody>

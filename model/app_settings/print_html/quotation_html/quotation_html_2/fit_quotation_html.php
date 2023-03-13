@@ -460,10 +460,11 @@ if ($sq_quotation['discount'] != 0) {
                                         <th>City</th>
                                         <th>Activity</th>
                                         <th>Transfer</th>
-                                        <th>Adult(s)</th>
+                                        <th>Adult</th>
                                         <th>CWB</th>
                                         <th>CWOB</th>
-                                        <th>Infant(s)</th>
+                                        <th>Infant</th>
+                                        <th>Vehicle</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -483,6 +484,7 @@ if ($sq_quotation['discount'] != 0) {
                                             <td><?= $row_ex['chwb'] ?></td>
                                             <td><?= $row_ex['chwob'] ?></td>
                                             <td><?= $row_ex['infant'] ?></td>
+                                            <td><?= $row_ex['vehicles'] ?></td>
                                         </tr>
                                     <?php }  ?>
                                 </tbody>

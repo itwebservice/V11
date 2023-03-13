@@ -967,10 +967,11 @@ if($sq_ex_count>0){ ?>
                 <th>City Name</th>
                 <th>Activity Name</th>
                 <th>Transfer option</th>
-                <th>Adult(s)</th>
+                <th>Adult</th>
                 <th>CWB</th>
                 <th>CWOB</th>
-                <th>Infant(s)</th>
+                <th>Infant</th>
+                <th>Vehicle</th>
               </tr>
 
             </thead>
@@ -996,6 +997,7 @@ if($sq_ex_count>0){ ?>
                 <td><?= $row_ex['chwb']; ?></td>
                 <td><?= $row_ex['chwob']; ?></td>
                 <td><?= $row_ex['infant']; ?></td>
+                <td><?= $row_ex['vehicles'] ?></td>
               </tr>
               <?php } ?>
 

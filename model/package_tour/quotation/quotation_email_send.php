@@ -507,10 +507,11 @@ class quotation_email_send
 											<th style="text-align:left;border: 1px solid #888888;width:30%">City Name</th>
 											<th style="text-align:left;border: 1px solid #888888;width:30%">Activity Name</th>
 											<th style="text-align:left;border: 1px solid #888888;width:30%">Transfer option</th>
-											<th style="text-align:left;border: 1px solid #888888;width:30%">Adult(s)</th>
+											<th style="text-align:left;border: 1px solid #888888;width:30%">Adult</th>
 											<th style="text-align:left;border: 1px solid #888888;width:30%">CWB</th>
 											<th style="text-align:left;border: 1px solid #888888;width:30%">CWOB</th>
-											<th style="text-align:left;border: 1px solid #888888;width:30%">Infant(s)</th>
+											<th style="text-align:left;border: 1px solid #888888;width:30%">Infant</th>
+											<th style="text-align:left;border: 1px solid #888888;width:30%">Vehicle</th>
 										</tr>
 									</thead>
 									<tbody> 
@@ -528,7 +529,7 @@ class quotation_email_send
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['adult'].'</td>
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['chwb'].'</td>
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['chwob'].'</td>
-												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['infant'].'</td>
+												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['vehicles'].'</td>
 											</tr>';
 										}
 										$content .='

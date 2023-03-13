@@ -431,10 +431,11 @@ if ($overall_count <= 3) {
                       <th>Activity_D/T</th>
                       <th>Activity Name</th>
                       <th>Transfer Option</th>
-                      <th>Adult(s)</th>
+                      <th>Adult</th>
                       <th>CWB</th>
                       <th>CWOB</th>
-                      <th>Infant(s)</th>
+                      <th>Infant</th>
+                      <th>Vehicle</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -454,6 +455,7 @@ if ($overall_count <= 3) {
                         <td><?= $row_ex['chwb'] ?></td>
                         <td><?= $row_ex['chwob'] ?></td>
                         <td><?= $row_ex['infant'] ?></td>
+                        <td><?= $row_ex['vehicles'] ?></td>
                       </tr>
                     <?php }  ?>
                   </tbody>

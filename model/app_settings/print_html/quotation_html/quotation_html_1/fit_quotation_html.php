@@ -819,7 +819,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
             </div>
           </div>
         <?php }
-        if($sq_package_name['note'] != ''&&$sq_package_name['note'] != ' '){ ?>
+        if($sq_package_name['note'] != '' && $sq_package_name['note'] != ' '){ ?>
           <div class="row mg_tp_20">
             <div class="col-md-12">
               <div class="section_heding">
