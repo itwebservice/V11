@@ -24,6 +24,7 @@ function mail_send(){
 	$month = date('m');
 	$day = date('d');
 	$followup_count = 0;
+	global $encrypt_decrypt,$secret_key;
 
 	$sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
 	while($row_emp = mysqli_fetch_assoc($sq_emp)){
@@ -77,10 +78,17 @@ function mail_send(){
 							$year = $yr[0];
 
 							$enquiry_content_arr1 = json_decode($enquiry_content, true);
-							if($enquiry_content_arr1[$count]['name']=="tour_name"){
-								$tour_name = $enquiry_content_arr1[$count]['value']; 
+							if($row_enq['enquiry_type'] =="Group Booking" || $row_enq['enquiry_type'] =="Package Booking"){
+								foreach($enquiry_content_arr1 as $enquiry_content_arr2){
+									if($enquiry_content_arr2['name']=="tour_name"){
+										$tour_name = $enquiry_content_arr2['value'];
+									}
+								}
+							}else{
+								$tour_name = 'NA';
 							}
 							if(($sq_enquiry_entry['followup_status']=="Active" || $sq_enquiry_entry['followup_status']=="In-Followup") && date('Y-m-d', strtotime($sq_enquiry_entry['followup_date'])) == $today){
+
 								$followup_date = explode(':',(explode(' ',$sq_enquiry_entry['followup_date'])[1]));
 								$count++;
 								$content1 .= '<tr>
@@ -98,6 +106,12 @@ function mail_send(){
 						</table>
 					</td>
 				</tr>';
+				$username = $row_emp['username'];
+				$password = $row_emp['password'];
+				$username = $encrypt_decrypt->fnDecrypt($username, $secret_key);
+				$password = $encrypt_decrypt->fnDecrypt($password, $secret_key);
+				$content1 .= mail_login_box($username, $password, BASE_URL);
+
 				$subject = 'Todays Leads Follow-up Reminders : '.date('d-m-Y');
 				global $model, $app_email_id;
 				$model->app_email_send('69',"Team",$row_emp['email_id'], $content1,$subject,'1');
