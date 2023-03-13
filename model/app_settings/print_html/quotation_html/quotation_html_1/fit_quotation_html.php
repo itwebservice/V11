@@ -712,7 +712,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
               <h3>Activity</h3>
             </div>
             <div class="col-md-12">
-              <div class="table-responsive">
+              <div class="table-responsive custom-table">
                 <table class="table table-bordered no-marg" id="tbl_emp_list">
                   <thead>
                     <tr class="table-heading-row">

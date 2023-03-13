@@ -1,7 +1,7 @@
 <div class="app_panel">
-	<div class="app_panel_head">
+	<!-- <div class="app_panel_head">
 		<h2 class="pull-left">Activity Booking</h2>
-	</div>
+	</div> -->
 	<div class="app_panel_content">
 		<div class="header_bottom">
 			<div class="row">
