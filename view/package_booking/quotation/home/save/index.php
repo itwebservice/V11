@@ -98,10 +98,6 @@ function get_excursion_list(id)
 function get_excursion_amount()
 {
     var base_url = $('#base_url').val();
-    // var total_adult = $('#total_adult').val();
-    // var children_without_bed = $('#children_without_bed').val();
-    // var children_with_bed = $('#children_with_bed').val();
-    // var total_infant = $('#total_infant').val();
     var exc_date_arr = new Array();
     var exc_arr = new Array();
     var transfer_arr = new Array();
@@ -109,7 +105,7 @@ function get_excursion_amount()
     var child_arr = new Array();
     var childwo_arr = new Array();
     var infant_arr = new Array();
-
+    var total_vehicles_arr = [];
     
     var table = document.getElementById("tbl_package_tour_quotation_dynamic_excursion");
     var rowCount = table.rows.length;
@@ -125,11 +121,13 @@ function get_excursion_amount()
         var total_children = row.cells[7].childNodes[0].value;
         var total_childrenwo = row.cells[8].childNodes[0].value;
         var total_infant = row.cells[9].childNodes[0].value;
+        var total_vehicles = row.cells[15].childNodes[0].value;
 
         total_adult = (total_adult == '') ? 0 : total_adult;
         total_children = (total_children == '') ? 0 : total_children;
         total_childrenwo = (total_childrenwo == '') ? 0 : total_childrenwo;
         total_infant = (total_infant == '') ? 0 : total_infant;
+        total_vehicles = (total_vehicles == '') ? 0 : total_vehicles;
         
         exc_date_arr.push(exc_date);
         exc_arr.push(exc);
@@ -138,16 +136,18 @@ function get_excursion_amount()
         child_arr.push(total_children);
         childwo_arr.push(total_childrenwo);
         infant_arr.push(total_infant);
+        total_vehicles_arr.push(total_vehicles);
     }
     var exc_adult_cost = 0;
     var exc_child_cot = 0;
     var exc_childwo_cot = 0;
     var exc_infant_cost = 0;
-    $.post(base_url+"view/package_booking/quotation/home/excursion_amount_load.php" , { exc_date_arr : exc_date_arr,exc_arr:exc_arr,transfer_arr:transfer_arr,adult_arr:adult_arr,child_arr:child_arr,childwo_arr:childwo_arr,infant_arr:infant_arr} , function ( data ){
+    $.post(base_url+"view/package_booking/quotation/home/excursion_amount_load.php" , { exc_date_arr : exc_date_arr,exc_arr:exc_arr,transfer_arr:transfer_arr,adult_arr:adult_arr,child_arr:child_arr,childwo_arr:childwo_arr,infant_arr:infant_arr,total_vehicles_arr:total_vehicles_arr} , function ( data ){
         var amount_arr = JSON.parse(data);
         for(var i=0; i<amount_arr.length; i++){
 
             var row = table.rows[i];
+            console.log(amount_arr[i]['transfer_cost']);
             if(row.cells[0].childNodes[0].checked){
 
                 row.cells[10].childNodes[0].value = amount_arr[i]['total_cost'];
@@ -155,11 +155,7 @@ function get_excursion_amount()
                 row.cells[12].childNodes[0].value = amount_arr[i]['child_cost'];
                 row.cells[13].childNodes[0].value = amount_arr[i]['childwo_cost'];
                 row.cells[14].childNodes[0].value = amount_arr[i]['infant_cost'];
-
-                // var exc_adult_cost1 = amount_arr[i]['adult_cost'];
-                // var exc_child_cot1 = amount_arr[i]['child_cost'];
-                // var exc_childwo_cot1 = amount_arr[i]['childwo_cost'];
-                // var exc_infant_cost1 = amount_arr[i]['infant_cost'];
+                row.cells[16].childNodes[0].value = amount_arr[i]['transfer_cost'];
             }
             else{
                 row.cells[10].childNodes[0].value = 0;
@@ -167,20 +163,9 @@ function get_excursion_amount()
                 row.cells[12].childNodes[0].value = 0;
                 row.cells[13].childNodes[0].value = 0;
                 row.cells[14].childNodes[0].value = 0;
-                // var exc_adult_cost1 = 0;
-                // var exc_child_cot1 = 0;
-                // var exc_childwo_cot1 = 0;
-                // var exc_infant_cost1 = 0;
+                row.cells[16].childNodes[0].value = 0;
             }
-            // exc_adult_cost = parseFloat(exc_adult_cost) + parseFloat(exc_adult_cost1);
-            // exc_child_cot = parseFloat(exc_child_cot) + parseFloat(exc_child_cot1);
-            // exc_childwo_cot = parseFloat(exc_childwo_cot) + parseFloat(exc_childwo_cot1);
-            // exc_infant_cost = parseFloat(exc_infant_cost) + parseFloat(exc_infant_cost1);
         }
-        // $('#exc_adult_cost').val(exc_adult_cost);
-        // $('#exc_child_cost').val(exc_child_cot);
-        // $('#exc_childwo_cost').val(exc_childwo_cot);
-        // $('#exc_infant_cost').val(exc_infant_cost);
     });
 }
 </script>

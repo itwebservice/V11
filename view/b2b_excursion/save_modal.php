@@ -22,8 +22,7 @@ include "../../model/model.php";
                                             <div class="Normal collapsed main_block" role="button"
                                                 data-toggle="collapse" data-parent="#accordion" href="#collapse1"
                                                 aria-expanded="false" aria-controls="collapse1" id="collapsed1">
-                                                <div class="col-md-12"><span><em
-                                                            style="margin-left: 15px;"><?php echo "Activity Information"; ?></em></span>
+                                                <div class="col-md-12"><span><em style="margin-left: 15px;"><?php echo "Activity Information"; ?></em></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,22 +237,26 @@ include "../../model/model.php";
                                                                                 style="width:120px" /></td>
                                                                         <td><input type="text" id="adult_cost"
                                                                                 name="adult_cost"
-                                                                                placeholder="*Adult Cost"
+                                                                                placeholder="*Adult Ticket Cost"
                                                                                 title="Adult Cost"
                                                                                 onchange="validate_balance(this.id);"
-                                                                                style="width:120px"></td>
+                                                                                style="width:155px"></td>
                                                                         <td><input type="text" id="child_cost"
                                                                                 name="child_cost"
-                                                                                placeholder="*Child Cost"
+                                                                                placeholder="*Child Ticket Cost"
                                                                                 title="Child Cost"
                                                                                 onchange="validate_balance(this.id);"
-                                                                                style="width:120px"></td>
+                                                                                style="width:155px"></td>
                                                                         <td><input type="text" id="infant_cost"
                                                                                 name="infant_cost"
-                                                                                placeholder="Infant Cost"
+                                                                                placeholder="Infant Ticket Cost"
                                                                                 title="Infant Cost"
                                                                                 onchange="validate_balance(this.id);"
-                                                                                style="width:120px"></td>
+                                                                                style="width:155px"></td>
+                                                                        <td><input type="number" id="transfer_cost"
+                                                                                name="transfer_cost"
+                                                                                placeholder="Transfer Cost"
+                                                                                title="Transfer Cost" style="width:155px"></td>
                                                                         <td><select name="markup_in" id="markup_in"
                                                                                 style="width: 125px"
                                                                                 class="form-control app_select2"
@@ -582,6 +585,7 @@ $(function() {
             var adult_cost_array = new Array();
             var child_cost_array = new Array();
             var infant_cost_array = new Array();
+            var transfer_cost_array = [];
             var markup_in_array = new Array();
             var markup_cost_array = new Array();
             var table = document.getElementById("table_exc_tarrif_basic");
@@ -597,8 +601,9 @@ $(function() {
                     var adult_cost = row.cells[5].childNodes[0].value;
                     var child_cost = row.cells[6].childNodes[0].value;
                     var infant_cost = row.cells[7].childNodes[0].value;
-                    var markup_in = row.cells[8].childNodes[0].value;
-                    var markup_cost = row.cells[9].childNodes[0].value;
+                    var transfer_cost = row.cells[8].childNodes[0].value;
+                    var markup_in = row.cells[9].childNodes[0].value;
+                    var markup_cost = row.cells[10].childNodes[0].value;
 
                     if (transfer_option == '') {
                         error_msg_alert('Select Transfer Option in Row-' + (i + 1));
@@ -635,6 +640,7 @@ $(function() {
                     adult_cost_array.push(adult_cost);
                     child_cost_array.push(child_cost);
                     infant_cost_array.push(infant_cost);
+                    transfer_cost_array.push(transfer_cost);
                     markup_in_array.push(markup_in);
                     markup_cost_array.push(markup_cost);
                 }
@@ -738,6 +744,7 @@ $(function() {
                     adult_cost_array: adult_cost_array,
                     child_cost_array: child_cost_array,
                     infant_cost_array: infant_cost_array,
+                    transfer_cost_array:transfer_cost_array,
                     markup_in_array: markup_in_array,
                     markup_cost_array: markup_cost_array,
                     type_array: type_array,

@@ -94,6 +94,7 @@ public function quotation_master_save()
 	$chwb_arr = $_POST['chwb_arr'];
 	$chwob_arr = $_POST['chwob_arr'];
 	$infant_arr = $_POST['infant_arr'];
+	$vehicles_arr = $_POST['vehicles_arr'];
 	
 	//Costing
 	$tour_cost_arr = $_POST['tour_cost_arr'] ?: [];
@@ -183,7 +184,7 @@ public function quotation_master_save()
 		$this->hotel_entries_save($quotation_id_arr, $city_name_arr, $hotel_name_arr,$hotel_cat_arr,$hotel_type_arr, $hotel_stay_days_arr, $package_name_arr,$total_rooms_arr,$hotel_cost_arr,$extra_bed_cost_arr,$extra_bed_arr,$check_in_arr,$check_out_arr,$package_type_arr);
 		$this->tranport_entries_save($quotation_id_arr,$vehicle_name_arr,$start_date_arr,$pickup_arr,$drop_arr,$vehicle_count_arr,$transport_cost_arr1,$package_name_arr1,$end_date_arr);	
 		$this->costing_entries_save($quotation_id,$tour_cost_arr,$basic_amount_arr,$service_charge_arr,$service_tax_subtotal_arr,$total_tour_cost_arr, $package_name_arr2,$transport_cost_arr,$excursion_cost_arr,$adult_cost_arr,$infant_cost_arr,$child_with_arr,$child_without_arr,$bsmValues,$package_type_c_arr);
-		$this->excursion_entries_save($quotation_id_arr,$city_name_arr_e, $excursion_name_arr, $excursion_amt_arr,$exc_date_arr_e,$transfer_option_arr,$adult_arr,$chwb_arr,$chwob_arr,$infant_arr);
+		$this->excursion_entries_save($quotation_id_arr,$city_name_arr_e, $excursion_name_arr, $excursion_amt_arr,$exc_date_arr_e,$transfer_option_arr,$adult_arr,$chwb_arr,$chwob_arr,$infant_arr,$vehicles_arr);
 		$this->program_entries_save($quotation_id_arr,$attraction_arr, $program_arr, $stay_arr,$meal_plan_arr,$package_p_id_arr,$package_id_arr,$pckg_daywise_url);	
 
 		echo "Quotation has been successfully saved.";
@@ -311,7 +312,7 @@ public function tranport_entries_save($quotation_id_arr,$vehicle_name_arr,$start
 	}
 }
 
-public function excursion_entries_save($quotation_id_arr,$city_name_arr_e, $excursion_name_arr, $excursion_amt_arr,$exc_date_arr_e,$transfer_option_arr,$adult_arr,$chwb_arr,$chwob_arr,$infant_arr)
+public function excursion_entries_save($quotation_id_arr,$city_name_arr_e, $excursion_name_arr, $excursion_amt_arr,$exc_date_arr_e,$transfer_option_arr,$adult_arr,$chwb_arr,$chwob_arr,$infant_arr,$vehicles_arr)
 {
 	for($i=0; $i<sizeof($quotation_id_arr); $i++){
 		for($j=0; $j<sizeof($city_name_arr_e); $j++){
@@ -319,7 +320,7 @@ public function excursion_entries_save($quotation_id_arr,$city_name_arr_e, $excu
 		$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(id) as max from package_tour_quotation_excursion_entries"));
 		$id = $sq_max['max']+1;
 		$exc_date_arr_e[$j] = get_datetime_db($exc_date_arr_e[$j]);
-		$sq_plane = mysqlQuery("insert into package_tour_quotation_excursion_entries ( id, quotation_id, city_name, excursion_name, excursion_amount,exc_date,transfer_option,adult,chwb,chwob,infant ) values ( '$id', '$quotation_id_arr[$i]', '$city_name_arr_e[$j]','$excursion_name_arr[$j]', '$excursion_amt_arr[$j]','$exc_date_arr_e[$j]','$transfer_option_arr[$j]','$adult_arr[$j]','$chwb_arr[$j]','$chwob_arr[$j]','$infant_arr[$j]')");
+		$sq_plane = mysqlQuery("insert into package_tour_quotation_excursion_entries ( id, quotation_id, city_name, excursion_name, excursion_amount,exc_date,transfer_option,adult,chwb,chwob,infant,vehicles ) values ( '$id', '$quotation_id_arr[$i]', '$city_name_arr_e[$j]','$excursion_name_arr[$j]', '$excursion_amt_arr[$j]','$exc_date_arr_e[$j]','$transfer_option_arr[$j]','$adult_arr[$j]','$chwb_arr[$j]','$chwob_arr[$j]','$infant_arr[$j]','$vehicles_arr[$i]')");
 		if(!$sq_plane){
 			echo "error--Activity information not saved!";
 			exit;

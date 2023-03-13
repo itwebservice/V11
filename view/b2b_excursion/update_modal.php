@@ -162,9 +162,10 @@ $exc_name = ($sq_exc['excursion_name']);
 													</select></td>
 												<td><input type="text" id="from_date_basic" class="form-control" name="from_date_basic" placeholder="Valid From" title="Valid From" value="<?= date('d-m-Y') ?>" style="width:120px" onchange="get_to_date(this.id,'to_date_basic')"/></td>
 												<td><input type="text" id="to_date_basic" class="form-control" name="to_date_basic" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date_basic','to_date_basic')" value="<?= date('d-m-Y') ?>" style="width:120px" /></td>
-												<td><input type="text" id="adult_cost" name="adult_cost" placeholder="*Adult Cost" title="Adult Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
-												<td><input type="text" id="child_cost" name="child_cost" placeholder="*Child Cost" title="Child Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
-												<td><input type="text" id="infant_cost" name="infant_cost" placeholder="Infant Cost" title="Infant Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="adult_cost" name="adult_cost" placeholder="*Adult Ticket Cost" title="Adult Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="child_cost" name="child_cost" placeholder="*Child Ticket Cost" title="Child Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="infant_cost" name="infant_cost" placeholder="Infant Ticket Cost" title="Infant Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+                                            	<td><input type="number" id="transfer_cost" name="transfer_cost" placeholder="Transfer Cost" title="Transfer Cost" style="width:155px"></td>
 												<td><select name="markup_in" id="markup_in" style="width: 125px" class="form-control app_select2" title="Markup In">
 													<option value=''>Amount In</option>
 													<option value='Flat'>Flat</option>
@@ -190,9 +191,10 @@ $exc_name = ($sq_exc['excursion_name']);
 															</select></td>
 														<td><input type="text" id="from_date_basic-u<?= $count ?>" class="form-control" name="from_date_basic-u<?= $count ?>" placeholder="Valid From" title="Valid From" value="<?= get_date_user($row_basic['from_date']) ?>" style="width: 120px;" onchange="get_to_date(this.id,'to_date_basic-u<?= $count ?>')"/></td>
 														<td><input type="text" id="to_date_basic-u<?= $count ?>" class="form-control" name="to_date_basic-u<?= $count ?>" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date_basic-u<?= $count ?>','to_date_basic-u<?= $count ?>')" value="<?= get_date_user($row_basic['to_date']) ?>" style="width: 120px;" /></td>
-														<td><input type="text" id="adult_cost-u" name="adult_cost-u" placeholder="*Adult Cost" title="Adult Cost" value='<?= $row_basic['adult_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
-														<td><input type="text" id="child_cost-u" name="child_cost-u" placeholder="*Child Cost" title="Child Cost" value='<?= $row_basic['child_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
-														<td><input type="text" id="infant_cost-u" name="infant_cost" placeholder="Infant Cost" title="Infant Cost" onchange="validate_balance(this.id);" value='<?= $row_basic['infant_cost'] ?>' style="width: 120px;"></td>
+														<td><input type="text" id="adult_cost-u" name="adult_cost-u" placeholder="*Adult Cost" title="Adult Ticket Cost" value='<?= $row_basic['adult_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
+														<td><input type="text" id="child_cost-u" name="child_cost-u" placeholder="*Child Cost" title="Child Ticket Cost" value='<?= $row_basic['child_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
+														<td><input type="text" id="infant_cost-u" name="infant_cost" placeholder="Infant Cost" title="Infant Ticket Cost" onchange="validate_balance(this.id);" value='<?= $row_basic['infant_cost'] ?>' style="width: 120px;"></td>
+														<td><input type="number" id="transfer_cost" name="transfer_cost" placeholder="Transfer Cost" title="Transfer Cost" value='<?= $row_basic['transfer_cost'] ?>' style="width:155px"></td>
 														<td><select name="markup_in" id="markup_in-u" style="width: 125px" class="form-control app_select2" title="Markup In">
 															<option value="<?= $row_basic['markup_in'] ?>"><?= $row_basic['markup_in'] ?></option>
 															<option value=''>Amount In</option>
@@ -483,6 +485,7 @@ $(function(){
 			var adult_cost_array = new Array();
 			var child_cost_array = new Array();
 			var infant_cost_array = new Array();
+            var transfer_cost_array = [];
 			var markup_in_array = new Array();
 			var markup_cost_array = new Array();
 			var basic_entryid_array = new Array();
@@ -498,9 +501,10 @@ $(function(){
 				var adult_cost = row.cells[5].childNodes[0].value;
 				var child_cost = row.cells[6].childNodes[0].value;
 				var infant_cost = row.cells[7].childNodes[0].value;
-				var markup_in = row.cells[8].childNodes[0].value;
-				var markup_cost = row.cells[9].childNodes[0].value;
-				var entry_id = row.cells[10].childNodes[0].value;
+                var transfer_cost = row.cells[8].childNodes[0].value;
+				var markup_in = row.cells[9].childNodes[0].value;
+				var markup_cost = row.cells[10].childNodes[0].value;
+				var entry_id = row.cells[11].childNodes[0].value;
 
 				if(transfer_option=='' && row.cells[0].childNodes[0].checked){
 					error_msg_alert('Select Transfer Option in Row-'+(i+1));
@@ -536,6 +540,7 @@ $(function(){
 				adult_cost_array.push(adult_cost);
 				child_cost_array.push(child_cost);
 				infant_cost_array.push(infant_cost);
+                transfer_cost_array.push(transfer_cost);
 				markup_in_array.push(markup_in);
 				markup_cost_array.push(markup_cost);
 				basic_entryid_array.push(entry_id);
@@ -613,7 +618,7 @@ $(function(){
 			$.ajax({
 				type:'post',
 				url: base_url()+'controller/b2b_excursion/b2b_exc_update.php',
-				data:{ exc_entry_id:exc_entry_id,city_id : city_id, service_name : service_name,duration:duration,dep_point:dep_point,rep_time:rep_time,description:description,note:note,inclusions:inclusions,exclusions:exclusions,terms:terms,upolicy:upolicy,bpolicy:bpolicy,cpolicy:cpolicy,currency_code:currency_code,taxation:JSON.stringify(taxation), active_flag : active_flag,transfer_option_array:transfer_option_array,bfrom_date_array:bfrom_date_array,bto_date_array:bto_date_array, adult_cost_array : adult_cost_array,child_cost_array : child_cost_array ,infant_cost_array:infant_cost_array,markup_in_array:markup_in_array,markup_cost_array:markup_cost_array,basic_entryid_array:basic_entryid_array,type_array:type_array,from_date_array:from_date_array,to_date_array:to_date_array,offer_in_array:offer_in_array,coupon_code_array:coupon_code_array,offer_array:offer_array,agent_type_array:agent_type_array,offer_entryid_array:offer_entryid_array,off_days:off_days,cost_array:cost_array,offers_array:offers_array },
+				data:{ exc_entry_id:exc_entry_id,city_id : city_id, service_name : service_name,duration:duration,dep_point:dep_point,rep_time:rep_time,description:description,note:note,inclusions:inclusions,exclusions:exclusions,terms:terms,upolicy:upolicy,bpolicy:bpolicy,cpolicy:cpolicy,currency_code:currency_code,taxation:JSON.stringify(taxation), active_flag : active_flag,transfer_option_array:transfer_option_array,bfrom_date_array:bfrom_date_array,bto_date_array:bto_date_array, adult_cost_array : adult_cost_array,child_cost_array : child_cost_array ,infant_cost_array:infant_cost_array,transfer_cost_array:transfer_cost_array,markup_in_array:markup_in_array,markup_cost_array:markup_cost_array,basic_entryid_array:basic_entryid_array,type_array:type_array,from_date_array:from_date_array,to_date_array:to_date_array,offer_in_array:offer_in_array,coupon_code_array:coupon_code_array,offer_array:offer_array,agent_type_array:agent_type_array,offer_entryid_array:offer_entryid_array,off_days:off_days,cost_array:cost_array,offers_array:offers_array },
 				success:function(result){
 					var msg = result.split('--');
 					if(msg[0] != 'error'){

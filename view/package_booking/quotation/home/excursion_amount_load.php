@@ -7,6 +7,7 @@ $infant_arr = $_POST['infant_arr'];
 $exc_date_arr = $_POST['exc_date_arr'];
 $exc_arr = $_POST['exc_arr'];
 $transfer_arr = $_POST['transfer_arr'];
+$total_vehicles_arr = $_POST['total_vehicles_arr'];
 $amount_arr = array();
 
 //Get selected currency rate
@@ -51,13 +52,15 @@ for($i=0;$i<sizeof($exc_arr);$i++){
 	else
 		$child_costwo1 = 0;
 
-	$total_cost = ($adult_cost * $total_adult) + $child_cost1 + $child_costwo1 + ($infant_cost * $total_infant);
+	$transfer_cost = ($to_currency_rate!=0) ?($from_currency_rate / $to_currency_rate) * $sq_costing['transfer_cost'] : 0;
+	$total_cost = ($adult_cost * $total_adult) + $child_cost1 + $child_costwo1 + ($infant_cost * $total_infant) + ($transfer_cost * intval($total_vehicles_arr[$i]));
 
 	$arr = array('total_cost' => floatval($total_cost),
 				'adult_cost' => floatval($adult_cost) * intval($total_adult),
 				'child_cost' => floatval($child_cost) * intval($children_with_bed),
 				'childwo_cost' => floatval($child_cost) * intval($children_without_bed),
-				'infant_cost' => floatval($infant_cost) * intval($total_infant));
+				'infant_cost' => floatval($infant_cost) * intval($total_infant),
+				'transfer_cost' => floatval($transfer_cost) * intval($total_vehicles_arr[$i]));
     
 	array_push($amount_arr, $arr);
 }

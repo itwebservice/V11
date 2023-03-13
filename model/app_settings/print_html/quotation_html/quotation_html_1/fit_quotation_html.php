@@ -722,21 +722,22 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                     <thead>
                       <tr class="table-heading-row">
                         <th>Date&Time</th>
-                        <th>City</th>
+                        <th>city</th>
                         <th>Activity</th>
                         <th>Transfer</th>
-                        <th>Adult</th>
+                        <th>ADult</th>
                         <th>CWB</th>
                         <th>CWOB</th>
-                        <th>Infant</th>
+                        <th>INFANT</th>
+                        <th>Vehicle</th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php
                     $count = 0;
                     $sq_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
-                    while($row_ex = mysqli_fetch_assoc($sq_ex))
-                    {
+                    while($row_ex = mysqli_fetch_assoc($sq_ex)){
+
                       $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_ex[city_name]'"));
                       $sq_ex_name = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_ex[excursion_name]'"));
                       ?>
@@ -749,6 +750,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                         <td><?= $row_ex['chwb'] ?></td>
                         <td><?= $row_ex['chwob'] ?></td>
                         <td><?= $row_ex['infant'] ?></td>
+                        <td><?= $row_ex['vehicles'] ?></td>
                       </tr>
                     <?php } ?>
                     </tbody>
@@ -818,7 +820,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
           </div>
         <?php }
         if($sq_package_name['note'] != ''&&$sq_package_name['note'] != ' '){ ?>
-          <div class="row mg_bt_20">
+          <div class="row mg_tp_20">
             <div class="col-md-12">
               <div class="section_heding">
                 <h2>NOTE</h2>

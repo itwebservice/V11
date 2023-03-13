@@ -30,6 +30,7 @@ public function service_save(){
 	$adult_cost_array = $_POST['adult_cost_array'];
 	$child_cost_array = $_POST['child_cost_array'];
 	$infant_cost_array = $_POST['infant_cost_array'];
+	$transfer_cost_array = $_POST['transfer_cost_array'];
 	$markup_in_array = $_POST['markup_in_array'];
 	$markup_cost_array = $_POST['markup_cost_array'];
 
@@ -82,7 +83,7 @@ public function service_save(){
 			$b_entry = $sq_max['max'] + 1;
 			$bfrom_date_array[$i] = get_date_db($bfrom_date_array[$i]);
 			$bto_date_array[$i] = get_date_db($bto_date_array[$i]);
-			$sq_basic = mysqlQuery("INSERT INTO `excursion_master_tariff_basics`(`entry_id`, `exc_id`, `transfer_option`,`from_date`, `to_date`, `adult_cost`, `child_cost`, `infant_cost`, `markup_in`, `markup_cost`) VALUES ('$b_entry', '$exc_id','$transfer_option_array[$i]','$bfrom_date_array[$i]','$bto_date_array[$i]','$adult_cost_array[$i]','$child_cost_array[$i]','$infant_cost_array[$i]', '$markup_in_array[$i]', '$markup_cost_array[$i]')");
+			$sq_basic = mysqlQuery("INSERT INTO `excursion_master_tariff_basics`(`entry_id`, `exc_id`, `transfer_option`,`from_date`, `to_date`, `adult_cost`, `child_cost`, `infant_cost`,`transfer_cost`, `markup_in`, `markup_cost`) VALUES ('$b_entry', '$exc_id','$transfer_option_array[$i]','$bfrom_date_array[$i]','$bto_date_array[$i]','$adult_cost_array[$i]','$child_cost_array[$i]','$infant_cost_array[$i]', '$transfer_cost_array[$i]','$markup_in_array[$i]', '$markup_cost_array[$i]')");
 			if(!$sq_basic){
 				echo "error--Sorry, Activity Basic Costing not saved!";
 				exit;
@@ -137,6 +138,7 @@ public function service_update(){
 	$adult_cost_array = $_POST['adult_cost_array'];
 	$child_cost_array = $_POST['child_cost_array'];
 	$infant_cost_array = $_POST['infant_cost_array'];
+	$transfer_cost_array = $_POST['transfer_cost_array'];
 	$markup_in_array = $_POST['markup_in_array'];
 	$markup_cost_array = $_POST['markup_cost_array'];
 	$basic_entryid_array = $_POST['basic_entryid_array'];
@@ -179,12 +181,12 @@ public function service_update(){
 					$b_entry = $sq_max['max'] + 1;
 					$bfrom_date_array[$i] = get_date_db($bfrom_date_array[$i]);
 					$bto_date_array[$i] = get_date_db($bto_date_array[$i]);
-					$sq_basic = mysqlQuery("INSERT INTO `excursion_master_tariff_basics`(`entry_id`, `exc_id`,`transfer_option`, `from_date`, `to_date`, `adult_cost`, `child_cost`,`infant_cost`, `markup_in`,`markup_cost`) VALUES ('$b_entry', '$exc_entry_id','$transfer_option_array[$i]','$bfrom_date_array[$i]','$bto_date_array[$i]','$adult_cost_array[$i]','$child_cost_array[$i]','$infant_cost_array[$i]', '$markup_in_array[$i]', '$markup_cost_array[$i]')");
+					$sq_basic = mysqlQuery("INSERT INTO `excursion_master_tariff_basics`(`entry_id`, `exc_id`,`transfer_option`, `from_date`, `to_date`, `adult_cost`, `child_cost`,`infant_cost`,`transfer_cost`, `markup_in`,`markup_cost`) VALUES ('$b_entry', '$exc_entry_id','$transfer_option_array[$i]','$bfrom_date_array[$i]','$bto_date_array[$i]','$adult_cost_array[$i]','$child_cost_array[$i]','$infant_cost_array[$i]','$transfer_cost_array[$i]', '$markup_in_array[$i]', '$markup_cost_array[$i]')");
 				}
 				else{
 					$bfrom_date_array[$i] = get_date_db($bfrom_date_array[$i]);
 					$bto_date_array[$i] = get_date_db($bto_date_array[$i]);
-					$sq_basic = mysqlQuery("update `excursion_master_tariff_basics` set `transfer_option`= '$transfer_option_array[$i]',`from_date`='$bfrom_date_array[$i]', `to_date`='$bto_date_array[$i]', `adult_cost`='$adult_cost_array[$i]', `child_cost`='$child_cost_array[$i]',`infant_cost`='$infant_cost_array[$i]', markup_in='$markup_in_array[$i]', markup_cost='$markup_cost_array[$i]' where entry_id='$basic_entryid_array[$i]'");
+					$sq_basic = mysqlQuery("update `excursion_master_tariff_basics` set `transfer_option`= '$transfer_option_array[$i]',`from_date`='$bfrom_date_array[$i]', `to_date`='$bto_date_array[$i]', `adult_cost`='$adult_cost_array[$i]', `child_cost`='$child_cost_array[$i]',`infant_cost`='$infant_cost_array[$i]',`transfer_cost`='$transfer_cost_array[$i]', markup_in='$markup_in_array[$i]', markup_cost='$markup_cost_array[$i]' where entry_id='$basic_entryid_array[$i]'");
 				}
 				if(!$sq_basic){
 					echo "error--Sorry, Activity Basic Costing not updated!";

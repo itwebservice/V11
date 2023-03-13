@@ -113,7 +113,7 @@
                                         <div class="col-md-12"><span>Per Person Costing</span></div>
                                     </div>
                                 </div>
-                                <div id="collapse2" class="panel-collapse collapse in main_block" role="tabpanel" aria-labelledby="heading2">
+                                <div id="collapse2" class="panel-collapse collapse main_block" role="tabpanel" aria-labelledby="heading2">
                                     <div class="panel-body">
                                         <div class="row mg_tp_10">
                                             <div class="col-xs-12">
@@ -839,6 +839,7 @@
             var chwob_arr = [];
             var infant_arr = [];
             var excursion_amt_arr = [];
+            var vehicles_arr = [];
 
             for (var e = 0; e < rowCount; e++) {
                 var row = table.rows[e];
@@ -852,6 +853,7 @@
                     var chwob = row.cells[8].childNodes[0].value;
                     var infant = row.cells[9].childNodes[0].value;
                     var excursion_amount = row.cells[10].childNodes[0].value;
+                    var vehicles = row.cells[15].childNodes[0].value;
 
                     if (exc_date == "") {
                         error_msg_alert('Select Activity date in row' + (i + 1));
@@ -882,6 +884,7 @@
                     chwb_arr.push(chwb);
                     chwob_arr.push(chwob);
                     infant_arr.push(infant);
+                    vehicles_arr.push(vehicles);
                 }
             }
 
@@ -1125,6 +1128,7 @@
                                 chwb_arr: chwb_arr,
                                 chwob_arr: chwob_arr,
                                 infant_arr: infant_arr,
+                                vehicles_arr:vehicles_arr,
                                 basic_amount_arr: basic_amount_arr,
                                 service_charge_arr: service_charge_arr,
                                 service_tax_subtotal_arr: service_tax_subtotal_arr,

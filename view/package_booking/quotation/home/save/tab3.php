@@ -508,6 +508,8 @@
                                                             <td style="display:none"><input type="number"
                                                                     id="infant_total-1" name="infant_total-1"
                                                                     style="width:100px;display:none;"></td>
+                                                            <td><input type="number" id="no_vehicles-1" name="no_vehicles-1" placeholder="No.Of Vehicles" title="No.Of Vehicles" style="width:150px" onchange="get_excursion_amount();">
+                                                            <td style="display:none"><input type="number" id="transfer_total-1" name="transfer_total-1" style="width:100px;display:none;"></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -1374,6 +1376,7 @@ $(function() {
             var exc_child_cot = 0;
             var exc_childwo_cot = 0;
             var exc_infant_cost = 0;
+            var exc_transfer_cost = 0;
             for (var e = 0; e < rowCount; e++) {
                 var row = table.rows[e];
                 if (row.cells[0].childNodes[0].checked) {
@@ -1422,6 +1425,8 @@ $(function() {
                         .childNodes[0].value);
                     exc_infant_cost = parseFloat(exc_infant_cost) + parseFloat(row.cells[14]
                         .childNodes[0].value);
+                    exc_transfer_cost = parseFloat(exc_transfer_cost) + parseFloat(row.cells[16]
+                        .childNodes[0].value);
                 }
             }
             //Group costing
@@ -1444,6 +1449,11 @@ $(function() {
                 exc_childwo_cot) / parseInt(child_without_bed) : 0;
             var exc_infant_coste = (parseInt(total_infant) !== 0) ? parseFloat(exc_infant_cost) /
                 parseInt(total_infant) : 0;
+            var exc_ftransfer_cost = (parseInt(adult_count) !== 0) ? parseFloat(exc_transfer_cost) /
+                (parseInt(adult_count)+parseInt(child_with_bed)) : 0;
+
+            var exc_atransfer_cost = (parseInt(adult_count) !== 0) ? exc_ftransfer_cost : 0;
+            var exc_cwtransfer_cost = (parseInt(child_with_bed) !== 0) ? exc_ftransfer_cost : 0;
 
             var table = document.getElementById("tbl_package_tour_quotation_adult_child");
             var rowCount = table.rows.length;
@@ -1464,9 +1474,9 @@ $(function() {
                 var cwob_cost_total1 = (per_cwob[j]) ? per_cwob[j] : 0;
                 var infant_cost_total1 = (per_infant[j]) ? per_infant[j] : 0;
                 row.cells[1].childNodes[0].value = parseFloat(parseFloat(hadult_cost) + parseFloat(
-                    adult_cost_total1)).toFixed(2);
+                    adult_cost_total1) + parseFloat(exc_atransfer_cost)).toFixed(2);
                 row.cells[2].childNodes[0].value = parseFloat(parseFloat(child_with_bed_coste) +
-                    parseFloat(cwb_cost_total1)).toFixed(2);
+                    parseFloat(cwb_cost_total1) + parseFloat(exc_cwtransfer_cost)).toFixed(2);
                 row.cells[3].childNodes[0].value = parseFloat(parseFloat(child_without_bede) +
                     parseFloat(cwob_cost_total1)).toFixed(2);
                 row.cells[4].childNodes[0].value = parseFloat(parseFloat(exc_infant_coste) +

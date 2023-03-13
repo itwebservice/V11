@@ -360,14 +360,15 @@ if($sq_e_count != '0'){
 			<th>Child_with_Bed</th>
 			<th>Child_without_Bed</th>
 			<th>Infant(s)</th>
+			<th>Vehicle(s)</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php
 		$count = 0;
 		$sq_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
-		while($row_ex = mysqli_fetch_assoc($sq_ex))
-		{
+		while($row_ex = mysqli_fetch_assoc($sq_ex)){
+			
 			$sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_ex[city_name]'"));
 			$sq_ex_name = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_ex[excursion_name]'"));
 			?>
@@ -381,6 +382,7 @@ if($sq_e_count != '0'){
 				<td><?= $row_ex['chwb'] ?></td>
 				<td><?= $row_ex['chwob'] ?></td>
 				<td><?= $row_ex['infant'] ?></td>
+				<td><?= $row_ex['vehicles'] ?></td>
 			</tr>
 			<?php
 		}	
@@ -509,11 +511,11 @@ $count = 0;
 				?>
 				<tr>
 					<td><?= $sq_cost['package_type'] ?></td>
-						<?php if($role != 'B2b'){		 ?>
-						<td><?= number_format($sq_cost['tour_cost'],2) ?></td>
-						<td><?= number_format($sq_cost['transport_cost'],2) ?></td>
-						<td><?= number_format($sq_cost['excursion_cost'],2) ?></td> 
-						<?php }else{ ?>
+					<?php if($role != 'B2b'){		 ?>
+					<td><?= number_format($sq_cost['tour_cost'],2) ?></td>
+					<td><?= number_format($sq_cost['transport_cost'],2) ?></td>
+					<td><?= number_format($sq_cost['excursion_cost'],2) ?></td> 
+					<?php }else{ ?>
 					<td><?= number_format($tour_cost,2) ?></td>
 					<?php } ?>
 					<td><?= number_format($basic_costing,2) ?></td>

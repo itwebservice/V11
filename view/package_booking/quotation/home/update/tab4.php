@@ -872,6 +872,7 @@ $('#frm_tab4').validate({
         var infant_arr = [];
         var excursion_amt_arr = new Array();
         var excursion_id_arr = new Array();
+        var vehicles_arr = [];
 
         for (var e = 0; e < rowCount; e++) {
             var row = table.rows[e];
@@ -886,9 +887,10 @@ $('#frm_tab4').validate({
             var chwob = row.cells[8].childNodes[0].value;
             var infant = row.cells[9].childNodes[0].value;
             var excursion_amount = row.cells[10].childNodes[0].value;
+            var vehicles = row.cells[15].childNodes[0].value;
 
-            if (row.cells[15] && row.cells[15].childNodes[0]) {
-                var excursion_id = row.cells[15].childNodes[0].value;
+            if (row.cells[16] && row.cells[16].childNodes[0]) {
+                var excursion_id = row.cells[16].childNodes[0].value;
             } else {
                 var excursion_id = "";
             }
@@ -902,6 +904,7 @@ $('#frm_tab4').validate({
             chwb_arr.push(chwb);
             chwob_arr.push(chwob);
             infant_arr.push(infant);
+            vehicles_arr.push(vehicles);
             excursion_id_arr.push(excursion_id);
         }
 
@@ -1122,6 +1125,7 @@ $('#frm_tab4').validate({
                             excursion_amt_arr: excursion_amt_arr,
                             excursion_id_arr: excursion_id_arr,
                             excursion_cost_arr: excursion_cost_arr,
+                            vehicles_arr:vehicles_arr,
                             guide_cost: guide_cost,
                             misc_cost: misc_cost,
                             adult_cost: adult_cost_arr,

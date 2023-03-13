@@ -245,16 +245,12 @@ $package_name = $sq_package['package_name'];
                                                                     </option>
                                                                     <option value="">Transport Vehicle</option>
                                                                     <?php
-																			$sq_transport_bus_agency = mysqlQuery("select * from b2b_transfer_master where status!='Inactive' order by vehicle_name asc");
-																			while ($row_transport_bus_agency = mysqli_fetch_assoc($sq_transport_bus_agency)) {
-																			?>
-                                                                    <option
-                                                                        value="<?= $row_transport_bus_agency['entry_id'] ?>">
+                                                                    $sq_transport_bus_agency = mysqlQuery("select * from b2b_transfer_master where status!='Inactive' order by vehicle_name asc");
+                                                                    while ($row_transport_bus_agency = mysqli_fetch_assoc($sq_transport_bus_agency)) { ?>
+                                                                    <option value="<?= $row_transport_bus_agency['entry_id'] ?>">
                                                                         <?= $row_transport_bus_agency['vehicle_name'] ?>
                                                                     </option>
-                                                                    <?php
-																			}
-																			?>
+                                                                    <?php } ?>
                                                                 </select></td>
                                                             <td><input type="text"
                                                                     id="transport_start_date-<?= $count ?>_u"
@@ -464,6 +460,10 @@ $package_name = $sq_package['package_name'];
                                                             <td style="display:none"><input type="number"
                                                                     id="infant_total-1" name="infant_total-1"
                                                                     style="width:100px;display:none;"></td>
+                                                            <td><input type="number" id="no_vehicles-1" name="no_vehicles-1"
+                                                                    placeholder="No.Of Vehicles" title="No.Of Vehicles"
+                                                                    style="width:150px" onchange="get_excursion_amount();">
+                                                            </td>
                                                         </tr>
                                                         <script>
                                                         $('#city_name-1').select2();
@@ -474,122 +474,119 @@ $package_name = $sq_package['package_name'];
                                                         </script>
                                                         <?php
 														} else {
-															$count = 0;
-															$sq_q_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
-															while ($row_q_ex = mysqli_fetch_assoc($sq_q_ex)) {
+                                                        $count = 0;
+                                                        $sq_q_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
+                                                        while ($row_q_ex = mysqli_fetch_assoc($sq_q_ex)) {
 
 																$count++;
 																$sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_q_ex[city_name]'"));
 																$sq_ex = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_q_ex[excursion_name]'"));
 															?>
-                                                        <tr>
-                                                            <td><input class="css-checkbox"
-                                                                    id="chk_tour_group-<?= $count ?>" type="checkbox"
-                                                                    checked><label class="css-label"
-                                                                    for="chk_tour_group2"
-                                                                    onchange="get_excursion_amount_update(this.id);">
-                                                                    <label></td>
-                                                            <td><input maxlength="15" value="<?= $count ?>" type="text"
-                                                                    name="username1" placeholder="Sr. No."
-                                                                    class="form-control" disabled /></td>
-                                                            <td><input type="text" id="exc_date-<?= $count ?>_u"
-                                                                    name="exc_date-<?= $count ?>_u"
-                                                                    placeholder="Activity Date & Time"
-                                                                    title="Activity Date & Time"
-                                                                    class="app_datetimepicker"
-                                                                    value="<?= get_datetime_user($row_q_ex['exc_date']) ?>"
-                                                                    style="width:150px"
-                                                                    onchange="get_excursion_amount_update(this.id);">
-                                                            </td>
-                                                            <td><select id="city_name-<?= $count ?>_u"
-                                                                    class="app_select2 form-control act_city"
-                                                                    name="city_name-<?= $count ?>_u" title="City Name"
-                                                                    style="width:150px"
-                                                                    onchange="get_excursion_list(this.id);">
-                                                                    <option value="<?php echo $sq_city['city_id'] ?>">
-                                                                        <?php echo $sq_city['city_name'] ?></option>
-                                                                    <option value="">*City</option>
-                                                                </select>
-                                                            </td>
-                                                            <td><select id="excursion-<?= $count ?>_u"
-                                                                    class="app_select2 form-control"
-                                                                    title="Activity Name"
-                                                                    name="excursion-<?= $count ?>_u" style="width:150px"
-                                                                    onchange="get_excursion_amount_update(this.id);">
-                                                                    <option value="<?php echo $sq_ex['entry_id'] ?>">
-                                                                        <?php echo $sq_ex['excursion_name'] ?></option>
-                                                                    <option value="">*Activity Name</option>
-                                                                </select></td>
-                                                            <td><select name="transfer_option-<?= $count ?>_u"
-                                                                    id="transfer_option-<?= $count ?>_u"
-                                                                    data-toggle="tooltip"
-                                                                    class="form-contrl app_select2"
-                                                                    title="Transfer Option" style="width:150px"
-                                                                    onchange="get_excursion_amount_update(this.id);">
-                                                                    <option
-                                                                        value="<?php echo $row_q_ex['transfer_option'] ?>">
-                                                                        <?php echo $row_q_ex['transfer_option'] ?>
-                                                                    </option>
-                                                                    <option value="Private Transfer">Private Transfer
-                                                                    </option>
-                                                                    <option value="Without Transfer">Without Transfer
-                                                                    </option>
-                                                                    <option value="Sharing Transfer">Sharing Transfer
-                                                                    </option>
-                                                                    <option value="SIC">SIC</option>
-                                                                </select></td>
-                                                            <td><input type="number" id="adult-1" name="adult-1"
-                                                                    placeholder="Adult(s)" title="Adult(s)"
-                                                                    style="width:150px"
-                                                                    onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'Adult');"
-                                                                    value="<?= $row_q_ex['adult'] ?>"></td>
-                                                            <td><input type="number" id="child-1" name="child-1"
-                                                                    placeholder="Child With-Bed" title="Child With-Bed"
-                                                                    style="width:150px"
-                                                                    onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'ChildWithBed');"
-                                                                    value="<?= $row_q_ex['chwb'] ?>"></td>
-                                                            <td><input type="number" id="childwo-1" name="childwo-1"
-                                                                    placeholder="Child Without-Bed"
-                                                                    title="Child Without-Bed" style="width:150px"
-                                                                    onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'ChildWithoutBed');"
-                                                                    value="<?= $row_q_ex['chwob'] ?>"></td>
-                                                            <td><input type="number" id="infant-1" name="infant-1"
-                                                                    placeholder="Infant(s)" title="Infant(s)"
-                                                                    style="width:150px"
-                                                                    onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'Infant');"
-                                                                    value="<?= $row_q_ex['infant'] ?>"></td>
-                                                            <td style="display:none"><input type="text"
-                                                                    id="excursion_amount-<?= $count ?>_u"
-                                                                    name="excursion_amount-<?= $count ?>_u"
-                                                                    onchange="validate_balance(this.id)"
-                                                                    placeholder="Activity Amount"
-                                                                    title="Activity Amount" style="width:150px"
-                                                                    value="<?php echo $row_q_ex['excursion_amount'] ?>">
-                                                            </td>
-                                                            <td style="display:none"><input type="number"
-                                                                    id="adult_total-1" name="adult_total-1"
-                                                                    style="width:100px;display:none;"></td>
-                                                            <td style="display:none"><input type="number"
-                                                                    id="child_total-1" name="child_total-1"
-                                                                    style="width:100px;display:none;"></td>
-                                                            <td style="display:none"><input type="number"
-                                                                    id="childwo_total-1" name="childwo_total-1"
-                                                                    style="width:100px;display:none;"></td>
-                                                            <td style="display:none"><input type="number"
-                                                                    id="infant_total-1" name="infant_total-1"
-                                                                    style="width:100px;display:none;"></td>
-                                                            <td class="hidden"><input type="hidden"
-                                                                    value="<?= $row_q_ex['id'] ?>"></td>
-                                                        </tr>
-                                                        <script>
-                                                        $('#city_name-<?= $count ?>_u').select2();
-                                                        $('#exc_date-<?= $count ?>_u').datetimepicker({
-                                                            format: "d-m-Y H:i"
-                                                        });
-                                                        city_lzloading('.act_city', '*City');
-                                                        </script>
-                                                        <?php
-
+                                                            <tr>
+                                                                <td><input class="css-checkbox"
+                                                                        id="chk_tour_group-<?= $count ?>" type="checkbox"
+                                                                        checked><label class="css-label"
+                                                                        for="chk_tour_group2"
+                                                                        onchange="get_excursion_amount_update(this.id);">
+                                                                        <label></td>
+                                                                <td><input maxlength="15" value="<?= $count ?>" type="text"
+                                                                        name="username1" placeholder="Sr. No."
+                                                                        class="form-control" disabled /></td>
+                                                                <td><input type="text" id="exc_date-<?= $count ?>_u"
+                                                                        name="exc_date-<?= $count ?>_u"
+                                                                        placeholder="Activity Date & Time"
+                                                                        title="Activity Date & Time"
+                                                                        class="app_datetimepicker"
+                                                                        value="<?= get_datetime_user($row_q_ex['exc_date']) ?>"
+                                                                        style="width:150px"
+                                                                        onchange="get_excursion_amount_update(this.id);">
+                                                                </td>
+                                                                <td><select id="city_name-<?= $count ?>_u"
+                                                                        class="app_select2 form-control act_city"
+                                                                        name="city_name-<?= $count ?>_u" title="City Name"
+                                                                        style="width:150px"
+                                                                        onchange="get_excursion_list(this.id);">
+                                                                        <option value="<?php echo $sq_city['city_id'] ?>">
+                                                                            <?php echo $sq_city['city_name'] ?></option>
+                                                                        <option value="">*City</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select id="excursion-<?= $count ?>_u"
+                                                                        class="app_select2 form-control"
+                                                                        title="Activity Name"
+                                                                        name="excursion-<?= $count ?>_u" style="width:150px"
+                                                                        onchange="get_excursion_amount_update(this.id);">
+                                                                        <option value="<?php echo $sq_ex['entry_id'] ?>">
+                                                                            <?php echo $sq_ex['excursion_name'] ?></option>
+                                                                        <option value="">*Activity Name</option>
+                                                                    </select></td>
+                                                                <td><select name="transfer_option-<?= $count ?>_u"
+                                                                        id="transfer_option-<?= $count ?>_u"
+                                                                        data-toggle="tooltip"
+                                                                        class="form-contrl app_select2"
+                                                                        title="Transfer Option" style="width:150px"
+                                                                        onchange="get_excursion_amount_update(this.id);">
+                                                                        <option
+                                                                            value="<?php echo $row_q_ex['transfer_option'] ?>">
+                                                                            <?php echo $row_q_ex['transfer_option'] ?>
+                                                                        </option>
+                                                                        <option value="Private Transfer">Private Transfer
+                                                                        </option>
+                                                                        <option value="Without Transfer">Without Transfer
+                                                                        </option>
+                                                                        <option value="Sharing Transfer">Sharing Transfer
+                                                                        </option>
+                                                                        <option value="SIC">SIC</option>
+                                                                    </select></td>
+                                                                <td><input type="number" id="adult-1" name="adult-1"
+                                                                        placeholder="Adult(s)" title="Adult(s)"
+                                                                        style="width:150px"
+                                                                        onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'Adult');"
+                                                                        value="<?= $row_q_ex['adult'] ?>"></td>
+                                                                <td><input type="number" id="child-1" name="child-1"
+                                                                        placeholder="Child With-Bed" title="Child With-Bed"
+                                                                        style="width:150px"
+                                                                        onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'ChildWithBed');"
+                                                                        value="<?= $row_q_ex['chwb'] ?>"></td>
+                                                                <td><input type="number" id="childwo-1" name="childwo-1"
+                                                                        placeholder="Child Without-Bed"
+                                                                        title="Child Without-Bed" style="width:150px"
+                                                                        onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'ChildWithoutBed');"
+                                                                        value="<?= $row_q_ex['chwob'] ?>"></td>
+                                                                <td><input type="number" id="infant-1" name="infant-1"
+                                                                        placeholder="Infant(s)" title="Infant(s)"
+                                                                        style="width:150px"
+                                                                        onchange="get_excursion_amount();validate_balance(this.id);validate_pax_count(this.id,'Infant');"
+                                                                        value="<?= $row_q_ex['infant'] ?>"></td>
+                                                                <td style="display:none"><input type="text"
+                                                                        id="excursion_amount-<?= $count ?>_u"
+                                                                        name="excursion_amount-<?= $count ?>_u"
+                                                                        onchange="validate_balance(this.id)"
+                                                                        placeholder="Activity Amount"
+                                                                        title="Activity Amount" style="width:150px"
+                                                                        value="<?php echo $row_q_ex['excursion_amount'] ?>">
+                                                                </td>
+                                                                <td style="display:none"><input type="number"
+                                                                        id="adult_total-1" name="adult_total-1"
+                                                                        style="width:100px;display:none;"></td>
+                                                                <td style="display:none"><input type="number"
+                                                                        id="child_total-1" name="child_total-1"
+                                                                        style="width:100px;display:none;"></td>
+                                                                <td style="display:none"><input type="number"
+                                                                        id="childwo_total-1" name="childwo_total-1"
+                                                                        style="width:100px;display:none;"></td>
+                                                                <td style="display:none"><input type="number"
+                                                                        id="infant_total-1" name="infant_total-1"
+                                                                        style="width:100px;display:none;"></td>
+                                                                <td><input type="number" id="no_vehicles-<?= $count ?>_u" name="no_vehicles-<?= $count ?>_u" placeholder="No.Of Vehicles" title="No.Of Vehicles" style="width:150px" onchange="get_excursion_amount();" value="<?php echo $row_q_ex['vehicles'] ?>">
+                                                                <td class="hidden"><input type="hidden" value="<?= $row_q_ex['id'] ?>"></td>
+                                                            </tr>
+                                                            <script>
+                                                            $('#city_name-<?= $count ?>_u').select2();
+                                                            $('#exc_date-<?= $count ?>_u').datetimepicker({format: "d-m-Y H:i"});
+                                                            city_lzloading('.act_city', '*City');
+                                                            </script>
+                                                            <?php
 															}
 														}
 														?>
@@ -704,7 +701,6 @@ function get_hotel_cost(hotel_id1) {
             total_rooms_arr.push(total_rooms);
             extra_bed_arr.push(extra_bed);
             package_id_arr.push(package_id);
-
         }
     }
     var base_url = $('#base_url').val();
@@ -1181,29 +1177,25 @@ $(function() {
                     if (exc_date == "") {
                         error_msg_alert('Select Activity date in row' + (e + 1));
                         $('.accordion_content').removeClass("indicator");
-                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest(
-                            '.accordion_content').addClass("indicator");
+                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest('.accordion_content').addClass("indicator");
                         return false;
                     }
                     if (city_name == "") {
                         error_msg_alert('Select Activity city in row' + (e + 1));
                         $('.accordion_content').removeClass("indicator");
-                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest(
-                            '.accordion_content').addClass("indicator");
+                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest('.accordion_content').addClass("indicator");
                         return false;
                     }
                     if (excursion_name == "") {
                         error_msg_alert('Select Activity name in row' + (e + 1));
                         $('.accordion_content').removeClass("indicator");
-                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest(
-                            '.accordion_content').addClass("indicator");
+                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest('.accordion_content').addClass("indicator");
                         return false;
                     }
                     if (transfer_option == "") {
                         error_msg_alert('Select Transfer option in row' + (e + 1));
                         $('.accordion_content').removeClass("indicator");
-                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest(
-                            '.accordion_content').addClass("indicator");
+                        $('#tbl_package_tour_quotation_dynamic_excursion').parent('div').closest('.accordion_content').addClass("indicator");
                         return false;
                     }
 
