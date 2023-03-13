@@ -29,6 +29,11 @@ class exc_master
 		$adult_cost_arr = $_POST['adult_cost_arr'];
 		$child_cost_arr = $_POST['child_cost_arr'];
 		$total_amt_arr = $_POST['total_amt_arr'];
+		$total_infant_arr = $_POST['total_infant_arr'];
+		$infant_cost_arr = $_POST['infant_cost_arr'];
+		$total_vehicle_arr = $_POST['total_vehicle_arr'];
+		$transfer_cost_arr = $_POST['transfer_cost_arr'];
+
 		$roundoff = $_POST['roundoff'];
 		$total_amt_arr = $_POST['total_amt_arr'];
 		$credit_charges = $_POST['credit_charges'];
@@ -104,13 +109,13 @@ class exc_master
 
 			for ($i = 0; $i < sizeof($exc_date_arr); $i++) {
 				$total_adults = intval($total_adults) + intval($total_adult_arr[$i]);
-				$total_childs = intval($total_childs) + intval($total_child_arr[$i]);
+				$total_childs = intval($total_childs) + intval($total_child_arr[$i]) + intval($total_infant_arr[$i]);
 				$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from excursion_master_entries"));
 				$entry_id = $sq_max['max'] + 1;
 
 				$exc_date_arr[$i] = get_datetime_db($exc_date_arr[$i]);
 
-				$sq_entry = mysqlQuery("insert into excursion_master_entries(entry_id, exc_id, exc_date, city_id, exc_name,transfer_option, total_adult, total_child, adult_cost, child_cost, total_cost, status) values('$entry_id', '$exc_id', '$exc_date_arr[$i]','$city_id_arr[$i]', '$exc_name_arr[$i]','$transfer_arr[$i]', '$total_adult_arr[$i]', '$total_child_arr[$i]', '$adult_cost_arr[$i]', '$child_cost_arr[$i]', '$total_amt_arr[$i]', '')");
+				$sq_entry = mysqlQuery("insert into excursion_master_entries(entry_id, exc_id, exc_date, city_id, exc_name,transfer_option, total_adult, total_child, adult_cost, child_cost, total_cost, status, `total_infant`, `infant_cost`, `total_vehicles`, `transfer_cost`) values('$entry_id', '$exc_id', '$exc_date_arr[$i]','$city_id_arr[$i]', '$exc_name_arr[$i]','$transfer_arr[$i]', '$total_adult_arr[$i]', '$total_child_arr[$i]', '$adult_cost_arr[$i]', '$child_cost_arr[$i]', '$total_amt_arr[$i]', '','$total_infant_arr[$i]','$infant_cost_arr[$i]','$total_vehicle_arr[$i]','$transfer_cost_arr[$i]')");
 
 				if (!$sq_entry) {
 					$GLOBALS['flag'] = false;

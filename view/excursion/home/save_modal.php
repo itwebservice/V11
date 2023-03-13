@@ -308,6 +308,10 @@ $('#frm_exc_save').validate({
 		var adult_cost_arr = new Array();
 		var child_cost_arr = new Array();
 		var total_amt_arr = new Array();
+		var total_infant_arr = [];
+		var infant_cost_arr = [];
+		var total_vehicle_arr = [];
+		var transfer_cost_arr = [];
 
 		if(payment_mode=="Advance"){
 			error_msg_alert("Please select another payment mode.");
@@ -334,50 +338,58 @@ $('#frm_exc_save').validate({
 			}
 			}
 			if(checked_count==0){
-			error_msg_alert("Atleast one Activity is required!");
+				error_msg_alert("Atleast one Activity is required!");
 				$('#btn_exc_master_save').prop('disabled', false);
 				return false;
 			}
 	        for(var i=0; i<rowCount; i++)
 	        {
-	          var row = table.rows[i];
-	          if(row.cells[0].childNodes[0].checked)
-	          {
-				  var exc_date = row.cells[2].childNodes[0].value;
-				  var city_id = row.cells[3].childNodes[0].value;
-				  var exc_name = row.cells[4].childNodes[0].value;
-				  var transfer_option = row.cells[5].childNodes[0].value;
-				  var total_adult = row.cells[6].childNodes[0].value;
-				  var total_child = row.cells[7].childNodes[0].value;
-				  var adult_cost = row.cells[8].childNodes[0].value;
-				  var child_cost = row.cells[9].childNodes[0].value;
-				  var total_amt = row.cells[10].childNodes[0].value;
+				var row = table.rows[i];
+				if(row.cells[0].childNodes[0].checked){
 
-	              var msg = "";
+					var exc_date = row.cells[2].childNodes[0].value;
+					var city_id = row.cells[3].childNodes[0].value;
+					var exc_name = row.cells[4].childNodes[0].value;
+					var transfer_option = row.cells[5].childNodes[0].value;
+					var total_adult = row.cells[6].childNodes[0].value;
+					var total_child = row.cells[7].childNodes[0].value;
+					var total_infant = row.cells[8].childNodes[0].value;
+					var adult_cost = row.cells[9].childNodes[0].value;
+					var child_cost = row.cells[10].childNodes[0].value;
+					var infant_cost = row.cells[11].childNodes[0].value;
+					var total_vehicle = row.cells[12].childNodes[0].value;
+					var transfer_cost = row.cells[13].childNodes[0].value;
+					var total_amt = row.cells[14].childNodes[0].value;
 
-				  if(exc_date==""){ msg +="Activity Date is required in row:"+(i+1)+"<br>"; }
-				  if(city_id==""){ msg +="City name is required in row:"+(i+1)+"<br>"; }
-				  if(exc_name==""){ msg +="Activity Name is required in row:"+(i+1)+"<br>"; }
-				  if(transfer_option==""){ msg +="Transfer option is required in row:"+(i+1)+"<br>"; }
-				  if(total_adult==""){ msg +="Total Adult(s) is required in row:"+(i+1)+"<br>"; }
-				  if(total_child==""){ msg +="Total Child(ren) is required in row:"+(i+1)+"<br>"; }
+					var msg = "";
 
-	              if(msg!=""){
-	                error_msg_alert(msg);
-					$('#btn_exc_master_save').prop('disabled',false);
-	                return false;
-	              }
+					if(exc_date==""){ msg +="Activity Date is required in row:"+(i+1)+"<br>"; }
+					if(city_id==""){ msg +="City name is required in row:"+(i+1)+"<br>"; }
+					if(exc_name==""){ msg +="Activity Name is required in row:"+(i+1)+"<br>"; }
+					if(transfer_option==""){ msg +="Transfer option is required in row:"+(i+1)+"<br>"; }
+					if(total_adult==""){ msg +="Total Adult(s) is required in row:"+(i+1)+"<br>"; }
+					if(total_child==""){ msg +="Total Child(ren) is required in row:"+(i+1)+"<br>"; }
 
-				  exc_date_arr.push(exc_date);
-				  city_id_arr.push(city_id);
-				  exc_name_arr.push(exc_name);
-				  total_adult_arr.push(total_adult);
-				  total_child_arr.push(total_child);
-				  adult_cost_arr.push(adult_cost);
-				  child_cost_arr.push(child_cost);
-				  total_amt_arr.push(total_amt);             
-				  transfer_arr.push(transfer_option);
-	          }      
+					if(msg!=""){
+						error_msg_alert(msg);
+						$('#btn_exc_master_save').prop('disabled',false);
+						return false;
+					}
+
+					exc_date_arr.push(exc_date);
+					city_id_arr.push(city_id);
+					exc_name_arr.push(exc_name);
+					total_adult_arr.push(total_adult);
+					total_child_arr.push(total_child);
+					adult_cost_arr.push(adult_cost);
+					child_cost_arr.push(child_cost);
+					total_amt_arr.push(total_amt);             
+					transfer_arr.push(transfer_option);
+					total_infant_arr.push(total_infant);
+					infant_cost_arr.push(infant_cost);
+					total_vehicle_arr.push(total_vehicle);
+					transfer_cost_arr.push(transfer_cost);
+				}
 	        }
 			//Validation for booking and payment date in login financial year
 			var act_sc = $('#act_sc').val();
@@ -455,7 +467,7 @@ $('#frm_exc_save').validate({
 								$.ajax({
 									type: 'post',
 									url: base_url+'controller/excursion/exc_master_save.php',
-									data:{ emp_id : emp_id, customer_id : customer_id, exc_issue_amount : exc_issue_amount, service_charge : service_charge, service_tax_subtotal : service_tax_subtotal, exc_total_cost : exc_total_cost, payment_date : payment_date, payment_amount : payment_amount, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id, due_date : due_date,balance_date : balance_date,exc_date_arr : exc_date_arr,city_id_arr : city_id_arr,exc_name_arr : exc_name_arr, total_adult_arr : total_adult_arr,total_child_arr : total_child_arr,adult_cost_arr : adult_cost_arr,child_cost_arr : child_cost_arr,total_amt_arr : total_amt_arr,transfer_arr:transfer_arr, branch_admin_id : branch_admin_id, markup : markup, service_tax_markup : service_tax_markup, reflections : reflections,roundoff:roundoff,bsmValues:bsmValues,credit_charges:credit_charges,credit_card_details:credit_card_details,currency_code:currency_code },
+									data:{ emp_id : emp_id, customer_id : customer_id, exc_issue_amount : exc_issue_amount, service_charge : service_charge, service_tax_subtotal : service_tax_subtotal, exc_total_cost : exc_total_cost, payment_date : payment_date, payment_amount : payment_amount, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id, due_date : due_date,balance_date : balance_date,exc_date_arr : exc_date_arr,city_id_arr : city_id_arr,exc_name_arr : exc_name_arr, total_adult_arr : total_adult_arr,total_child_arr : total_child_arr,adult_cost_arr : adult_cost_arr,child_cost_arr : child_cost_arr,total_amt_arr : total_amt_arr,total_infant_arr:total_infant_arr,infant_cost_arr:infant_cost_arr,total_vehicle_arr:total_vehicle_arr,transfer_cost_arr:transfer_cost_arr,transfer_arr:transfer_arr, branch_admin_id : branch_admin_id, markup : markup, service_tax_markup : service_tax_markup, reflections : reflections,roundoff:roundoff,bsmValues:bsmValues,credit_charges:credit_charges,credit_card_details:credit_card_details,currency_code:currency_code },
 									success: function(result){
 										$('#btn_exc_master_save').button('reset');
 										var msg = result.split('-');
