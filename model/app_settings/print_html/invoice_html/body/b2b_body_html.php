@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Generic Files
 include "../../../../model.php"; 
 include "../../print_functions.php";
@@ -42,6 +42,7 @@ for($i=0;$i<sizeof($cart_checkout_data);$i++){
   }
 }
 
+$amount_in_word = $amount_to_word->convert_number_to_words($final_total);
 //Get default currency rate
 global $currency;
 $sq_to = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$currency'"));
@@ -53,11 +54,9 @@ $currency_code_d = $sq_currency['currency_code'];
 if($app_invoice_format == "Standard"){include "../headers/standard_header_html.php"; }
 if($app_invoice_format == "Regular"){include "../headers/regular_header_html.php"; }
 if($app_invoice_format == "Advance"){include "../headers/advance_header_html.php"; }
-echo 'hi-'.$branch_status;
 ?>
 
 <hr class="no-marg">
-<!-- <div class="col-md-12 mg_tp_20"><p class="border_lt"><span class="font_5">BUS : </span><?= $sq_vehicle['p_name']; ?></p></div> -->
 <div class="main_block inv_rece_table main_block">
     <div class="row">
       <div class="col-md-12">
@@ -424,7 +423,7 @@ echo 'hi-'.$branch_status;
             <div class="col-md-6 text-left"><span class="font_5">CANCELLATION CHARGES</span></div>
             <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($canc_amount,2) ?></span></div></p>
           </div>
-        <? } ?>
+        <?php } ?>
         <div class="col-md-12 border_lt"><p>
           <div class="col-md-6 text-left"><span class="font_5">CURRENT DUE</span></div>
           <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($cur_due,2) ?></span></div></p>
@@ -434,7 +433,6 @@ echo 'hi-'.$branch_status;
   </div>
 </section>
 <?php
-$amount_in_word = $amount_to_word->convert_number_to_words($final_total);
 //Footer
 include "../generic_footer_html.php";
 ?>

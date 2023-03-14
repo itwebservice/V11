@@ -178,7 +178,7 @@ if($branch_status=='yes'){
 elseif($role!='Admin' && $role!='Branch Admin' && $role_id!='7' && $role_id<'7'){
     $query .= " and emp_id='$emp_id'";
 }
-// $query .= " order by exc_id desc";
+$query .= " order by exc_id desc";
 
 $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$row_count, "Sr. No")
@@ -209,7 +209,7 @@ $row_count++;
 				$customer_name = $sq_customer_info['first_name'].' '.$sq_customer_info['last_name'];
 			}
 
-            $sq_entry = mysqlQuery("select * from excursion_master_entries where exc_id='$row_exc[exc_id]'");
+            $sq_entry = mysqlQuery("select * from excursion_master_entries where exc_id='$row_exc[exc_id]' order by entry_id desc");
             while($row_entry = mysqli_fetch_assoc($sq_entry))
             {
                 $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
