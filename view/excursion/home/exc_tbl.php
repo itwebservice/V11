@@ -35,7 +35,7 @@
         <td><input class="form-control" type="text" id="total_vehicle-<?= $offset ?>1" name="total_vehicle-<?= $offset ?>1" placeholder="Total Vehicle" title="Total Vehicle" onchange="excursion_amount_calculate(this.id);calculate_exc_expense('tbl_dynamic_exc_booking');validate_balance(this.id)" style="width:125px"></td>
         <td><input class="form-control" type="text" id="transfer_cost-<?= $offset ?>1" name="transfer_cost-<?= $offset ?>1" placeholder="Transfer Cost" title="Transfer Cost" onchange="excursion_amount_calculate(this.id);calculate_exc_expense('tbl_dynamic_exc_booking');validate_balance(this.id)" style="width:125px"></td>
         <td><input class="form-control" type="text" id="total_amount-<?= $offset ?>1" name="total_amount-<?= $offset ?>1"
-                placeholder="Total Cost" title="Activity Cost" onchange="validate_balance(this.id)" style="width:120px">
+                placeholder="Activity Cost" title="Activity Cost" onchange="validate_balance(this.id)" style="width:120px">
         </td>
 </tr>
 

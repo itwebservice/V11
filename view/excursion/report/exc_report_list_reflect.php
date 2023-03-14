@@ -23,9 +23,9 @@ if($exc_id!=""){
 	$query .=" and exc_id='$exc_id'";
 }
 if($from_date!="" && $to_date!=""){
-			$from_date = date('Y-m-d', strtotime($from_date));
-			$to_date = date('Y-m-d', strtotime($to_date));
-			$query .= " and created_at between '$from_date' and '$to_date'";
+	$from_date = date('Y-m-d', strtotime($from_date));
+	$to_date = date('Y-m-d', strtotime($to_date));
+	$query .= " and created_at between '$from_date' and '$to_date'";
 }
 if($cust_type != ""){
 	$query .= " and customer_id in (select customer_id from customer_master where type = '$cust_type')";

@@ -238,19 +238,19 @@ include "../../model/model.php";
                                                                         <td><input type="text" id="adult_cost"
                                                                                 name="adult_cost"
                                                                                 placeholder="*Adult Ticket Cost"
-                                                                                title="Adult Cost"
+                                                                                title="Adult Ticket Cost"
                                                                                 onchange="validate_balance(this.id);"
                                                                                 style="width:155px"></td>
                                                                         <td><input type="text" id="child_cost"
                                                                                 name="child_cost"
                                                                                 placeholder="*Child Ticket Cost"
-                                                                                title="Child Cost"
+                                                                                title="Child Ticket Cost"
                                                                                 onchange="validate_balance(this.id);"
                                                                                 style="width:155px"></td>
                                                                         <td><input type="text" id="infant_cost"
                                                                                 name="infant_cost"
                                                                                 placeholder="Infant Ticket Cost"
-                                                                                title="Infant Cost"
+                                                                                title="Infant Ticket Cost"
                                                                                 onchange="validate_balance(this.id);"
                                                                                 style="width:155px"></td>
                                                                         <td><input type="number" id="transfer_cost"
@@ -618,11 +618,11 @@ $(function() {
                         return false;
                     }
                     if (adult_cost == '') {
-                        error_msg_alert('Enter Adult Cost in Row-' + (i + 1));
+                        error_msg_alert('Enter Adult Ticket Cost in Row-' + (i + 1));
                         return false;
                     }
                     if (child_cost == '') {
-                        error_msg_alert('Enter Child Cost in Row-' + (i + 1));
+                        error_msg_alert('Enter Child Ticket Cost in Row-' + (i + 1));
                         return false;
                     }
                     if (markup_in == '') {

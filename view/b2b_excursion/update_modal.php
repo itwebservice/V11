@@ -162,9 +162,9 @@ $exc_name = ($sq_exc['excursion_name']);
 													</select></td>
 												<td><input type="text" id="from_date_basic" class="form-control" name="from_date_basic" placeholder="Valid From" title="Valid From" value="<?= date('d-m-Y') ?>" style="width:120px" onchange="get_to_date(this.id,'to_date_basic')"/></td>
 												<td><input type="text" id="to_date_basic" class="form-control" name="to_date_basic" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date_basic','to_date_basic')" value="<?= date('d-m-Y') ?>" style="width:120px" /></td>
-												<td><input type="text" id="adult_cost" name="adult_cost" placeholder="*Adult Ticket Cost" title="Adult Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
-												<td><input type="text" id="child_cost" name="child_cost" placeholder="*Child Ticket Cost" title="Child Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
-												<td><input type="text" id="infant_cost" name="infant_cost" placeholder="Infant Ticket Cost" title="Infant Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="adult_cost" name="adult_cost" placeholder="*Adult Ticket Cost" title="Adult Ticket Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="child_cost" name="child_cost" placeholder="*Child Ticket Cost" title="Child Ticket Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
+												<td><input type="text" id="infant_cost" name="infant_cost" placeholder="Infant Ticket Cost" title="Infant Ticket Cost" onchange="validate_balance(this.id);" style="width:120px"></td>
                                             	<td><input type="number" id="transfer_cost" name="transfer_cost" placeholder="Transfer Cost" title="Transfer Cost" style="width:155px"></td>
 												<td><select name="markup_in" id="markup_in" style="width: 125px" class="form-control app_select2" title="Markup In">
 													<option value=''>Amount In</option>
@@ -191,9 +191,9 @@ $exc_name = ($sq_exc['excursion_name']);
 															</select></td>
 														<td><input type="text" id="from_date_basic-u<?= $count ?>" class="form-control" name="from_date_basic-u<?= $count ?>" placeholder="Valid From" title="Valid From" value="<?= get_date_user($row_basic['from_date']) ?>" style="width: 120px;" onchange="get_to_date(this.id,'to_date_basic-u<?= $count ?>')"/></td>
 														<td><input type="text" id="to_date_basic-u<?= $count ?>" class="form-control" name="to_date_basic-u<?= $count ?>" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date_basic-u<?= $count ?>','to_date_basic-u<?= $count ?>')" value="<?= get_date_user($row_basic['to_date']) ?>" style="width: 120px;" /></td>
-														<td><input type="text" id="adult_cost-u" name="adult_cost-u" placeholder="*Adult Cost" title="Adult Ticket Cost" value='<?= $row_basic['adult_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
-														<td><input type="text" id="child_cost-u" name="child_cost-u" placeholder="*Child Cost" title="Child Ticket Cost" value='<?= $row_basic['child_cost'] ?>' onchange="validate_balance(this.id);" style="width: 120px;"></td>
-														<td><input type="text" id="infant_cost-u" name="infant_cost" placeholder="Infant Cost" title="Infant Ticket Cost" onchange="validate_balance(this.id);" value='<?= $row_basic['infant_cost'] ?>' style="width: 120px;"></td>
+														<td><input type="text" id="adult_cost-u" name="adult_cost-u" placeholder="*Adult Ticket Cost" title="Adult Ticket Cost" value='<?= $row_basic['adult_cost'] ?>' onchange="validate_balance(this.id);" style="width: 155px;"></td>
+														<td><input type="text" id="child_cost-u" name="child_cost-u" placeholder="*Child Ticket Cost" title="Child Ticket Cost" value='<?= $row_basic['child_cost'] ?>' onchange="validate_balance(this.id);" style="width: 155px;"></td>
+														<td><input type="text" id="infant_cost-u" name="infant_cost" placeholder="Infant Ticket Cost" title="Infant Ticket Cost" onchange="validate_balance(this.id);" value='<?= $row_basic['infant_cost'] ?>' style="width: 155px;"></td>
 														<td><input type="number" id="transfer_cost" name="transfer_cost" placeholder="Transfer Cost" title="Transfer Cost" value='<?= $row_basic['transfer_cost'] ?>' style="width:155px"></td>
 														<td><select name="markup_in" id="markup_in-u" style="width: 125px" class="form-control app_select2" title="Markup In">
 															<option value="<?= $row_basic['markup_in'] ?>"><?= $row_basic['markup_in'] ?></option>
@@ -519,11 +519,11 @@ $(function(){
 					return false;
 				}
 				if(adult_cost=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Enter Adult Cost in Row-'+(i+1));
+					error_msg_alert('Enter Adult Ticket Cost in Row-'+(i+1));
 					return false;
 				}
 				if(child_cost=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Enter Child Cost in Row-'+(i+1));
+					error_msg_alert('Enter Child Ticket Cost in Row-'+(i+1));
 					return false;
 				}
 				if(markup_in=='' && row.cells[0].childNodes[0].checked){

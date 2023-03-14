@@ -17,9 +17,11 @@ $sq_service_voucher = mysqli_fetch_assoc(mysqlQuery("select * from excursion_ser
 $sq_excname = mysqlQuery("select * from excursion_master_entries where exc_id='$booking_id'");
 $total_adl = 0;
 $total_child = 0;
+$total_infant = 0;
 while ($row = mysqli_fetch_assoc($sq_excname)) {
     $total_adl = $total_adl + $row['total_adult'];
     $total_child = $total_child + $row['total_child'];
+    $total_infant = $total_infant + $row['total_infant'];
 }
 
 $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master where exc_id='$booking_id' and delete_status='0'"));
@@ -96,7 +98,7 @@ if ($emp_id == '0') {
         </div>
         <div class="col-md-5 mg_bt_20">
             <ul class="print_info_list no-pad noType">
-                <li><span>TOTAL GUEST(s) :</span> <?= $total_adl + $total_child; ?></li>
+                <li><span>TOTAL GUEST(s) :</span> <?= $total_adl + $total_child + $total_infant; ?></li>
             </ul>
         </div>
     </div>
