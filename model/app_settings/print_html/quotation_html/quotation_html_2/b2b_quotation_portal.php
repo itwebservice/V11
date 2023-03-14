@@ -279,6 +279,7 @@ $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master wher
                         <th>Pickup_Point</th>
                         <th>Total_Pax</th>
                         <th>Timing_Slot</th>
+                        <th>Total_vehicle</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -296,6 +297,7 @@ $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master wher
                           <td><?= $activity_list_arr[$i]->service->service_arr[0]->pick_point ?></td>
                           <td><?= $activity_list_arr[$i]->service->service_arr[0]->total_pax ?></td>
                           <td><?= ($pdf_data_array[0]->timing_slots[$i] != '')?$pdf_data_array[0]->timing_slots[$i]:'NA' ?></td>
+                          <td><?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles!='')?$activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></td>
                         </tr>
                       <?php }	?>
                     </tbody>
