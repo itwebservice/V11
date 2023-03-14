@@ -214,7 +214,7 @@ $row_count++;
             {
                 $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
                 $sq_exc1 = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_entry[exc_name]'"));
-                $total = $row_entry['total_adult']+$row_entry['total_child'];
+                $total = $row_entry['total_adult']+$row_entry['total_child'] + $row_entry['total_infant'];
 
                 $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('B'.$row_count, $count++)

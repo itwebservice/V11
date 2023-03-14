@@ -13,6 +13,7 @@ $date1 = date("Y-m-d", strtotime($activity_array[0]->checkDate));
 $pax = $activity_array[0]->adult+$activity_array[0]->child+$activity_array[0]->infant;
 $city_id = $activity_array[0]->activity_city_id;
 $activities_id = $activity_array[0]->activities_id;
+$vehicles = $activity_array[0]->vehicles;
 $day = date("l", strtotime($date1));
 //City Search
 if($city_id!=''){
@@ -254,6 +255,24 @@ if($activities_id!=''){
                             </div>
                             </div>
                             <!-- *** Infant End *** -->
+                            <!-- *** Vehicles *** -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Vehicles</label>
+                                <div class="selector">
+                                <select name="vehicles" id='vehicles' class="full-width">
+                                    <option value='<?= $activity_array[0]->vehicles ?>'><?= $activity_array[0]->vehicles ?></option>
+                                    <?php
+                                    for($m=0;$m<=15;$m++){
+                                        if($m != $activity_array[0]->vehicles){
+                                    ?>
+                                        <option value="<?= $m ?>"><?= $m ?></option>
+                                    <?php } } ?>
+                                </select>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- *** Vehicles End *** -->
                             <div class="col-md-3 col-sm-6 col-12">
                                 <button class="c-button lg colGrn m26-top">
                                     <i class="icon itours-search"></i> SEARCH NOW
@@ -340,7 +359,7 @@ if($activities_id!=''){
                 $sq_tariff_master = mysqlQuery("select * from excursion_master_tariff_basics where exc_id='$exc_id' and (from_date <='$date1' and to_date>='$date1')");
                 while(($row_tariff_master  = mysqli_fetch_assoc($sq_tariff_master))){
 
-                  $total_cost1 = ($adult_count*$row_tariff_master['adult_cost'] + $child_count*$row_tariff_master['child_cost'] + $infant_count*$row_tariff_master['infant_cost']);
+                  $total_cost1 = ($adult_count*$row_tariff_master['adult_cost'] + $child_count*$row_tariff_master['child_cost'] + $infant_count*$row_tariff_master['infant_cost'] + $vehicles*$row_tariff_master['transfer_cost']);
 
                   if($row_tariff_master['markup_in'] == 'Flat'){
                       $total_cost1 += $row_tariff_master['markup_cost'];
@@ -419,6 +438,7 @@ if($activities_id!=''){
                     "exc_id"=>(int)($exc_id),
                     "excursion_name"=>$row_query['excursion_name'],
                     "image"=>$newUrl,
+                    "vehicles"=>$vehicles,
                     "currency_id"=>(int)($currency_id),
                     "duration"=>$row_query['duration'],
                     "departure_point"=>$row_query['departure_point'],

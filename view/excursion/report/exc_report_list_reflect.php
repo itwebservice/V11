@@ -83,7 +83,7 @@ include "../../../model/app_settings/branchwise_filteration.php";
 						<td><?php echo $sq_city['city_name']; ?> </td>
 						<td><?php echo $sq_exc1['excursion_name']; ?> </td>
 						<td><?php echo $row_entry['transfer_option']; ?> </td>
-						<td><?php echo $row_entry['total_adult'] + $row_entry['total_child']; ?></td>
+						<td><?php echo $row_entry['total_adult'] + $row_entry['total_child'] + $row_entry['total_infant']; ?></td>
 						<td><?php echo $row_entry['total_cost']; ?> </td>
 					</tr>
 				<?php

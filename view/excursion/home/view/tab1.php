@@ -102,9 +102,13 @@
                        	<th>Transfer_Option</th>
                        	<th>Total_adult</th>
                        	<th>total_child</th>
+                       	<th>total_infant</th>
                        	<th>adult_cost</th>
                        	<th>child_cost</th>
-                       	<th>Activity_Amount</th>
+                       	<th>infant_cost</th>
+                       	<th>total_vehicle</th>
+                       	<th>transfer_cost</th>
+                       	<th>Activity_Cost</th>
                        </tr>
                        </thead>
                        <tbody>
@@ -136,8 +140,12 @@
 									<td><?php echo $row_entry['transfer_option']; ?></td>
 								    <td><?php echo $row_entry['total_adult']; ?></td>
 								    <td><?php echo $row_entry['total_child']; ?></td>
+								    <td><?php echo $row_entry['total_infant']; ?></td>
 								    <td><?php echo $row_entry['adult_cost']; ?> </td>
 								    <td><?php echo $row_entry['child_cost']; ?> </td>
+								    <td><?php echo $row_entry['infant_cost']; ?> </td>
+								    <td><?php echo $row_entry['total_vehicles']; ?> </td>
+								    <td><?php echo $row_entry['transfer_cost']; ?> </td>
 								    <td><?php echo $row_entry['total_cost']; ?> </td>
 								</tr>        
                        			<?php

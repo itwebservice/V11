@@ -324,18 +324,18 @@ $('#frm_exc_save').validate({
 				error_msg_alert("Credit Note Balance is not available"); $('#btn_exc_master_save').prop('disabled',false); return false;
 			}
 	        if(parseFloat(payment_amount)>parseFloat(exc_total_cost)){
-			error_msg_alert("Payment amount cannot be greater than selling amount.");
-			$('#btn_exc_master_save').prop('disabled',false);
-			return false;
+				error_msg_alert("Payment amount cannot be greater than selling amount.");
+				$('#btn_exc_master_save').prop('disabled',false);
+				return false;
 			}
 	        var table = document.getElementById("tbl_dynamic_exc_booking");
 	        var rowCount = table.rows.length;
 			var checked_count = 0;
 			for (var i = 0; i < rowCount; i++) {
-			var row = table.rows[i];
-			if (row.cells[0].childNodes[0].checked) {
-				checked_count++;
-			}
+				var row = table.rows[i];
+				if (row.cells[0].childNodes[0].checked) {
+					checked_count++;
+				}
 			}
 			if(checked_count==0){
 				error_msg_alert("Atleast one Activity is required!");
