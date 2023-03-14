@@ -522,7 +522,7 @@ if (sizeof($activity_list_arr) > 0) {
           </div>
           <div class="col-md-6 mg_bt_20">
             <ul class="print_info_list no-pad noType">
-              <li><span>TOTAL VEHICLES :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles!='') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
+              <li><span>TOTAL VEHICLES :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles != '') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
             </ul>
           </div>
           <div class="col-md-6 mg_bt_20">
@@ -685,9 +685,10 @@ if (sizeof($ferry_list_arr) > 0) {
     $sq_ferry = mysqli_fetch_assoc(mysqlQuery("select * from ferry_master where entry_id='$sq_ferryt[entry_id]'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/ferry-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class="col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> FERRY SERVICE VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> FERRY SERVICE VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
@@ -863,9 +864,10 @@ if (sizeof($tours_list_arr) > 0) {
     $sq_pckg = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$package_id'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/holiday-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class=" col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> HOLIDAY VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> HOLIDAY VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
