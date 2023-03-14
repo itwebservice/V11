@@ -500,7 +500,7 @@ if (sizeof($activity_list_arr) > 0) {
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mg_bt_20">
+          <div class="col-md-12 mg_bt_20">
             <ul class="print_info_list no-pad noType">
               <li><span>ACTIVITY NAME :</span> <?= $activity_list_arr[$i]->service->service_arr[0]->act_name ?></li>
             </ul>
@@ -518,6 +518,11 @@ if (sizeof($activity_list_arr) > 0) {
           <div class="col-md-6 mg_bt_20">
             <ul class="print_info_list no-pad noType">
               <li><span>TRANSFER TYPE :</span> <?= $transfer ?></li>
+            </ul>
+          </div>
+          <div class="col-md-6 mg_bt_20">
+            <ul class="print_info_list no-pad noType">
+              <li><span>TOTAL VEHICLES :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles!='') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
             </ul>
           </div>
           <div class="col-md-6 mg_bt_20">
