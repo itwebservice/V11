@@ -427,7 +427,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
         <p class="costBankTitle mg_tp_10"><?= $discount ?></p>
         <?php
         if ($sq_quotation['other_desc'] != '') { ?>
-          <p class="costBankTitle">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></p>
+          <p class="costBankTitle">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
         <?php } ?>
       </div>
     </div>

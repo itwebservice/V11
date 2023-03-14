@@ -905,7 +905,7 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
           } ?>
           <?php
           if ($sq_quotation['other_desc'] != '') { ?>
-            <p style="margin-left:10px!important;" class="costBankTitle">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></p>
+            <p style="margin-left:10px!important;" class="costBankTitle">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
           <?php } ?>
           <!-- Per person costing End -->
         </div>

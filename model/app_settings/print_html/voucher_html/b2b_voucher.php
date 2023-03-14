@@ -522,7 +522,7 @@ if (sizeof($activity_list_arr) > 0) {
           </div>
           <div class="col-md-6 mg_bt_20">
             <ul class="print_info_list no-pad noType">
-              <li><span>TOTAL VEHICLES :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles != '') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
+              <li><span>TOTAL VEHICLE :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles != '') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
             </ul>
           </div>
           <div class="col-md-6 mg_bt_20">
@@ -535,7 +535,8 @@ if (sizeof($activity_list_arr) > 0) {
               <li><span>PICKUP POINT :</span> <?= $activity_list_arr[$i]->service->service_arr[0]->pick_point ?></li>
             </ul>
           </div>
-          <?php if ($timing_slots[$i] != '') { ?>
+          <?php
+          if($timing_slots[$i] != '') { ?>
             <div class="col-md-6 mg_bt_20">
               <ul class="print_info_list no-pad noType">
                 <li><span>TIMING SLOT :</span> <?= $timing_slots[$i] ?></li>

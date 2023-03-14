@@ -883,7 +883,7 @@ $sq_exc_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation
           <?php } ?>
           <?php
           if ($sq_quotation['other_desc'] != '') { ?>
-            <p style="margin-left:10px!important;" class="costBankTitle mg_tp_10">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></p>
+            <p style="margin-left:10px!important;" class="costBankTitle mg_tp_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
           <?php } ?>
           <!-- Per person costing End -->
         </div>

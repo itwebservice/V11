@@ -977,7 +977,7 @@ if ($sq_quotation['discount'] != 0) {
                 <!-- Per Person Costing End -->
                 <?php
                 if ($sq_quotation['other_desc'] != '') { ?>
-                    <h5 class="costBankTitle mg_tp_10">Miscellaneous Description: <?= $sq_quotation['other_desc'] ?></h5>
+                    <h5 class="costBankTitle mg_tp_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></h5>
                 <?php } ?>
             </div>
         </div>
