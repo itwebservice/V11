@@ -134,8 +134,8 @@ if ($emp_id == '0') {
                             <td><?= $row_exc_acc['transfer_option'] ?></td>
                             <td><?= $row_exc_acc['total_adult'] ?></td>
                             <td><?= $row_exc_acc['total_child'] ?></td>
-                            <td><?= $row_exc_acc['total_child'] ?></td>
-                            <td><?= $row_exc_acc['total_child'] ?></td>
+                            <td><?= $row_exc_acc['total_infant'] ?></td>
+                            <td><?= $row_exc_acc['total_vehicles'] ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>

@@ -695,6 +695,7 @@ function add_to_cart (id,type){
 		var rep_time = $('#rep_time-'+id).html();
 		var pick_point = $('#pick_point-'+id).html();
 		var checkDate = $('#checkDate').val();
+		var vehicles = $('#vehicles-'+id).val();
 		var total_pax = $('#total_pax').val();
 		
 		var result = get_other_rules ('Activity', checkDate);
@@ -713,6 +714,7 @@ function add_to_cart (id,type){
 		service_data_array.push({
 			'id':id,
 			'image':image,
+			'vehicles':parseInt(vehicles),
 			'act_name':act_name,
 			'rep_time':rep_time,
 			'pick_point':pick_point,

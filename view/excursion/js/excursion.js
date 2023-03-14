@@ -35,20 +35,30 @@ function excursion_amount_calculate(id, offset = '') {
 
       var total_adult = row.cells[6].childNodes[0].value;
       var total_children = row.cells[7].childNodes[0].value;
-      var adult_cost = row.cells[8].childNodes[0].value;
-      var child_cost = row.cells[9].childNodes[0].value;
-      var total_amount = row.cells[10].childNodes[0].value;
+      var total_infant = row.cells[8].childNodes[0].value;
+      var adult_cost = row.cells[9].childNodes[0].value;
+      var child_cost = row.cells[10].childNodes[0].value;
+      var infant_cost = row.cells[11].childNodes[0].value;
+      var total_vehicle = row.cells[12].childNodes[0].value;
+      var transfer_cost = row.cells[13].childNodes[0].value;
+      var total_amount = row.cells[14].childNodes[0].value;
       if (total_adult == '') { total_adult = 0; }
       if (total_children == '') { total_children = 0; }
+      if (total_infant == '') { total_infant = 0; }
       if (adult_cost == '') { adult_cost = 0; }
       if (child_cost == '') { child_cost = 0; }
+      if (infant_cost == '') { infant_cost = 0; }
+      if (total_vehicle == '') { total_vehicle = 0; }
+      if (transfer_cost == '') { transfer_cost = 0; }
       if (total_amount == '') { total_amount = 0; }
 
       var total_adult_cost = parseFloat(total_adult) * parseFloat(adult_cost);
       var total_child_cost = parseFloat(total_children) * parseFloat(child_cost);
+      var total_infant_cost = parseFloat(total_infant) * parseFloat(infant_cost);
+      var total_transfer_cost = parseFloat(total_vehicle) * parseFloat(transfer_cost);
 
-      total_cost = parseFloat(total_adult_cost) + parseFloat(total_child_cost);
-      $("#" + row.cells[10].childNodes[0].id).val(total_cost.toFixed(2));
+      total_cost = parseFloat(total_adult_cost) + parseFloat(total_child_cost) + parseFloat(total_infant_cost) + parseFloat(total_transfer_cost);
+      $("#" + row.cells[14].childNodes[0].id).val(total_cost.toFixed(2));
     }
   }
 }
@@ -82,9 +92,11 @@ function get_excursion_amount() {
     for (var i = 0; i < amount_arr.length; i++) {
 
       var row = table.rows[i];
-      row.cells[8].childNodes[0].value = amount_arr[i]['adult_cost'];
-      row.cells[9].childNodes[0].value = amount_arr[i]['child_cost'];
-      row.cells[10].childNodes[0].value = amount_arr[i]['total_cost'];
+      row.cells[9].childNodes[0].value = amount_arr[i]['adult_cost'];
+      row.cells[10].childNodes[0].value = amount_arr[i]['child_cost'];
+      row.cells[11].childNodes[0].value = amount_arr[i]['infant_cost'];
+      row.cells[13].childNodes[0].value = amount_arr[i]['transfer_cost'];
+      row.cells[14].childNodes[0].value = amount_arr[i]['total_cost'];
 
     }
     excursion_amount_calculate(row.cells[2].childNodes[0].id);
@@ -186,7 +198,7 @@ function calculate_exc_expense(id, offset = '') {
     var row = table.rows[i];
     if (row.cells[0].childNodes[0].checked == true) {
 
-      var amt = row.cells[10].childNodes[0].value;
+      var amt = row.cells[14].childNodes[0].value;
       if (!isNaN(amt)) {
 
         if (amt == 0) { amt = 0; }
