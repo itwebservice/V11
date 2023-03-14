@@ -529,6 +529,7 @@ class quotation_email_send
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['adult'].'</td>
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['chwb'].'</td>
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['chwob'].'</td>
+												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['infant'].'</td>
 												<td style="text-align:left;border: 1px solid #888888;">'.$row_ex['vehicles'].'</td>
 											</tr>';
 										}

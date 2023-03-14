@@ -500,6 +500,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
             <!-- Transport -->
 
             <?php
+			$sq_trans_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_transport_entries2 where quotation_id='$quotation_id'"));
             if ($sq_trans_count > 0) {
 
             ?>
@@ -744,79 +745,6 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
 
             </section>
 
-            <?php } ?>
-
-
-            <!-- Excursion -->
-            <?php
-            $sq_ex_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'"));
-            if ($sq_ex_count > 0) { ?>
-
-            <section id="10" class="main_block link_page_section">
-
-                <div class="container">
-
-                    <div class="sec_heding">
-
-                        <h2>Activity</h2>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <div class="table-responsive">
-
-                                <table class="table table-bordered no-marg" id="tbl_emp_list">
-
-                                    <thead>
-
-                                        <tr class="table-heading-row">
-                                            <th>Sr.No</th>
-                                            <th>Activity Date</th>
-                                            <th>City Name</th>
-                                            <th>Activity Name</th>
-                                            <th>Transfer option</th>
-                                            <th>Adult(s)</th>
-                                            <th>CWB</th>
-                                            <th>CWOB</th>
-                                            <th>Infant</th>
-                                            <th>Vehicle</th>
-                                        </tr>
-
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                            $sq_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
-                                            $count = 0;
-                                            while ($row_ex = mysqli_fetch_assoc($sq_ex)) {
-
-                                                $count++;
-                                                $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_ex[city_name]'"));
-                                                $sq_ex_name = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_ex[excursion_name]'"));
-                                            ?>
-                                        <tr>
-                                            <td><?= $count; ?></td>
-                                            <td><?= get_datetime_user($row_ex['exc_date']) ?></td>
-                                            <td><?= $sq_city['city_name']; ?></td>
-                                            <td><?= $sq_ex_name['excursion_name']; ?></td>
-                                            <td><?= $row_ex['transfer_option'] ?></td>
-                                            <td><?= $row_ex['adult']; ?></td>
-                                            <td><?= $row_ex['chwb']; ?></td>
-                                            <td><?= $row_ex['chwob']; ?></td>
-                                            <td><?= $row_ex['infant']; ?></td>
-                                            <td><?= $row_ex['vehicles'] ?></td>
-                                        </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <?php } ?>
 
 
@@ -1086,6 +1014,77 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                 </div>
 
             </section>
+            <!-- Excursion -->
+            <?php
+            $sq_ex_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'"));
+            if ($sq_ex_count > 0) { ?>
+
+            <section id="10" class="main_block link_page_section">
+
+                <div class="container">
+
+                    <div class="sec_heding">
+
+                        <h2>Activity</h2>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered no-marg" id="tbl_emp_list">
+
+                                    <thead>
+
+                                        <tr class="table-heading-row">
+                                            <th>Sr.No</th>
+                                            <th>Activity Date</th>
+                                            <th>City Name</th>
+                                            <th>Activity Name</th>
+                                            <th>Transfer option</th>
+                                            <th>Adult(s)</th>
+                                            <th>CWB</th>
+                                            <th>CWOB</th>
+                                            <th>Infant</th>
+                                            <th>Vehicle</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                            $sq_ex = mysqlQuery("select * from package_tour_quotation_excursion_entries where quotation_id='$quotation_id'");
+                                            $count = 0;
+                                            while ($row_ex = mysqli_fetch_assoc($sq_ex)) {
+
+                                                $count++;
+                                                $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_ex[city_name]'"));
+                                                $sq_ex_name = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_ex[excursion_name]'"));
+                                            ?>
+                                        <tr>
+                                            <td><?= $count; ?></td>
+                                            <td><?= get_datetime_user($row_ex['exc_date']) ?></td>
+                                            <td><?= $sq_city['city_name']; ?></td>
+                                            <td><?= $sq_ex_name['excursion_name']; ?></td>
+                                            <td><?= $row_ex['transfer_option'] ?></td>
+                                            <td><?= $row_ex['adult']; ?></td>
+                                            <td><?= $row_ex['chwb']; ?></td>
+                                            <td><?= $row_ex['chwob']; ?></td>
+                                            <td><?= $row_ex['infant']; ?></td>
+                                            <td><?= $row_ex['vehicles'] ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <?php } ?>
 
             <!-- Inclusion -->
 

@@ -117,6 +117,8 @@ function get_excursion_update_amount(eleid) {
     if(amount_arr.length>0){
       $('#adult_cost-' + id[1]).val(amount_arr[0]['adult_cost']);
       $('#child_cost-' + id[1]).val(amount_arr[0]['child_cost']);
+      $('#infant_cost-' + id[1]).val(amount_arr[0]['infant_cost']);
+      $('#transfer_cost-' + id[1]).val(amount_arr[0]['transfer_cost']);
       $('#total_amount-' + id[1]).val(0);
       excursion_amount_calculate(eleid, '1');
       calculate_exc_expense('tbl_dynamic_exc_booking_update', '1');

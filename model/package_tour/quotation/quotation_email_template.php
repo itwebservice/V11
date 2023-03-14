@@ -147,7 +147,7 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
             <li class="active"><a href="#0">Package</a></li>
             <li><a href="#1">Costing</a></li>
             <li><a href="#2">Transport</a></li>
-            <li><a href="#3">Tour Itinerary</a></li>
+            <li><a href="#3">Itinerary</a></li>
             <li><a href="#4">Accommodations</a></li>
             <li><a href="#5">Train</a></li>
             <li><a href="#6">Flight</a></li>
@@ -918,9 +918,9 @@ if($sq_cruise_count>0){ ?>
 
           </table>
 
-         </div>
+          </div>
 
-       </div>
+        </div>
 
       </div>
 
