@@ -40,12 +40,13 @@ $('#sale_type').select2();
 	{ title : "S_No."},
 	{ title : "Booking_ID"},
 	{ title : "Booking_date"},
-	{ title : "User_Name"},
+	{ title : "Customer_Name"},
 	{ title : "Sale_amount"},
 	{ title : "Supplier_type"},
 	{ title : "Supplier_name"},
 	{ title : "Purchases"},
-	{ title : "Profit/Loss(%)"}	
+	{ title : "Profit/Loss(%)"},
+	{ title : "User_Name"}
 ];
 
 	function tour_expense_save_reflect(){

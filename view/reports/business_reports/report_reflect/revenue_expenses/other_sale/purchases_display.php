@@ -3,7 +3,7 @@ include_once "../../../../../../model/model.php";
 $estimate_type = $_POST['estimate_type'];
 $estimate_type_id = $_POST['estimate_type_id'];
 
-$sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='$estimate_type' and estimate_type_id ='$estimate_type_id' and status!='Cancel' and delete_status='0'"));
+$sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where estimate_type='$estimate_type' and estimate_type_id ='$estimate_type_id' and delete_status='0'"));
 ?>
 <div class="modal fade" id="purchase_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
   	<div class="modal-dialog modal-lg" role="document">
@@ -30,7 +30,7 @@ $sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where stat
                         <tbody>
                         <?php 
                         $count = 1;
-                        $sq_query = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='$estimate_type' and estimate_type_id ='$estimate_type_id' and status!='Cancel' and delete_status='0'");
+                        $sq_query = mysqlQuery("select * from vendor_estimate where estimate_type='$estimate_type' and estimate_type_id ='$estimate_type_id' and delete_status='0'");
                         while($row_query = mysqli_fetch_assoc($sq_query)){	
                             if($row_query['net_total'] != '0'){
                                 $vendor_name = get_vendor_name_report($row_query['vendor_type'],$row_query['vendor_type_id']);
@@ -43,7 +43,7 @@ $sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where stat
                                         $service_tax_amount +=  $service_tax[2];
                                     }
                                 }
-                                if($row_query['purchase_return'] == 0){
+                                if($row_query['purchase_return'] == 0 || $row_query['purchase_return'] == 1){
                                     $total_purchase = $row_query['net_total'];
                                 }
                                 else if($row_query['purchase_return'] == 2){

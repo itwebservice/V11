@@ -149,9 +149,9 @@ $profit_loss = $total_sale - $total_purchase;
 				<th>S_No.</th>
 				<th>Booking_date</th>
 				<th>Tour_name</th>
-				<th>User_name</th>
 				<th>Purchase/Expenses</th>
 				<th>Other Expense</th>
+				<th>User_name</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -164,9 +164,9 @@ $profit_loss = $total_sale - $total_purchase;
 				<td><?= 1 ?></td>
 				<td><?= get_date_user($tourwise_details['booking_date']) ?></td>
 				<td><?= $tourwise_details['tour_name'] ?></td>
-				<td><?= $emp ?></td>
 				<td><button class="btn btn-info btn-sm" onclick="view_purchase_modal('<?= $tourwise_details['booking_id'] ?>')" title="View Purchase"><i class="fa fa-eye"></i></button></td>
                 <td><?= $btn ?></td>
+				<td><?= $emp ?></td>
 			</tr>
 		</tbody>	
 	</table>

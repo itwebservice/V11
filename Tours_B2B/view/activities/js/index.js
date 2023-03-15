@@ -18,6 +18,7 @@ $(function () {
             var adult = $('#adult').val();
             var child = $('#child').val();
             var infant = $('#infant').val();
+            var vehicles = $('#vehicles').val();
 			if ((typeof activity_city_id === 'object'|| activity_city_id == '') && activities_id == '') {
 				error_msg_alert('Select atleast the City!');
 				return false;
@@ -34,7 +35,8 @@ $(function () {
 				'checkDate':checkDate,
 				'adult':parseInt(adult),
 				'child':parseInt(child),
-				'infant':parseInt(infant)
+				'infant':parseInt(infant),
+				'vehicles' : parseInt(vehicles)
 			})
 			$.post(base_url+'controller/b2b_excursion/b2b/search_session_save.php', { activity_array: activity_array }, function (data) {
 				window.location.href = base_url + 'Tours_B2B/view/activities/activities-listing.php';

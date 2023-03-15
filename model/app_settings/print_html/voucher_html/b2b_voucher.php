@@ -61,11 +61,11 @@ if (sizeof($hotel_list_arr) > 0) {
     $confirmation_number = json_decode($confirmation_number_db['confirmation_no_details']);
 ?>
     <div class="repeat_section main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
-
+      <img src="<?= BASE_URL ?>images/vouchers/hotel-service-voucher.jpg" class="watermark">
       <!-- header Start -->
-      <section class="print_header main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class="col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> HOTEL SERVICE VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> HOTEL SERVICE VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
@@ -251,9 +251,10 @@ if (sizeof($transfer_list_arr) > 0) {
   for ($i = 0; $i < sizeof($transfer_list_arr); $i++) {
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/transfer-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class="col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> TRANSPORT SERVICE VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> TRANSPORT SERVICE VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
@@ -448,9 +449,10 @@ if (sizeof($activity_list_arr) > 0) {
     $sq_exc = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$exc_id'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/activity-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class="col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> ACTIVITY SERVICE VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> ACTIVITY SERVICE VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
@@ -498,7 +500,7 @@ if (sizeof($activity_list_arr) > 0) {
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mg_bt_20">
+          <div class="col-md-12 mg_bt_20">
             <ul class="print_info_list no-pad noType">
               <li><span>ACTIVITY NAME :</span> <?= $activity_list_arr[$i]->service->service_arr[0]->act_name ?></li>
             </ul>
@@ -520,6 +522,11 @@ if (sizeof($activity_list_arr) > 0) {
           </div>
           <div class="col-md-6 mg_bt_20">
             <ul class="print_info_list no-pad noType">
+              <li><span>TOTAL VEHICLE :</span> <?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles != '') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></li>
+            </ul>
+          </div>
+          <div class="col-md-6 mg_bt_20">
+            <ul class="print_info_list no-pad noType">
               <li><span>REPORTING TIME :</span> <?= $activity_list_arr[$i]->service->service_arr[0]->rep_time ?></li>
             </ul>
           </div>
@@ -528,7 +535,8 @@ if (sizeof($activity_list_arr) > 0) {
               <li><span>PICKUP POINT :</span> <?= $activity_list_arr[$i]->service->service_arr[0]->pick_point ?></li>
             </ul>
           </div>
-          <?php if ($timing_slots[$i] != '') { ?>
+          <?php
+          if($timing_slots[$i] != '') { ?>
             <div class="col-md-6 mg_bt_20">
               <ul class="print_info_list no-pad noType">
                 <li><span>TIMING SLOT :</span> <?= $timing_slots[$i] ?></li>
@@ -678,9 +686,10 @@ if (sizeof($ferry_list_arr) > 0) {
     $sq_ferry = mysqli_fetch_assoc(mysqlQuery("select * from ferry_master where entry_id='$sq_ferryt[entry_id]'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/ferry-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class="col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> FERRY SERVICE VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> FERRY SERVICE VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>
@@ -856,9 +865,10 @@ if (sizeof($tours_list_arr) > 0) {
     $sq_pckg = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$package_id'"));
   ?>
     <div class="repeat_section main_block">
-      <section class="print_header main_block" style="margin-bottom: 0 !important;">
+      <img src="<?= BASE_URL ?>images/vouchers/holiday-service-voucher.jpg" class="watermark">
+      <section class="print_header main_block" style="margin-bottom: 200px !important;">
         <div class=" col-md-6 no-pad">
-          <span class="title"><i class="fa fa-file-text"></i> HOLIDAY VOUCHER</span>
+          <!-- <span class="title"><i class="fa fa-file-text"></i> HOLIDAY VOUCHER</span> -->
           <div class="print_header_logo">
             <img src="<?= $company_logo_url ?>" class="img-responsive mg_tp_10">
           </div>

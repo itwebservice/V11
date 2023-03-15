@@ -270,11 +270,12 @@ require('../../../../../classes/html2text-master/html2text.php');
                 <tr class="table-heading-row">
                   <th>Activity_name</th>
                   <th>Date</th>
-                  <th>Transfer_type</th>
+                  <th>Transfer_option</th>
                   <th>Reporting_Time</th>
                   <th>Pickup_Point</th>
-                  <th>Total_Pax</th>
+                  <th>Total_guest</th>
                   <th>Timing_Slot</th>
+                  <th>Total_vehicle</th>
                 </tr>
               </thead>
               <tbody>
@@ -292,6 +293,7 @@ require('../../../../../classes/html2text-master/html2text.php');
                     <td><?= $activity_list_arr[$i]->service->service_arr[0]->pick_point ?></td>
                     <td><?= $activity_list_arr[$i]->service->service_arr[0]->total_pax ?></td>
                     <td><?= ($pdf_data_array[0]->timing_slots[$i] != '') ? $pdf_data_array[0]->timing_slots[$i] : 'NA' ?></td>
+                    <td><?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles!='')?$activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></td>
                   </tr>
                 <?php }  ?>
               </tbody>

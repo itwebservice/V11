@@ -146,11 +146,16 @@ if ($setup_package == '4') { ?>
     }
 
     function voucher_modal(booking_id, hotel_flag, activity_flag) {
+      
+      $('#service_voucher-'+booking_id).prop('disabled',true);
+      $('#service_voucher-'+booking_id).button('loading');
       $.post('voucher_modal.php', {
         booking_id: booking_id,
         hotel_flag: hotel_flag,
         activity_flag: activity_flag
       }, function(data) {
+        $('#service_voucher-'+booking_id).prop('disabled',false);
+      $('#service_voucher-'+booking_id).button('reset');
         $('#div_voucher_view_modal').html(data);
       });
     }

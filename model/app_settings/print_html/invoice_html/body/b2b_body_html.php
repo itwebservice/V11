@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Generic Files
 include "../../../../model.php"; 
 include "../../print_functions.php";
@@ -53,11 +53,9 @@ $currency_code_d = $sq_currency['currency_code'];
 if($app_invoice_format == "Standard"){include "../headers/standard_header_html.php"; }
 if($app_invoice_format == "Regular"){include "../headers/regular_header_html.php"; }
 if($app_invoice_format == "Advance"){include "../headers/advance_header_html.php"; }
-echo 'hi-'.$branch_status;
 ?>
 
 <hr class="no-marg">
-<!-- <div class="col-md-12 mg_tp_20"><p class="border_lt"><span class="font_5">BUS : </span><?= $sq_vehicle['p_name']; ?></p></div> -->
 <div class="main_block inv_rece_table main_block">
     <div class="row">
       <div class="col-md-12">
@@ -424,7 +422,7 @@ echo 'hi-'.$branch_status;
             <div class="col-md-6 text-left"><span class="font_5">CANCELLATION CHARGES</span></div>
             <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($canc_amount,2) ?></span></div></p>
           </div>
-        <? } ?>
+        <?php } ?>
         <div class="col-md-12 border_lt"><p>
           <div class="col-md-6 text-left"><span class="font_5">CURRENT DUE</span></div>
           <div class="col-md-6 float_r"><span><?= $currency_code_d.' '.number_format($cur_due,2) ?></span></div></p>

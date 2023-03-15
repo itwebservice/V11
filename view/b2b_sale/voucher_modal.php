@@ -7,8 +7,8 @@ $booking_data = mysqli_fetch_assoc(mysqlQuery("SELECT * from b2b_booking_master 
 $cart_checkout_data = json_decode($booking_data['cart_checkout_data']);
 $hotel_count = 0;
 ?>
-<form id="frm_save">
-<div class="modal fade" id="save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+<form id="frm_b2b_sv">
+<div class="modal fade" id="voucher_save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" style="width:40%" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,7 +100,7 @@ $hotel_count = 0;
         </div>
           <div class="row text-center mg_tp_20 mg_bt_20">
               <div class="col-xs-12">
-                <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-print"></i>&nbsp;&nbsp;Generate Voucher</button>
+                <button id="generate_sv" class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-print"></i>&nbsp;&nbsp;Generate Voucher</button>
               </div>
             </div>
       </div>      
@@ -110,41 +110,47 @@ $hotel_count = 0;
 </div>
 </form>
 <script>
-    $('#save_modal').modal('show');
-    $(function(){
+$('#voucher_save_modal').modal('show');
+$(function(){
 
-$('#frm_save').validate({
-  submitHandler:function(form){
-    var nof_hotels = $('#nof_hotels').val();
-    var booking_id = $('#booking_id').val();
-    var conf_numbers = {};
-    for(var i=0;i<nof_hotels;i++){
-        var hotel_id = $('#hotel_id'+i).val(),  conf_no = $('#conf_no'+i).val();
-        if(typeof(conf_no) == 'undefined'){ msg_alert("error-NO"); return false;}
-        conf_numbers[hotel_id] = conf_no;
-    }
+  $('#frm_b2b_sv').validate({
+    submitHandler:function(form){
 
+      $('#generate_sv').prop('disabled',true);
+      var nof_hotels = $('#nof_hotels').val();
+      var booking_id = $('#booking_id').val();
+      var conf_numbers = {};
+      for(var i=0;i<nof_hotels;i++){
+          var hotel_id = $('#hotel_id'+i).val(),  conf_no = $('#conf_no'+i).val();
+          if(typeof(conf_no) == 'undefined'){
+            error_msg_alert("error-NO");
+            $('#generate_sv').prop('disabled',false);
+            return false;
+          }
+          conf_numbers[hotel_id] = conf_no;
+      }
 
-    var nof_activity = $('#nof_activity').val();
-    var activity_times = [];
-    for(var i=0;i<nof_activity;i++){
-        var tm_slot = $('#tm_slot'+i).val();
-        activity_times.push(tm_slot);
-    }
+      var nof_activity = $('#nof_activity').val();
+      var activity_times = [];
+      for(var i=0;i<nof_activity;i++){
+          var tm_slot = $('#tm_slot'+i).val();
+          activity_times.push(tm_slot);
+      }
 
-    $('#btn_save').button('loading');
-    $.ajax({
-      type: 'POST',
-      url: '<?= BASE_URL ?>controller/b2b_customer/sale/voucher_details_save.php',
-      data:{ conf_numbers : conf_numbers, activity_times  : activity_times, booking_id : booking_id },
-      success: function(){
-          $('#btn_save').button('reset');
-          loadOtherPage("<?= BASE_URL ?>model/app_settings/print_html/voucher_html/b2b_voucher.php?booking_id="+booking_id);
+      $('#generate_sv').button('loading');
+      $.ajax({
+        type: 'POST',
+        url: '<?= BASE_URL ?>controller/b2b_customer/sale/voucher_details_save.php',
+        data:{ conf_numbers : conf_numbers, activity_times  : activity_times, booking_id : booking_id },
+        success: function(){
+            loadOtherPage("<?= BASE_URL ?>model/app_settings/print_html/voucher_html/b2b_voucher.php?booking_id="+booking_id);
+            $('#generate_sv').button('reset');
+            $('#generate_sv').prop('disabled',false);
+            $('#voucher_save_modal').modal('hidden');
         }
       });
-  }
-});
-
+    }
+  });
 });
 </script>
 <script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

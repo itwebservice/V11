@@ -17,6 +17,7 @@ if(sizeof($activity_result_array)>0){
       <div class="cardList-image">
         <img src="<?php echo $activity_result_array[$i]['image'] ?>" alt="iTours" />
         <input type="hidden" value="<?= $activity_result_array[$i]['image'] ?>" id="image-<?= $activity_result_array[$i]['exc_id'] ?>"/>
+        <input type="hidden" value="<?= $activity_result_array[$i]['vehicles'] ?>" id="vehicles-<?= $activity_result_array[$i]['exc_id'] ?>"/>
         <div class="typeOverlay"></div>
         <div class="c-discount c-hide" id='discount<?= $activity_result_array[$i]['exc_id'] ?>'>
             <div class="discount-text">

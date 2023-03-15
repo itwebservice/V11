@@ -109,10 +109,10 @@ $sq_traveler_personal_info = mysqli_fetch_assoc(mysqlQuery("select * from travel
                   <td><?php echo get_date_user($row_entry1['birth_date']); ?></td>
                   <td><?php echo $row_entry1['age']; ?></td>
                   <td>
-                    <button class="btn btn-info btn-sm" title="ID Proof" id="gid-proof-<?= $count ?>" onclick="display_group_id_proof('<?php echo $row_entry1['id_proof_url']; ?>',<?= $count ?>)"><i class="fa fa-id-card-o"></i></button>
+                    <button class="btn btn-info btn-sm" title="ID Proof" id="gid-proof-<?= $count ?>" onclick="display_group_id_proof('<?php echo $row_entry1['id_proof_url']; ?>',<?= $count ?>,'<?php echo $row_entry1['pan_card_url']; ?>','<?php echo $row_entry1['pan_card_url3']; ?>','<?php echo $row_entry1['pan_card_url4']; ?>')"><i class="fa fa-id-card-o"></i></button>
                   </td>
                 </tr>
-                  <?php 
+                <?php 
               } ?>
               </tbody>
             </table>
@@ -147,11 +147,11 @@ $sq_traveler_personal_info = mysqli_fetch_assoc(mysqlQuery("select * from travel
 <div id="id_proof"></div>
 
 <script type="text/javascript">
-function display_group_id_proof(id_proof_url,count)
+function display_group_id_proof(id_proof_url,count,pan_card_url,pan_card_url3,pan_card_url4)
 {
   $('#gid-proof-'+count).button('loading');
   $('#gid-proof-'+count).button('disabled','true');
-  $.post('admin/id_proof/group_booking_id.php', { id_proof_url : id_proof_url }, function(data){
+  $.post('admin/id_proof/group_booking_id.php', { id_proof_url : id_proof_url,pan_card_url : pan_card_url, pan_card_url3 : pan_card_url3 ,pan_card_url4 : pan_card_url4 }, function(data){
     $('#id_proof').html(data);
     $('#gid-proof-'+count).button('reset');
     $('#gid-proof-'+count).button('disabled','false');

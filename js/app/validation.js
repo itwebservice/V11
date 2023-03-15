@@ -1818,10 +1818,13 @@ function foo(tableID, quot_table_id, rowCounts) {
     row.cells[12].style.display = "none";
     row.cells[13].style.display = "none";
     row.cells[14].style.display = "none";
+    row.cells[15].childNodes[0].setAttribute("id", "no_vehicles-" + foo.counter);
 
-    if (row.cells[15]) {
-      row.cells[15].innerHTML = "";
-      row.cells[15].style.display = "none";
+    row.cells[16].childNodes[0].setAttribute("id","transfer_total-" + foo.counter);
+
+    if (row.cells[17]) {
+      row.cells[17].innerHTML = "";
+      row.cells[17].style.display = "none";
     }
   }
 
@@ -1908,13 +1911,29 @@ function foo(tableID, quot_table_id, rowCounts) {
     );
     row.cells[8].childNodes[0].setAttribute(
       "id",
-      "adult_cost-" + prefix + current_counter
+      "total_infant-" + prefix + current_counter
     );
     row.cells[9].childNodes[0].setAttribute(
       "id",
-      "child_cost-" + prefix + current_counter
+      "adult_cost-" + prefix + current_counter
     );
     row.cells[10].childNodes[0].setAttribute(
+      "id",
+      "child_cost-" + prefix + current_counter
+    );
+    row.cells[11].childNodes[0].setAttribute(
+      "id",
+      "infant_cost-" + prefix + current_counter
+    );
+    row.cells[12].childNodes[0].setAttribute(
+      "id",
+      "total_vehicle-" + prefix + current_counter
+    );
+    row.cells[13].childNodes[0].setAttribute(
+      "id",
+      "transfer_cost-" + prefix + current_counter
+    );
+    row.cells[14].childNodes[0].setAttribute(
       "id",
       "total_amount-" + prefix + current_counter
     );
@@ -1924,8 +1943,8 @@ function foo(tableID, quot_table_id, rowCounts) {
     row.cells[4].childNodes[0].setAttribute("onchange", function_name);
     row.cells[5].childNodes[0].setAttribute("onchange", function_name);
 
-    if (row.cells[11]) {
-      row.cells[11].style.display = "hidden";
+    if (row.cells[15]) {
+      row.cells[15].style.display = "hidden";
     }
     row.cells[2].childNodes[0].setAttribute("title","Activity Date & Time");
     row.cells[3].childNodes[0].setAttribute("title","City Name");
@@ -3630,8 +3649,9 @@ function foo(tableID, quot_table_id, rowCounts) {
     row.cells[5].childNodes[0].setAttribute("id", "adult_cost" + foo.counter);
     row.cells[6].childNodes[0].setAttribute("id", "child_cost" + foo.counter);
     row.cells[7].childNodes[0].setAttribute("id", "infant_cost" + foo.counter);
-    row.cells[8].childNodes[0].setAttribute("id", "markup_in" + foo.counter);
-    row.cells[9].childNodes[0].setAttribute("id", "amount" + foo.counter);
+    row.cells[8].childNodes[0].setAttribute("id", "transfer_cost" + foo.counter);
+    row.cells[9].childNodes[0].setAttribute("id", "markup_in" + foo.counter);
+    row.cells[10].childNodes[0].setAttribute("id", "amount" + foo.counter);
 
     row.cells[3].childNodes[0].value = get_date();
     dynamic_date(row.cells[3].childNodes[0].id);
@@ -3660,7 +3680,7 @@ function foo(tableID, quot_table_id, rowCounts) {
         '")'
     );
 
-    $(row.cells[10]).addClass("hidden");
+    $(row.cells[11]).addClass("hidden");
   }
   if (tableID == "table_exc_tarrif_offer") {
     row.cells[0].childNodes[0].setAttribute("id", "chk_offer" + foo.counter);

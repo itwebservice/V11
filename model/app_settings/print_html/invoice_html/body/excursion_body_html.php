@@ -117,6 +117,7 @@ if ($app_invoice_format == "Advance") {
                             <th>Transfer_Option</th>
                             <th>Adult</th>
                             <th>Child</th>
+                            <th>Infant</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,6 +137,7 @@ if ($app_invoice_format == "Advance") {
                               <td><?= $row_vehicle['transfer_option'] ?></td>
                               <td><?php echo $row_vehicle['total_adult']; ?></td>
                               <td><?= $row_vehicle['total_child'] ?></td>
+                              <td><?= $row_vehicle['total_infant'] ?></td>
                           </tr>
                           <?php
                           $count++;

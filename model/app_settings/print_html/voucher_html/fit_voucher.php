@@ -9,6 +9,20 @@ $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='pac
 $branch_status = $sq['branch_status'];
 
 $booking_id = $_GET['booking_id'];
+
+$sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+if (intval($sq_booking['quotation_id']) == 0) {
+    $adults = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Adult'"));
+    $children = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Children'"));
+    $infants = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Infant'"));
+}
+else{
+    $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$sq_booking[quotation_id]'"));
+    $adults = $sq_quotation['total_adult'];
+    $children = intval($sq_quotation['children_without_bed']) + intval($sq_quotation['children_with_bed']);
+    $infants = $sq_quotation['total_infant'];
+}
+
 $sq_service_voucher_hotel = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_hotel_service_voucher1 where hotel_accomodation_id='$booking_id'"));
 $sq_accomodation1_hotel = mysqlQuery("select * from package_hotel_accomodation_master where booking_id='$booking_id'");
 while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
@@ -19,7 +33,7 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
     $email_id = $encrypt_decrypt->fnDecrypt($sq_hotel['email_id'], $secret_key);
 
     $booking_id = $sq_accomodation['booking_id'];
-    $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+    // $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
     $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
     if ($sq_traveler['type'] == 'Corporate' || $sq_traveler['type'] == 'B2B') {
         $name = $sq_traveler['company_name'];
@@ -31,18 +45,17 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
     $total_days1 = strtotime($sq_accomodation['to_date']) - strtotime($sq_accomodation['from_date']);
     $total_days = round($total_days1 / 86400);
 
-    if ($sq_booking['quotation_id'] == 0) {
+    if (intval($sq_booking['quotation_id']) == 0) {
         $adults = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Adult'"));
         $children = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Children'"));
         $infants = mysqli_num_rows(mysqlQuery("select traveler_id from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Infant'"));
-    }else{
+    }
+    else{
         $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$sq_booking[quotation_id]'"));
         $adults = $sq_quotation['total_adult'];
         $children = intval($sq_quotation['children_without_bed']) + intval($sq_quotation['children_with_bed']);
         $infants = $sq_quotation['total_infant'];
     }
-    $sq_package_program = mysqlQuery("select * from package_quotation_program where quotation_id ='$sq_booking[quotation_id]'");
-
     $emp_id = $_SESSION['emp_id'];
     $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
     if ($emp_id == '0') {
@@ -214,7 +227,6 @@ while ($sq_accomodation = mysqli_fetch_assoc($sq_accomodation1_hotel)) {
 $booking_id = $_GET['booking_id'];
 
 $sq_service_voucher = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_transport_service_voucher where booking_id='$booking_id'"));
-$sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
 $row_transport =  mysqli_fetch_assoc(mysqlQuery("select * from package_tour_transport_master where booking_id='$booking_id'"));
 
 $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
@@ -237,8 +249,10 @@ $sq_tranport = mysqli_fetch_assoc(mysqlQuery("select * from transport_agency_mas
 $total_pax = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id' and status='Active'"));
 if ($sq_booking['quotation_id'] != 0) {
     $sq_package_program = mysqlQuery("select * from package_quotation_program where quotation_id ='$sq_booking[quotation_id]'");
+    $sq_package_program_count = mysqli_num_rows(mysqlQuery("select * from package_quotation_program where quotation_id ='$sq_booking[quotation_id]'"));
 } else {
     $sq_package_program = mysqlQuery("select * from package_tour_schedule_master where booking_id ='$sq_booking[booking_id]'");
+    $sq_package_program_count = mysqli_num_rows(mysqlQuery("select * from package_tour_schedule_master where booking_id ='$sq_booking[booking_id]'"));
 }
 
 $emp_id = $_SESSION['emp_id'];
@@ -257,7 +271,7 @@ if ($sq_count != 0) {
     $sq_service_voucher = mysqli_fetch_assoc(mysqlQuery("select * from excursion_service_voucher where booking_id='$booking_id' and booking_type='package'"));
     $sq_excname = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_excursion_master where booking_id='$booking_id'"));
 
-    $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
+    // $sq_booking = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id' and delete_status='0'"));
     // $sq_pass_count = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id'"));
     $sq_traveler = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
     if ($sq_traveler['type'] == 'Corporate' || $sq_traveler['type'] == 'B2B') {
@@ -265,10 +279,6 @@ if ($sq_count != 0) {
     } else {
         $name = $sq_traveler['first_name'] . ' ' . $sq_traveler['last_name'];
     }
-
-    // $adults = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Adult'"));
-    // $children = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Children'"));
-    // $infants = mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id' and status='Active' and adolescence='Infant'"));
 
     $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
     if ($emp_id == '0') {
@@ -426,7 +436,6 @@ if ($sq_count != 0) {
     </div>
 <?php } ?>
 <!-- Transport Voucher -->
-
 <section class="print_header main_block">
     <img src="<?= BASE_URL ?>images/vouchers/transfer-service-voucher.jpg" class="watermark">
 
@@ -710,77 +719,71 @@ if ($sq_count != 0) {
         </section>
     <?php } ?>
 
-    <!-- Tour Itinenary -->
-    <section class="print_sec main_block">
-        <div class="section_heding">
-            <h2>TOUR ITINERARY</h2>
-            <div class="section_heding_img">
-                <img src="<?php echo BASE_URL . 'images/heading_border.png'; ?>" class="img-responsive">
+    <?php
+    $count = 1;
+    if ($sq_package_program_count > 0) {
+    ?>
+        <!-- Tour Itinenary -->
+        <section class="print_sec main_block">
+            <div class="section_heding">
+                <h2>TOUR ITINERARY</h2>
+                <div class="section_heding_img">
+                    <img src="<?php echo BASE_URL . 'images/heading_border.png'; ?>" class="img-responsive">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="print_itinenary main_block no-pad no-marg noType">
-
-
-                    <?php
-                    $count = 1;
-                    $package_booking_info = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_booking_master where booking_id='$booking_id'"));
-
-                    $sq_itinerary_count = (empty($package_booking_info['quotation_id'])) ? "select booking_id from package_tour_schedule_master where booking_id='$booking_id'" : "select id from package_quotation_program where quotation_id='" . $package_booking_info['quotation_id'] . "'";
-
-                    $sq_count = mysqli_num_rows(mysqlQuery($sq_itinerary_count));
-
-                    $date1 = $package_booking_info['tour_from_date'];
-                    $date2 = $package_booking_info['tour_to_date'];
-                    if ($sq_count != 0) {
-                        $dates = array();
-                        $days = array();
-                        $current = strtotime($date1);
-                        $date2 = strtotime($date2);
-                        $stepVal = '+1 day';
-                        while ($current <= $date2) {
-                            $dates[] = date('d-m-Y', $current);
-                            $days[] = date('l', $current);
-                            $current = strtotime($stepVal, $current);
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="print_itinenary main_block no-pad no-marg noType">
+                        <?php
+                        $date1 = $sq_booking['tour_from_date'];
+                        $date2 = $sq_booking['tour_to_date'];
+                        if ($sq_package_program_count != 0) {
+                            $dates = array();
+                            $days = array();
+                            $current = strtotime($date1);
+                            $date2 = strtotime($date2);
+                            $stepVal = '+1 day';
+                            while ($current <= $date2) {
+                                $dates[] = date('d-m-Y', $current);
+                                $days[] = date('l', $current);
+                                $current = strtotime($stepVal, $current);
+                            }
                         }
-                    }
-                    ?>
-                    <?php
-                    $count = 1;
-                    $i = 0;
-                    while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
-                    ?>
-                        <li class="print_single_itinenary main_block">
-                            <div class="print_itinenary_count print_info_block" style="width:200px;">DAY - <?= $count ?>
-                                <b>(<?php echo $dates[$i] ?>) </b>
-                            </div>
-                            <div class="print_itinenary_desciption print_info_block">
-                                <div class="print_itinenary_attraction">
-                                    <span class="print_itinenary_attraction_icon"><i class="fa fa-map-marker"></i></span>
-                                    <samp class="print_itinenary_attraction_location"><?= $row_itinarary['attraction'] ?></samp>
+                        $count = 1;
+                        $i = 0;
+                        while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)){
+                            ?>
+                            <li class="print_single_itinenary main_block">
+                                <div class="print_itinenary_count print_info_block" style="width:200px;">DAY - <?= $count ?>
+                                    <b>(<?php echo $dates[$i] ?>) </b>
                                 </div>
-                                <p><?= $row_itinarary['day_wise_program'] ?></p>
-                            </div>
-                            <div class="print_itinenary_details">
-                                <div class="print_info_block">
-                                    <ul class="main_block no-pad noType">
-                                        <li class="col-md-12 mg_tp_10 mg_bt_10"><span><i class="fa fa-bed"></i> :
-                                            </span><?= $row_itinarary['stay'] ?></li>
-                                        <li class="col-md-12 mg_tp_10 mg_bt_10"><span><i class="fa fa-cutlery"></i> :
-                                            </span><?= $row_itinarary['meal_plan'] ?></li>
-                                    </ul>
+                                <div class="print_itinenary_desciption print_info_block">
+                                    <div class="print_itinenary_attraction">
+                                        <span class="print_itinenary_attraction_icon"><i class="fa fa-map-marker"></i></span>
+                                        <samp class="print_itinenary_attraction_location"><?= $row_itinarary['attraction'] ?></samp>
+                                    </div>
+                                    <p><?= $row_itinarary['day_wise_program'] ?></p>
                                 </div>
-                            </div>
-                        </li>
-                    <?php
-                        $count++;
-                        $i++;
-                    } ?>
-                </ul>
+                                <div class="print_itinenary_details">
+                                    <div class="print_info_block">
+                                        <ul class="main_block no-pad noType">
+                                            <li class="col-md-12 mg_tp_10 mg_bt_10"><span><i class="fa fa-bed"></i> :
+                                                </span><?= $row_itinarary['stay'] ?></li>
+                                            <li class="col-md-12 mg_tp_10 mg_bt_10"><span><i class="fa fa-cutlery"></i> :
+                                                </span><?= $row_itinarary['meal_plan'] ?></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
+                            $count++;
+                            $i++;
+                        } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php } ?>
 
     <!-- Terms and Conditions -->
     <?php

@@ -1,6 +1,6 @@
 
 function get_auto_values(booking_date, sub_total, payment_mode, service_charge, markup, type, charges_flag, amount_type,
-   discount, change = false) {
+discount, change = false) {
     $('#service_show').html('&nbsp;');
     $('#markup_show').html('&nbsp;');
     $('#basic_show').html('&nbsp;');
@@ -130,6 +130,7 @@ function get_auto_values(booking_date, sub_total, payment_mode, service_charge, 
 	else if(tax_apply_on == 3){
 		tax_on_amount = parseFloat(visa_issue_amount) + parseFloat(service_charge);
 	}
+    console.log(tax_on_amount);
 	if(tax_apply_on!="" && tax_value!=""){
 		var service_tax_subtotal1 = tax_value.split("+");
 		for(var i=0;i<service_tax_subtotal1.length;i++){

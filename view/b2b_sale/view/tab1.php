@@ -191,6 +191,10 @@
 							<div class='col-md-6'>Reporting Time :  <strong><?= ($activity_list_arr[$i]->service->service_arr[0]->rep_time != '') ? $activity_list_arr[$i]->service->service_arr[0]->rep_time : 'NA' ?></strong></div>
 							<div class='col-md-6'>Pickup Point : <strong><?= $activity_list_arr[$i]->service->service_arr[0]->pick_point ?></strong></div>
 						</div>
+						<div class="row">
+							<div class='col-md-6'>Timing Slot :  <strong><?= ($timing_slots[$i] != '')?$timing_slots[$i] : 'NA' ?></strong></div>
+							<div class='col-md-6'>Vehicle(s) : <strong><?= ($activity_list_arr[$i]->service->service_arr[0]->vehicles!='') ? $activity_list_arr[$i]->service->service_arr[0]->vehicles : 'NA' ?></strong></div>
+						</div>
 						<?php
 						$tax_amount = 0;
 						$tax_arr = explode(',',$activity_list_arr[$i]->service->service_arr[0]->taxation);
@@ -224,7 +228,6 @@
 						?>
 						<div class="clearfix">
 						Transfer Type:  <strong><u><?= $transfer ?></u></strong></div>
-						<div class="clearfix">Timing Slot:  <strong><u><?= ($timing_slots[$i] != '')?$timing_slots[$i] : 'NA' ?></u></strong></div>
 						Amount:  <strong><?= number_format($room_cost1,2) ?></strong>
 						&nbsp;&nbsp;Tax: <strong><?= number_format($tax_amount1,2) ?></strong>
 						&nbsp;&nbsp;<b class="boldText">&nbsp;&nbsp;Total: <?= number_format($total_amount1,2) ?></b>

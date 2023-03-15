@@ -240,14 +240,14 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 				$actual_purchase = 0;
 				while($sq_puchase = mysqli_fetch_assoc($sq_puchase1)){
 
-						if($sq_puchase['purchase_return'] == 0){
-							$actual_purchase += $sq_puchase['net_total'];
-						}
-						else if($sq_puchase['purchase_return'] == 2){
-							$cancel_estimate = json_decode($sq_puchase['cancel_estimate']);
-							$p_purchase = ($sq_puchase['net_total'] - floatval($cancel_estimate[0]->net_total));
-							$actual_purchase += $p_purchase;
-						}
+					if($sq_puchase['purchase_return'] == 0){
+						$actual_purchase += $sq_puchase['net_total'];
+					}
+					else if($sq_puchase['purchase_return'] == 2){
+						$cancel_estimate = json_decode($sq_puchase['cancel_estimate']);
+						$p_purchase = ($sq_puchase['net_total'] - floatval($cancel_estimate[0]->net_total));
+						$actual_purchase += $p_purchase;
+					}
 				}
 				$sq_puchase_p = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as payment_amount from vendor_payment_master where financial_year_id='$financial_year_id' and clearance_status!='Cancelled'"));
 				$sq_puchase_r = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as payment_amount from vendor_refund_master where financial_year_id='$financial_year_id' and clearance_status!='Cancelled'"));

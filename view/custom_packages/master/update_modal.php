@@ -698,7 +698,6 @@ $(function() {
             }
 
             //Hotel information
-            var total_night = 0;
             var hotel_check_arr = new Array();
             var city_name_arr = new Array();
             var hotel_name_arr = new Array();
@@ -740,8 +739,6 @@ $(function() {
                         error_msg_alert("Total nights is required");
                         return false;
                     }
-                    total_night = parseInt(total_night) + parseInt(row.cells[5].childNodes[0]
-                        .value);
                 }
 
                 hotel_check_arr.push(check_id);

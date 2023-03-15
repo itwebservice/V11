@@ -22,12 +22,16 @@ for($i=0;$i<sizeof($exc_arr);$i++){
 	$sq_costing = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff_basics where exc_id='$exc_arr[$i]' and transfer_option='$transfer_arr[$i]' and (from_date <='$exc_date' and to_date>='$exc_date')"));
 	$adult_cost = ($from_currency_rate / $to_currency_rate) * $sq_costing['adult_cost'];
 	$child_cost = ($from_currency_rate / $to_currency_rate) * $sq_costing['child_cost'];
-	$total_cost = $adult_cost + $child_cost;
+	$infant_cost = ($from_currency_rate / $to_currency_rate) * $sq_costing['infant_cost'];
+	$transfer_cost = ($from_currency_rate / $to_currency_rate) * $sq_costing['transfer_cost'];
+	$total_cost = floatval($adult_cost) + floatval($child_cost) + floatval($infant_cost) + floatval($transfer_cost);
 
 	$arr = array(
-				'total_cost' => $total_cost,
-				'adult_cost' => $adult_cost,
-				'child_cost' => $child_cost
+		'total_cost' => $total_cost,
+		'adult_cost' => $adult_cost,
+		'child_cost' => $child_cost,
+		'infant_cost' => $infant_cost,
+		'transfer_cost' => $transfer_cost,
 	);
 	array_push($amount_arr, $arr);
 }

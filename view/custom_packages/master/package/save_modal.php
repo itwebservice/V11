@@ -606,6 +606,23 @@ $(function() {
 
                     var total_days = row.cells[5].childNodes[0].value;
 
+                    if (city_name == '') {
+                        error_msg_alert("City Name is required");
+                        return false;
+                    }
+                    if (hotel_name == '') {
+                        error_msg_alert("Hotel Name is required");
+                        return false;
+                    }
+                    if (hotel_type == '') {
+                        error_msg_alert("Hotel Type is required");
+                        return false;
+                    }
+                    if (total_days == '') {
+                        error_msg_alert("Total nights is required");
+                        return false;
+                    }
+                    
                     city_name_arr.push(city_name);
 
                     hotel_name_arr.push(hotel_name);

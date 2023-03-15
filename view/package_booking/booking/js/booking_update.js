@@ -390,6 +390,7 @@ $(function () {
 			}
 
 			//Itinerary Table
+            var tours_count = $('#sq_tours_count').val();
 			var quotation_id = $('#quotation_id1').val();
 			if (quotation_id == 0) {
 				var special_attraction_arr = new Array();

@@ -54,7 +54,7 @@ $sq_payment = mysqlQuery($query_payment);
                     <td><?php echo get_date_user($row_entry['birth_date']); ?></td>
                     <td><?php echo $row_entry['age']; ?></td>
                     <td>
-                      <button class="btn btn-info btn-sm" title="ID Proof" id="id-proof-<?= $count ?>" onclick="display_package_id_proof('<?php echo $row_entry['id_proof_url']; ?>')"><i class="fa fa-id-card-o"></i></button>
+                      <button class="btn btn-info btn-sm" title="ID Proof" id="id-proof-<?= $count ?>" onclick="display_package_id_proof('<?php echo $row_entry['id_proof_url']; ?>','<?php echo $row_entry['pan_card_url']; ?>','<?php echo $row_entry['pan_card_url3']; ?>','<?php echo $row_entry['pan_card_url4']; ?>')"><i class="fa fa-id-card-o"></i></button>
                     </td>
                 </tr>
                   <?php } ?>
@@ -109,11 +109,11 @@ $sq_payment = mysqlQuery($query_payment);
       </div>
 </div>
 <script type="text/javascript">
-function display_package_id_proof(id_proof_url){
+function display_package_id_proof(id_proof_url,pan_card_url,pan_card_url3,pan_card_url4){
   
     $('id-proof'+count).button('loading');
     $('id-proof'+count).button('disabled','true');
-    $.post('admin/id_proof/package_booking_id.php', { id_proof_url : id_proof_url }, function(data){
+    $.post('admin/id_proof/package_booking_id.php', { id_proof_url : id_proof_url,pan_card_url : pan_card_url, pan_card_url3 : pan_card_url3 ,pan_card_url4 : pan_card_url4 }, function(data){
       $('#id_proof1').html(data);
       $('id-proof'+count).button('reset');
       $('id-proof'+count).button('disabled','false');

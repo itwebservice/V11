@@ -23,16 +23,20 @@ $year =$yr[0];
                     <table class="table table-bordered no-marg">
 	                    <thead>
                        <tr class="table-heading-row">
-                        <th>S_No.</th>
-                        <th>Date_Time&nbsp;&nbsp;</th>
-                        <th>City_name</th>
-                        <th>Activity_name</th>
-                        <th>Transfer_option</th>
-                        <th>Total_adult</th>
-                        <th>total_child</th>
-                        <th>adult_cost</th>
-                        <th>child_cost</th>
-                        <th>Activity_Amount</th>
+                       	<th>S_No.</th>
+                       	<th>Date_time&nbsp;&nbsp;</th>
+                       	<th>City_name</th>
+                       	<th>Activity_name</th>
+                       	<th>Transfer_Option</th>
+                       	<th>Total_adult</th>
+                       	<th>total_child</th>
+                       	<th>total_infant</th>
+                       	<th>adult_cost</th>
+                       	<th>child_cost</th>
+                       	<th>infant_cost</th>
+                       	<th>total_vehicle</th>
+                       	<th>transfer_cost</th>
+                       	<th>Activity_Cost</th>
                        </tr>
                        </thead>
                        <tbody>
@@ -56,7 +60,7 @@ $year =$yr[0];
                             $sq_exc = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_entry[exc_name]'"));
                             $count++;
                             ?>
-                           <tr class="<?php echo $bg; ?>">
+                            <tr class="<?php echo $bg; ?>">
                               <td><?php echo $count; ?></td>
                               <td><?php echo get_datetime_user($row_entry['exc_date']); ?></td>
                               <td><?php echo $sq_city['city_name']; ?></td>
@@ -64,10 +68,14 @@ $year =$yr[0];
                               <td><?php echo $row_entry['transfer_option']; ?></td>
                               <td><?php echo $row_entry['total_adult']; ?></td>
                               <td><?php echo $row_entry['total_child']; ?></td>
+                              <td><?php echo $row_entry['total_infant']; ?></td>
                               <td><?php echo $row_entry['adult_cost']; ?> </td>
                               <td><?php echo $row_entry['child_cost']; ?> </td>
+                              <td><?php echo $row_entry['infant_cost']; ?> </td>
+                              <td><?php echo $row_entry['total_vehicles']; ?> </td>
+                              <td><?php echo $row_entry['transfer_cost']; ?> </td>
                               <td><?php echo $row_entry['total_cost']; ?> </td>
-                           </tr>        
+                            </tr>
                             <?php
                           }
                        }

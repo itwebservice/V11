@@ -150,15 +150,16 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$row_count, "Sr. No")
         ->setCellValue('C'.$row_count, "Booking ID")
         ->setCellValue('D'.$row_count, "Booking Date")
-        ->setCellValue('E'.$row_count, "User Name")
+        ->setCellValue('E'.$row_count, "Customer Name")
         ->setCellValue('F'.$row_count, "Sale Amount")
         ->setCellValue('G'.$row_count, "Supplier Type")
         ->setCellValue('H'.$row_count, "Supplier Name")
         ->setCellValue('I'.$row_count, "Purchase Amount")
-        ->setCellValue('J'.$row_count, "Profit/Loss(%)");
+        ->setCellValue('J'.$row_count, "Profit/Loss(%)")
+        ->setCellValue('K'.$row_count, "User Name");
 
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($header_style_Array);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);                    
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($header_style_Array);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);                    
 
 $row_count++;
 $count = 1;
@@ -168,6 +169,8 @@ if($sale_type == 'Visa'){
 $sq_query = mysqlQuery("select * from visa_master where delete_status='0' order by visa_id desc");
       while ($row_visa = mysqli_fetch_assoc($sq_query)) {
         
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_visa[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -204,9 +207,9 @@ $sq_query = mysqlQuery("select * from visa_master where delete_status='0' order 
 				$total_sale = $row_visa['visa_total_cost'] - $service_tax_amount - $markupservice_tax_amount+ $credit_charges;
 
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Visa Booking' and estimate_type_id ='$row_visa[visa_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Visa Booking' and estimate_type_id ='$row_visa[visa_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -225,7 +228,7 @@ $sq_query = mysqlQuery("select * from visa_master where delete_status='0' order 
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
         
 				$profit_amount = $total_sale - $total_purchase;
@@ -237,15 +240,16 @@ $sq_query = mysqlQuery("select * from visa_master where delete_status='0' order 
               ->setCellValue('B'.$row_count, $count++)
               ->setCellValue('C'.$row_count, get_visa_booking_id($row_visa['visa_id'],$year))
               ->setCellValue('D'.$row_count, get_date_user($row_visa['created_at']))
-              ->setCellValue('E'.$row_count, $emp)
+              ->setCellValue('E'.$row_count, $customer_name)
               ->setCellValue('F'.$row_count, number_format($total_sale,2))
               ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
               ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
               ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-              ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+              ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+              ->setCellValue('K'.$row_count, $emp);
 
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);    
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);    
           $row_count++;
     }
 }
@@ -255,6 +259,8 @@ if($sale_type == 'Miscellaneous'){
       $sq_query = mysqlQuery("select * from miscellaneous_master where delete_status='0' order by misc_id desc");
       while ($row_visa = mysqli_fetch_assoc($sq_query)) {
 
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_visa[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -289,9 +295,9 @@ if($sale_type == 'Miscellaneous'){
         $total_sale = $row_visa['misc_total_cost'] - $service_tax_amount - $markupservice_tax_amount + $credit_card_charges;
 				
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Miscellaneous Booking' and estimate_type_id ='$row_visa[misc_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Miscellaneous Booking' and estimate_type_id ='$row_visa[misc_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -310,7 +316,7 @@ if($sale_type == 'Miscellaneous'){
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
 
 				$profit_amount = $total_sale - $total_purchase;
@@ -322,15 +328,16 @@ if($sale_type == 'Miscellaneous'){
             ->setCellValue('B'.$row_count, $count++)
             ->setCellValue('C'.$row_count, get_misc_booking_id($row_visa['misc_id'],$year))
             ->setCellValue('D'.$row_count, get_date_user($row_visa['created_at']))
-            ->setCellValue('E'.$row_count, $emp)
+            ->setCellValue('E'.$row_count, $customer_name)
             ->setCellValue('F'.$row_count, number_format($total_sale,2))
             ->setCellValue('G'.$row_count, ($vendor_type !='') ? $vendor_type : 'NA')
             ->setCellValue('H'.$row_count, ($vendor_name !='') ? $vendor_name : 'NA')
             ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-            ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+            ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+            ->setCellValue('K'.$row_count, $emp);
 
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);     
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);     
         $row_count++;
       }
 }
@@ -340,6 +347,8 @@ if($sale_type == 'Excursion'){
 	$sq_passport = mysqlQuery("select * from excursion_master where delete_status='0' order by exc_id desc");
 	while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+    $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+    $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
     $vendor_type = '';
     $vendor_name = '';
     $total_purchase = 0;
@@ -375,9 +384,9 @@ if($sale_type == 'Excursion'){
 		$total_sale = $row_passport['exc_total_cost'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
 
     //Purchase
-    $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Excursion Booking' and estimate_type_id ='$row_passport[exc_id]' and delete_status='0'");
+    $sq_purchase = mysqlQuery("select * from vendor_estimate where estimate_type='Excursion Booking' and estimate_type_id ='$row_passport[exc_id]' and delete_status='0'");
     while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-      if($sq_pquery['purchase_return'] == 0){
+      if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
         $total_purchase += $sq_pquery['net_total'];
       }
       else if($sq_pquery['purchase_return'] == 2){
@@ -407,15 +416,16 @@ if($sale_type == 'Excursion'){
           ->setCellValue('B'.$row_count, $count++)
           ->setCellValue('C'.$row_count, get_exc_booking_id($row_passport['exc_id'],$year))
           ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-          ->setCellValue('E'.$row_count, $emp)
+          ->setCellValue('E'.$row_count, $customer_name)
           ->setCellValue('F'.$row_count, number_format($total_sale,2))
           ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
           ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
           ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-          ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+          ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+          ->setCellValue('K'.$row_count, $emp);
 
-      $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-      $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);
+      $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+      $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);
       $row_count++;
   }
 }
@@ -425,6 +435,8 @@ if($sale_type == 'Bus'){
 $sq_passport = mysqlQuery("select * from bus_booking_master where 1 and delete_status='0' order by booking_id desc");
       while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
         
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -461,9 +473,9 @@ $sq_passport = mysqlQuery("select * from bus_booking_master where 1 and delete_s
 				$total_sale = $row_passport['net_total'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
 				
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Bus Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Bus Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -493,15 +505,16 @@ $sq_passport = mysqlQuery("select * from bus_booking_master where 1 and delete_s
             ->setCellValue('B'.$row_count, $count++)
             ->setCellValue('C'.$row_count, get_bus_booking_id($row_passport['booking_id'],$year))
             ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-            ->setCellValue('E'.$row_count, $emp)
+            ->setCellValue('E'.$row_count, $customer_name)
             ->setCellValue('F'.$row_count, number_format($total_sale,2))
             ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
             ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
             ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-            ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+            ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+            ->setCellValue('K'.$row_count, $emp);
 
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);    
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);    
         $row_count++;
       }
     }
@@ -510,6 +523,8 @@ if($sale_type == 'Hotel'){
       $sq_passport = mysqlQuery("select * from hotel_booking_master where delete_status='0' order by booking_id desc");
       while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
         
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -544,9 +559,9 @@ if($sale_type == 'Hotel'){
 				  $total_sale = $row_passport['total_fee'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Hotel Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Hotel Booking' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -565,30 +580,28 @@ if($sale_type == 'Hotel'){
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
 
 				$profit_amount = $total_sale - $total_purchase;
 				$profit_loss_per = ($total_sale > 0 ) ? ($profit_amount / $total_sale) * 100 : 0;
 				$profit_loss_per = round($profit_loss_per, 2);
 				$var = ($total_sale > $total_purchase) ? 'Profit':'Loss';
-
-				$sq_exc_entry = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_passport[booking_id]'"));
-        $sq_exc_cancel = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_passport[booking_id]' and status = 'Cancel'"));
         
           $objPHPExcel->setActiveSheetIndex(0)
               ->setCellValue('B'.$row_count, $count++)
               ->setCellValue('C'.$row_count, get_hotel_booking_id($row_passport['booking_id'],$year))
               ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-              ->setCellValue('E'.$row_count, $emp)
+              ->setCellValue('E'.$row_count, $customer_name)
               ->setCellValue('F'.$row_count, number_format($total_sale,2))
               ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
               ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
               ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-              ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+              ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+              ->setCellValue('K'.$row_count, $emp);
 
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);    
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);    
           $row_count++;
       }
     }
@@ -597,6 +610,8 @@ if($sale_type == 'Car Rental'){
       $sq_passport = mysqlQuery("select * from car_rental_booking where delete_status='0' order by booking_id desc");
       while ($row_passport = mysqli_fetch_assoc($sq_passport)) { 
         
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -631,9 +646,9 @@ if($sale_type == 'Car Rental'){
 				$total_sale = $row_passport['total_fees'] - $service_tax_amount - $markupservice_tax_amount + $credit_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Car Rental' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Car Rental' and estimate_type_id ='$row_passport[booking_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -652,7 +667,7 @@ if($sale_type == 'Car Rental'){
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
 
 				$profit_amount = $total_sale - $total_purchase;
@@ -664,15 +679,16 @@ if($sale_type == 'Car Rental'){
             ->setCellValue('B'.$row_count, $count++)
             ->setCellValue('C'.$row_count, get_car_rental_booking_id($row_passport['booking_id'],$year))
             ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-            ->setCellValue('E'.$row_count, $emp)
+            ->setCellValue('E'.$row_count, $customer_name)
             ->setCellValue('F'.$row_count, number_format($total_sale,2))
             ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
             ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
             ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-            ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+            ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+            ->setCellValue('K'.$row_count, $emp);
 
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);      
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+        $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);      
         $row_count++;
       }
     }
@@ -681,6 +697,8 @@ if($sale_type == 'Flight Ticket'){
       $sq_passport = mysqlQuery("select * from ticket_master where delete_status='0' order by ticket_id desc");
       while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
         
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -724,9 +742,9 @@ if($sale_type == 'Flight Ticket'){
         $total_sale = $sale_amount - $service_tax_amount - $markupservice_tax_amount + $credit_card_charges;
 			
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Ticket Booking' and estimate_type_id ='$row_passport[ticket_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Ticket Booking' and estimate_type_id ='$row_passport[ticket_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -745,7 +763,7 @@ if($sale_type == 'Flight Ticket'){
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
 
 				$profit_amount = $total_sale - $total_purchase;
@@ -757,15 +775,16 @@ if($sale_type == 'Flight Ticket'){
               ->setCellValue('B'.$row_count, $count++)
               ->setCellValue('C'.$row_count, get_ticket_booking_id($row_passport['ticket_id'],$year))
               ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-              ->setCellValue('E'.$row_count, $emp)
+              ->setCellValue('E'.$row_count, $customer_name)
               ->setCellValue('F'.$row_count, number_format($total_sale,2))
               ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
               ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
               ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-              ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+              ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+              ->setCellValue('K'.$row_count, $emp);
 
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);     
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);     
           $row_count++;
       }
     }
@@ -776,6 +795,8 @@ if($sale_type == 'Train Ticket'){
       $sq_passport = mysqlQuery("select * from train_ticket_master where delete_status='0' order by train_ticket_id desc");
       while ($row_passport = mysqli_fetch_assoc($sq_passport)) {
 
+        $sq_customer = mysqli_fetch_assoc(mysqlQuery("select type,company_name,first_name,last_name from customer_master where customer_id='$row_passport[customer_id]'"));
+        $customer_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
         $vendor_type = '';
         $vendor_name = '';
         $total_purchase = 0;
@@ -803,9 +824,9 @@ if($sale_type == 'Train Ticket'){
         $total_sale = $row_passport['net_total'] - $service_tax_amount + $credit_card_charges;
         
         //Purchase
-        $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Train Ticket Booking' and estimate_type_id ='$row_passport[train_ticket_id]' and delete_status='0'");
+        $sq_purchase = mysqlQuery("select * from vendor_estimate where  estimate_type='Train Ticket Booking' and estimate_type_id ='$row_passport[train_ticket_id]' and delete_status='0'");
         while($sq_pquery = mysqli_fetch_assoc($sq_purchase)){	
-          if($sq_pquery['purchase_return'] == 0){
+          if($sq_pquery['purchase_return'] == 0 || $sq_pquery['purchase_return'] == 1){
             $total_purchase += $sq_pquery['net_total'];
           }
           else if($sq_pquery['purchase_return'] == 2){
@@ -824,7 +845,7 @@ if($sale_type == 'Train Ticket'){
           }
           $total_purchase -= $service_tax_amount;
           $vendor_type = $sq_pquery['vendor_type'];
- $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
+          $vendor_name = get_vendor_name_report($sq_pquery['vendor_type'],$sq_pquery['vendor_type_id']);
         }
 
 				$profit_amount = $total_sale - $total_purchase;
@@ -836,15 +857,16 @@ if($sale_type == 'Train Ticket'){
               ->setCellValue('B'.$row_count, $count++)
               ->setCellValue('C'.$row_count, get_train_ticket_booking_id($row_passport['train_ticket_id'],$year))
               ->setCellValue('D'.$row_count, get_date_user($row_passport['created_at']))
-              ->setCellValue('E'.$row_count, $emp)
+              ->setCellValue('E'.$row_count, $customer_name)
               ->setCellValue('F'.$row_count, number_format($total_sale,2))
               ->setCellValue('G'.$row_count, ($vendor_type !='')?$vendor_type:'NA')
               ->setCellValue('H'.$row_count, ($vendor_name !='')?$vendor_name:'NA')
               ->setCellValue('I'.$row_count, number_format($total_purchase,2))
-              ->setCellValue('J'.$row_count, $profit_loss_per.'%('.$var.')');
+              ->setCellValue('J'.$row_count, number_format($profit_amount,2).' ('.$profit_loss_per.'% '.$var.')')
+              ->setCellValue('K'.$row_count, $emp);
 
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($content_style_Array);
-          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':J'.$row_count)->applyFromArray($borderArray);  
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+          $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);  
           $row_count++;
       }
     }

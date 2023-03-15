@@ -85,6 +85,20 @@
         </div>
         </div>
         <!-- *** Infant End *** -->
+        <!-- *** Vehicles *** -->
+        <div class="col-md-3 col-sm-6 col-12">
+        <div class="form-group">
+            <label>Vehicles</label>
+            <div class="selector">
+            <select name="vehicles" id='vehicles' class="full-width">
+                <?php for($i=0;$i<=15;$i++){ ?>
+                    <option value="<?= $i ?>"><?= $i ?></option>
+                <?php } ?>
+            </select>
+            </div>
+        </div>
+        </div>
+        <!-- *** Vehicles End *** -->
         <div class="col-md-3 col-sm-6 col-12">
             <button class="c-button lg colGrn m26-top">
                 <i class="icon itours-search"></i> SEARCH NOW

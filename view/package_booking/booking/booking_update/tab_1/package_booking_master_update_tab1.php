@@ -107,19 +107,20 @@
                     </div>
                     <?php
                     $count = 0;
+                    $sq_tours_count = mysqli_num_rows(mysqlQuery("select * from package_tour_schedule_master where booking_id = '$sq_booking_info[booking_id]'"));
                     if ($sq_booking_info['quotation_id'] == 0) { ?>
+                    <input type="hidden" id="sq_tours_count" value="<?=$sq_tours_count?>"/>
                     <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_20">
 
                         <legend>Tour Itinerary Details</legend>
-                        <?php $sq_tours = mysqlQuery("select * from package_tour_schedule_master where booking_id = '$sq_booking_info[booking_id]'");
-                            $incl = $sq_booking_info['inclusions'];
-                            $excl = $sq_booking_info['exclusions']; ?>
+                        <?php
+                        $sq_tours = mysqlQuery("select * from package_tour_schedule_master where booking_id = '$sq_booking_info[booking_id]'");
+                        $incl = $sq_booking_info['inclusions'];
+                        $excl = $sq_booking_info['exclusions']; ?>
                         <div class="app_panel_content Filter-panel">
                             <div class="row mg_bt_10">
                                 <div class="col-xs-12 text-right text_center_xs">
-                                    <button type="button" class="btn btn-excel btn-sm"
-                                        onClick="addRow('package_program_list')" title="Add row"><i
-                                            class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-excel btn-sm" onClick="addRow('package_program_list')" title="Add row"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
                             <div class="row">
@@ -127,54 +128,71 @@
                                     <table style="width:100%" id="package_program_list" name="package_program_list"
                                         class="table mg_bt_0 table-bordered">
                                         <tbody>
-                                            <?php while ($row_tours = mysqli_fetch_assoc($sq_tours)) {
+                                            <?php
+                                            if($sq_tours_count > 0){
+                                                while ($row_tours = mysqli_fetch_assoc($sq_tours)) {
                                                     $count++; ?>
-                                            <tr>
-                                                <td width="27px;" style="padding-right: 10px !important;"><input
-                                                        class="css-checkbox mg_bt_10 labelauty" id="chk_program1"
-                                                        type="checkbox" checked disabled style="display: none;"><label
-                                                        for="chk_program1"><span
-                                                            class="labelauty-unchecked-image"></span><span
-                                                            class="labelauty-checked-image"></span></label></td>
-                                                <td width="50px;"><input maxlength="15" value="<?= $count ?>"
-                                                        type="text" name="username" placeholder="Sr. No."
-                                                        class="form-control mg_bt_10" disabled=""></td>
-                                                <td class="col-md-3 no-pad" style="padding-left: 5px !important;"><input
-                                                        type="text" id="special_attaraction<?= $count ?>-u"
-                                                        onchange="validate_spaces(this.id);validate_spattration(this.id);"
-                                                        name="special_attaraction" class="form-control mg_bt_10"
-                                                        placeholder="Special Attraction" title="Special Attraction"
-                                                        value="<?= $row_tours['attraction'] ?>"></td>
-                                                <td class="col-md-5 no-pad" style="padding-left: 5px !important;"><textarea id="day_program<?= $count ?>-u" name="day_program"
-                                                        class="form-control mg_bt_10" title="" rows="3"
-                                                        placeholder="*Day-wise Program"
-                                                        onchange="validate_spaces(this.id);validate_dayprogram(this.id);"
-                                                        title="Day-wise Program"><?= $row_tours['day_wise_program'] ?></textarea>
-                                                </td>
-                                                <td class="col-md-2 no-pad" style="padding-left: 5px !important;"><input
-                                                        type="text" id="overnight_stay<?= $count ?>-u"
-                                                        name="overnight_stay"
-                                                        onchange="validate_spaces(this.id);validate_onstay(this.id);"
-                                                        class="form-control mg_bt_10" placeholder="Overnight Stay"
-                                                        title="Overnight Stay" value="<?= $row_tours['stay'] ?>"></td>
-                                                <td class="col-md-2 no-pad" style="padding-left: 5px !important;">
-                                                    <select id="meal_plan<?= $count ?>" title="" name="meal_plan"
-                                                        class="form-control mg_bt_10" data-original-title="Meal Plan">
-                                                        <?php if ($row_tours['meal_plan'] != '') { ?>
-                                                        <option value="<?= $row_tours['meal_plan'] ?>">
-                                                            <?= $row_tours['meal_plan'] ?></option><?php } ?>
+                                                    <tr>
+                                                        <td width="27px;" style="padding-right: 10px !important;"><input
+                                                                class="css-checkbox mg_bt_10 labelauty" id="chk_program1"
+                                                                type="checkbox" checked disabled style="display: none;"><label
+                                                                for="chk_program1"><span
+                                                                    class="labelauty-unchecked-image"></span><span
+                                                                    class="labelauty-checked-image"></span></label></td>
+                                                        <td width="50px;"><input maxlength="15" value="<?= $count ?>"
+                                                                type="text" name="username" placeholder="Sr. No."
+                                                                class="form-control mg_bt_10" disabled=""></td>
+                                                        <td class="col-md-3 no-pad" style="padding-left: 5px !important;"><input
+                                                                type="text" id="special_attaraction<?= $count ?>-u"
+                                                                onchange="validate_spaces(this.id);validate_spattration(this.id);"
+                                                                name="special_attaraction" class="form-control mg_bt_10"
+                                                                placeholder="Special Attraction" title="Special Attraction"
+                                                                value="<?= $row_tours['attraction'] ?>"></td>
+                                                        <td class="col-md-5 no-pad" style="padding-left: 5px !important;"><textarea id="day_program<?= $count ?>-u" name="day_program"
+                                                                class="form-control mg_bt_10" title="" rows="3"
+                                                                placeholder="*Day-wise Program"
+                                                                onchange="validate_spaces(this.id);validate_dayprogram(this.id);"
+                                                                title="Day-wise Program"><?= $row_tours['day_wise_program'] ?></textarea>
+                                                        </td>
+                                                        <td class="col-md-2 no-pad" style="padding-left: 5px !important;"><input
+                                                                type="text" id="overnight_stay<?= $count ?>-u"
+                                                                name="overnight_stay"
+                                                                onchange="validate_spaces(this.id);validate_onstay(this.id);"
+                                                                class="form-control mg_bt_10" placeholder="Overnight Stay"
+                                                                title="Overnight Stay" value="<?= $row_tours['stay'] ?>"></td>
+                                                        <td class="col-md-2 no-pad" style="padding-left: 5px !important;">
+                                                            <select id="meal_plan<?= $count ?>" title="" name="meal_plan"
+                                                                class="form-control mg_bt_10" data-original-title="Meal Plan">
+                                                                <?php if ($row_tours['meal_plan'] != '') { ?>
+                                                                <option value="<?= $row_tours['meal_plan'] ?>">
+                                                                    <?= $row_tours['meal_plan'] ?></option><?php } ?>
+                                                                <?php get_mealplan_dropdown(); ?>
+                                                            </select>
+                                                        </td>
+                                                        <td class='col-md-1 pad_8'><button type="button"
+                                                                class="btn btn-info btn-iti btn-sm" title="Add Itinerary"
+                                                                onClick="add_itinerary('dest_name','special_attaraction<?php echo $count; ?>-u','day_program<?php echo $count; ?>-u','overnight_stay<?php echo $count; ?>-u','Day-<?= $count ?>')"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                        </td>
+                                                        <td style="display:none"><input type="text"
+                                                                value="<?php echo $row_tours['entry_id'] ?>"></td>
+                                                    </tr>
+                                                <?php }
+                                            } else{
+                                                ?><tr>
+                                                <td><input class="css-checkbox mg_bt_10 labelauty" id="chk_program1" type="checkbox" checked style="display: none;"><label for="chk_program1"><span class="labelauty-unchecked-image"></span><span class="labelauty-checked-image"></span></label></td>
+                                                <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." class="form-control" disabled=""></td>
+                                                <td style="padding-left: 5px !important;"><input type="text" id="special_attaraction" onchange="validate_spaces(this.id);" name="special_attaraction" class="form-control mg_bt_10" placeholder="Special Attraction" title="Special Attraction"></td>
+                                                <td style="padding-left: 5px !important;"><textarea id="day_program" name="day_program" class="form-control mg_bt_10" title="Day-wise Program" rows="3" placeholder="*Day-wise Program" onchange="validate_spaces(this.id);"></textarea></td>
+                                                <td style="padding-left: 5px !important;"><input type="text" id="overnight_stay" name="overnight_stay" onchange="validate_spaces(this.id);" class="form-control mg_bt_10" placeholder="Overnight Stay" title="Overnight Stay"></td>
+                                                <td style="padding-left: 5px !important;"><select id="meal_plan" title="meal plan" name="meal_plan" class="form-control mg_bt_10" data-original-title="Meal Plan">
                                                         <?php get_mealplan_dropdown(); ?>
-                                                    </select>
+                                                        </select></td>
+                                                <td class='col-md-1 pad_8'><button type="button" class="btn btn-info btn-iti btn-sm" id="itinerary<?php echo '1'; ?>" title="Add Itinerary" onClick="add_itinerary('dest_name2','special_attaraction','day_program','overnight_stay','Day-1')"><i class="fa fa-plus"></i></button>
                                                 </td>
-                                                <td class='col-md-1 pad_8'><button type="button"
-                                                        class="btn btn-info btn-iti btn-sm" title="Add Itinerary"
-                                                        onClick="add_itinerary('dest_name','special_attaraction<?php echo $count; ?>-u','day_program<?php echo $count; ?>-u','overnight_stay<?php echo $count; ?>-u','Day-<?= $count ?>')"><i
-                                                            class="fa fa-plus"></i></button>
-                                                </td>
-                                                <td style="display:none"><input type="text"
-                                                        value="<?php echo $row_tours['entry_id'] ?>"></td>
-                                            </tr>
-                                            <?php } ?>
+                                                <td><input style="display:none" type="text" name="package_id_n" value="4" autocomplete="off" class="form-control" data-original-title="" title=""></td>
+                                                </tr>
+                                                <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -466,6 +484,7 @@ $(function() {
         rules: {},
         submitHandler: function(form) {
             var quotation_id = $('#quotation_id1').val();
+            var tours_count = $('#sq_tours_count').val();
 
             var valid_state = package_tour_booking_tab1_validate();
             if (valid_state == false) {
@@ -474,37 +493,14 @@ $(function() {
             quotation_id = (typeof quotation_id === 'undefined') ? 0 : quotation_id;
             if (quotation_id == 0) {
                 var table = document.getElementById("package_program_list");
-
                 var rowCount = table.rows.length;
                 for (var i = 0; i < rowCount; i++) {
                     var row = table.rows[i];
-                    if (rowCount == 1) {
-                        if (!row.cells[0].childNodes[0].checked) {
-                            error_msg_alert("Atleast one day program is required!");
-                            return false;
-                        }
-                    }
                     if (row.cells[0].childNodes[0].checked) {
-                        // if(row.cells[3].childNodes[0].value==""){
-                        //     error_msg_alert("Special Attraction is mandatory in row-"+(i+1)+"<br>");
-                        //     return false;
-                        // }
                         if (row.cells[3].childNodes[0].value == "") {
-                            error_msg_alert("Daywise Program is mandatory in row-" + (i + 1) +
-                                "<br>");
+                            error_msg_alert("Daywise Program is mandatory in row-" + (i + 1) +"<br>");
                             return false;
-                        }
-                        // if(row.cells[4].childNodes[0].value==""){
-                        //     error_msg_alert("Overnight Stay is mandatory in row-"+(i+1)+"<br>");
-                        //     return false;
-                        // }
-                        var flag1 = validate_spattration(row.cells[2].childNodes[0].id);
-                        var flag2 = validate_dayprogram(row.cells[3].childNodes[0].id);
-                        var flag3 = validate_onstay(row.cells[4].childNodes[0].id);
-                        if (!flag1 || !flag2 || !flag3) {
-                            return false;
-                        }
-                    }
+                        }                    }
                 }
             }
             $('#tab_1_head').addClass('done');
@@ -514,7 +510,6 @@ $(function() {
             $('html, body').animate({
                 scrollTop: $('.bk_tab_head').offset().top
             }, 200);
-
             return false;
         }
     });

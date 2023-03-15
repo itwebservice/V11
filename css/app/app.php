@@ -494,6 +494,13 @@ top: 2px;
 height: 100%;
 padding: 9px;
 }
+.btn-info.ico_left .i-download{
+position: absolute;
+left: 7px;
+top: 0px;
+height: 100%;
+padding: 9px;
+}
 .btn-info.ico_left i:after {
 position: absolute;
 content: '';
