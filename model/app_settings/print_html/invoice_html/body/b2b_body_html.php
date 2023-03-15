@@ -42,7 +42,6 @@ for($i=0;$i<sizeof($cart_checkout_data);$i++){
   }
 }
 
-$amount_in_word = $amount_to_word->convert_number_to_words($final_total);
 //Get default currency rate
 global $currency;
 $sq_to = mysqli_fetch_assoc(mysqlQuery("select * from roe_master where currency_id='$currency'"));
@@ -433,6 +432,7 @@ if($app_invoice_format == "Advance"){include "../headers/advance_header_html.php
   </div>
 </section>
 <?php
+$amount_in_word = $amount_to_word->convert_number_to_words($final_total);
 //Footer
 include "../generic_footer_html.php";
 ?>

@@ -318,8 +318,7 @@ $remaining_pay=$refund_amount-$toal_refund_sum;
 								$sq_b2b_info1 = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_b2b_info[customer_id]'"));
 								$customer_name = ($sq_b2b_info1['type'] == 'Corporate'||$sq_b2b_info1['type'] == 'B2B') ? $sq_b2b_info1['company_name'] : $sq_b2b_info1['first_name'].' '.$sq_b2b_info1['last_name'];
 				  			?>
-							<option value="<?= $sq_b2b_info1['customer_id'] ?>"><?= $customer_name ?></option>
-				  		?>
+							<option value="<?= $sq_b2b_info1['customer_id'] ?>" selected><?= $customer_name ?></option>
 				  	</select>
 				 </div>
 			</div>

@@ -2,117 +2,68 @@
 include "../../model/model.php";
 
 
-
 /** Error reporting */
-
 error_reporting(E_ALL);
-
 ini_set('display_errors', TRUE);
-
 ini_set('display_startup_errors', TRUE);
-
 date_default_timezone_set('Europe/London');
 
-
-
 if (PHP_SAPI == 'cli')
-
-  die('This example should only be run from a Web Browser');
-
-
+	die('This example should only be run from a Web Browser');
 
 /** Include PHPExcel */
-
 require_once '../../classes/PHPExcel-1.8/Classes/PHPExcel.php';
 
-
-
 //This function generates the background color
-
 function cellColor($cells,$color){
 
     global $objPHPExcel;
-
-
-
     $objPHPExcel->getActiveSheet()->getStyle($cells)->getFill()->applyFromArray(array(
-
         'type' => PHPExcel_Style_Fill::FILL_SOLID,
-
         'startcolor' => array(
-
-             'rgb' => $color
-
-        )
-
-    ));
-
+        'rgb' => $color
+        )));
 }
 
-
-
 //This array sets the font atrributes
-
 $header_style_Array = array(
 
     'font'  => array(
-
         'bold'  => true,
-
         'color' => array('rgb' => '000000'),
-
         'size'  => 12,
-
         'name'  => 'Verdana'
-
-    ));
+));
 
 $table_header_style_Array = array(
-
     'font'  => array(
-
         'bold'  => false,
-
         'color' => array('rgb' => '000000'),
-
         'size'  => 11,
-
         'name'  => 'Verdana'
-
-    ));
+));
 
 $content_style_Array = array(
 
     'font'  => array(
-
         'bold'  => false,
-
         'color' => array('rgb' => '000000'),
-
         'size'  => 9,
-
         'name'  => 'Verdana'
-
-    ));
-
-
+));
 
 //This is border array
 
 $borderArray = array(
 
-          'borders' => array(
+	'borders' => array(
 
-              'allborders' => array(
+		'allborders' => array(
 
-                  'style' => PHPExcel_Style_Border::BORDER_THIN
-
-              )
-
-          )
-
-      );
-
+			'style' => PHPExcel_Style_Border::BORDER_THIN
+		)
+	)
+);
 
 
 // Create new PHPExcel object
@@ -125,17 +76,17 @@ $objPHPExcel = new PHPExcel();
 
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
-                             ->setLastModifiedBy("Maarten Balliauw")
+	->setLastModifiedBy("Maarten Balliauw")
 
-                             ->setTitle("Office 2007 XLSX Test Document")
+	->setTitle("Office 2007 XLSX Test Document")
 
-                             ->setSubject("Office 2007 XLSX Test Document")
+	->setSubject("Office 2007 XLSX Test Document")
 
-                             ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+	->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
 
-                             ->setKeywords("office 2007 openxml php")
+	->setKeywords("office 2007 openxml php")
 
-                             ->setCategory("Test result file");
+	->setCategory("Test result file");
 
 
 //////////////////////////****************Content start**************////////////////////////////////
@@ -162,7 +113,6 @@ if($from_date!="" && $to_date !=""){
 
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B2', 'Report Name')
-
             ->setCellValue('C2', 'B2B Sale Report')
             ->setCellValue('B3', 'Agent Name')
             ->setCellValue('C3', $sq_cust['company_name'])
@@ -247,14 +197,14 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				
 				$tax_arr1 = explode('+',$tax_arr[0]);
 				for($t=0;$t<sizeof($tax_arr1);$t++){
-				  if($tax_arr1[$t]!=''){
-					$tax_arr2 = explode(':',$tax_arr1[$t]);
-					if($tax_arr2[2] == "Percentage"){
-					  $tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
-					}else{
-					  $tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+					if($tax_arr1[$t]!=''){
+						$tax_arr2 = explode(':',$tax_arr1[$t]);
+						if($tax_arr2[2] == "Percentage"){
+							$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
+						}else{
+							$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+						}
 					}
-				  }
 				}
 				$total_amount = $room_cost + $tax_amount;
 
@@ -309,14 +259,14 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 				
 				$tax_arr1 = explode('+',$tax_arr[0]);
 				for($t=0;$t<sizeof($tax_arr1);$t++){
-				  if($tax_arr1[$t]!=''){
-					$tax_arr2 = explode(':',$tax_arr1[$t]);
-					if($tax_arr2[2] === "Percentage"){
-					  $tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
-					}else{
-					  $tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+					if($tax_arr1[$t]!=''){
+						$tax_arr2 = explode(':',$tax_arr1[$t]);
+						if($tax_arr2[2] === "Percentage"){
+							$tax_amount = $tax_amount + ($room_cost * $tax_arr2[1] / 100);
+						}else{
+							$tax_amount = $tax_amount + ($room_cost +$tax_arr2[1]);
+						}
 					}
-				  }
 				}
 				$total_amount = $room_cost + $tax_amount;
 
@@ -333,7 +283,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 			for($j=0;$j<count(array($services));$j++){
 			
 				$tax_amount = 0;
-			    $tax_arr = explode(',',$cart_checkout_data[$i]->service->service_arr[$j]->taxation);
+				$tax_arr = explode(',',$cart_checkout_data[$i]->service->service_arr[$j]->taxation);
 				$package_item = explode('-',$services->service_arr[$j]->package_type);
 				$room_cost = $package_item[1];
 				$h_currency_id = $package_item[2];
@@ -364,7 +314,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 			for($j=0;$j<count(array($services));$j++){
 			
 				$tax_amount = 0;
-			    $tax_arr = explode(',',$services->service_arr[$j]->taxation);
+				$tax_arr = explode(',',$services->service_arr[$j]->taxation);
 				$package_item = explode('-',$services->service_arr[$j]->total_cost);
 				$room_cost = $package_item[0];
 				$h_currency_id = $package_item[1];
@@ -401,15 +351,15 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 			$sq_coupon = mysqli_fetch_assoc(mysqlQuery("select offer_in as offer,offer_amount from excursion_master_offers where coupon_code='$row_customer[coupon_code]'"));
 		}else{
 			$sq_coupon = mysqli_fetch_assoc(mysqlQuery("select offer_in as offer,offer_amount from custom_package_offers where coupon_code='$row_customer[coupon_code]'"));
-    	}
+		}
         if($sq_coupon['offer']=="Flat"){
-        	$servie_total = $servie_total - $sq_coupon['offer_amount'];
+			$servie_total = $servie_total - $sq_coupon['offer_amount'];
         }else{
         	$servie_total = $servie_total - ($servie_total * $sq_coupon['offer_amount']/100);
         }
     }
     $net_total += $servie_total;
-    	
+
 	$sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from b2b_payment_master where booking_id='$row_customer[booking_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
 
     $payment_amount = $sq_payment_info['sum'];
@@ -448,16 +398,15 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
         ->setCellValue('E'.$row_count, get_date_user($row_customer['created_at']))
         ->setCellValue('F'.$row_count, number_format($servie_total,2))
         ->setCellValue('G'.$row_count, number_format($cancel_amount,2))
-        ->setCellValue('H'.$row_count, number_format($servie_total,2))
+        ->setCellValue('H'.$row_count, number_format($servie_total-$row_customer['cancel_amount'],2))
         ->setCellValue('I'.$row_count, ($payment_amount!='')?number_format($payment_amount,2):number_format(0,2))
         ->setCellValue('J'.$row_count, $balance_amount)
         ->setCellValue('K'.$row_count, get_datetime_user($row_customer['created_at']));
-  
-  $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
-  $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);  
-     
 
-  $row_count++;
+	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);  
+	
+	$row_count++;
 }
 $objPHPExcel->setActiveSheetIndex(0)
 

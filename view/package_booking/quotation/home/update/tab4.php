@@ -364,7 +364,7 @@
                                 onchange="validate_balance(this.id)">
                         </div>
                         <div class="col-md-3 header_btn mg_bt_10">
-                            <span>Other Description</span>
+                            <span>Miscellaneous Description</span>
                             <textarea id="other_desc1" name="other_desc1" placeholder="Miscellaneous Description" title="Miscellaneous Description"><?php echo $sq_quotation['other_desc']; ?></textarea>
                         </div>
                     </div>

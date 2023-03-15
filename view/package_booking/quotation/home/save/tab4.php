@@ -234,7 +234,7 @@
                             <input type="text" id="misc_cost" name="misc_cost" placeholder="Miscellaneous Cost" title="Miscellaneous Cost" onchange="validate_balance(this.id)">
                         </div>
                         <div class="col-md-3 header_btn mg_bt_10">
-                            <span>Other Description</span>
+                            <span>Miscellaneous Description</span>
                             <textarea id="other_desc" name="other_desc" placeholder="Miscellaneous Description" title="Miscellaneous Description"></textarea>
                         </div>
                     </div>

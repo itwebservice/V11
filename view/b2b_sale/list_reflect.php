@@ -260,7 +260,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 	$service_url = BASE_URL."model/app_settings/print_html/voucher_html/b2b_voucher.php?booking_id=$booking_id1";
 
 	if($hotel_flag || $activity_flag){
-		$service_voucher = '<a data-toggle="tooltip" onclick="voucher_modal('.$booking_id1.','.$hotel_flag.','.$activity_flag.')" class="btn btn-info btn-sm" title="Generate Service Voucher"><i class="fa fa-print"></i></a>';
+		$service_voucher = '<a data-toggle="tooltip" id="service_voucher-'.$booking_id1.'" onclick="voucher_modal('.$booking_id1.','.$hotel_flag.','.$activity_flag.')" class="btn btn-info btn-sm" title="Generate Service Voucher"><i class="fa fa-print"></i></a>';
 	}
 	else{
 		$service_voucher = '<a data-toggle="tooltip" onclick="loadOtherPage(\''. $service_url .'\')" class="btn btn-info btn-sm" title="Generate Service Voucher"><i class="fa fa-print"></i></a>';

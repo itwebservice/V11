@@ -271,7 +271,7 @@ include "../../model/model.php";
                                                                                 placeholder="*Markup Amount"
                                                                                 class="form-control"
                                                                                 title="Markup Amount"
-                                                                                style="width: 160px;"
+                                                                                style="width: 165px;"
                                                                                 onchange="validate_balance(this.id);" />
                                                                         </td>
                                                                         <td><input type="hidden" id="entry_id"
