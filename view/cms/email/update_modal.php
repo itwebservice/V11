@@ -13,7 +13,7 @@ if($sq_type['type_id'] == '1'){ $type = 'Transactional'; }
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Draft</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Email Draft</h4>
       </div>
       <div class="modal-body">
   		  <form id="frm_cms_save">   

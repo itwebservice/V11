@@ -1,7 +1,7 @@
-<?php 
+<?php
 include "../../../model/model.php";
- $emp_id = $_POST['emp_id'];
- $sq_leave = mysqli_fetch_assoc(mysqlQuery("select * from leave_credits where emp_id='$emp_id'"));
+$emp_id = $_POST['emp_id'];
+$sq_leave = mysqli_fetch_assoc(mysqlQuery("select * from leave_credits where emp_id='$emp_id'"));
 ?>
 
 <div class="modal fade" id="update_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
@@ -9,14 +9,14 @@ include "../../../model/model.php";
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">New Credit</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Leave Credit</h4>
       </div>
       <div class="modal-body">
         
         <form id="frm_save">
         <div class="panel-body">
                           
-         <div class="row mg_bt_10">
+          <div class="row mg_bt_10">
               <div class="col-md-4"><label for="emp_id">User Name</label></div>
                 <div class="col-sm-6 col-xs-12">
                 <select name="emp_id" id="emp_id1"  class="form-control" style="width: 100%;" title="User Name" title="User Name" disabled>

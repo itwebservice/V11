@@ -4,30 +4,30 @@ include "../../../model/model.php";
 require_once('../../layouts/admin_header.php');
 ?>
 
-<?= begin_panel('Quotation Request Information',61) ?>
-      <div class="header_bottom">
-        <div class="row text-center">
-            <label for="rd_request" class="app_dual_button active">
-		        <input type="radio" id="rd_request" name="rd_request_reply" checked onchange="tab_reflect()">
-		        &nbsp;&nbsp;Supplier Quotation
-		    </label>    
-		    <label for="rd_reply" class="app_dual_button">
-		        <input type="radio" id="rd_reply" name="rd_request_reply" onchange="tab_reflect()">
-		        &nbsp;&nbsp;Quotation Amount
-		    </label>
-		      <label for="rd_best" class="app_dual_button">
-		        <input type="radio" id="rd_best" name="rd_request_reply" onchange="tab_reflect()">
-		        &nbsp;&nbsp;Best Supplier
-		    </label>
-        </div>
-      </div> 
+<?= begin_panel('Supplier Quotation Information',61) ?>
+	<div class="header_bottom">
+		<div class="row text-center">
+			<label for="rd_request" class="app_dual_button active">
+				<input type="radio" id="rd_request" name="rd_request_reply" checked onchange="tab_reflect()">
+				&nbsp;&nbsp;Supplier Quotation
+			</label>    
+			<label for="rd_reply" class="app_dual_button">
+				<input type="radio" id="rd_reply" name="rd_request_reply" onchange="tab_reflect()">
+				&nbsp;&nbsp;Quotation Amount
+			</label>
+				<label for="rd_best" class="app_dual_button">
+				<input type="radio" id="rd_best" name="rd_request_reply" onchange="tab_reflect()">
+				&nbsp;&nbsp;Best Supplier
+			</label>
+		</div>
+	</div> 
 
-  <!--=======Header panel end======-->
+<!--=======Header panel end======-->
 <div class="app_panel_content">
 <div id="div_request_reply"></div>
 
 <?= end_panel() ?>
- <script src="<?php echo BASE_URL ?>js/app/field_validation.js"></script>                    
+<script src="<?php echo BASE_URL ?>js/app/field_validation.js"></script>                    
 
 <script>
 	function tab_reflect()

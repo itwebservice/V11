@@ -13,7 +13,7 @@ $sq_task = mysqli_fetch_assoc(mysqlQuery("select * from tasks_master where task_
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Task</h4>
       </div>
       <div class="modal-body">
 

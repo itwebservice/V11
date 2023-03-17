@@ -20,7 +20,7 @@ $sq_bank = mysqli_fetch_assoc(mysqlQuery("select * from bank_master where bank_i
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Payment Update</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Payment</h4>
       </div>
       <div class="modal-body">
         

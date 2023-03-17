@@ -10,7 +10,7 @@ $sq_sms_group_info = mysqli_fetch_assoc(mysqlQuery("select * from sms_group_mast
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update New Sms group</h4>
+        <h4 class="modal-title" id="myModalLabel">Update SMS Group</h4>
       </div>
       <div class="modal-body">
 

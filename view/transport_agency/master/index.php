@@ -3,7 +3,7 @@ include "../../../model/model.php";
 /*======******Header******=======*/
 require_once('../../layouts/admin_header.php');
 ?>
-<?= begin_panel('Transporter Information',21) ?>
+<?= begin_panel('Transporter Supplier Information',21) ?>
 
 <div class="row text-right mg_bt_20">
     <div class="col-sm-6 text-left">

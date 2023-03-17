@@ -3,7 +3,7 @@ include "../../../model/model.php";
 /*=======******Header******=========*/
 require_once('../../layouts/admin_header.php');
 ?>
-<?= begin_panel('Hotel Availability Request','') ?>
+<?= begin_panel('B2B Hotel Availability Request','') ?>
 <?php
 if($setup_package == '4'){ ?>
 <!--=======Header panel end======-->
