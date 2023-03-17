@@ -81,18 +81,16 @@ if($type != "rule_master"){
                   <select name="travel_type" id="travel_type" data-toggle="tooltip" class="form-control" title="Travel Type" style="width:100%" required>
                       <option value="">*Travel Type</option>
                       <option value="All">All</option>
-                      <option value="Group Tour">Group Tour</option>
                       <option value="Package Tour">Package Tour</option>
+                      <option value="Group Tour">Group Tour</option>
                       <option value="Hotel">Hotel</option>
                       <option value="Flight">Flight</option>
-                      <option value="Train">Train</option>
                       <option value="Visa">Visa</option>
-                      <option value="Bus">Bus</option>
                       <option value="Car Rental">Car Rental</option>
                       <option value="Activity">Activity</option>
+                      <option value="Train">Train</option>
+                      <option value="Bus">Bus</option>
                       <option value="Miscellaneous">Miscellaneous</option>
-                      <option value="Forex">Forex</option>
-                      <option value="Passport">Passport</option>
                   </select>
               </div>
               <div class="col-md-3">

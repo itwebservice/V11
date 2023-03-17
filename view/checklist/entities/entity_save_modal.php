@@ -18,15 +18,16 @@ $branch_status = $sq['branch_status'];
           <div class="col-sm-4 mg_bt_30">
             <select name="entity_for" id="entity_for" title="Select Service" data-toggle="tooltip" onchange="reflect_entity();reflect_destination()" class="form-control">
               <option value="">*Select Service</option>
-              <option value="Group Tour">Group Tour</option>
               <option value="Package Tour">Package Tour</option>
-              <option value="Visa Booking">Visa Booking</option>
-              <option value="Flight Booking">Flight Booking</option>
-              <option value="Train Booking">Train Booking</option>
+              <option value="Group Tour">Group Tour</option>
               <option value="Hotel Booking">Hotel Booking</option>
-              <option value="Bus Booking">Bus Booking</option>
+              <option value="Flight Booking">Flight Booking</option>
+              <option value="Visa Booking">Visa Booking</option>
               <option value="Car Rental Booking">Car Rental Booking</option>
               <option value="Excursion Booking">Activity Booking</option>
+              <option value="Train Booking">Train Booking</option>
+              <option value="Bus Booking">Bus Booking</option>
+              <option value="Miscellaneous Booking">Miscellaneous Booking</option>
             </select>
           </div>
           

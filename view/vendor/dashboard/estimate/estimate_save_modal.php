@@ -41,7 +41,7 @@ $financial_to_date = $sq_finance['to_date'];
 							<select name="estimate_type" id="estimate_type" title="Purchase Type" onchange="get_purchase_flag('0',this.id);payment_for_data_load(this.value, 'div_payment_for_content');brule_for_all();">
 								<option value="">*Purchase Type</option>
 								<?php 
-								$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+								$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
 								while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
 									?>
 									<option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>

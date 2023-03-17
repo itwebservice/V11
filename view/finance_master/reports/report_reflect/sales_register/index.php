@@ -22,18 +22,18 @@ $branch_status = $sq['branch_status'];
 		<div class="col-md-3 col-sm-6 mg_bt_10_xs">
 					<select name="sale_type_filter" id="sale_type_filter" title="Booking Type">
                         <option value="">Booking Type</option>
-                        <option value="Bus Booking">Bus</option>
-                        <option value="Car Rental Booking">Car Rental</option>
-                        <option value="Air Ticket Booking">Flight Ticket</option>
+                        <option value="Package Booking">Package Booking</option>
                         <option value="Group Booking">Group Booking</option>
                         <option value="Hotel Booking">Hotel</option>
-                        <option value="Package Booking">Package Booking</option>
-                        <option value="Train Ticket Booking">Train Ticket</option>
+                        <option value="Air Ticket Booking">Flight Ticket</option>
                         <option value="Visa Booking">Visa</option> 
+                        <option value="Car Rental Booking">Car Rental</option>
                         <option value="Excursion Booking">Activity</option> 
+                        <option value="Train Ticket Booking">Train Ticket</option>
+                        <option value="Bus Booking">Bus</option>
                         <option value="Miscellaneous Booking">Miscellaneous</option> 
-                        <option value="B2C Booking">B2C Booking</option> 
                         <option value="B2B Booking">B2B Booking</option> 
+                        <option value="B2C Booking">B2C Booking</option> 
                     </select>
 				</div>
 		<div class="col-md-3">

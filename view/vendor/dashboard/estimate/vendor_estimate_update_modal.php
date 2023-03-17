@@ -44,7 +44,7 @@ else if($reflections1[0]->tax_apply_on == '3') {
 						<select name="estimate_type1" id="estimate_type1" title="Purchase Type" onchange="payment_for_data_load(this.value, 'div_payment_for_content1', '1')" disabled>
 							<option value="<?= $sq_vendor_estimate['estimate_type'] ?>"><?= $sq_vendor_estimate['estimate_type'] ?></option>
 							<?php 
-							$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+							$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
 							while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
 								?>
 								<option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>

@@ -58,7 +58,7 @@ $estimate_id = get_vendor_estimate_id($row_estimate['estimate_id'],$year)." : ".
                     <option value="<?= $sq_payment['estimate_type'] ?>"><?= $sq_payment['estimate_type'] ?></option>
                     <option value="">Purchase Type</option>
                     <?php 
-                    $sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+                    $sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
                     while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
                       ?>
                       <option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>

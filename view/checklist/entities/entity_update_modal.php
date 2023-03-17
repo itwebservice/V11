@@ -31,16 +31,16 @@ $tour_name = ($sq_tour['tour_name']=="")? "NA" : $sq_tour['tour_name'];
               ?>
               <option value="<?php echo $sq_checklist['entity_for'];?>"><?php echo $entity_for; ?></option>
               <option value="">Select Service</option>
-              <option value="Group Tour">Group Tour</option>
               <option value="Package Tour">Package Tour</option>
-              <option value="Visa Booking">Visa Booking</option>
-              <option value="Flight Booking">Flight Booking</option>
-              <option value="Train Booking">Train Booking</option>
+              <option value="Group Tour">Group Tour</option>
               <option value="Hotel Booking">Hotel Booking</option>
-              <option value="Bus Booking">Bus Booking</option>
+              <option value="Flight Booking">Flight Booking</option>
+              <option value="Visa Booking">Visa Booking</option>
               <option value="Car Rental Booking">Car Rental Booking</option>
-              <option value="Passport Booking">Passport Booking</option>
               <option value="Excursion Booking">Activity Booking</option>
+              <option value="Train Booking">Train Booking</option>
+              <option value="Bus Booking">Bus Booking</option>
+              <option value="Miscellaneous Booking">Miscellaneous Booking</option>
             </select>
           </div>
           <?php
