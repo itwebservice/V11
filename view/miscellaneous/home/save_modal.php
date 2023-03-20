@@ -35,10 +35,10 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div id="cust_details">
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" class="form-control" readonly>
+									<input type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" class="form-control" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" class="form-control" readonly>
+									<input type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" class="form-control" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12">
 									<input type="text" id="company_name" class="hidden form-control" name="company_name" title="Company Name" placeholder="Company Name" class="form-control" title="Company Name" readonly>

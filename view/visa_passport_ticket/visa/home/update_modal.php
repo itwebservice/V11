@@ -68,12 +68,12 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-                                <input type="text" id="email_id1" name="email_id1" placeholder="Email ID"
-                                    title="Email ID" readonly>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
                                 <input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile No"
                                     title="Mobile No" readonly>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
+                                <input type="text" id="email_id1" name="email_id1" placeholder="Email ID"
+                                    title="Email ID" readonly>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
                                 <input type="text" id="company_name1" class="hidden" name="company_name1"

@@ -58,9 +58,9 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 <select name="customer_id1" id="customer_id1" style="width: 100%"
                                     onchange="customer_info_load('1')" disabled>
                                     <?php
-                  $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
-                  if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
-                  ?>
+                $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
+                if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+                ?>
                                     <option value="<?= $sq_customer['customer_id'] ?>">
                                         <?= $sq_customer['company_name'] ?></option>
                                     <?php } else { ?>
@@ -71,12 +71,12 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
-                                    placeholder="Email ID" title="Email ID" readonly>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="mobile_no1" name="mobile_no1" title="Mobile Number"
                                     placeholder="Mobile No" title="Mobile No" readonly>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
+                                    placeholder="Email ID" title="Email ID" readonly>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="company_name1" class="hidden" name="company_name1"

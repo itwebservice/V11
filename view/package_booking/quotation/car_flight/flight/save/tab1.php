@@ -60,17 +60,16 @@
             <input type="hidden" id="cust_data" name="cust_data" value='<?= get_customer_hint() ?>'>
 
 	    </div>	        		                			        		        	        		
-
-
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-
-			<input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
-
-		</div>	
+	
 
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
 			<input type="text" id="mobile_no" name="mobile_no" placeholder="*Whatsapp no with country code" onchange="mobile_validate(this.id);" title="*Whatsapp no with country code">
+
+		</div>
+		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+
+			<input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
 
 		</div>
 

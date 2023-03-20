@@ -82,12 +82,12 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                             </div>
                             <div id="cust_details">
                                 <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                    <input type="text" id="email_id" name="email_id" title="Email Id"
-                                        placeholder="Email ID" title="Email ID" readonly>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                     <input type="text" id="mobile_no" name="mobile_no" title="Mobile Number"
                                         placeholder="Mobile No" title="Mobile No" readonly>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                    <input type="text" id="email_id" name="email_id" title="Email Id"
+                                        placeholder="Email ID" title="Email ID" readonly>
                                 </div>
                                 <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                     <input type="text" id="company_name" class="hidden" name="company_name"

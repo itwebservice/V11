@@ -65,6 +65,11 @@
 
 	    </div>	        		                			        		        	        		
 
+		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+
+			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Whatsapp no with country code" onchange="mobile_validate(this.id);" title="Whatsapp no with country code" value="<?= $sq_quotation['mobile_no'] ?>">
+
+		</div>
 
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
@@ -72,11 +77,6 @@
 
 		</div>	
 
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-
-			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Whatsapp no with country code" onchange="mobile_validate(this.id);" title="Whatsapp no with country code" value="<?= $sq_quotation['mobile_no'] ?>">
-
-		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
 	    	<input type="text" class="form-control" id="quotation_date1" name="quotation_date1" placeholder="Quotation Date" title="Quotation Date" value="<?= get_date_user($sq_quotation['quotation_date']) ?>" onchange="get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','true','service_charge', true);"> 

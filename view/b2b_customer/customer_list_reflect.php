@@ -27,8 +27,8 @@ $query .= " order by register_id desc";
                         <th>S_No.</th>
                         <th>Company_Name</th>
                         <th>Contact_Person</th>
-                        <th>Email_ID</th>
                         <th>Mobile</th>
+                        <th>Email_ID</th>
                         <th>City</th>
                         <th>State/Country</th>
                         <th class="text-center">Actions</th>
@@ -61,8 +61,8 @@ $query .= " order by register_id desc";
                         <td><?= ++$count ?></td>
                         <td><?= $row_customer['company_name'] ?></td>
                         <td><?= $row_customer['cp_first_name'] . ' ' . $row_customer['cp_last_name']  ?></td>
-                        <td><?= $row_customer['email_id'] ?></td>
                         <td><?= $row_customer['mobile_no'] ?></td>
+                        <td><?= $row_customer['email_id'] ?></td>
                         <td><?= $sq_city['city_name'] ?></td>
                         <td><?= $country_name ?></td>
                         <td style="display:flex;">

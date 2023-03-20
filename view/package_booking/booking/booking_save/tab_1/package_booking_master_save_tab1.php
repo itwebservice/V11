@@ -175,13 +175,13 @@
                                 placeholder="Contact Person Name" title="Contact Person Name" maxlength="50" disabled />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                            <input type="text" id="txt_m_mobile_no" name="txt_m_mobile_no" placeholder="Mobile No."
+                                title="Mobile No" disabled />
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                             <input type="text" id="txt_m_email_id" name="txt_m_email_id"
                                 onchange="validate_email(this.id);" placeholder="Email Id" title="Email Id"
                                 maxlength="50" disabled />
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                            <input type="text" id="txt_m_mobile_no" name="txt_m_mobile_no" placeholder="Mobile No."
-                                title="Mobile No" disabled />
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10 hidden">
                             <input type="text" id="company_name" name="company_name" class="hidden" title="Company Name"

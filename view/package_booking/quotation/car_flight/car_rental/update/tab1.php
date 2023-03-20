@@ -53,13 +53,13 @@
 
 	    </div>
 
-	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-			<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" onchange="validate_email(this.id)" value="<?= $sq_quotation['email_id'] ?>">
-		</div>	
 
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="mobile_no1" name="mobile_no1" onchange="mobile_validate(this.id)" placeholder="Whatsapp no with country code" title="Whatsapp no with country code" value="<?= $sq_quotation['mobile_no'] ?>">
 		</div>
+	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+			<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" onchange="validate_email(this.id)" value="<?= $sq_quotation['email_id'] ?>">
+		</div>	
 	</div>
 	<div class="row">
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

@@ -39,12 +39,12 @@
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-        <input class="form-control" type="text" id="txt_m_email_id" name="txt_m_email_id" title="Email Id"
-            placeholder="Email Id" readonly />
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
         <input class="form-control" type="text" id="txt_m_mobile_no" onchange="mobile_validate(this.id)"
             name="txt_m_mobile_no" title="Mobile No" placeholder="Mobile No" readonly />
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
+        <input class="form-control" type="text" id="txt_m_email_id" name="txt_m_email_id" title="Email Id"
+            placeholder="Email Id" readonly />
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
         <input class="form-control" type="text" id="txt_m_address" name="txt_m_address"

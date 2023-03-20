@@ -79,13 +79,13 @@ $role_id = $_SESSION['role_id'];
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
+                    <input type="text" id="mobile_no" name="mobile_no" placeholder="*WhatsApp No with country code"
+                        onchange="mobile_validate(this.id)" title="*WhatsApp No with country code">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
 
                     <input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
 
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <input type="text" id="mobile_no" name="mobile_no" placeholder="*WhatsApp No with country code"
-                        onchange="mobile_validate(this.id)" title="*WhatsApp No with country code">
                 </div>
             </div>
             <div class="row mg_tp_10">

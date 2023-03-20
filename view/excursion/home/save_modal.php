@@ -32,13 +32,13 @@ $branch_status = $sq['branch_status'];
 	        				<?php get_new_customer_dropdown($role,$branch_admin_id,$branch_status); ?>
 	        			</select>
 	        		</div>
-	        		<div id="cust_details">	        
+	        		<div id="cust_details">	  
+	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
+	                	<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
+	                </div>        
 	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
 	                	<input class="form-control" type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" readonly>
 	                </div>		
-	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-	                	<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
-	                </div>  
 	                <div class="col-md-3 col-sm-4 col-xs-12">
 	                	<input class="form-control hidden" type="text" id="company_name" name="company_name" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
 	                </div> 

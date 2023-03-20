@@ -89,15 +89,15 @@
                         placeholder="Customer Name" title="Customer Name" value="<?= $sq_quotation['customer_name'] ?>">
 
                 </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <input type="text" id="email_id12" name="email_id12" placeholder="Email ID" title="Email ID"
-                        value="<?= $sq_quotation['email_id'] ?>">
-                </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" id="mobile_no12" name="mobile_no12" placeholder="WhatsApp No with country code"
                         onchange="mobile_validate(this.id)" title="WhatsApp No with country code"
                         value="<?= $sq_quotation['mobile_no'] ?>">
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <input type="text" id="email_id12" name="email_id12" placeholder="Email ID" title="Email ID"
+                        value="<?= $sq_quotation['email_id'] ?>">
                 </div>
             </div>
             <div class="row mg_tp_10">

@@ -240,11 +240,6 @@
                                     placeholder="Contact Person Name" title="Contact Person Name"
                                     value="<?php echo $sq_booking_info['contact_person_name'] ?>" readonly>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                <input type="text" value="<?php echo $sq_booking_info['email_id']; ?>"
-                                    name="txt_m_email_id" id="txt_m_email_id1" title="Email ID" placeholder="Email ID"
-                                    readonly>
-                            </div>
                             <?php if ($sq_booking_info['company_name'] != '') { ?>
                             <div class="company_class">
                                 <input type="text" id="company_name1" name="company_name" class="hidden"
@@ -254,6 +249,11 @@
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="txt_m_mobile_no1" name="txt_m_mobile_no" placeholder="Mobile No."
                                     title="Mobile No." value="<?php echo $sq_booking_info['mobile_no'] ?>" readonly>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                <input type="text" value="<?php echo $sq_booking_info['email_id']; ?>"
+                                    name="txt_m_email_id" id="txt_m_email_id1" title="Email ID" placeholder="Email ID"
+                                    readonly>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="txt_m_address1" name="txt_m_address" placeholder="Address"
