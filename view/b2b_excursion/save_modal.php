@@ -268,14 +268,13 @@ include "../../model/model.php";
                                                                             </select></td>
                                                                         <td><input type='number' id="amount"
                                                                                 name="amount"
-                                                                                placeholder="*Markup Amount"
+                                                                                placeholder="Markup Amount"
                                                                                 class="form-control"
                                                                                 title="Markup Amount"
                                                                                 style="width: 165px;"
                                                                                 onchange="validate_balance(this.id);" />
                                                                         </td>
-                                                                        <td><input type="hidden" id="entry_id"
-                                                                                name="entry_id" /></td>
+                                                                        <td><input type="hidden" id="entry_id" name="entry_id" /></td>
                                                                     </tr>
                                                                 </table>
                                                             </div>
@@ -625,15 +624,6 @@ $(function() {
                         error_msg_alert('Enter Child Ticket Cost in Row-' + (i + 1));
                         return false;
                     }
-                    if (markup_in == '') {
-                        error_msg_alert('Select Markup In in Row-' + (i + 1));
-                        return false;
-                    }
-                    if (markup_cost == '') {
-                        error_msg_alert('Enter Markup Cost in Row-' + (i + 1));
-                        return false;
-                    }
-
                     transfer_option_array.push(transfer_option);
                     bfrom_date_array.push(from_date);
                     bto_date_array.push(to_date);

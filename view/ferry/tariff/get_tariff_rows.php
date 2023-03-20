@@ -59,15 +59,15 @@
                             title="Adult Cost" onchange="validate_balance(this.id)" style="width: 110px;" /></td>
                     <td><input type="text" id="child_cost" name="child_cost" placeholder="*Child Cost"
                             title="Child Cost" onchange="validate_balance(this.id)" style="width: 110px;" /></td>
-                    <td><input type="text" id="infant_cost" name="infant_cost" placeholder="*Infant Cost"
+                    <td><input type="text" id="infant_cost" name="infant_cost" placeholder="Infant Cost"
                             title="Infant Cost" onchange="validate_balance(this.id)" style="width: 110px;" /></td>
                     <td><select name="markup_in" id="markup_in" style="width: 125px" class="form-control app_select2"
                             title="Markup In">
-                            <option value=''>*Markup In</option>
+                            <option value=''>Markup In</option>
                             <option value='Flat'>Flat</option>
                             <option value='Percentage'>Percentage</option>
                         </select></td>
-                    <td><input type='number' id="amount" name="amount" placeholder="*Markup Amount" class="form-control"
+                    <td><input type='number' id="amount" name="amount" placeholder="Markup Amount" class="form-control"
                             title="Markup Amount" style="width: 161px;" /></td>
                 </tr>
                 <script>

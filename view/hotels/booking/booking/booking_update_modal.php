@@ -668,9 +668,6 @@ $(function() {
                     if (check_out == "") {
                         msg += "Check-Out is required in row:" + (i + 1) + '<br>';
                     }
-                    if (extra_beds == "") {
-                        msg += "Extra beds is required in row:" + (i + 1) + '<br>';
-                    }
                     if (rooms == "") {
                         msg += "Rooms is required in row:" + (i + 1) + '<br>';
                     }

@@ -37,9 +37,9 @@ $drop_time = date('H:i', strtotime($sq_bike['drop_time']));
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="manufacturer1" name="manufacturer"
-                                onchange="locationname_validate(this.id);" placeholder="*Manufacturer Name"
+                                onchange="locationname_validate(this.id);" placeholder="Manufacturer Name"
                                 title="Manufacturer Name" value="<?= $sq_bike['manufacturer']; ?>"
-                                onkeypress="return blockSpecialChar(event);" required>
+                                onkeypress="return blockSpecialChar(event);">
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="model_name1" name="model_name"

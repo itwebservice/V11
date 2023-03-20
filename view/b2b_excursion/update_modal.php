@@ -170,7 +170,7 @@ $exc_name = ($sq_exc['excursion_name']);
 													<option value=''>Amount In</option>
 													<option value='Flat'>Flat</option>
 													<option value='Percentage'>Percentage</option></select></td>
-												<td><input type='number' id="amount" name="amount" placeholder="*Markup Amount" class="form-control" title="Markup Amount" style="width: 147px;" onchange="validate_balance(this.id);"/></td>
+												<td><input type='number' id="amount" name="amount" placeholder="Markup Amount" class="form-control" title="Markup Amount" style="width: 147px;" onchange="validate_balance(this.id);"/></td>
 												<td><input type="hidden" id="entry_id" name="entry_id" /></td>
 											</tr>
 										<?php }
@@ -524,14 +524,6 @@ $(function(){
 				}
 				if(child_cost=='' && row.cells[0].childNodes[0].checked){
 					error_msg_alert('Enter Child Ticket Cost in Row-'+(i+1));
-					return false;
-				}
-				if(markup_in=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Select Markup In in Row-'+(i+1));
-					return false;
-				}
-				if(markup_cost=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Enter Markup Cost in Row-'+(i+1));
 					return false;
 				}
 				transfer_option_array.push(transfer_option);

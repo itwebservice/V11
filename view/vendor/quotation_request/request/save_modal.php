@@ -407,9 +407,6 @@ $('#frm_hotel_save').validate({
                     if (room_type == '') {
                         err_msg += "Room Category is required " + (i + 1) + "<br>";
                     }
-                    if (meal_plan == '') {
-                        err_msg += "Meal Plan is required in row " + (i + 1) + "<br>";
-                    }
                 }
             }
         }

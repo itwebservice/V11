@@ -638,9 +638,6 @@ $(function() {
                     if (rooms == "") {
                         msg += "No of Rooms is required in row:" + (i + 1) + '<br>';
                     }
-                    if (extra_beds == "") {
-                        msg += "Extra beds is required in row:" + (i + 1) + '<br>';
-                    }
                     if (no_of_nights == "") {
                         msg += "No of Nights is required in row:" + (i + 1) + '<br>';
                     }

@@ -110,8 +110,7 @@ $package_name = $sq_package['package_name'];
                                                         <tr>
                                                             <td><input class="css-checkbox" id="chk_transport-"
                                                                     type="checkbox"
-                                                                    onchange="get_transport_cost_update(this.id);"
-                                                                    checked readonly><label class="css-label"
+                                                                    onchange="get_transport_cost_update(this.id);" readonly><label class="css-label"
                                                                     for="chk_transport1"> </label></td>
                                                             <td><input maxlength="15" value="1" type="text"
                                                                     name="username" placeholder="Sr. No."

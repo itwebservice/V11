@@ -235,11 +235,6 @@ $(function(){
             $('#tariff_save').prop('disabled',false);
             return false;
           }
-          if(capacity==''){
-            error_msg_alert('Enter Luggage Capacity in Row-'+(i+1));
-            $('#tariff_save').prop('disabled',false);
-            return false;
-          }
           if(total_cost==''){
             error_msg_alert('Enter Total Cost in Row-'+(i+1));
             $('#tariff_save').prop('disabled',false);

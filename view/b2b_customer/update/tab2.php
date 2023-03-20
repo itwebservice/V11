@@ -7,7 +7,7 @@
               <input class="form-control" type="text" id="contact_personf" name="contact_personf" placeholder="*First Name" title="First Name" value="<?= $sq_query['cp_first_name'] ?>" required> 
           </div>
           <div class="col-md-3 col-sm-6">
-              <input class="form-control" type="text" id="contact_personl" name="contact_personl" placeholder="*Last Name" title="Last Name" value="<?= $sq_query['cp_last_name'] ?>" required> 
+              <input class="form-control" type="text" id="contact_personl" name="contact_personl" placeholder="*Last Name" title="Last Name" value="<?= $sq_query['cp_last_name'] ?>"> 
           </div>
           <div class="col-md-3 col-sm-6">
               <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="*Mobile No" title="Mobile No" onchange="mobile_validate(this.id);" value="<?= $sq_query['mobile_no'] ?>" required>

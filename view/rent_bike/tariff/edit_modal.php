@@ -82,11 +82,11 @@ $bike_id = $sq_query['bike_id'];
                           <td><input type="number" id="deposit<?= $count ?>-u" value="<?= $row_tariffentries['deposit'] ?>" name="deposit<?= $count ?>-u" placeholder="*Deposit" title="Deposit" onchange="validate_balance(this.id)" style="width: 100px;"/></td>
                           <td><select name="markup_in" id="markup_in<?= $count ?>-u" style="width:130px;" title="Markup In" data-toggle="tooltip" class="form-control app_select2">
                               <option value="<?= $row_tariffentries['markup_in'] ?>"><?= $row_tariffentries['markup_in'] ?></option>
-                              <option value="">*Markup In</option>
+                              <option value="">Markup In</option>
                               <option value="Percentage">Percentage</option>
                               <option value="Flat">Flat</option>
                             </select></td>
-                          <td><input type="text" id="markup_amount<?= $count ?>-u" name="markup_amount" placeholder="*Markup Amount" title="Markup Amount" value="<?= $row_tariffentries['markup_amount'] ?>" onchange="validate_balance(this.id)" style="width: 132px;" /></td>
+                          <td><input type="text" id="markup_amount<?= $count ?>-u" name="markup_amount" placeholder="Markup Amount" title="Markup Amount" value="<?= $row_tariffentries['markup_amount'] ?>" onchange="validate_balance(this.id)" style="width: 132px;" /></td>
                           <td><input type="hidden" id="entry_id" name="entry_id" value="<?= $row_tariffentries['tariff_id'] ?>" /></td>
                       </tr>
                       <script>
@@ -280,16 +280,6 @@ $(function(){
           }
           if(deposit==''){
             error_msg_alert('Enter deposit cost in Row-'+(i+1));
-            $('#tariff_update').prop('disabled', false);
-            return false;
-          }
-          if(markup_in==''){
-            error_msg_alert('Select markup in Row-'+(i+1));
-            $('#tariff_update').prop('disabled', false);
-            return false;
-          }
-          if(markup_amount==''){
-            error_msg_alert('Enter markup cost in Row-'+(i+1));
             $('#tariff_update').prop('disabled', false);
             return false;
           }

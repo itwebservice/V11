@@ -49,19 +49,19 @@ $sq_leave = mysqli_fetch_assoc(mysqlQuery("select * from leave_credits where emp
         <div class="row mg_bt_10">
             <div class="col-md-4"><label for="maternity">Maternity Leave</label></div> 
                 <div class="col-md-6">
-                  <input type="text" id="maternity" name="maternity" placeholder="*Maternity" title="Maternity" value="<?= $sq_leave['maternity'] ?>"> 
+                  <input type="text" id="maternity" name="maternity" placeholder="Maternity" title="Maternity" value="<?= $sq_leave['maternity'] ?>"> 
                 </div> 
         </div> 
         <div class="row mg_bt_10">
             <div class="col-md-4"><label for="paternity">Paternity Leave</label></div>    
                 <div class="col-sm-6 col-xs-12">
-                  <input type="text" id="paternity" name="paternity"  placeholder="*Paternity" title="Paternity" value="<?= $sq_leave['paternity'] ?>">
+                  <input type="text" id="paternity" name="paternity"  placeholder="Paternity" title="Paternity" value="<?= $sq_leave['paternity'] ?>">
                 </div>
           </div>
         <div class="row mg_bt_10">
             <div class="col-md-4"><label for="leave_without_pay">Leave without Pay</label></div>                 
                  <div class="col-sm-6 col-xs-12">
-                  <input type="text" id="leave_without_pay" name="leave_without_pay" placeholder="*Leave without Pay" title="Leave without Pay" value="<?= $sq_leave['leave_without_pay'] ?>">
+                  <input type="text" id="leave_without_pay" name="leave_without_pay" placeholder="Leave without Pay" title="Leave without Pay" value="<?= $sq_leave['leave_without_pay'] ?>">
                 </div>
             </div> 
 
@@ -88,11 +88,7 @@ $('#frm_save').validate({
       emp_id : { required : true },
       casual : { required : true },
       paid : { required : true },
-      medical : { required : true }, 
-      maternity : { required : true }, 
-      paternity : { required : true }, 
-      leave_without_pay : { required : true },
-     
+      medical : { required : true },
   },
   submitHandler:function(form){
       var emp_id = $('#emp_id1').val();

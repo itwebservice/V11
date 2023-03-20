@@ -45,7 +45,7 @@ $sq_bank_info = mysqli_fetch_assoc(mysqlQuery("select * from inter_bank_transfer
                 <input type="text" id="f_name" name="f_name" onchange="fname_validate(this.id);" placeholder="Favouring Name" value="<?= $sq_bank_info['favouring_name'] ?>" class="form-control" title="Favouring Name" >
               </div>
               <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
-                <input type="text" id="ins_no1" name="ins_no1" onchange="validate_spaces(this.id); validate_specialChar(this.id);" placeholder="*Instrument Number" value="<?= $sq_bank_info['instrument_no'] ?>" title="Instrument Number" class="form-control" onchange="get_lapse_date('trans_type1','ins_no1','1')" required>
+                <input type="text" id="ins_no1" name="ins_no1" onchange="validate_spaces(this.id); validate_specialChar(this.id);" placeholder="Instrument Number" value="<?= $sq_bank_info['instrument_no'] ?>" title="Instrument Number" class="form-control" onchange="get_lapse_date('trans_type1','ins_no1','1')" required>
               </div>
             </div>
             <div class="row">
@@ -86,7 +86,6 @@ $('#frm_update').validate({
   rules:{
           trans_type : { required: true },
           payment_amount : { required: true, number: true },
-          ins_no : { required: true },
           ins_date : { required: true },
   },
   submitHandler:function(form){

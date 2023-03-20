@@ -24,8 +24,8 @@
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="manufacturer" name="manufacturer"
-                                onchange="locationname_validate(this.id);" placeholder="*Manufacturer Name"
-                                title="Manufacturer Name" onkeypress="return blockSpecialChar(event);" required>
+                                onchange="locationname_validate(this.id);" placeholder="Manufacturer Name"
+                                title="Manufacturer Name" onkeypress="return blockSpecialChar(event);">
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="model_name" name="model_name"

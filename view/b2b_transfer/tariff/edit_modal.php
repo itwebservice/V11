@@ -135,7 +135,7 @@ $taxation = json_decode($sq_tariff['taxation']);
                           <td><input type="text" id="duration<?= $count ?>-u" name="duration" placeholder="Service Duration" title="Service Duration" value="<?= $row_tariffentries['service_duration'] ?>" style="width: 128px;" /></td>      
                           <td><input type="text" id="from_date<?= $count ?>-u" class="form-control" name="from_date" placeholder="*Valid From" title="Valid From" value="<?= get_date_user($row_tariffentries['from_date']) ?>"  onchange="get_to_date(this.id,'to_date<?= $count ?>-u')" style="width: 120px;" /></td>
                           <td><input type="text" id="to_date<?= $count ?>-u" class="form-control" name="to_date" placeholder="*Valid To " title="Valid To" onchange="validate_issueDate('from_date<?= $count ?>-u' ,'to_date<?= $count ?>-u')" value="<?= get_date_user($row_tariffentries['to_date']) ?>" style="width: 120px;" /></td>
-                          <td><input type="text" id="luggage<?= $count ?>-u" name="luggage" placeholder="*Luggage Capacity" title="Luggage Capacity" style="width: 137px;" value="<?= $tariff_data[0]->seating_capacity ?>" onkeypress="return blockSpecialChar(event)" /></td>
+                          <td><input type="text" id="luggage<?= $count ?>-u" name="luggage" placeholder="Luggage Capacity" title="Luggage Capacity" style="width: 137px;" value="<?= $tariff_data[0]->seating_capacity ?>" onkeypress="return blockSpecialChar(event)" /></td>
                           <td><input type="text" id="total_cost<?= $count ?>-u" name="total_cost" placeholder="*Total Cost" title="Total Cost" onchange="validate_balance(this.id)" style="width: 120px;" value="<?= $tariff_data[0]->total_cost ?>"/></td>
                           <td><select name="markup_in" id="markup_in<?= $count ?>-u" style="width:130px;" title="Markup In" data-toggle="tooltip" class="form-control app_select2">
                               <option value="<?= $tariff_data[0]->markup_in ?>"><?= $tariff_data[0]->markup_in ?></option>
@@ -362,11 +362,6 @@ $(function(){
         }
         if(to_date=='' && row.cells[0].childNodes[0].checked){
           error_msg_alert('Select Valid To Date in Row-'+(i+1));
-          $('#tariff_update').prop('disabled',false);
-          return false;
-        }
-        if(capacity=='' && row.cells[0].childNodes[0].checked){
-          error_msg_alert('Enter Luggage Capacity in Row-'+(i+1));
           $('#tariff_update').prop('disabled',false);
           return false;
         }

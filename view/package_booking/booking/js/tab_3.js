@@ -99,7 +99,6 @@ function package_tour_booking_tab3_validate()
       validate_dynamic_empty_date(row.cells[5].childNodes[0]);
       validate_dynamic_empty_date(row.cells[6].childNodes[0]);
       validate_dynamic_empty_fields(row.cells[7].childNodes[0]);
-      validate_dynamic_empty_fields(row.cells[8].childNodes[0]);
       validate_dynamic_empty_fields(row.cells[9].childNodes[0]); 
 
       if(row.cells[2].childNodes[0].value==""){ validate_message += "City in row-"+(i+1)+" is required<br>"; }               
@@ -107,8 +106,7 @@ function package_tour_booking_tab3_validate()
       if(row.cells[4].childNodes[0].value==""){ validate_message += "Check-In date in row-"+(i+1)+" is required<br>"; }               
       if(row.cells[5].childNodes[0].value==""){ validate_message += "Check-Out date in row-"+(i+1)+" is required<br>"; }               
       if(row.cells[6].childNodes[0].value==""){ validate_message += "Room(s) in row-"+(i+1)+" is required<br>"; }               
-      if(row.cells[7].childNodes[0].value==""){ validate_message += "Category in row-"+(i+1)+" is required<br>"; }               
-      if(row.cells[8].childNodes[0].value==""){ validate_message += "Meal Plan in row-"+(i+1)+" is required<br>"; }               
+      if(row.cells[7].childNodes[0].value==""){ validate_message += "Category in row-"+(i+1)+" is required<br>"; }            
       if(row.cells[9].childNodes[0].value==""){ validate_message += "Room type in row-"+(i+1)+" is required<br>"; }               
     }
   } 

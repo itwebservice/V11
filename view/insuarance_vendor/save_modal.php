@@ -30,7 +30,7 @@ include "../../model/model.php";
     		</div>
     		<div class="row">
     			<div class="col-md-3 col-sm-6 mg_bt_10">
-    				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Concern Person Name" title="Concern Person Name">
+    				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Contact Person Name" title="Contact Person Name">
     			</div>
     			<div class="col-md-3 col-sm-6 mg_bt_10">
             <input type="text" id="immergency_contact_no" name="immergency_contact_no" onchange="mobile_validate(this.id);" placeholder="Emergency Contact No" title="Emergency Contact No">
