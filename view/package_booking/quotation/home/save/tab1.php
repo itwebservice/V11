@@ -115,29 +115,29 @@ $role_id = $_SESSION['role_id'];
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
 
-                    <input type="text" id="total_adult" name="total_adult" placeholder="Total Adult" title="Total Adult"
+                    <input type="text" id="total_adult" name="total_adult" placeholder="Total Adult(s)" title="Total Adult(s)"
                         onchange="total_passangers_calculate(); validate_balance(this.id)" required>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
 
-                    <input type="text" id="total_infant" name="total_infant" placeholder="Total Infant"
-                        title="Total Infant" onchange="total_passangers_calculate(); validate_balance(this.id);"
+                    <input type="text" id="total_infant" name="total_infant" placeholder="Total Infant(s)"
+                        title="Total Infant(s)" onchange="total_passangers_calculate(); validate_balance(this.id);"
                         required>
 
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" class="form-control" id="children_without_bed" name="children_without_bed"
                         onchange="validate_balance(this.id);total_passangers_calculate();"
-                        placeholder="Child Without Bed" title="Child Without Bed" required>
+                        placeholder="Child Without Bed(s)" title="Child Without Bed(s)" required>
                 </div>
             </div>
             <div class="row mg_tp_10">
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" class="form-control" id="children_with_bed" name="children_with_bed"
-                        onchange="validate_balance(this.id);total_passangers_calculate();" placeholder="Child With Bed"
-                        title="Child With Bed" required>
+                        onchange="validate_balance(this.id);total_passangers_calculate();" placeholder="Child With Bed(s)"
+                        title="Child With Bed(s)" required>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" id="total_passangers" name="total_passangers" value="0"

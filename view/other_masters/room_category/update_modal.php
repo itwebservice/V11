@@ -18,7 +18,7 @@ $sq_ref = mysqli_fetch_assoc(mysqlQuery("select * from room_category_master wher
         
           <div class="row">
             <div class="col-sm-6 mg_bt_10">
-              <input type="text" id="room_category" name="room_category"  onchange="fname_validate(this.id);" placeholder="Reference" title="Reference" value="<?= $sq_ref['room_category'] ?>" />
+              <input type="text" id="room_category" name="room_category"  onchange="fname_validate(this.id);" placeholder="Room Category" title="Room Category" value="<?= $sq_ref['room_category'] ?>" />
             </div>
             <div class="col-sm-6 mg_bt_10">
               <select name="active_flag1" id="active_flag1" title="Status" style="width:100%">

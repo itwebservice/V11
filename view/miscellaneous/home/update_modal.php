@@ -213,7 +213,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="markup_show1" style="color:red"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_m ?></span></small>
-									<input type="text" id="markup1" name="markup1" value="<?= $markup ?>" placeholder="Markup" title="Markup" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','markup');">
+									<input type="text" id="markup1" name="markup1" value="<?= $markup ?>" placeholder="Markup Cost" title="Markup Cost" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','markup');">
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 									<input type="text" id="service_tax_markup1" name="service_tax_markup1" value="<?= $sq_visa_info['service_tax_markup'] ?>" placeholder="Markup Tax" title="Markup Tax" readonly>

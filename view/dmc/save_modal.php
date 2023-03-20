@@ -39,7 +39,7 @@ include "../../model/model.php";
                       <input type="text" id="immergency_contact_no" name="immergency_contact_no"  onchange="mobile_validate(this.id);" placeholder="Emergency Contact No" title="Emergency Contact No">
                   </div>  
                   <div class="col-md-3 col-sm-6 mg_bt_10">
-                      <textarea id="dmc_address" name="dmc_address" placeholder="Address" onchange="validate_address(this.id)" class="form-control" title="Company Address" rows="1"></textarea>
+                      <textarea id="dmc_address" name="dmc_address" placeholder="Company Address" onchange="validate_address(this.id)" class="form-control" title="Company Address" rows="1"></textarea>
                   </div>                      
               </div>
 

@@ -183,10 +183,10 @@ else if($reflections[0]->tax_apply_on == '3') {
                                                     placeholder="*No Of Nights" title="No Of Nights"
                                                     onchange="validate_balance(this.id)"
                                                     value="<?= $row_entry['no_of_nights'] ?>"></td>
-                                            <td><input type="text" style="width:100px;"
+                                            <td><input type="text" style="width:125px;"
                                                     id="rooms<?= $prefix . $count ?>_f"
-                                                    name="rooms<?= $prefix . $count ?>_f" placeholder="*Rooms"
-                                                    title="Rooms" onchange="validate_balance(this.id)"
+                                                    name="rooms<?= $prefix . $count ?>_f" placeholder="*No Of Rooms"
+                                                    title="No Of Rooms" onchange="validate_balance(this.id)"
                                                     value="<?= $row_entry['rooms'] ?>"></td>
                                             <td><select name="room_type<?= $prefix . $count ?>_f" style="width:120px;"
                                                     id="room_type<?= $prefix . $count ?>_f" title="Room Type">

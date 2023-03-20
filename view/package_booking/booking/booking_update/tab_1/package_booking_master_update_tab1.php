@@ -59,7 +59,7 @@
                                 </div> <?php } ?>
                                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
                                     <input type="text" id="txt_package_tour_name" name="txt_package_tour_name"
-                                        placeholder="Tour Name" title="Tour Name"
+                                        placeholder="Package Tour Name" title="Package Tour Name"
                                         value="<?php echo $sq_booking_info['tour_name'] ?>">
                                 </div>
                                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">

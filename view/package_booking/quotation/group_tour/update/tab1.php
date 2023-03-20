@@ -93,7 +93,7 @@ $role_id = $_SESSION['role_id'];
 
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
-			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile Number" title="Mobile Number" value="<?= $sq_quotation['mobile_number'] ?>" onchange="mobile_validate(this.id)">
+			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile No with country code" title="Mobile No with country code" value="<?= $sq_quotation['mobile_number'] ?>" onchange="mobile_validate(this.id)">
 			
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

@@ -35,7 +35,7 @@ include "../../../model/model.php";
             <input type="text" class="form-control"  id="txt_email_id" name="txt_email_id"  placeholder="Email ID" title="Email ID">
           </div>    
           <div class="col-md-3 col-sm-6 mg_bt_10">
-            <input type="text" class="form-control" id="txt_contact_person_name" title="Contact Person" name="txt_contact_person_name" placeholder="Contact Person">
+            <input type="text" class="form-control" id="txt_contact_person_name" title="Contact Person Name" name="txt_contact_person_name" placeholder="Contact Person Name">
           </div>
           <div class="col-md-3 col-sm-6 mg_bt_10">
             <input type="text" class="form-control" onchange="mobile_validate(this.id);" title="Emergency Contact No" id="immergency_contact_no" name="immergency_contact_no" placeholder="Emergency Contact No">

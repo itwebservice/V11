@@ -20,7 +20,7 @@ $sq_location = mysqli_fetch_assoc(mysqlQuery("select * from locations where loca
       <div class="modal-body">
           <div class="row">
             <div class="col-sm-6 mg_bt_10">
-              <input type="text" id="location_name1" name="location_name1" onchange="locationname_validate(this.id);" placeholder="*Location Name" title="Location Name" value="<?= $sq_location['location_name'] ?>" required>
+              <input type="text" id="location_name1" name="location_name1" onchange="locationname_validate(this.id);" placeholder="*Location i.e Pune" title="Location Name" value="<?= $sq_location['location_name'] ?>" required>
             </div>
             <div class="col-sm-6 mg_bt_10">
               <select name="active_flag" id="active_flag" title="Status">

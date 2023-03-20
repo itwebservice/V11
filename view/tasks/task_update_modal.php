@@ -29,7 +29,7 @@ $sq_task = mysqli_fetch_assoc(mysqlQuery("select * from tasks_master where task_
       
         <div class="row">
           <div class="col-sm-6 mg_bt_10">
-            <input type="text" id="due_date1" name="due_date1" placeholder="Due Date" title="Due Date" value="<?= date('d-m-Y H:i', strtotime($sq_task['due_date'])) ?>">
+            <input type="text" id="due_date1" name="due_date1" placeholder="Due Date & Time" title="Due Date & Time" value="<?= date('d-m-Y H:i', strtotime($sq_task['due_date'])) ?>">
           </div>
           <div class="col-sm-6 mg_bt_10">
             <select name="assign_to1" id="assign_to1" style="width: 100%" class="app-select2" title="Assign To">

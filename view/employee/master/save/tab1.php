@@ -36,7 +36,7 @@
             <div class="col-md-3 col-sm-6 mg_bt_10">
 
                 <input class="form-control" type="text" id="txt_mobile_no1" onchange="mobile_validate(this.id);"
-                name="txt_mobile_no1" placeholder="Alternative No" title="Alternative Mobile No.">
+                name="txt_mobile_no1" placeholder="Alternative Mobile No." title="Alternative Mobile No.">
 
             </div>
 

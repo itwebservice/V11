@@ -141,7 +141,7 @@
 
 					<div class="col-sm-4 col-xs-12 mg_bt_10">
 						<small id="markup_show"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_m ?></span></small>
-						<input type="text" id="markup" name="markup" placeholder="Markup" title="Markup" onchange="validate_balance(this.id);get_auto_values('booking_date1','basic_cost','payment_mode','service_charge','markup','update','true','markup','discount');" value="<?= $markup ?>" >
+						<input type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost" onchange="validate_balance(this.id);get_auto_values('booking_date1','basic_cost','payment_mode','service_charge','markup','update','true','markup','discount');" value="<?= $markup ?>" >
 					</div>
 					<div class="col-sm-4 col-xs-12">
 						<small>&nbsp;</small>

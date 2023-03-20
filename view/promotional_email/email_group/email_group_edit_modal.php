@@ -20,7 +20,7 @@ $sq_sms_group_info = mysqli_fetch_assoc(mysqlQuery("select * from email_group_ma
 
       	<div class="row">
       		<div class="col-md-6">
-      			<input type="text" id="email_group_name1" onchange="validate_specialChar(this.id)" name="email_group_name1" value="<?= $sq_sms_group_info['email_group_name'] ?>" placeholder="Email ID group" title="Email ID group">
+      			<input type="text" id="email_group_name1" onchange="validate_specialChar(this.id)" name="email_group_name1" value="<?= $sq_sms_group_info['email_group_name'] ?>" placeholder="Email ID Group Name" title="Email ID Group Name">
       		</div>
       		<div class="col-md-6">
       			<button class="btn btn-sm btn-success" id="update_loading"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</button>
