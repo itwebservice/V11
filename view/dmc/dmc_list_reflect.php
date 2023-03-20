@@ -28,7 +28,7 @@ while($row_dmc = mysqli_fetch_assoc($sq_dmc)){
 			
 			
 			<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_view_modal('. $row_dmc['dmc_id'].')" title="View Details"><i class="fa fa-eye"></i></button>
-			<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_update_modal('.$row_dmc['dmc_id'] .')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+			<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_update_modal('.$row_dmc['dmc_id'] .')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 			
 			'), "bg" => $bg);
 		array_push($array_s,$temp_arr); 

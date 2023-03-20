@@ -101,7 +101,7 @@ while($tourwise_details = mysqli_fetch_assoc($q1)){
 		get_group_booking_id($tourwise_details['id'],$year),
 		get_date_user($tourwise_details['form_date']),
 		number_format($sale_amount,2),
-		'<button class="btn btn-info btn-sm" onclick="view_purchase_modal('. $tour_id .','.$tour_group_id.')" data-toggle="tooltip" title="View Purchase"><i class="fa fa-eye"></i></button>',
+		'<button class="btn btn-info btn-sm" onclick="view_purchase_modal('. $tour_id .','.$tour_group_id.')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>',
 		'<button class="btn btn-info btn-sm" onclick="other_expnse_modal('. $tour_id .','.$tour_group_id .')" data-toggle="tooltip" title="Add Other expense amount"><i class="fa fa-plus"></i></button>',
 		$emp_name
 	), "bg" =>$bg);

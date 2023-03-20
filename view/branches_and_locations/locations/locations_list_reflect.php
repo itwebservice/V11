@@ -25,7 +25,7 @@ include_once('../../../model/model.php');
 					<td><?= $row_location['location_name'] ?></td>
 					<td><?= $row_location['active_flag'] ?></td>
 					<td>
-						<button onclick="location_edit_modal(<?= $row_location['location_id'] ?>);btnDisableEnable(this.id);" id="locationEdit<?= $row_location['location_id']?>" class="btn btn-info btn-sm" title="Edit Location"><i class="fa fa-pencil-square-o"></i></button>
+						<button onclick="location_edit_modal(<?= $row_location['location_id'] ?>);btnDisableEnable(this.id);" id="locationEdit<?= $row_location['location_id']?>" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 					</td>
 				</tr>
 				<?php

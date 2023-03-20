@@ -49,10 +49,10 @@ $branch_status = $_POST['branch_status'];
 					</select>
 				</td>
 				<td>
-					<button class="btn btn-success btn-sm" id="send-<?=$count?>" onclick="sms_message_send(<?= $row_sms_message['sms_message_id'] ?>, <?= $count ?>)"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Send</button>
+					<button class="btn btn-success btn-sm" id="send-<?=$count?>" onclick="sms_message_send(<?= $row_sms_message['sms_message_id'] ?>, <?= $count ?>)" title="Send SMS"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Send</button>
 				</td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="sms_message_log_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="View Message Log Details"><i class="fa fa-eye"></i></button>
+					<button class="btn btn-info btn-sm" onclick="sms_message_log_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
 					<button class="btn btn-info btn-sm" onclick="sms_message_edit_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>

@@ -68,7 +68,7 @@ while($row_income = mysqli_fetch_assoc($sq_income)){
 		$row_income['payment_mode'],
 		$row_income['particular'],
 		$row_income['payment_amount'],
-		'<button data-toggle="tooltip" title="Edit Details" class="btn btn-info btn-sm '.$active_inactive_flag.'" onclick="update_income_modal('.$row_income['advance_id'] .')" id="edit-'.$row_income['advance_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'.
+		'<button data-toggle="tooltip" title="Update Details" class="btn btn-info btn-sm '.$active_inactive_flag.'" onclick="update_income_modal('.$row_income['advance_id'] .')" id="edit-'.$row_income['advance_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'.
 		'<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_income['advance_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>'),"bg"=>$bg);
 	
 		array_push($array_s,$temp_arr); 

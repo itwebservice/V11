@@ -34,7 +34,7 @@ while($row_cms = mysqli_fetch_assoc($sq_cms)){
 		$type,
 		$sq_cms_name['draft_for'],
 		$sq_cms_name['draft_to'],
-		'<button class="btn btn-info btn-sm" id="update-'.$row_cms['entry_id'].'" onclick="update_modal('.$row_cms['entry_id'].')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>'),"bg"=>$bg
+		'<button class="btn btn-info btn-sm" id="update-'.$row_cms['entry_id'].'" onclick="update_modal('.$row_cms['entry_id'].')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'),"bg"=>$bg
 	);
 	array_push($array_s,$temp_arr);
 }

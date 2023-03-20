@@ -25,7 +25,7 @@ include "../../model/model.php";
 				<td>
 					<form  style="display:inline-block" data-toggle="tooltip" action="update/tab1.php" id="<?= $row_flyer['iid'] ?>" method="GET">
 						<input type="hidden" id="iid" name="iid" value="<?= $row_flyer['iid'] ?>">
-						<button class="btn btn-info btn-sm" title="Update Flyer"><i class="fa fa-pencil-square-o"></i></button>
+						<button class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 					</form><button type="button" class="btn btn-danger btn-sm" title="Delete Flyer" id="btn_delete<?= $row_flyer['iid'] ?>" onclick="delete_flyer('<?= $row_flyer['iid'] ?>')"><i class="fa fa-trash"></i></button>
 				</td>
 			</tr>

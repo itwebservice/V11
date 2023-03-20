@@ -78,7 +78,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 				</td>
 				<td><?= ($sq_emp['first_name'] !='') ? $sq_emp['first_name'].' '.$sq_emp['last_name'] : 'Admin' ?></td>
 				<td class="text-center">
-					<button class="btn btn-info btn-sm form-control" onclick="update_modal(<?= $row_deposit['id'] ?>)" title="Edit Details" id="edit-<?= $row_deposit['id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm form-control" onclick="update_modal(<?= $row_deposit['id'] ?>)" title="Update Details" id="edit-<?= $row_deposit['id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 					<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="rp_delete_entry(<?=$row_deposit['id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 				</td>
 			</tr>

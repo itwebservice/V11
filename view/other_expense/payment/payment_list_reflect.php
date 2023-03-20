@@ -112,7 +112,7 @@ $query .= " order by payment_id desc ";
                         <td style="display:flex;">
                             <button class="btn btn-info btn-sm"
                                 onclick="payment_update_modal(<?= $row_expense['payment_id'] ?>)"
-                                title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+                                title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
                             <button class="<?= $delete_flag ?> btn btn-danger btn-sm"
                                 onclick="p_delete_entry(<?= $row_expense['payment_id'] ?>)" title="Delete Entry"><i
                                     class="fa fa-trash"></i></button>

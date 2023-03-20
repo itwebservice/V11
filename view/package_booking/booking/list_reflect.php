@@ -146,7 +146,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		<form style="display:inline-block" data-toggle="tooltip" action="booking_update/package_booking_master_update.php" id="frm_booking_'.$count .'" method="POST">
 			<input type="hidden" id="booking_id" name="booking_id" value="'. $row_booking['booking_id'] .'">
 			<input type="hidden" id="branch_status" name="branch_status" value="'. $branch_status .'">
-			<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+			<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 		</form>';
 		$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_booking['booking_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 		// Booking Form

@@ -61,7 +61,7 @@ if($city_id!=""){
 				<td>
 
 					<button class="btn btn-info btn-sm" onclick="cruise_view_modal(<?= $row_cruise['cruise_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
-					<button class="btn btn-info btn-sm" onclick="cruise_update_modal(<?= $row_cruise['cruise_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="cruise_update_modal(<?= $row_cruise['cruise_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 
 				</td>
 

@@ -232,7 +232,7 @@ while($row_quotation = mysqli_fetch_assoc($row_quotation1)){
 		<input  style="display:inline-block" type="hidden" id="quotation_id" name="quotation_id" value="'.$row_quotation['quotation_id'].'">
 		<input data-toggle="tooltip" style="display:inline-block" type="hidden" id="package_id" name="package_id" value="'.$row_quotation['package_id'].'">
 
-		<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+		<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 		</form>
 
 		<a data-toggle="tooltip" style="display:inline-block" href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>'

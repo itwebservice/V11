@@ -101,7 +101,7 @@ while($row_tasks = mysqli_fetch_assoc($sq_tasks)){
 					<a href="javascript:void(0)" title="Mark Status" onclick="task_status_update(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-thumb-tack"></i></a>&nbsp;&nbsp;
 				<?php endif; 
 				if($role=='Admin' || $role=='Branch Admin'){ ?>
-					<a href="javascript:void(0)" title="Edit" onclick="task_update_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
+					<a href="javascript:void(0)" title="Update Details" onclick="task_update_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
 				<?php  } if($row_tasks['task_status']!='Created') : ?>
 					<a href="javascript:void(0)" title="View Details" onclick="task_extra_note_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-eye"></i></a>
 				<?php endif; if($role=='Admin' || $role=='Branch Admin'){ ?>

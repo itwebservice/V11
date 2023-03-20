@@ -27,7 +27,7 @@ $query = mysqlQuery("SELECT * FROM `b2c_testimonials` order by entry_id desc");
 				<td><?= ++$count ?></td>
 				<td><?= $name1 ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_query['entry_id'] ?>)" title="Edit"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_query['entry_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 		<?php

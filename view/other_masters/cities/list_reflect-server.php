@@ -37,7 +37,7 @@ $columns = array(
       'db'        => 'city_id',
       'dt'        => 3,
       'formatter' => function( $d, $row ) {
-          return '<a href="javascript:void(0)" data-toggle="tooltip" onclick="city_master_update_modal(\''.$d.'\')" class="btn btn-info btn-sm" title="Edit Details"><i class="fa fa-pencil-square-o"></i></a>';
+          return '<a href="javascript:void(0)" data-toggle="tooltip" onclick="city_master_update_modal(\''.$d.'\')" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></a>';
       }
   ),
 );

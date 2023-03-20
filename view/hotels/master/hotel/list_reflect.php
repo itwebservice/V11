@@ -21,7 +21,7 @@ while($row_hotel = mysqli_fetch_assoc($sq_hotel)){
 	$temp_arr = array("data" =>array(
 		(int)(++$count), ucfirst($row_hotel['hotel_name']),ucfirst($sq_city['city_name']),$mobile_no,$row_hotel['contact_person_name'],
 		'<button class="btn btn-info btn-sm" onclick="view_modal('.$row_hotel['hotel_id'].')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
-		<button class="btn btn-info btn-sm" onclick="update_modal('.$row_hotel['hotel_id'] .')" data-toggle="tooltip" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+		<button class="btn btn-info btn-sm" onclick="update_modal('.$row_hotel['hotel_id'] .')" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 		'), "bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 

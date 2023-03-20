@@ -80,7 +80,7 @@ $query .= " order by entry_id desc";
                         </td>
                         <td class="text-center" style="display:flex;">
                             <button class="btn btn-info btn-sm"
-                                onclick="update_bank_modal(<?= $row_withdraw['entry_id'] ?>)" title="Edit Details" id="iedit-<?= $row_withdraw['entry_id'] ?>"><i
+                                onclick="update_bank_modal(<?= $row_withdraw['entry_id'] ?>)" title="Update Details" id="iedit-<?= $row_withdraw['entry_id'] ?>"><i
                                     class="fa fa-pencil-square-o"></i></button>
                             <button class="<?= $delete_flag ?> btn btn-danger btn-sm"
                                 onclick="inter_delete_entry(<?= $row_withdraw['entry_id'] ?>)" title="Delete Entry"><i

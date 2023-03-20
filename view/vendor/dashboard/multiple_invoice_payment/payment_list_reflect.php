@@ -87,7 +87,7 @@ $total_paid_amt = 0;
 				$url = "";
 			}
 			if($row_payment['payment_mode']!='Debit Note'){
-				$update_btn = '<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'].')"  title="Edit"><i class="fa fa-pencil-square-o"></i></button>';
+				$update_btn = '<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'].')"  title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 			}else{
 				$update_btn = '';
 			}

@@ -78,7 +78,7 @@ $query .=" order by withdraw_id desc";
 				<td class="text-right success"><?= number_format($row_withdraw['amount'],2) ?></td>
 				<td><?= ($sq_emp['first_name'] !='')?$sq_emp['first_name'].' '.$sq_emp['last_name']:'Admin' ?></td>
 				<td class="text-center">
-					<button class="btn btn-info btn-sm" onclick="update_withdrawal_modal(<?= $row_withdraw['withdraw_id'] ?>)" title="Edit Details" id="wedit-<?= $row_withdraw['withdraw_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_withdrawal_modal(<?= $row_withdraw['withdraw_id'] ?>)" title="Update Details" id="wedit-<?= $row_withdraw['withdraw_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 					<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="withdraw_delete_entry(<?= $row_withdraw['withdraw_id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 				</td>
 			</tr>

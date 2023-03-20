@@ -91,7 +91,7 @@ $query .= " order by expense_id desc";
 								<?php } ?>
 							<td class="info text-right"><?= $row_expense['total_fee'] ?></td>
 							<td>
-								<button class="btn btn-info btn-sm" onclick="expense_update_modal(<?= $row_expense['expense_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+								<button class="btn btn-info btn-sm" onclick="expense_update_modal(<?= $row_expense['expense_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 								<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="delete_entry(<?= $row_expense['expense_id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 							</td>			
 						</tr>

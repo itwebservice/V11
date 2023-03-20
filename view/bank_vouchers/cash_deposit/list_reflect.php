@@ -78,7 +78,7 @@ $query .=" order by deposit_id desc";
 				<td class="text-right success"><?= number_format($row_deposit['amount'],2) ?></td>
 				<td><?= ($sq_emp['first_name'] !='') ? $sq_emp['first_name'].' '.$sq_emp['last_name'] : 'Admin' ?></td>
 				<td class="text-center">
-					<button class="btn btn-info btn-sm" onclick="update_deposit_modal(<?= $row_deposit['deposit_id'] ?>)" title="Edit Details" id="edit-<?= $row_deposit['deposit_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_deposit_modal(<?= $row_deposit['deposit_id'] ?>)" title="Update Details" id="edit-<?= $row_deposit['deposit_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 					<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="delete_entry(<?= $row_deposit['deposit_id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 				</td>
 			</tr>

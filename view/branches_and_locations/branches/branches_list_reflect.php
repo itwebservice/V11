@@ -39,7 +39,7 @@ $location_id = $_POST['location_id'];
 					<td><?= $row_branch['branch_name'] ?></td>
 					<td><?= ucfirst($row_branch['address1'].' '.$row_branch['address2'].'  '.$pincode) ?></td>
 					<td>
-						<button onclick="branch_edit_modal(<?= $row_branch['branch_id'] ?>);btnDisableEnable(this.id)" id="branchEdit<?= $row_branch['branch_id'] ?>" class="btn btn-info btn-sm" title="Edit Branch"><i class="fa fa-pencil-square-o"></i></button>
+						<button onclick="branch_edit_modal(<?= $row_branch['branch_id'] ?>);btnDisableEnable(this.id)" id="branchEdit<?= $row_branch['branch_id'] ?>" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 					</td>
 				</tr>
 				<?php

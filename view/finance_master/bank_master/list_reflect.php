@@ -28,7 +28,7 @@ include "../../../model/model.php";
 				<td><?= $row_bank['account_type'] ?></td>
 				<td>
 					<button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_bank['bank_id'] ?>);btnDisableEnable(this.id)" id="display_modalbank<?= $row_bank['bank_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_bank['bank_id'] ?>);btnDisableEnable(this.id)" id="update_modalbank<?= $row_bank['bank_id'] ?>" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_bank['bank_id'] ?>);btnDisableEnable(this.id)" id="update_modalbank<?= $row_bank['bank_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

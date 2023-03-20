@@ -18,7 +18,7 @@ while($row_sms_group = mysqli_fetch_assoc($sq_sms_group)){
 		
 		(int)(++$count),
 		$row_sms_group['email_group_name'],
-		'<button class="btn btn-info btn-sm" onclick="email_group_edit_modal(\''.$row_sms_group['email_group_id'] .'\')" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o"></i></button>'	
+		'<button class="btn btn-info btn-sm" onclick="email_group_edit_modal(\''.$row_sms_group['email_group_id'] .'\')" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'	
 		), "bg" =>$bg);
 	array_push($array_s,$temp_arr);
 	

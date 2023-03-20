@@ -40,9 +40,9 @@ $entity_for = $_POST['entity_for'];
                         <td><?= ++$count ?></td>
                         <td><?= $entity_for1 ?></td>
                         <td><button class="btn btn-info btn-sm" id="view_modal_tour_checklist_view_btn<?= $row_entity['entity_id']  ?>" onclick="view_modal(<?= $row_entity['entity_id']  ?>);btnDisableEnable(this.id)"
-                                title="View Checklist"><i class="fa fa-eye"></i></button>
+                                title="View Details"><i class="fa fa-eye"></i></button>
                             <button class="btn btn-info btn-sm" id="edit_modal_tour_checklist_view_btn<?= $row_entity['entity_id']  ?>" onclick="update_modal(<?= $row_entity['entity_id'] ?>);btnDisableEnable(this.id)"
-                                title="Edit Checklist"><i class="fa fa-pencil-square-o"></i></button>
+                                title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
                         </td>
                     </tr>
                     <?php

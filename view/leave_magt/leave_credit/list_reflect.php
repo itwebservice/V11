@@ -56,7 +56,7 @@ elseif($role!='Admin' && $role!='Branch Admin' && $role!='Hr' && $role_id!='7'){
 		        <td><?= ($row_credit['paternity']<0)?0:$row_credit['paternity']?></td> 
 				<td><?= ($row_credit['leave_without_pay']<0)?0:$row_credit['leave_without_pay'] ?></td>				
 				<?php if($role_id=="1" || $role_id=="5" || $role_id=="6"){ ?><td>
-					<button class="btn btn-info btn-sm" id="edit<?= $count ?>" onclick="update_modal(<?= $row_credit['emp_id'] ?>,<?= $count ?>)" title="Edit Leave"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" id="edit<?= $count ?>" onclick="update_modal(<?= $row_credit['emp_id'] ?>,<?= $count ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td><?php } ?>
 			</tr>
 			<?php

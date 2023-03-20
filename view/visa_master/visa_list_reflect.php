@@ -52,9 +52,9 @@ if ($visa_type != "") {
                         <td><?= $row_emp['time_taken'] ?></td>
                         <td class="text-center" style="display:flex;">
                             <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['entry_id'] ?>)"
-                                data-toggle="tooltip" title="View Visa"><i class="fa fa-eye"></i></button>
+                                data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
                             <button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['entry_id'] ?>)"
-                                data-toggle="tooltip" title="Edit Visa"><i class="fa fa-pencil-square-o"></i></button>
+                                data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
                             <?php
                                 if ($row_emp['status'] != '0') { ?><button class="btn btn-info btn-sm"
                                 id="send-<?= $row_emp['entry_id'] ?>" data-toggle="tooltip"
