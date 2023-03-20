@@ -39,7 +39,7 @@
 	<div class="row">
 		<div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10">
             <small id="basic_show" style="color:red"><?= ($inclusive_b == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_b ?></span></small>
-			<input type="text" id="basic_fair" name="basic_fair" placeholder="Basic Fare" title="Basic Fare" onchange="get_auto_values('booking_date1','basic_fair','payment_mode','service_charge','markup1','update','true','service_charge','discount1');calculate_total_amount();validate_balance(this.id)" value="<?= $basic_fair ?>">
+			<input type="text" id="basic_fair" name="basic_fair" placeholder="Basic Amount" title="Basic Amount" onchange="get_auto_values('booking_date1','basic_fair','payment_mode','service_charge','markup1','update','true','service_charge','discount1');calculate_total_amount();validate_balance(this.id)" value="<?= $basic_fair ?>">
 		</div>
 		<div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10">
             <small id="service_show" style="color:red"><?= ($inclusive_s == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_s ?></span></small>

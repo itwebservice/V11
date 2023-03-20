@@ -202,7 +202,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 							<div class="row">
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="basic_show1" style="color:red"><?= ($inclusive_b == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_b ?></span></small>
-									<input type="text" id="visa_issue_amount1" name="visa_issue_amount1" placeholder="Amount" title="Amount" value="<?= $visa_issue_amount ?>" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','basic')">
+									<input type="text" id="visa_issue_amount1" name="visa_issue_amount1" placeholder="Basic Amount" title="Basic Amount" value="<?= $visa_issue_amount ?>" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','basic')">
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="service_show1" style="color:red"><?= ($inclusive_s == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_s ?></span></small>

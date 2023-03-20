@@ -96,8 +96,8 @@ $branch_status = $_POST['branch_status'];
 
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="basic_show" style="color:#000000">&nbsp;</small>
-                                <input type="text" id="basic_cost" name="basic_cost" placeholder="*Amount"
-                                    title="Amount" onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','basic','discount',false);validate_balance(this.id)">
+                                <input type="text" id="basic_cost" name="basic_cost" placeholder="*Basic Amount"
+                                    title="Basic Amount" onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','basic','discount',false);validate_balance(this.id)">
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="service_show" style="color:#000000">&nbsp;</small>

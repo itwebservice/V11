@@ -208,7 +208,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="basic_show"
                                     style="color:#000000"><?= ($inclusive_b == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_b ?></span></small>
-                                <input type="text" id="basic_cost" name="basic_cost" placeholder="Amount" title="Amount"
+                                <input type="text" id="basic_cost" name="basic_cost" placeholder="Basic Amount" title="Basic Amount"
                                     onchange="get_auto_values('balance_date1','basic_cost','payment_mode','service_charge','markup','update','true','basic','basic',false);calculate_total_amount();validate_balance(this.id)"
                                     value="<?= $basic_cost ?>">
                             </div>

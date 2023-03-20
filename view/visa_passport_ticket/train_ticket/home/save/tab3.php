@@ -6,7 +6,7 @@
 
 		<div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10">
 		<small id="basic_show" style="color:red">&nbsp;</small>
-			<input type="text" id="basic_fair" name="basic_fair" placeholder="*Basic Fare" title="Basic Fare" onchange="calculate_total_amount();validate_balance(this.id);get_auto_values('booking_date','basic_fair','payment_mode','service_charge','markup','save','true','basic','basic');">
+			<input type="text" id="basic_fair" name="basic_fair" placeholder="*Basic Amount" title="Basic Amount" onchange="calculate_total_amount();validate_balance(this.id);get_auto_values('booking_date','basic_fair','payment_mode','service_charge','markup','save','true','basic','basic');">
 
 		</div>
 

@@ -104,7 +104,7 @@ $branch_status = $sq['branch_status'];
 						<div class="row mg_bt_10">
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 								<small id="basic_show" style="color:red">&nbsp;</small>
-								<input class="form-control" type="text" id="visa_issue_amount" name="visa_issue_amount" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','service_charge');">
+								<input class="form-control" type="text" id="visa_issue_amount" name="visa_issue_amount" placeholder="*Basic Amount" title="Basic Amount" onchange="validate_balance(this.id);get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','service_charge');">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small id="service_show" style="color:red">&nbsp;</small>
@@ -177,7 +177,7 @@ $branch_status = $sq['branch_status'];
 								</select>
 							</div>
 							<div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
-								<input class="form-control" type="text" id="payment_amount" name="payment_amount" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','bank_name','transaction_id','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
+								<input class="form-control" type="text" id="payment_amount" name="payment_amount" placeholder="*Payment Amount" title="Payment Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','bank_name','transaction_id','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
 							</div>
 						</div>
 						<div class="row mg_bt_10">

@@ -41,7 +41,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_vendor['email_id'], $secret_key);
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-sm-6 mg_bt_10">
-				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Concern Person" title="Concern Person" value="<?= $sq_vendor['concern_person_name'] ?>">
+				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Concern Person Name" title="Concern Person Name" value="<?= $sq_vendor['concern_person_name'] ?>">
 			</div>
 			<div class="col-md-3 col-sm-6 mg_bt_10">
             	<input type="text" id="immergency_contact_no1" name="immergency_contact_no1" value="<?= $sq_vendor['immergency_contact_no'] ?>" onchange="mobile_validate(this.id);" placeholder="Emergency Contact No" title="Emergency Contact No" class="form-control"> 

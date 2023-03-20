@@ -6,10 +6,6 @@ $('#frm_tour_master_save').validate({
 
 		txt_child_with_cost : { required: true, number:true },
 
-        txt_infant_cost : { required: true, number:true },
-
-        with_bed_cost : { required: true,  number:true   },
-
         inclusions : { required : true},
 
 		exclusions : { required : true},
