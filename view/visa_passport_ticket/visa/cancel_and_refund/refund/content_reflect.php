@@ -139,7 +139,7 @@ $remaining = $refund_amount - $sq_refund_amount1['sum'];
                     <tr class="table-heading-row">
                         <th>S_No.</th>
                         <th>Passenger_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <th>Date</th>
+                        <th>Refund_Date</th>
                         <th>Amount</th>
                         <th>Mode</th>
                         <th>Bank_Name</th>

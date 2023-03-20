@@ -9,7 +9,7 @@ include "../../../model/model.php";
 			<th>S_No.</th>
 			<th>From_date</th>
 			<th>To_date</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

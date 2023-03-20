@@ -44,7 +44,7 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 				
 		}
 		var column = [
-	{ title : "Sr.No."},
+	{ title : "S_No"},
 	{ title : "Booking Id"},
 	{ title : "Customer Name"},
 	{ title : "Special Attraction"},

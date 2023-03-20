@@ -20,7 +20,7 @@ if($branch_status=='yes' && $role=='Branch Admin'){
 			<th>S_No.</th>
 			<th>Type</th>
 			<th>Destination</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

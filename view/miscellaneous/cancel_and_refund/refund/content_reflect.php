@@ -142,7 +142,7 @@ $remaining_show = ($remaining < 0) ? 0 : $remaining;
                     <tr class="table-heading-row">
                         <th>S_No.</th>
                         <th>Passenger_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <th>Date</th>
+                        <th>Refund_Date</th>
                         <th>Amount</th>
                         <th>Mode</th>
                         <th>Bank_Name</th>

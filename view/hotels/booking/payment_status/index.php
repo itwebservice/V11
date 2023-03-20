@@ -71,7 +71,7 @@ var column = [
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Total_hotel"},
 	{ title : "Booking_Date"},

@@ -87,7 +87,7 @@ $branch_status_r = $sq['branch_status'];
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Total_pax"},
 	{ title : "Trip_type"},

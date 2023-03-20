@@ -116,7 +116,7 @@ function rating_reflect()
 }
 var column = [
 
-{ title:"SR_NO"},
+{ title:"S_NO"},
 { title:"User_ID"},
 { title : "User_Name"},
 { title : "Year"},

@@ -32,7 +32,7 @@ $branch_status = $sq['branch_status'];
 	{ title: "birth_date" },
 	{ title: "gender" },
 	{ title: "repeated_count_group" ,className:"text-center"},
-	{ title: "details"}
+	{ title: "Actions"}
 ];
 function tour_group_dynamic_reflect1()
 {

@@ -11,7 +11,7 @@ $active_flag = $_POST['active_flag'];
 			<th>Company_Name</th>
 			<th>Card_Charges</th>
 			<th>Tax_on_charges</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

@@ -6,7 +6,7 @@
 			<th>S_No.</th>
 			<th>Currency_Name</th>
 			<th>Currency_Rate</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

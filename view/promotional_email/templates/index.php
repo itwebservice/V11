@@ -41,10 +41,10 @@ $branch_status = $_POST['branch_status'];
 <script>
 
 var columns = [
-	{ title : "S_No." },
+	{ title : "S_No" },
 	{ title : "Template_Type" },
 	{ title : "Created_at" },
-	{ title : "View", className:"text-center" }
+	{ title : "Actions", className:"text-center" }
 ]
 function list_reflect(){
 

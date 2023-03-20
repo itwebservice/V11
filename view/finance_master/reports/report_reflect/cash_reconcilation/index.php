@@ -43,7 +43,7 @@ function save_modal()
 	});
 }
 var column = [	
-			{ title : "SR.NO"},
+			{ title : "S_NO"},
 			{ title : "Date"},
 			{ title : "Cash as per System"},
 			{ title : "Cash as per Tills"},

@@ -12,8 +12,8 @@
             <tr>
                 <th>Id</th>
                 <th>City Name</th>
-                <th>Class</th>
-                <th>Action</th>
+                <th>Status</th>
+                <th>Actions</th>
                 
             </tr>
         </thead>

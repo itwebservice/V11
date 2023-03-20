@@ -16,7 +16,7 @@ $today_date = date('Y-m-d');
 			<th>valid_from</th>
 			<th>Valid_TO</th>
 			<th>Contract</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

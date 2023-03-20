@@ -11,7 +11,7 @@ include_once("../../../model/model.php");
 			<th>Type</th>
 			<th>Tour_Type</th>
 			<th>For</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

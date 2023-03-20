@@ -209,7 +209,7 @@ $row_count = 11;
                 ->setCellValue('B'.$row_count, "Sr. No")
                 ->setCellValue('C'.$row_count, "Booking ID")
                 ->setCellValue('D'.$row_count, "Customer_Name")
-                ->setCellValue('E'.$row_count, "Contact")
+                ->setCellValue('E'.$row_count, "Mobile")
                 ->setCellValue('F'.$row_count, "Email_Id")
                 ->setCellValue('G'.$row_count, "Activity")
                 ->setCellValue('H'.$row_count, "Booking_Date")

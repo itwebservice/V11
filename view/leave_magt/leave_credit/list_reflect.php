@@ -36,7 +36,7 @@ elseif($role!='Admin' && $role!='Branch Admin' && $role!='Hr' && $role_id!='7'){
 			<th>Maternity_Leave</th>
 			<th>Paternity_Leave</th>
 			<th>Leave without Pay</th>
-			<?php if($role_id=="1" || $role_id=="5" || $role_id=="6"){ ?><th>Edit</th><?php } ?>
+			<?php if($role_id=="1" || $role_id=="5" || $role_id=="6"){ ?><th>Actions</th><?php } ?>
 		</tr>
 	</thead>
 	<tbody>

@@ -10,7 +10,7 @@ include_once('../../../model/model.php');
 				<th>S_No.</th>
 				<th>Location</th>
 				<th>Status</th>
-				<th>Edit</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>

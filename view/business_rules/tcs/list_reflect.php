@@ -8,7 +8,7 @@ $sq_query = mysqlQuery("select * from tcs_master where 1");
 	<table class="table table-hover no-marg-sm" id="tbl_tcs_list">
 		<thead>
 			<tr class="active table-heading-row">
-				<th>SR.NO</th>
+				<th>S_NO</th>
 				<th>Service_Name</th>
 				<th>Tax(%)</th>
 				<th>Calculation_Mode</th>

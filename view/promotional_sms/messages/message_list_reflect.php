@@ -14,8 +14,7 @@ $branch_status = $_POST['branch_status'];
 			<th>Sms_text</th>
 			<th>Group_Name</th>
 			<th>Send</th>
-			<th>View_Log</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 		
 	</thead>
@@ -53,10 +52,8 @@ $branch_status = $_POST['branch_status'];
 					<button class="btn btn-success btn-sm" id="send-<?=$count?>" onclick="sms_message_send(<?= $row_sms_message['sms_message_id'] ?>, <?= $count ?>)"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Send</button>
 				</td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="sms_message_log_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="Message Log"><i class="fa fa-eye"></i></button>
-				</td>
-				<td>
-					<button class="btn btn-info btn-sm" onclick="sms_message_edit_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="Edit Message"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="sms_message_log_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="View Message Log Details"><i class="fa fa-eye"></i></button>
+					<button class="btn btn-info btn-sm" onclick="sms_message_edit_modal(<?= $row_sms_message['sms_message_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

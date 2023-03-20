@@ -11,9 +11,9 @@ $location_id = $_POST['location_id'];
 			<tr class="table-heading-row">
 				<th style="width: 65px;">S_No.</th>
 				<th>Location</th>
-				<th>Branches</th>
+				<th>Branch</th>
 				<th>Address</th>
-				<th>Edit</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>

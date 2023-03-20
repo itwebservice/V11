@@ -8,7 +8,7 @@ include_once("../../../model/model.php");
 		<tr class="table-heading-row">
 			<th>ID</th>
 			<th>Room Category</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

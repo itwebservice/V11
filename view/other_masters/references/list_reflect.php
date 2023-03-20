@@ -8,7 +8,7 @@ include_once("../../../model/model.php");
 		<tr class="table-heading-row">
 			<th>Reference_Id</th>
 			<th>Reference</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

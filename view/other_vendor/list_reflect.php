@@ -22,7 +22,7 @@ if($city_id!=""){
 			<th>Occupation</th>
 			<th>Mobile</th>
 			<th>Contact_Person</th>
-			<th>Action</th>
+			<th>Actions</th>
 			
 		</tr>
 	</thead>
