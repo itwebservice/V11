@@ -40,7 +40,7 @@ include "../../../model/model.php";
             </div>
           </div>
           <div class="col-xs-3 text-right text_center_xs">
-              <button type="button" class="btn btn-excel btn-sm" title="Add row" onClick="addRow('default_program_list')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('default_program_list')"><i class="fa fa-plus"></i></button>
           </div>
         </div>
         <div class="row">

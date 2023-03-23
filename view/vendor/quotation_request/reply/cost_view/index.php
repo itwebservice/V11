@@ -41,24 +41,24 @@ $vendor_type_val = get_vendor_name($sq_req['quotation_for'], $sq_req['supplier_i
 											</div>
 											<?php if($sq_req['quotation_for']!="Transport Vendor"){ ?>
 											<div class="col-md-6 mg_bt_10">
-												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>HOTEL AMOUNT <em>:</em></label> <?= $sq_req['hotel_AMOUNT'] ?>
+												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>HOTEL AMOUNT <em>:</em></label> <?= $sq_req['hotel_cost'] ?>
 											</div>
 											<?php }
 											if($sq_req['quotation_for']!="Hotel Vendor"){ ?>
 											<div class="col-md-6 mg_bt_10">
-												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>TRANSPORT AMOUNT : </label> <?= $sq_req['transport_AMOUNT'] ?>
+												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>TRANSPORT AMOUNT : </label> <?= $sq_req['transport_cost'] ?>
 											</div>
 											<?php }
 											if($sq_req['quotation_for']=="DMC Vendor"){ ?>
 											<div class="col-md-6 mg_bt_10">
-												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>ACTIVITY AMOUNT <em>:</em></label> <?= $sq_req['excursion_AMOUNT'] ?>
+												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>ACTIVITY AMOUNT <em>:</em></label> <?= $sq_req['excursion_cost'] ?>
 											</div>
 											<div class="col-md-6 mg_bt_10">
-												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>VISA AMOUNT <em>:</em></label> <?=  $sq_req['visa_AMOUNT'] ?>
+												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>VISA AMOUNT <em>:</em></label> <?=  $sq_req['visa_cost'] ?>
 											</div>
 											<?php }  ?>
 											<div class="col-md-6 mg_bt_10">
-												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>TOTAL AMOUNT <em>:</em></label> <?= $sq_req['total_AMOUNT'] ?>
+												<i class="fa fa-angle-double-right"></i>&nbsp;&nbsp;<label>TOTAL AMOUNT <em>:</em></label> <?= $sq_req['total_cost'] ?>
 											</div>
 										</div>
 										<div class="row mg_bt_10">

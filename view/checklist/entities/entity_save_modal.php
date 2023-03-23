@@ -40,8 +40,8 @@ $branch_status = $sq['branch_status'];
           <div class="col-md-4 text-right"></div>
           <div class="col-md-4 text-center"><h4>Checklist Entries<h4></div>
           <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_tour_name')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_tour_name')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_tour_name')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_tour_name')"><i class="fa fa-trash"></i></button>
           </div> </div>
 
           <div class="row"> <div class="col-md-12"> 

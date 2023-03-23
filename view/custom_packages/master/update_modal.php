@@ -193,10 +193,8 @@ $readable = ($sq_pckg['clone'] == 'yes' && $sq_pckg['update_flag'] == '0') ? '' 
 
                         <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_20">
                             <legend>Tour Itinerary</legend>
-                            <div class="col-xs-12 no-pad text-right">
-                                <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10"
-                                    onclick="addRow('dynamic_table_list_update')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                            <div class="col-xs-12 no-pad text-right mg_bt_10">
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('dynamic_table_list_update')"><i class="fa fa-plus"></i></button>
                             </div>
                             <div id="div_list1">
                                 <table style="width: 100%" id="dynamic_table_list_update"
@@ -275,9 +273,7 @@ $readable = ($sq_pckg['clone'] == 'yes' && $sq_pckg['update_flag'] == '0') ? '' 
                             <small class="note text-left">Note - Please ensure you added city wise hotel & tariff using Supplier Master</small>
                             <div class="bg_white main_block panel-default-inner">
                                 <div class="col-xs-12 text-right mg_tp_10">
-                                    <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10"
-                                        onClick="addRow('tbl_package_hotel_master');city_lzloading('select[name^=city_name1]')"><i
-                                            class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                    <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_package_hotel_master');city_lzloading('select[name^=city_name1]')"><i class="fa fa-plus"></i></button>
                                 </div>
                                 <table id="tbl_package_hotel_master" name="tbl_package_hotel_master"
                                     class="table border_0 table-hover" style="padding: 0 !important;">
@@ -369,9 +365,7 @@ $readable = ($sq_pckg['clone'] == 'yes' && $sq_pckg['update_flag'] == '0') ? '' 
                                 
                         <div class="col-md-6 mg_tp_20"><small class="note">Note - Please ensure you added transfer tariff</small> </div>
                                 <div class="col-xs-6 text-right mg_tp_10">
-                                    <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10" onClick="addRow('tbl_package_tour_transport');destinationLoading('select[name^=pickup_from]', 'Pickup Location');
-                  destinationLoading('select[name^=drop_to]', 'Drop-off Location');"><i
-                                            class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                    <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_package_tour_transport');destinationLoading('select[name^=pickup_from]', 'Pickup Location');destinationLoading('select[name^=drop_to]', 'Drop-off Location')"><i class="fa fa-plus"></i></button>
                                 </div>
                                 <table id="tbl_package_tour_transport" name="tbl_package_tour_transport"
                                     class="table border_0 table-hover" style="padding: 0 !important;">

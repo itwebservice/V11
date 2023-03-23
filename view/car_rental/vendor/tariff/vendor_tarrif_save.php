@@ -2,36 +2,36 @@
 include "../../../../model/model.php";
 ?> 
 <form id="frm_car_rental_vendor_save" class="no-marg">
-<div class="modal fade" id="vendor_save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+  <div class="modal fade" id="vendor_save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Vehicle Tariff</h4>
         </div>
         <div class="modal-body">
-        <div class="row mg_bt_10">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-              <select name="tour_type" class="form-control" id="tour_type" title="Travel Type" onchange="reflect_feilds(this.id)">
-                <option value="">Select Travel Type</option>
-                <option value="Local">Local</option>
-                <option value="outstation">OutStation</option>
-              </select>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    
-        <div id="vendor_tarrif"></div>
+          <div class="row mg_bt_10">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <select name="tour_type" class="form-control" id="tour_type" title="Travel Type" onchange="reflect_feilds(this.id)">
+                  <option value="">Select Travel Type</option>
+                  <option value="Local">Local</option>
+                  <option value="outstation">OutStation</option>
+                </select>
+              </div>
+              <div class="col-md-4"></div>
+          </div>
       
-        <div class="row text-center mg_tp_20">
-        <div class="col-md-12">
-            <button id="btn_vendor_save" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
-        </div>
+          <div id="vendor_tarrif"></div>
+        
+          <div class="row text-center mg_tp_20">
+          <div class="col-md-12">
+              <button id="btn_vendor_save" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
+          </div>
+          </div>
         </div>
     </div>
   </div>
-</div>
 </form>
 
 <script>
@@ -84,7 +84,7 @@ $(function(){
                   var rate = row.cells[8].childNodes[0].value;
                   
                   if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1)); return false; }
-                  if(rate==""){ error_msg_alert("Enter cost in row "+(i+1)); return false; }
+                  if(rate==""){ error_msg_alert("Enter amount in row "+(i+1)); return false; }
                   vehicle_name_local_arr.push(vehicle_name);
                   seating_capacity_local_arr.push(capacity);
                   total_hrs_arr.push(hrs);
@@ -135,7 +135,7 @@ $(function(){
               var other_charge = row.cells[14].childNodes[0].value;
               
               if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1)); return false; }
-              if(rate==""){ error_msg_alert("Enter cost in row "+(i+1)); return false; }
+              if(rate==""){ error_msg_alert("Enter amount in row "+(i+1)); return false; }
 
               vehicle_name_arr.push(vehicle_name);
               seating_capacity_arr.push(capacity);

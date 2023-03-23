@@ -131,12 +131,8 @@ $vehcile_id_str = "vehicle_name1";
                         <div class="col-xs-6 col-md-6 text-right mg_tp_10">
                             <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10" title="Add Hotel"
                                 onclick="hotel_save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Hotel</button>
-                            <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10"
-                                onClick="addRow('tbl_package_hotel_master');city_lzloading('select[name^=city_name1]')"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left mg_bt_10"
-                                onClick="deleteRow('tbl_package_hotel_master')"><i
-                                    class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_package_hotel_master');city_lzloading('select[name^=city_name1]')"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_package_hotel_master')"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="col-xs-12">
                             <div class="table-responsive">
@@ -178,13 +174,8 @@ $vehcile_id_str = "vehicle_name1";
                             <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10" title="Add Vehicle"
                                 onclick="vehicle_save_modal('<?php echo $vehcile_id_str; ?>')"><i
                                     class="fa fa-plus"></i>&nbsp;&nbsp;Vehicle</button>
-                                    
-                            <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10"
-                                onClick="addRow('tbl_package_tour_transport');destinationLoading('select[name^=pickup_from]', 'Pickup Location');destinationLoading('select[name^=drop_to]', 'Drop-off Location');"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left mg_bt_10"
-                                onClick="deleteRow('tbl_package_tour_transport')"><i
-                                    class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_package_tour_transport');destinationLoading('select[name^=pickup_from]', 'Pickup Location');destinationLoading('select[name^=drop_to]', 'Drop-off Location');"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_package_tour_transport')"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="col-xs-12">
                             <div class="table-responsive">

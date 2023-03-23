@@ -11,12 +11,8 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from custom_package_offers whe
                     <?php if ($sq_count5 == 0) { ?>
                     <div class="row mg_bt_10">
                         <div class="col-md-12 text-right text_center_xs">
-                            <button type="button" class="btn btn-info btn-sm ico_left"
-                                onClick="addRow('table_package_tarrif_offer','2')"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left"
-                                onClick="deleteRow('table_package_tarrif_offer','2')"><i
-                                    class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_package_tarrif_offer','2')"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_package_tarrif_offer','2')"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -79,9 +75,7 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from custom_package_offers whe
                     <?php } else { ?>
                     <div class="row mg_bt_10">
                         <div class="col-md-12 text-right text_center_xs">
-                            <button type="button" class="btn btn-info btn-sm ico_left"
-                                onClick="addRow('table_package_tarrif_offer','2')"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_package_tarrif_offer','2')"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                     <div class="row">

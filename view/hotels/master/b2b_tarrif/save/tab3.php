@@ -17,8 +17,8 @@
                                     <input type="hidden" id="div_upload_button3" name="div_upload_button3">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_weekend_tarrif','4')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('table_hotel_weekend_tarrif','4')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_weekend_tarrif','4')"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_weekend_tarrif','4')"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="row">

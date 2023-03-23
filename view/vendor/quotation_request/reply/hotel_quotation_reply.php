@@ -51,13 +51,13 @@ $enquiry_id = base64_decode($enquiry_id1);
 	<input type="hidden" id="base_url" name="base_url" value="<?= BASE_URL ?>" >
 <div class="panel panel-default panel-body app_panel_style feildset-panel" style="margin-bottom: 30px;">
 	<div class="main_block mg_tp_20">
-		<div class="col-md-4 text-right"><label for="app_name">Hotel COST</label></div>
+		<div class="col-md-4 text-right"><label for="app_name">Hotel AMOUNT</label></div>
 		<div class="col-md-4 no-pad">
 			<input type="text" class="form-control" id="txt_trans" name="txt_trans" placeholder="Hotel Amount" title="Hotel Amount" onchange="total_cost_reflect()">
 		</div>
 	</div>
 	<div class="main_block mg_tp_20">
-		<div class="col-md-4 text-right"><label for="app_website">TOTAL COST</label></div>
+		<div class="col-md-4 text-right"><label for="app_website">TOTAL AMOUNT</label></div>
 		<div class="col-md-4 no-pad">
 			<input type="text" class="form-control" id="txt_cost" name="txt_cost" placeholder="*Total Amount" title="Total Amount" readonly> 
 		</div>
