@@ -53,7 +53,6 @@ function save_modal(){
 	$.post('request/save_modal.php', {}, function(data){
 		$('#quot_btn').button('reset');
 		$('#div_modal_content').html(data);
-		console.log(data);
 	});
 }
 var column = [

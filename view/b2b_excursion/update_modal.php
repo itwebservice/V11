@@ -200,7 +200,7 @@ $exc_name = ($sq_exc['excursion_name']);
 															<option value=''>Amount In</option>
 															<option value='Flat'>Flat</option>
 															<option value='Percentage'>Percentage</option></select></td>
-														<td><input type='number' id="amount-u" name="amount" placeholder="*Markup Amount" value='<?= $row_basic['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 165px;" onchange="validate_balance(this.id);"/></td>
+														<td><input type='number' id="amount-u" name="amount" placeholder="Markup Amount" value='<?= $row_basic['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 165px;" onchange="validate_balance(this.id);"/></td>
 														<td><input type="hidden" id="entry_id" name="entry_id" value='<?= $row_basic['entry_id'] ?>' /></td>
 													</tr>
 													<script>

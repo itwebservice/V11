@@ -323,10 +323,7 @@
                                                         name="tbl_package_tour_quotation_dynamic_transport"
                                                         class="table mg_bt_0 table-bordered mg_bt_10">
                                                         <tr>
-                                                            <td><input class="css-checkbox" id="chk_transport-"
-                                                                    type="checkbox" onchange="get_transport_cost();"
-                                                                    checked readonly><label class="css-label"
-                                                                    for="chk_transport1"> </label></td>
+                                                            <td><input class="css-checkbox" id="chk_transport-" type="checkbox" onchange="get_transport_cost();" readonly><label class="css-label" for="chk_transport1"> </label></td>
                                                             <td><input maxlength="15" value="1" type="text"
                                                                     name="username" placeholder="Sr. No."
                                                                     class="form-control" disabled /></td>
