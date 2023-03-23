@@ -37,8 +37,8 @@
 	</div>
 	<div class="col-md-3 mg_bt_10">
 		<small id="markup_show">&nbsp;</small>
-		<small>Markup Cost</small>
-		<input type="text" id="markup_cost" name="markup_cost" class="form-control" placeholder="Markup Cost" title="Markup Cost" onchange="quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_carge','discount');">  
+		<small>Markup Amount</small>
+		<input type="text" id="markup_cost" name="markup_cost" class="form-control" placeholder="Markup Amount" title="Markup Amount" onchange="quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_carge','discount');">  
 	</div> 
 	<div class="col-md-3 mg_bt_10">
 		<small>&nbsp;</small>

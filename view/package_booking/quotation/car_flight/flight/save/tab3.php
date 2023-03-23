@@ -38,8 +38,8 @@
 <div class="row mg_tp_20">
 	<div class="col-md-2">
 		<small id="markup_show">&nbsp;</small>
-		<small>Markup Cost</small>
-		<input type="text" id="markup_cost" name="markup_cost" placeholder="Markup Cost" title="Markup Cost" onchange="flight_quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_charge');" value="0.00">  
+		<small>Markup Amount</small>
+		<input type="text" id="markup_cost" name="markup_cost" placeholder="Markup Amount" title="Markup Amount" onchange="flight_quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_charge');" value="0.00">  
 	</div>
 	<div class="col-md-3">
 		<small>Select Markup Tax</small>

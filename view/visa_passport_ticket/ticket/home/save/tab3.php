@@ -122,7 +122,7 @@
 							</div>		
 							<div class="col-sm-3 col-xs-12 mg_bt_10">
 								<small id="markup_show">&nbsp;</small>
-								<input type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost" onchange="get_auto_values('booking_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id);">
+								<input type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('booking_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id);">
 							</div>
 							<div class="col-sm-3 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>

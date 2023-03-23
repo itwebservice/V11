@@ -62,7 +62,7 @@
 	</div>
 	<div class="col-md-2">
 		<small id="markup_show1"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_m ?></span></small>
-		<input type="text" id="markup_cost1" name="markup_cost1" class="form-control" placeholder="Markup Cost" title="Markup Cost" onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','markup');  " value="<?= $markup ?>">  
+		<input type="text" id="markup_cost1" name="markup_cost1" class="form-control" placeholder="Markup Amount" title="Markup Amount" onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','markup');  " value="<?= $markup ?>">  
 	</div>
 		<div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10">
 		<small>&nbsp;</small>
