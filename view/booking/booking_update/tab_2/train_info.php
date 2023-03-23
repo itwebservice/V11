@@ -8,7 +8,7 @@ else{
 
 <div class="row">
     <div class="col-xs-12 text-right">
-        <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_train_travel_details_dynamic_row');city_lzloading('.train_from', '*FROM',true);city_lzloading('.train_to','*To', true);"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>  
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_train_travel_details_dynamic_row');city_lzloading('.train_from', '*FROM',true);city_lzloading('.train_to','*To', true);"><i class="fa fa-plus"></i></button>
         <!-- Code to upload button -->
         <div class="div-upload" id="div_upload_button">
             <div id="train_upload" class="upload-button"><span>Ticket</span></div><span id="train_status" ></span>

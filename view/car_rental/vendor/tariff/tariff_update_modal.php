@@ -189,7 +189,7 @@ $('#frm_car_rental_vendor_update').validate({
             if(local_vehicle_name == ''){
                 error_msg_alert("Enter vehicle name"); return false; }
             if(local_rate == ''){
-                error_msg_alert("Enter cost"); return false; }
+                error_msg_alert("Enter amount"); return false; }
         }
         var vehicle_name = $('#vehicle_name').val();
         var extra_hrs_rate = $("#extra_hrs_rate").val();
@@ -208,7 +208,7 @@ $('#frm_car_rental_vendor_update').validate({
             if(local_vehicle_name == ''){
                 vehicle_name("Enter vehicle name"); return false; }
             if(rate == ''){
-                error_msg_alert("Enter cost"); return false; }
+                error_msg_alert("Enter amount"); return false; }
         }
 
         var base_url = $('#base_url').val();

@@ -91,9 +91,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 
                         <div class="row mg_bt_10">
                             <div class="col-xs-12 text-right text_center_xs">
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_dynamic_visa_update')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_visa_update')"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
 

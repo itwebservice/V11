@@ -113,9 +113,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 
                         <div class="row text-right mg_bt_10">
                             <div class="col-xs-12">
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_hotel_booking_update')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_hotel_booking_update')"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
 
@@ -127,16 +125,16 @@ else if($reflections[0]->tax_apply_on == '3') {
                                         class="table table-bordered table-hover table-striped no-marg pd_bt_51"
                                         style="width: 1685px;">
                                         <?php
-                    $sq_entry_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
-                    if ($sq_entry_count == 0) {
-                      include_once('hotel_booking_dynamic_tbl.php');
-                    } else {
-                      $count = 0;
-                      $sq_entry = mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'");
-                      while ($row_entry = mysqli_fetch_assoc($sq_entry)) {
-                        $bg = ($row_entry['status'] == "Cancel") ? "danger" : "";
-                        $count++;
-                    ?>
+                                        $sq_entry_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
+                                        if ($sq_entry_count == 0) {
+                                        include_once('hotel_booking_dynamic_tbl.php');
+                                        } else {
+                                        $count = 0;
+                                        $sq_entry = mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'");
+                                        while ($row_entry = mysqli_fetch_assoc($sq_entry)) {
+                                            $bg = ($row_entry['status'] == "Cancel") ? "danger" : "";
+                                            $count++;
+                                        ?>
                                         <tr class="<?= $bg ?>">
                                             <td><input id="chk_hotel_<?= $prefix . $count ?>_f" type="checkbox"
                                                     onchange="total_fun1();" checked disabled></td>
@@ -147,8 +145,8 @@ else if($reflections[0]->tax_apply_on == '3') {
                                                     title="City" onchange="hotel_name_list_load(this.id)"
                                                     class="app_select2" style="width:100%">
                                                     <?php
-                              $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
-                              ?>
+                                                    $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
+                                                    ?>
                                                     <option value="<?php echo $sq_city['city_id'] ?>">
                                                         <?php echo $sq_city['city_name'] ?></option>
                                                 </select>

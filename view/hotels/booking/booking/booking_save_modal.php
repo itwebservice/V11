@@ -126,12 +126,8 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                         <legend>Hotel Details</legend>
                         <div class="row text-right mg_bt_10">
                             <div class="col-xs-12">
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_hotel_booking')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm ico_left"
-                                    onClick="deleteRow('tbl_hotel_booking')"><i
-                                        class="fa fa-times"></i>&nbsp;&nbsp;Delete </button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_hotel_booking')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_hotel_booking');"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                         <div class="row">

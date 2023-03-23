@@ -140,7 +140,7 @@ $exc_name = ($sq_exc['excursion_name']);
 							<div class="row mg_bt_10">
 								<h5 style='border-bottom: 1px solid #e5e5e5;'>Basic Costing</h5>
 								<div class="row text-right mg_bt_10">
-									<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                	<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i></button>
 								</div>
 								<div class="row">
 								<div class="col-md-12">
@@ -218,7 +218,7 @@ $exc_name = ($sq_exc['excursion_name']);
 							<div class="row mg_bt_10">
 								<h5 style='border-bottom: 1px solid #e5e5e5;'>Offers/Coupons</h5>
 									<div class="row text-right mg_bt_10">
-										<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i></button>
 									</div>
 									<div class="row">
 									<div class="col-md-12">

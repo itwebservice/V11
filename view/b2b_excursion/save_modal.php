@@ -149,8 +149,7 @@ include "../../model/model.php";
                                         <div class="Normal collapsed main_block" role="button" data-toggle="collapse"
                                             data-parent="#accordion" href="#collapse2" aria-expanded="false"
                                             aria-controls="collapse2" id="collapsed1">
-                                            <div class="col-md-12"><span><em
-                                                        style="margin-left: 15px;"><?php echo "Costing Information"; ?></em></span>
+                                            <div class="col-md-12"><span><em style="margin-left: 15px;"><?php echo "Costing Information"; ?></em></span>
                                             </div>
                                         </div>
                                     </div>
@@ -181,12 +180,8 @@ include "../../model/model.php";
                                                 <div class="row mg_bt_10">
                                                     <h5 style='border-bottom: 1px solid #e5e5e5;'>Basic Costing</h5>
                                                     <div class="row text-right mg_bt_10">
-                                                        <button type="button" class="btn btn-info btn-sm ico_left"
-                                                            onClick="addRow('table_exc_tarrif_basic')"><i
-                                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                                        <button type="button" class="btn btn-danger btn-sm ico_left"
-                                                            onClick="deleteRow('table_exc_tarrif_basic')"><i
-                                                                class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_exc_tarrif_basic')"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -286,12 +281,8 @@ include "../../model/model.php";
                                                 <div class="row mg_bt_10">
                                                     <h5 style='border-bottom: 1px solid #e5e5e5;'>Offers/Coupons</h5>
                                                     <div class="row text-right mg_bt_10">
-                                                        <button type="button" class="btn btn-info btn-sm ico_left"
-                                                            onClick="addRow('table_exc_tarrif_offer')"><i
-                                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                                        <button type="button" class="btn btn-danger btn-sm ico_left"
-                                                            onClick="deleteRow('table_exc_tarrif_offer')"><i
-                                                                class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_exc_tarrif_offer')"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12">

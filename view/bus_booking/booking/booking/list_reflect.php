@@ -161,7 +161,7 @@ $query .= " order by booking_id desc";
 				$emp_name,
 				$invoice_date,
 				'<a data-toggle="tooltip" onclick="loadOtherPage(\'' .$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
-				'.$update_btn.'<button data-toggle="tooltip" class="btn btn-info btn-sm" id="view-'.$row_booking['booking_id'].'" onclick="vew_modal('.$row_booking['booking_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
+				'.$update_btn.'<button data-toggle="tooltip" class="btn btn-info btn-sm" id="view-'.$row_booking['booking_id'].'" onclick="view_modal('.$row_booking['booking_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
 				), "bg" =>$bg );
 				array_push($array_s,$temp_arr); 
 			}

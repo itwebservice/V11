@@ -125,9 +125,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 
                             <div class="col-xs-12 text-right">
 
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_dynamic_bus_booking')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_bus_booking')"><i class="fa fa-plus"></i></button>
 
                             </div>
 

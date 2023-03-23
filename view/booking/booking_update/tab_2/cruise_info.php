@@ -8,7 +8,7 @@ else{
 
 <div class="row mg_bt_30">
     <div class="col-xs-12 text-right">
-         <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_cruise_package_booking')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_cruise_package_booking')"><i class="fa fa-plus"></i></button>
         <!-- Code to upload button -->
         <div class="div-upload" id="div_upload_button">
             <div id="cruise_upload" class="upload-button"><span>Ticket</span></div><span id="cruise_status" ></span>

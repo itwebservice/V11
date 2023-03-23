@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-sm-10 col-xs-12 col-sm-push-2 text-right">
-        <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onClick="addRow('tbl_train_travel_details_dynamic_row');city_lzloading('.train_from', '*From', true);city_lzloading('.train_to', '*To', true);"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-        <button type="button" class="btn btn-danger btn-sm ico_left mg_bt_10_sm_xs" onClick="deleteRow('tbl_train_travel_details_dynamic_row'); calculate_train_expense('tbl_train_travel_details_dynamic_row')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>  
-
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_train_travel_details_dynamic_row');city_lzloading('.train_from', '*From', true);city_lzloading('.train_to', '*To', true);"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_train_travel_details_dynamic_row'); calculate_train_expense('tbl_train_travel_details_dynamic_row')"><i class="fa fa-trash"></i></button>
         <!-- Code to upload button -->
         <div class="div-upload mg_bt_10_sm_xs" id="div_upload_button">
             <div id="train_upload" class="upload-button"><span>Ticket</span></div><span id="train_status" ></span>

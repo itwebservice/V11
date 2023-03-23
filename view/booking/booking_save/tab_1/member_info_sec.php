@@ -3,14 +3,14 @@
         <div class="col-md-6 text-left">
             <button type="button" class="btn btn-info btn-sm ico_left pull-left" style="margin-right:10px" onclick="display_format_modal();"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;CSV Format</button>
             <div class="div-upload  mg_bt_20" id="div_upload_button">
-                  <div id="cust_csv_upload" class="upload-button1"><span>CSV</span></div>
-                  <span id="cust_status" ></span>
-                  <ul id="files" ></ul>
-                  <input type="hidden" id="txt_cust_csv_upload_dir" name="txt_cust_csv_upload_dir">
+                <div id="cust_csv_upload" class="upload-button1"><span>CSV</span></div>
+                <span id="cust_status" ></span>
+                <ul id="files" ></ul>
+                <input type="hidden" id="txt_cust_csv_upload_dir" name="txt_cust_csv_upload_dir">
             </div>
         </div>    
-        <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10" onClick="addRow('tbl_member_dynamic_row')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-        <button type="button" class="btn btn-danger btn-sm ico_left mg_bt_10" onClick="deleteRow('tbl_member_dynamic_row')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>    
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_member_dynamic_row')"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_member_dynamic_row');"><i class="fa fa-trash"></i></button>
     </div>
 </div>
     
