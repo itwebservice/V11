@@ -44,7 +44,7 @@
                                                 placeholder="Coupon Code" title="Coupon Code" style="width: 150px;" />
                                         </td>
                                         <td><input type='number' id="amount" name="amount" placeholder="*Amount"
-                                                class="form-control" title="Amount" style="width: 110px;" /></td>
+                                                class="form-control" title="Amount" style="width: 125px;" /></td>
                                         <td><select name="agent_type" id="agent_type" title="Agent Type"
                                                 style="width: 150px" class="form-control app_select2" multiple>
                                                 <option value=''>Agent Type</option>

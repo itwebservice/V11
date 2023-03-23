@@ -36,7 +36,7 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                                                     <option value='Percentage'>Percentage</option>
                                                 </select></td>
                                             <td><input type='text' id="coupon_code" name="coupon_code" placeholder="Coupon Code" title="Coupon Code" style="width: 150px;" /></td>
-                                            <td><input type='number' id="amount" name="amount" placeholder="*Amount" class="form-control" title="Amount" style="width: 100px;" /></td>
+                                            <td><input type='number' id="amount" name="amount" placeholder="*Amount" class="form-control" title="Amount" style="width: 125px;" /></td>
                                             <td><select name="agent_type" id="agent_type" style="width: 150px" class="form-control app_select2" data-toggle="tooltip" title="Agent Type" multiple>
                                                     <option value=''>Agent Type</option>
                                                     <option value='Platinum'>Platinum</option>

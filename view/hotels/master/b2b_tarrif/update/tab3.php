@@ -33,7 +33,7 @@ $sq_count4 = mysqli_num_rows(mysqlQuery("select * from hotel_weekend_tarrif wher
 													<option value="Sunday">Sunday</option>
 												</select></td>
 											<td style='display:none;'><input type="text" id="single_bed" name="single_bed" placeholder="Single Bed" title="Single Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
-											<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 130px;" /></td>
+											<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 135px;" /></td>
 											<td style='display:none;'><input type="text" id="triple_bed" name="triple_bed" placeholder="Triple Bed" title="Triple Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
 											<td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
 											<td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 137px;" /></td>
