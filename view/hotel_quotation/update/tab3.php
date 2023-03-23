@@ -84,7 +84,7 @@ foreach ($bsmValues as $key => $value) {
                                                 value="<?= $costDetails['tax_amount'] ?>"
                                                 onchange="validate_balance(this.id)" readonly> </td>
 
-                                        <td class="header_btn header_btn" style="padding:4px"><small>&nbsp;</small><input type="number" id="markup_cost-u_1" name="markup_cost-u_1" placeholder="Markup Amount" title="Markup Amount" value="<?= $markup ?>" onchange="validate_balance(this.id);get_auto_values('quotation_date1','basic_cost-u_1','payment_mode','service_charge-u_1','markup_cost-u_1','update','false','service_charge');">
+                                        <td class="header_btn header_btn" style="padding:4px"><small>&nbsp;</small><input type="number" id="markup_cost-u_1" name="markup_cost-u_1" placeholder="Markup Amount" title="Markup Amount" style="width:160px" value="<?= $markup ?>" onchange="validate_balance(this.id);get_auto_values('quotation_date1','basic_cost-u_1','payment_mode','service_charge-u_1','markup_cost-u_1','update','false','service_charge');">
                                         </td>
 
                                         <td class="header_btn header_btn" style="padding:4px"><small id="markup_show-u_1"
