@@ -127,11 +127,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		number_format(($row_ticket['net_total']-$row_ticket['cancel_amount']+$credit_card_charges), 2),
 		$emp_name,
 		$invoice_date,
-		'<a onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
-		
-		<button class="btn btn-info btn-sm" onclick="train_ticket_view_modal('. $row_ticket['train_ticket_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
-
-		'.$update_btn.$delete_btn
+		'<a onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'<button class="btn btn-info btn-sm" onclick="train_ticket_view_modal('. $row_ticket['train_ticket_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 
 }

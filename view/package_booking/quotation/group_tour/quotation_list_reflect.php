@@ -139,10 +139,7 @@ $query .=" order by quotation_id desc ";
 			number_format($row_quotation['quotation_cost'],2).$currency_amount,
 			$emp_name,
 			$pdf_btn.$mail_btn
-			.$copy_btn.$mail_btn_b.'
-			
-			<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-
+			.'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$copy_btn.$mail_btn_b.'
 			<a href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>',
 
 		), "bg" =>$bg);

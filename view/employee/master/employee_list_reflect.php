@@ -69,8 +69,8 @@ if ($branch_status == 'yes' && $login_role != 'Admin' && $role != 'Admin') {
 				<td><?= $sq_branch['branch_name'] ?></td>
 				<td><?= strtoupper($sq_role['role_name']) ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_edit_btn<?= $row_emp['emp_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
 					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_view_btn<?= $row_emp['emp_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_edit_btn<?= $row_emp['emp_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
 				</td>
 				<!-- <td>
 					<a href="<?= $url ?>" download class="btn-sm btn btn-info"><i class="fa fa-download"></i></a>

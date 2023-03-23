@@ -226,17 +226,13 @@ while($row_quotation = mysqli_fetch_assoc($row_quotation1)){
 		get_date_user($row_quotation['quotation_date']),
 		number_format($quotation_cost,2).$currency_amount,
 		$emp_name,
-		$pdf_show.$email_show.$copy_btn.$hotel_request1.$email_show1.'
-
+		$pdf_show.$email_show.'
 		<form  style="display:inline-block" action="update/index.php" id="frm_booking_'.$count.'" method="POST">
 		<input  style="display:inline-block" type="hidden" id="quotation_id" name="quotation_id" value="'.$row_quotation['quotation_id'].'">
 		<input data-toggle="tooltip" style="display:inline-block" type="hidden" id="package_id" name="package_id" value="'.$row_quotation['package_id'].'">
-
 		<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-		</form>
-
+		</form>'.$copy_btn.$hotel_request1.$email_show1.'
 		<a data-toggle="tooltip" style="display:inline-block" href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>'
-	
 	), "bg" =>$bg);
 	array_push($array_s,$temp_arr); 
 }

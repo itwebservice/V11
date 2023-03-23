@@ -66,13 +66,13 @@ $query .= " order by register_id desc";
                         <td><?= $sq_city['city_name'] ?></td>
                         <td><?= $country_name ?></td>
                         <td style="display:flex;">
-                            <button class="btn btn-info btn-sm"
-                                onclick="customer_display_modal(<?= $row_customer['register_id'] ?>)"
-                                title="View Details" data-toggle="tooltip"><i class="fa fa-eye"></i></button>
                             <button class="btn <?= $color ?> btn-sm"
                                 onclick="customer_update_modal(<?= $row_customer['register_id'] ?>)"
                                 title="Update status" data-toggle="tooltip"><i class="fa <?= $icon ?>"
                                     aria-hidden="true"></i></button>
+                            <button class="btn btn-info btn-sm"
+                                onclick="customer_display_modal(<?= $row_customer['register_id'] ?>)"
+                                title="View Details" data-toggle="tooltip"><i class="fa fa-eye"></i></button>
                             <button class="btn <?= $color ?> btn-sm"
                                 onclick="b2b_update_modal(<?= $row_customer['register_id'] ?>)" title="Update Details"
                                 data-toggle="tooltip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>

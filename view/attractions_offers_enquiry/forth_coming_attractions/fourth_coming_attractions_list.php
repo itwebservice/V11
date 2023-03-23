@@ -34,8 +34,8 @@ include "../../../model/model.php";
             <td><?php echo $row['description'] ?></td>
             <td><?php echo date("d-m-Y",strtotime($row['valid_date'])) ?></td>
             <td>
-                <button class="btn btn-info btn-sm" onclick="view_modal(<?= $row['id'] ?>)" title="View Images"><i class="fa fa-eye"></i></button>
                 <a href="javascript:void(0)" onclick="fourth_coming_attractions_update_modal(<?= $row['id'] ?>)" class="btn btn-info btn-sm" id="update-<?php echo $row['id']; ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></a>
+                <button class="btn btn-info btn-sm" onclick="view_modal(<?= $row['id'] ?>)" title="View Images"><i class="fa fa-eye"></i></button>
                 <button class="btn btn-danger btn-sm" onclick="fouth_coming_attractions_disable(<?php echo $row['id'] ?>)" title="Disable" id="delete-<?php echo $row['id']; ?>"><i class="fa fa-ban"></i></button></td>
             </tr>
             <?php

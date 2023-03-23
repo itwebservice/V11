@@ -153,11 +153,8 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 		number_format($total_visa_amount, 2).'<br/>'.$currency_amount,
 		$emp_name,
 		$invoice_date,
-		'<a data-toggle="tooltip" onclick="loadOtherPage(\'' .$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
-		
-		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_display_modal('.$row_visa['visa_id'] .');btnDisableEnable(this.id)" id="visa_display_modal_btn_visa_view'.$row_visa['visa_id'].'" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
-		'.$update_btn.$delete_btn
+		'<a data-toggle="tooltip" onclick="loadOtherPage(\'' .$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_display_modal('.$row_visa['visa_id'] .');btnDisableEnable(this.id)" id="visa_display_modal_btn_visa_view'.$row_visa['visa_id'].'" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>
+		'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 
 }

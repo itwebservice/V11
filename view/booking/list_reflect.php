@@ -264,9 +264,8 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		$emp_name,
 		get_date_user($date),
 		$conf_btn.
-		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Download Invoice"><i class="fa fa-print"></i></a>'.'
-
-		<button  data-toggle="tooltip" class="btn btn-info btn-sm" style="display:inline-block" onclick="display_modal(\''.$row_booking['id'] .'\')" title="View Details" id="view-'.$row_booking['id'].'"><i class="fa fa-eye"></i></button>'.$update_btn.$delete_btn), "bg" => $bg
+		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'
+		<button  data-toggle="tooltip" class="btn btn-info btn-sm" style="display:inline-block" onclick="display_modal(\''.$row_booking['id'] .'\')" title="View Details" id="view-'.$row_booking['id'].'"><i class="fa fa-eye"></i></button>'.$delete_btn), "bg" => $bg
 		);
 	array_push($array_s,$temp_arr); 
 

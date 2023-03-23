@@ -78,9 +78,9 @@ if($city_id!=""){
 				<td><?= $row_venndor['contact_person_name'] ?></td>
 				<td>
 
-					<button class="btn btn-info btn-sm" onclick="vendor_view_modal(<?= $row_venndor['vendor_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
 
 					<button class="btn btn-info btn-sm" onclick="vendor_update_modal(<?= $row_venndor['vendor_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i> </button>
+					<button class="btn btn-info btn-sm" onclick="vendor_view_modal(<?= $row_venndor['vendor_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
 
 				</td>
 

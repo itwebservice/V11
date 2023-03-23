@@ -237,9 +237,9 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		get_date_user($row_booking['booking_date']),
 		$conf_form.'
 		<a data-toggle="tooltip" onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print" data-toggle="tooltip"></i></a>'
-		.$service_voucher.
+		.$service_voucher.$update_btn.
 		'<button style="display:inline-block" class="btn btn-info btn-sm" onclick="package_view_modal('.$row_booking['booking_id'] .');btnDisableEnable(this.id)" id="package_view_modal_btn'.$row_booking['booking_id'] .'" title="View Details" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></button>
-		'.$update_btn.$delete_btn,
+		'.$delete_btn,
 
 		), "bg" =>$bg);
 		array_push($array_s,$temp_arr); 

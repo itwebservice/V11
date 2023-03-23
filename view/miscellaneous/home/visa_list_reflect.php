@@ -143,9 +143,9 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 		number_format($total_visa_amount, 2),
 		$emp_name,
 		$invoice_date,
-		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
+		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'
 		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_display_modal('. $row_visa['misc_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>
-		'.$update_btn.$delete_btn
+		'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 
 }
