@@ -56,7 +56,7 @@
 								<th>Max_Occupancy</th>
 								<th>Valid_From_Date</th>
 								<th>Valid_To_Date</th>
-								<th>Room_Cost</th>
+								<th>Room_Amount</th>
 								<th>Child_With_Bed</th>
 								<th>Child_Without_Bed</th>
 								<th>Extra_Bed</th>

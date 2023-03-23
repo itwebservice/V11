@@ -131,7 +131,7 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small id="markup_show" style="color:red">&nbsp;</small>
-								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost" onchange="get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','markup');">
+								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','markup');">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>

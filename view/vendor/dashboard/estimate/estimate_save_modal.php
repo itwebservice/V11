@@ -342,7 +342,7 @@ $(function(){
 				if(vendor_type==""){ msg +=">Supplier type is required in vendor estimate-"+counter+"<br>"; }
 				if(vendor_type_id==""){ msg +=">"+vendor_type+" is required in vendor estimate-"+counter+"<br>"; }
 				if(estimate_type_id==""){ msg += ">"+estimate_type+" is required"+"<br>"; }
-				if(basic_cost==""){ msg +=">Basic cost is required in vendor estimate-"+counter+"<br>"; }
+				if(basic_cost==""){ msg +=">Basic Amount is required in vendor estimate-"+counter+"<br>"; }
 				if(net_total==""){ msg +=">Net total is required in vendor estimate-"+counter+"<br>"; }
 				if(tax_apply_on==""){ msg +=">Tax apply on is required in vendor estimate-"+counter+"<br>"; }
 				if(tax_value==""){ msg +=">Tax is required in vendor estimate-"+counter+"<br>"; }

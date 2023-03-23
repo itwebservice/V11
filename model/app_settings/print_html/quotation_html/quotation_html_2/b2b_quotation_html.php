@@ -127,7 +127,7 @@ require('../../../../../classes/html2text-master/html2text.php');
             </div>
             <div class="detailBlockContent">
               <h3 class="contentValue"><?= $sq_qcurr['default_currency'] . ' ' . number_format($quotation_cost, 2) ?></h3>
-              <span class="contentLabel">PRICE</span>
+              <span class="contentLabel">AMOUNT</span>
             </div>
           </div>
         </div>
@@ -640,7 +640,7 @@ require('../../../../../classes/html2text-master/html2text.php');
                 <div class="col-md-4 text-center">
                   <div class="icon"><img src="<?= BASE_URL ?>images/quotation/p4/tourCost.png" class="img-responsive"></div>
                   <h4 class="no-marg"><?= number_format($grand_total, 2) ?></h4>
-                  <p>TOTAL COST</p>
+                  <p>TOTAL AMOUNT</p>
                 </div>
                 <div class="col-md-4 text-center">
                   <div class="icon"><img src="<?= BASE_URL ?>images/quotation/p4/tax.png" class="img-responsive"></div>
@@ -650,7 +650,7 @@ require('../../../../../classes/html2text-master/html2text.php');
                 <div class="col-md-4 text-center">
                   <div class="icon"><img src="<?= BASE_URL ?>images/quotation/p4/travelCost.png" class="img-responsive"></div>
                   <h4 class="no-marg"><?= number_format($quotation_cost, 2) ?></h4>
-                  <p>NET COST</p>
+                  <p>NET AMOUNT</p>
                 </div>
               </div>
             </div>

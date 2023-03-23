@@ -90,7 +90,7 @@
 					    </span>
 		           		<span class="main_block">
 		                  <i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-		                  <?php echo "<label>Basic Cost <em>:</em></label> ".$sq_ticket['basic_cost']; ?>
+		                  <?php echo "<label>Basic Amount <em>:</em></label> ".$sq_ticket['basic_cost']; ?>
 		                </span>
 		            </div>
 					 <div class="col-md-3 col-sm-6 col-xs-12 right_border_none_sm_xs" style="border-right: 1px solid #ddd">
@@ -115,7 +115,7 @@
 					<div class="col-md-3 col-sm-6 col-xs-12 right_border_none_sm" style="border-right: 1px solid #ddd">
 		                <span class="main_block">
 		                  <i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-		                  <?php echo "<label>Markup Cost <em>:</em></label> ".$sq_ticket['markup']; ?>
+		                  <?php echo "<label>Markup Amount <em>:</em></label> ".$sq_ticket['markup']; ?>
 		                </span>
 						<span class="main_block">
 		                  <i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>

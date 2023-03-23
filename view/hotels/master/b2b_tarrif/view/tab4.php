@@ -16,7 +16,7 @@ $sq_query = mysqlQuery("select * from hotel_weekend_tarrif where pricing_id='$pr
                         <th>Room_Category</th>
                         <th>Max_Occupancy</th>
                         <th>Weekend_Day</th>
-                        <th>Room_Cost</th>
+                        <th>Room_Amount</th>
                         <th>Child_With_Bed</th>
                         <th>Child_Without_Bed</th>
                         <th>Extra_Bed</th>

@@ -53,13 +53,13 @@ $enquiry_id = base64_decode($enquiry_id1);
 	<div class="main_block mg_tp_20">
 		<div class="col-md-4 text-right"><label for="app_name">Hotel COST</label></div>
 		<div class="col-md-4 no-pad">
-			<input type="text" class="form-control" id="txt_trans" name="txt_trans" placeholder="Hotel Cost" title="Hotel Cost" onchange="total_cost_reflect()">
+			<input type="text" class="form-control" id="txt_trans" name="txt_trans" placeholder="Hotel Amount" title="Hotel Amount" onchange="total_cost_reflect()">
 		</div>
 	</div>
 	<div class="main_block mg_tp_20">
 		<div class="col-md-4 text-right"><label for="app_website">TOTAL COST</label></div>
 		<div class="col-md-4 no-pad">
-			<input type="text" class="form-control" id="txt_cost" name="txt_cost" placeholder="*Total Cost" title="Total Cost" readonly> 
+			<input type="text" class="form-control" id="txt_cost" name="txt_cost" placeholder="*Total Amount" title="Total Amount" readonly> 
 		</div>
 		<div class="col-md-2">
         <select name="currency_code" id="currency_code1" title="Currency" style="width:100%">

@@ -33,7 +33,7 @@ else if($reflections1[0]->tax_apply_on == '3') {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Purchase Cost</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Purchase Costing</h4>
       </div>
       <div class="modal-body">
 			<div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_20 mg_bt_30">
@@ -104,7 +104,7 @@ else if($reflections1[0]->tax_apply_on == '3') {
 
 				<div class="row">					
 					<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
-						<input type="text" id="basic_cost" name="basic_cost" placeholder="Basic Cost" title="Basic Cost" onchange="validate_balance(this.id);calculate_estimate_amount('');get_auto_values('purchase_date1','basic_cost','payment_mode','service_charge','update','true','service_charge','discount','our_commission');" value="<?= $sq_vendor_estimate['basic_cost'] ?>">
+						<input type="text" id="basic_cost" name="basic_cost" placeholder="Basic Amount" title="Basic Amount" onchange="validate_balance(this.id);calculate_estimate_amount('');get_auto_values('purchase_date1','basic_cost','payment_mode','service_charge','update','true','service_charge','discount','our_commission');" value="<?= $sq_vendor_estimate['basic_cost'] ?>">
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10 hidden">
 						<input type="text" id="non_recoverable_taxes" name="non_recoverable_taxes" placeholder="Non Recoverable Taxes" title="Non Recoverable Taxes" onchange="validate_balance(this.id);calculate_estimate_amount('')" value="<?= $sq_vendor_estimate['non_recoverable_taxes'] ?>">

@@ -74,7 +74,7 @@ var column = [
 	{ title : "Reply Date"},
 	{ title : "City_Name"},
 	{ title : "Supplier_Name"},
-	{ title : "Total Cost"},
+	{ title : "Total Amount"},
 	{ title : "Actions", className : "text-center"}
 ];
 function list_reflect()

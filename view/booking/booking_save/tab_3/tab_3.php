@@ -36,28 +36,28 @@
                                     class="text-center form-control valid" title="Total Passenger(s)" readonly />
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                                <label>Adult Cost</label>
-                                <input type="text" id="txt_adult_expense" name="txt_adult_expense" title="Adult Cost"
+                                <label>Adult Amount</label>
+                                <input type="text" id="txt_adult_expense" name="txt_adult_expense" title="Adult Amount"
                                     placeholder="Adult Cost" class="text-right form-control valid"
                                     onchange="tour_cost_calculate(this.id); validate_balance(this.id)" />
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                                <label>Child With Bed Cost</label>
-                                <input type="text" id="txt_child_bed_expense" title="Child With Bed Cost"
-                                    placeholder="Child With Bed" name="txt_child_bed_expense"
+                                <label>Child With Bed Amount</label>
+                                <input type="text" id="txt_child_bed_expense" title="Child With Bed Amount"
+                                    placeholder="Child With Bed Amount" name="txt_child_bed_expense"
                                     class="text-right form-control valid"
                                     onchange="tour_cost_calculate(this.id);validate_balance(this.id)" />
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                                <label>Child Without Bed Cost</label>
-                                <input type="text" id="txt_child_wbed_expense" title="Child Without Bed Cost"
-                                    placeholder="Child Without Bed" name="txt_child_wbed_expense"
+                                <label>Child Without Bed Amount</label>
+                                <input type="text" id="txt_child_wbed_expense" title="Child Without Bed Amount"
+                                    placeholder="Child Without Bed Amount" name="txt_child_wbed_expense"
                                     class="text-right form-control valid"
                                     onchange="tour_cost_calculate(this.id);validate_balance(this.id)" />
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                                <label>Infant Cost</label>
-                                <input type="text" id="txt_infant_expense" title="Infant Cost" placeholder="Infant Cost"
+                                <label>Infant Amount</label>
+                                <input type="text" id="txt_infant_expense" title="Infant Amount" placeholder="Infant Amount"
                                     name="txt_infant_expense" class="text-right form-control valid"
                                     onchange="tour_cost_calculate(this.id);validate_balance(this.id)" />
                             </div>
@@ -65,7 +65,7 @@
                         <div class="col-md-12">
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
                                 <label>Total Amount</label>
-                                <input type="text" id="txt_total_expense" title="Total Cost" name="txt_total_expense"
+                                <input type="text" id="txt_total_expense" title="Total Amount" name="txt_total_expense"
                                     class="text-right amount_feild_highlight form-control valid" readonly />
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">

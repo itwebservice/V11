@@ -275,8 +275,8 @@ $branch_status = $_POST['branch_status'];
                                     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                         <small id="markup_show">&nbsp;</small>
                                         <input type="text" id="markup_cost" name="markup_cost"
-                                            class="text-right form-control" placeholder="Markup Cost"
-                                            title="Markup Cost"
+                                            class="text-right form-control" placeholder="Markup Amount"
+                                            title="Markup Amount"
                                             onchange="validate_balance(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','false','markup');"
                                             value="0.00">
                                     </div>

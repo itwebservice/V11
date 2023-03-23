@@ -60,7 +60,7 @@ $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from  car_rental_tariff_ent
 
 								        				<span class="main_block">
 								        					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-								        				    <?php echo "<label>Cost <em>:</em></label> " .$sq_vendor['rate']; ?> 
+								        				    <?php echo "<label>Amount <em>:</em></label> " .$sq_vendor['rate']; ?> 
 								        				</span>
 
 								        			
@@ -101,7 +101,7 @@ $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from  car_rental_tariff_ent
 
                                                         <span class="main_block"> 
 								        					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-								        				    <?php echo "<label>Cost  <em>:</em></label> " .$sq_vendor['rate']; ?>
+								        				    <?php echo "<label>Amount  <em>:</em></label> " .$sq_vendor['rate']; ?>
 								        				</span>
 								        				<span class="main_block">
 								        					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>

@@ -154,9 +154,9 @@ if($estimate_type == 'Ticket Booking'){
                 </select>
               </div>
                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
-                    <small>Basic Cost</small>
-                    <input type="number" id="basic_cost" name="basic_cost" placeholder="Basic Cost"
-                        title="Basic Cost" onchange="calculate_estimate_amount()" value="<?= floatval($cancel_estimate->basic_cost) ?>">
+                    <small>Basic Amount</small>
+                    <input type="number" id="basic_cost" name="basic_cost" placeholder="Basic Amount"
+                        title="Basic Amount" onchange="calculate_estimate_amount()" value="<?= floatval($cancel_estimate->basic_cost) ?>">
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
                 <small>Service Charge</small>

@@ -8,7 +8,7 @@ $grnd_total = 0;
 		<div class="col-md-6">
 			<div class="profile_box main_block">
 				<legend>Hotel</legend>
-				<div class="col-md-12">Price&nbsp; : <strong><?= number_format($price_total,2) ?></strong></div>
+				<div class="col-md-12">Amount&nbsp; : <strong><?= number_format($price_total,2) ?></strong></div>
 				<div class="col-md-12">Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong><?= number_format($tax_total,2) ?></strong></div>
 				<div class="col-md-12">Total&nbsp; : <strong><?= number_format($hotel_total,2) ?></strong></div>
 			</div>
@@ -22,7 +22,7 @@ $grnd_total = 0;
 		<div class="col-md-6 mg_tp_10">
 			<div class="profile_box main_block">
 				<legend>Transfer</legend>
-				<div class="col-md-12">Price&nbsp; : <strong><?= number_format($trprice_total,2) ?></strong></div>
+				<div class="col-md-12">Amount&nbsp; : <strong><?= number_format($trprice_total,2) ?></strong></div>
 				<div class="col-md-12">Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong><?= number_format($trtax_total,2) ?></strong></div>
 				<div class="col-md-12">Total&nbsp; : <strong><?= number_format($transfer_total,2) ?></strong></div>
 			</div>
@@ -35,7 +35,7 @@ $grnd_total = 0;
 		<div class="col-md-6 mg_tp_10">
 			<div class="profile_box main_block">
 				<legend>Activity</legend>
-				<div class="col-md-12">Price&nbsp; : <strong><?= number_format($actprice_total,2) ?></strong></div>
+				<div class="col-md-12">Amount&nbsp; : <strong><?= number_format($actprice_total,2) ?></strong></div>
 				<div class="col-md-12">Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong><?= number_format($acttax_total,2) ?></strong></div>
 				<div class="col-md-12">Total&nbsp; : <strong><?= number_format($activity_total,2) ?></strong></div>
 			</div>
@@ -48,7 +48,7 @@ $grnd_total = 0;
 		<div class="col-md-6 mg_tp_10">
 			<div class="profile_box main_block">
 				<legend>Holiday</legend>
-				<div class="col-md-12">Price&nbsp; : <strong><?= number_format($toursprice_total,2) ?></strong></div>
+				<div class="col-md-12">Amount&nbsp; : <strong><?= number_format($toursprice_total,2) ?></strong></div>
 				<div class="col-md-12">Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong><?= number_format($tourstax_total,2) ?></strong></div>
 				<div class="col-md-12">Total&nbsp; : <strong><?= number_format($tours_total,2) ?></strong></div>
 			</div>
@@ -61,7 +61,7 @@ $grnd_total = 0;
 		<div class="col-md-6 mg_tp_10">
 			<div class="profile_box main_block">
 				<legend>Ferry</legend>
-				<div class="col-md-12">Price&nbsp; : <strong><?= number_format($ferryprice_total,2) ?></strong></div>
+				<div class="col-md-12">Amount&nbsp; : <strong><?= number_format($ferryprice_total,2) ?></strong></div>
 				<div class="col-md-12">Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong><?= number_format($ferrytax_total,2) ?></strong></div>
 				<div class="col-md-12">Total&nbsp; : <strong><?= number_format($ferry_total,2) ?></strong></div>
 			</div>

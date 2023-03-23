@@ -188,8 +188,8 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="markup_show" style="color:red">&nbsp;</small>
-                                <input type="text" id="markup" name="markup" placeholder="Markup Cost"
-                                    title="Markup Cost"
+                                <input type="text" id="markup" name="markup" placeholder="Markup Amount"
+                                    title="Markup Amount"
                                     onchange="total_fun();get_auto_values('booking_date','sub_total','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id)">
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

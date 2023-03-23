@@ -128,7 +128,7 @@ $branch_status = $_POST['branch_status'];
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="markup_show" style="color:#000000">&nbsp;</small>
-                                <input type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost"
+                                <input type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount"
                                     onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount',false);validate_balance(this.id)">
                             </div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

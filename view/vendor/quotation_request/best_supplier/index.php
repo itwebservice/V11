@@ -67,7 +67,7 @@ var column = [
 	{ title : "quotation_id"},
 	{ title:"City_Name"},
 	{ title : "Supplier_Name"},
-	{ title : "Total cost"},
+	{ title : "Total AMOUNT"},
 	{ title : "Actions", className : "text-center"}
 ];
 function list_reflect()
@@ -85,7 +85,7 @@ function list_reflect()
 list_reflect();
 
 function view_modal(id,quotation_for,enquiry_id,request_id){
-	$.post('best_supplier/cost_view/index.php', { id : id , quotation_for : quotation_for, enquiry_id : enquiry_id, request_id : request_id}, function(data){
+	$.post('best_supplier/AMOUNT_view/index.php', { id : id , quotation_for : quotation_for, enquiry_id : enquiry_id, request_id : request_id}, function(data){
 		$('#div_req_view').html(data);
 	});
 }

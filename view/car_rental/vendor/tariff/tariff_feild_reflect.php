@@ -31,7 +31,7 @@ if($tour_type=="Local"){
             <td><input type="text" id="total_km" name="total_km" data-toggle="tooltip" placeholder="Total KM" title="Total KM" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
             <td><input type="text" id="extra_hrs_rate" name="extra_hrs_rate" data-toggle="tooltip" placeholder="Extra hrs Rate" title="Extra Hrs Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
             <td><input type="text" id="extra_km" name="extra_km" data-toggle="tooltip" placeholder="Extra KM Rate" title="Extra KM Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
-            <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Cost" title="Cost" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
+            <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Amount" title="Amount" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
         </tr>                                
     </table>
     </div>
@@ -67,7 +67,7 @@ else{?>
                 <td><input type="text" id="route" name="route" placeholder="Route" data-toggle="tooltip" title="Route" class="form-control" style="width:150px;" /></td>
                 <td><input type="text" id="total_days" name="total_days" placeholder="Total Days" data-toggle="tooltip" title="Total Days" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="total_km" name="total_km" data-toggle="tooltip" placeholder="Total KM" title="Total KM" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
-                <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Cost" title="Cost" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
+                <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Amount" title="Amount" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="extra_hrs_rate" name="extra_hrs_rate" data-toggle="tooltip" placeholder="Extra Hrs Rate" title="Extra hrs Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="extra_km" name="extra_km" data-toggle="tooltip" placeholder="Extra KM Rate" title="Extra KM Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="driver_allowance" name="driver_allowance" data-toggle="tooltip" placeholder="Driver Allowance per day" title="Driver Allowance per day" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>

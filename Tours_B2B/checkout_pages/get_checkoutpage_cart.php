@@ -314,7 +314,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                               <div class="roomType">
                                 <div class="roomTitle clearfix">
                                   <div class="rHeading"><?= $transfer_list_arr[$i]['service']['service_arr'][0]['vehicle_type'] ?></div>
-                                    <span class="s1">Total Cost</span>
+                                    <span class="s1">Total Amount</span>
                                     <span class="s2"><span class='currency-icon'></span>
                                     <span class='c-hide checkoutt-currency-id'><?= $h_currency_id ?></span>
                                     <span class='checkoutt-currency-price'><?= $total_amount ?></span></span>
@@ -585,7 +585,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                               <div class="roomType">
                                 <div class="roomTitle clearfix">
                                   <div class="rHeading"><?= $tours_list_arr[$i]['service']['service_arr'][0]['package_code'] ?></div>
-                                    <span class="s1">Total Cost</span>
+                                    <span class="s1">Total Amount</span>
                                     <span class="s2"><span class='currency-icon'></span>
                                     <span class='c-hide checkoutt-currency-id'><?= $h_currency_id ?></span>
                                     <span class='checkoutt-currency-price'><?= $total_amount ?></span></span>
@@ -705,7 +705,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                                 <div class="roomType">
                                   <div class="roomTitle clearfix">
                                     <div class="rHeading"><?= $ferry_list_arr[$i]['service']['service_arr'][0]['ferry_type'] ?></div>
-                                      <span class="s1">Total Cost</span>
+                                      <span class="s1">Total Amount</span>
                                       <span class="s2"><span class='currency-icon'></span>
                                       <span class='c-hide checkoutt-currency-id'><?= $h_currency_id ?></span>
                                       <span class='checkoutt-currency-price'><?= $total_amount ?></span></span>
@@ -760,7 +760,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                   <span class="sBlock_title">Hotel</span>
                   <div class="row sBlock_price">
                     <div class="col-4">
-                      <span class="pLabel">Price: </span>
+                      <span class="pLabel">Amount: </span>
                     </div>
                     <div class="col-8">
                       <span class="pLabel cost"><span class='currency-icon'></span><span class='checkouttsubtotal-currency-price'><?= $price_total ?></span></span>
@@ -792,7 +792,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                   <span class="sBlock_title">Transfer</span>
                   <div class="row sBlock_price">
                     <div class="col-4">
-                      <span class="pLabel">Price: </span>
+                      <span class="pLabel">Amount: </span>
                     </div>
                     <div class="col-8">
                       <span class="pLabel cost"><span class='currency-icon'></span><span class='checkouttsubtotal-currency-price'><?= $trans_basic_tottal ?></span></span>
@@ -824,7 +824,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                   <span class="sBlock_title">Activity</span>
                   <div class="row sBlock_price">
                     <div class="col-4">
-                      <span class="pLabel">Price: </span>
+                      <span class="pLabel">Amount: </span>
                     </div>
                     <div class="col-8">
                       <span class="pLabel cost"><span class='currency-icon'></span><span class='checkouttsubtotal-currency-price'><?= $actprice_total ?></span></span>
@@ -856,7 +856,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                   <span class="sBlock_title">Holiday</span>
                   <div class="row sBlock_price">
                     <div class="col-4">
-                      <span class="pLabel">Price: </span>
+                      <span class="pLabel">Amount: </span>
                     </div>
                     <div class="col-8">
                       <span class="pLabel cost"><span class='currency-icon'></span><span class='checkouttsubtotal-currency-price'><?= $tours_basic_tottal ?></span></span>
@@ -887,7 +887,7 @@ $to_currency_rate = $sq_to['currency_rate'];
                   <span class="sBlock_title">Ferry</span>
                   <div class="row sBlock_price">
                     <div class="col-4">
-                      <span class="pLabel">Price: </span>
+                      <span class="pLabel">Amount: </span>
                     </div>
                     <div class="col-8">
                       <span class="pLabel cost"><span class='currency-icon'></span><span class='checkouttsubtotal-currency-price'><?= $ferry_basic_total ?></span></span>

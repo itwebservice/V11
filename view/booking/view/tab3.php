@@ -158,19 +158,19 @@
 				<div class="col-sm-12">
 	        	    <span class="main_block">
 	        	      	<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-	        	      	<?php echo "<label>Adult Cost <em>:</em></label> ".$adult_expense; ?> 
+	        	      	<?php echo "<label>Adult Amount <em>:</em></label> ".$adult_expense; ?> 
 	        	    </span>
 	        	    <span class="main_block">
 	        	      	<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-	        	      	<?php echo "<label>Child With Bed Cost <em>:</em></label> ".$children_b_expense; ?> 
+	        	      	<?php echo "<label>Child With Bed Amount <em>:</em></label> ".$children_b_expense; ?> 
 	        	    </span>
 					<span class="main_block">
 	        	      	<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-	        	      	<?php echo "<label>Child Without Bed Cost <em>:</em></label> ".$children_wb_expense; ?> 
+	        	      	<?php echo "<label>Child Without Bed Amount <em>:</em></label> ".$children_wb_expense; ?> 
 	        	    </span>
 	        	    <span class="main_block">
 	        	      	<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-	        	      	<?php echo "<label>Infant Cost <em>:</em></label>" .$infant_expense ?> 
+	        	      	<?php echo "<label>Infant Amount <em>:</em></label>" .$infant_expense ?> 
 	        	    </span>
 	        	    <span class="main_block">
 	        	      	<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
