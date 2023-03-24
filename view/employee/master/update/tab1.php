@@ -339,13 +339,8 @@
 
     </div>
     <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
-        <legend>Mailing Information</legend>
-        <div class="row mg_tp_10">
-            <div class="col-xs-12">
-                <span class="note">Note : Please add individual Users Webmail SMTP details to send / receive email
-                    from respective email id's.</span>
-            </div>
-        </div>
+        <legend>Mailing Information
+		<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Please add individual Users Webmail SMTP details to send / receive email from respective email id's."><i class="fa fa-question-circle"></i></button></legend>
         <div class="row mg_tp_10">
             <div class="col-md-3">
                 <select id="app_smtp_status" name="app_smtp_status" title="SMTP Status">

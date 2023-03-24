@@ -126,10 +126,7 @@ $sq_settings = mysqli_fetch_assoc(mysqlQuery("select * from app_settings"));
                     title="Enter IP Addresses" id="ip_address" data-role="tagsinput"
                     value="<?= $sq_settings['ip_addresses'] ?>" />
             </div>
-            <div class="col-md-5 no-pad">
-                <span class="note">Note : Use this IP address field only when you don't want to enable login for outside
-                    IP addresses.(e.g-192.168.2.1). If not so then keep this field blank</span>
-            </div>
+			<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Use this IP address field only when you don't want to enable login for outside IP addresses.(e.g-192.168.2.1). If not so then keep this field blank"><i class="fa fa-question-circle"></i></button>
         </div>
     </div>
 

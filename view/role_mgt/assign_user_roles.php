@@ -20,7 +20,7 @@ include "../../model/model.php";
                   }
               ?>
           </select>
-          <small>Note : Set permission for individual Role</small>
+          <small class="note">Note : Set permission for individual Role</small>
       </div>
   </div>
 </div>

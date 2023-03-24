@@ -233,7 +233,7 @@ $sq_settings_g = mysqli_fetch_assoc(mysqlQuery("select * from generic_count_mast
 					<ul id="files"></ul>
 					<input type="hidden" id="qr_upload_url_i" name="qr_upload_url_i" value="<?= $sq_settings['qr_url'] ?>">
 				</div>
-				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image Size Should Be Less Than 100KB, Resolution : 900 X 900 and Format: Jpg/JEPG/Png"><i class="fa fa-question-circle"></i></button>
+				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Image Size Should Be Less Than 100KB, Resolution : 900 X 900 and Format: Jpg/JEPG/Png"><i class="fa fa-question-circle"></i></button>
 				<?php
 				if (!empty($sq_settings['qr_url'])) {
 				?>
@@ -264,7 +264,7 @@ $sq_settings_g = mysqli_fetch_assoc(mysqlQuery("select * from generic_count_mast
 					<input type="hidden" id="sign_upload_url_i" name="sign_upload_url_i" value="<?= $sq_settings['sign_url'] ?>">
 				</div>
 				
-				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image Size Should Be Less Than 100KB, Resolution : 900 X 900 and Format: Jpg/JEPG/Png"><i class="fa fa-question-circle"></i></button>
+				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Image Size Should Be Less Than 100KB, Resolution : 900 X 900 and Format: Jpg/JEPG/Png"><i class="fa fa-question-circle"></i></button>
 				<?php
 				if (!empty($sq_settings['sign_url'])) {
 				?>
