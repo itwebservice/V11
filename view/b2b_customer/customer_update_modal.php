@@ -47,7 +47,7 @@ $payment_modes = ($sq_customer['payment_mode'] == '') ? '' : 'disabled';
                 <ul id="files" ></ul>
                 <input type="hidden" id="agreement_upload_url" name="agreement_upload_url" value="<?= $sq_customer['agreement_url'] ?>">
               </div>
-              <div style="color: red;">Note : Upload PDF upto 250KB.</div>
+              <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload PDF upto 250KB."><i class="fa fa-question-circle"></i></button>
               </div>
             </div>
             <div class="row mg_tp_10">

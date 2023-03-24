@@ -360,16 +360,14 @@ elseif ($section_name == '7') {
                 <?php } ?>
             </select>
         </div>
-        <div class="col-md-1 col-sm-6">          
+        <div class="col-md-6 col-sm-6">          
             <div class="div-upload">
                 <div id="id_upload_btn" class="upload-button1"><span>Upload</span></div>
                 <span id="id_proof_status" ></span>
                 <ul id="files"></ul>
                 <input type="hidden" id="image_upload_url" value="<?php echo $call_to_action[0]->image_url; ?>" name="image_upload_url">
-            </div>
-        </div>
-        <div class="col-xs-7 mg_tp_10" style="margin-left: 30px;">
-            <div style="color: red;">Note : Upload Image size below 100KB, Format : JPEG,PNG.</div>
+            </div>&nbsp;
+            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload Image size below 100KB, Format : JPEG,PNG."><i class="fa fa-question-circle"></i></button>
         </div>
     </div>
     <?php if($call_to_action[0]->image_url !=''){

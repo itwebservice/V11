@@ -40,18 +40,14 @@ $image_array = explode(',',$sq_ferry['image_url']);
                 <option value="Inactive">Inactive</option>
               </select>
             </div>
-          </div>
-          <div class="row mg_tp_20">
-            <div class="col-sm-12">
+            <div class="col-sm-8">
               <div class="div-upload" role="button" title="Upload Ferry/Cruise Image" data-toggle="tooltip">
                 <div id="image_upload_btn1" class="upload-button1"><span>Ferry/Cruise Image</span></div>
                 <span id="photo_status" ></span>
                 <ul id="files" ></ul>
                 <input type="hidden" id="image_upload_url1" name="image_upload_url1" required>
               </div>&nbsp;(Upload Maximum 3 images)
-            </div>
-            <div class="col-sm-12">
-              <div style="color: red;">Note : Upload Image size below 100KB, resolution : 450X225.</div>
+					        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 100KB, resolution : 450X225."><i class="fa fa-question-circle"></i></button>
             </div>
           </div>
         <div class="row mg_tp_20 mg_bt_20" id="images_list"></div>

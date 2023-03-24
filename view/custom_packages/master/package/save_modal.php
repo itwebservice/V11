@@ -61,12 +61,12 @@ $vehcile_id_str = "vehicle_name1";
                                 <input type="text" id="package_name" name="package_name"
                                     onchange="package_name_validation(this.id);package_name_check(this.id);"
                                     class="form-control" placeholder="*Package Name" title="Package Name" />
-                                <small>Note : Package Name : eg. Kerala amazing</small>
+                                <small class="note">Note : Package Name : eg. Kerala amazing</small>
                             </div>
                             <div class="col-md-3 col-sm-3 mg_bt_10_xs">
                                 <input type="text" id="package_code" name="package_code" class="form-control"
                                     placeholder="Package Code" title="Package Code" onchange="package_code_check(this.id);" />
-                                <small>Note : Package Code : eg. Ker001</small>
+                                <small class="note">Note : Package Code : eg. Ker001</small>
                             </div>
                             <div class="col-md-3 col-sm-3 mg_bt_10_xs">
                                 <input type="number" id="total_nights"

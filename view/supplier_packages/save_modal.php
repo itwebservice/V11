@@ -32,7 +32,6 @@ include "../../model/model.php";
 						<option value="Insurance">Insurance</option>
 						<option value="Train Ticket">Train Ticket</option>
 						<option value="Other">Other</option>
-						<!-- <option value="Bus">Bus</option> -->
 						<option value="Cruise">Cruise</option>
 		            </select>
 				</div>
@@ -62,15 +61,9 @@ include "../../model/model.php";
 						<span id="id_proof_status" ></span>
 						<ul id="files" ></ul>
 						<input type="Hidden" id="upload_url" name="upload_url">
-					</div>    
-	                <!-- <div class="div-upload">
-						<div id="photo_upload_btn_i" class="upload-button1"><span>Upload</span></div>
-						<input type="file" name="upload[]" id="fileuploading" style="display:none" multiple="multiple">
-						<span id="photo_status" ></span>
-						<ul id="files" ></ul>
-						<input type="hidden" id="photo_upload_url_i" name="photo_upload_url_i">
-	                </div> -->
-                </div> 
+					</div> 
+					<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Only Word,Excel or PDF files are allowed"><i class="fa fa-question-circle"></i></button>
+                </div>   
 			</div>
 			<div class="row mg_tp_20 text-center">
 				<div class="col-md-12">

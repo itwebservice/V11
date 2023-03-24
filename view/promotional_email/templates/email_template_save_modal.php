@@ -28,7 +28,7 @@
         
         <div class="row mg_tp_30">
           <div class="col-md-12">
-      			  <p style="color:red">Note : Image size should be less than 100KB, resolution : 900X450., Type PNG/JPEG</p>
+      			  <p class="note" style="color:red">Note : Image size should be less than 100KB, resolution : 900X450., Type PNG/JPEG</p>
       		</div>
       	</div>
       	</form>

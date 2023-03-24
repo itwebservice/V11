@@ -63,12 +63,8 @@
                     <ul id="files" ></ul>
                     <input type="hidden" id="logo_upload_url" name="logo_upload_url" required>
                   </div>
+                  <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload only PDF,JPG, PNG files are allowed."><i class="fa fa-question-circle"></i></button>
                 </div>
-            </div>
-            <div class="row text-right mg_tp_10">
-              <div class="col-xs-12"> 
-                  <div style="color: red;">Note : Upload Image size below 100KB, resolution : 220X85.</div>
-              </div>
             </div>
         </div>
 
@@ -108,9 +104,8 @@
 	                <ul id="files" ></ul>
 	                <input type="hidden" id="address_upload_url" name="address_upload_url">
 	              </div>
-                  <p style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</p>
+                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload only PDF,JPG, PNG files are allowed."><i class="fa fa-question-circle"></i></button>
 	            </div>
-             
 	        </div>
 	    </div>
       <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
@@ -147,9 +142,7 @@
                 <ul id="files" ></ul>
                 <input type="hidden" id="photo_upload_url" name="photo_upload_url">
               </div>
-              <div class="col-xs-12"> 
-                  <div style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</div>
-              </div>
+              <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload only PDF,JPG, PNG files are allowed."><i class="fa fa-question-circle"></i></button>
             </div>
           </div>
       </div>

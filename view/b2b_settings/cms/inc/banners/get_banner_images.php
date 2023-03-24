@@ -5,7 +5,7 @@ $banner_uploaded_count = $_POST['banner_uploaded_count'];
 ?>
 <div class="row mg_bt_10">
   <div class="col-xs-12"> 
-    <div style="color: red;">Note : Upload Image size below 1MB, resolution : 1800*400, Format : JPEG,JPG.</div>
+      <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload Image size below 1MB, resolution : 1800*400, Format : JPEG,JPG."><i class="fa fa-question-circle"></i></button>
   </div>
 </div>
 <div class="row mg_bt_20">

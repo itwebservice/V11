@@ -28,8 +28,8 @@
               <input type="hidden" id="upload_url" name="upload_url">
           </div>
           </div>
-          <div class="col-md-8 no-pad"> 
-            <div style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)</div>
+          <div class="col-md-9"> 
+            <div class="note" style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)</div>
           </div>
         </div>
         <input type="hidden" name="sight_image_path" id="sight_image_path">

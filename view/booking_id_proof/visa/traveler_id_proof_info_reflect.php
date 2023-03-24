@@ -81,7 +81,9 @@ $download_urlpan_card4 = BASE_URL.str_replace('../', '', $download_urlpan_card4)
         </div>
     </div>
     <div class="row mg_tp_10">
-      <div class="col-md-12"><span class="note">(Note: size upto 5MB. Only pdf, jpg, png files are allowed)</span></div>
+      <div class="col-md-12">
+        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Size upto 5MB. Only pdf, jpg, png files are allowed"><i class="fa fa-question-circle"></i></button>
+      </div>
     </div>
     <div class="row mg_tp_20">
         <div class="col-md-12 text-center">

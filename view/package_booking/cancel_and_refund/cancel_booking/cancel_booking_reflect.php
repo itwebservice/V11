@@ -69,7 +69,7 @@ $booking_id = $_POST['booking_id'];
 	<?php } ?>
 </div>	
 <div class="row mg_tp_10 text-center">
-	<div class="note"><span style="color: red;line-height: 35px;" data-original-title="" title=""><?=  $cancel_feild_note ?></span></div>
+	<div><span class="note" style="color: red;line-height: 35px;" data-original-title="" title=""><?=  $cancel_feild_note ?></span></div>
 </div>
 
 

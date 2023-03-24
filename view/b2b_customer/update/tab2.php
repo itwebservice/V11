@@ -34,7 +34,7 @@
             <ul id="files" ></ul>
             <input type="hidden" id="photo_upload_url" name="photo_upload_url" value="<?= $sq_query['id_proof_url'] ?>">
           </div>
-          <p style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</p>
+          <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload only PDF,JPG, PNG files are allowed."><i class="fa fa-question-circle"></i></button>
         </div>
       </div>
   </div>
