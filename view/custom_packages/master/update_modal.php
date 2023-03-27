@@ -115,7 +115,7 @@ $readable = ($sq_pckg['clone'] == 'yes' && $sq_pckg['update_flag'] == '0') ? '' 
                                             placeholder="Package Name" title="Package Name"
                                             value="<?php echo $sq_pckg['package_name']; ?>"
                                             onchange="package_name_validation(this.id);" <?= $readable ?> />
-                                        <small>Note : Package Name : eg. Kerala amazing</small>
+                                        <small class="note">Note : Package Name : eg. Kerala amazing</small>
 
                                     </div>
 
@@ -123,7 +123,7 @@ $readable = ($sq_pckg['clone'] == 'yes' && $sq_pckg['update_flag'] == '0') ? '' 
 
                                         <input type="text" id="package_code1" name="package_code1" class="form-control"
                                             placeholder="Package Code" title="Package Code" value="<?php echo $sq_pckg['package_code']; ?>" onchange="package_code_check(this.id);" />
-                                        <small>Note : Package Code : eg. Ker001</small>
+                                        <small class="note">Note : Package Code : eg. Ker001</small>
 
                                     </div>
 

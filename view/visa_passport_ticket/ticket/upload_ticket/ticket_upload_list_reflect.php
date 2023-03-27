@@ -140,3 +140,4 @@ $('#flight_upload_ticket').dataTable({
        }
 });
 </script>
+<script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

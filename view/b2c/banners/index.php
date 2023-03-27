@@ -177,3 +177,4 @@ function delete_image(image_id) {
     });
 }
 </script>
+<script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>

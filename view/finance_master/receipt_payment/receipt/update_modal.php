@@ -92,16 +92,14 @@ $enable = ($sq_rp['payment_mode']=="Cash" || $sq_rp['payment_mode']=="Credit Not
                 <div class="col-md-6">
                     <textarea id="narration1" name="narration" class="form-control" placeholder="*Narration" title="Narration" rows="1" required><?= $sq_rp['narration'] ?></textarea>
 						    </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                   <div class="div-upload pull-left" id="div_upload_button">
                       <div id="payment_evidence_upload1" class="upload-button1"><span>Payment Evidence</span></div>
                       <span id="payment_evidence_status" ></span>
                       <ul id="files" ></ul>
                       <input type="hidden" value="<?=$sq_rp['url']?>" id="payment_evidence_url1" name="payment_evidence_url">
-                  </div>
-                </div>
-                <div class="col-xs-4"> 
-                  <div style="color: red;">Note : Upload : JPG, JPEG, PNG or PDF.</div>
+                  </div>&nbsp;&nbsp;
+                  <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload JPG, JPEG, PNG or PDF only."><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
 
