@@ -171,3 +171,4 @@ $sq_info = mysqli_fetch_assoc(mysqlQuery("select * from fourth_coming_attraction
 	  });
 	});
 </script>
+<script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>
