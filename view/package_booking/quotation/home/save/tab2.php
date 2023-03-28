@@ -22,9 +22,8 @@
                     </select>
                 </div>
                 <div class="col-md-7 col-sm-4 col-xs-12 mg_bt_20">
-                    <small class="note">Note - The Package is not available for this Destination.Please create here. <a
-                            href="../../../../custom_packages/master/index.php" target='_blank'><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Package Tour</a></small>
+	                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : The Package is not available for this Destination.Please create here."><i class="fa fa-question-circle"></i></button>&nbsp;&nbsp;
+                    <a href="../../../../custom_packages/master/index.php" target='_blank'><i class="fa fa-plus"></i>&nbsp;&nbsp;Package Tour</a>
                 </div>
                 <div class="col-md-12 col-sm-8 col-xs-12 no-pad" id="package_name_div">
 

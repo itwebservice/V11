@@ -94,8 +94,7 @@ include "../../model/model.php";
                                                             <input type="hidden" id="timing_tariff_url"
                                                                 name="timing_tariff_url">
                                                         </div>
-                                                        <span style="color: red;" class="note">Note : Upload CSV for
-                                                            Timing Slots.</span>
+					                                    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload CSV for Timing Slots."><i class="fa fa-question-circle"></i></button>
                                                     </div>
                                                     <input type="hidden" id="timing_slots" />
                                                 </div>
@@ -369,12 +368,7 @@ include "../../model/model.php";
                                 <ul id="files"></ul>
                                 <input type="hidden" id="photo_upload_url_i" name="photo_upload_url_i">
                             </div>(Upload Maximum 3 images)
-                        </div>
-                    </div>
-                    <div class="row mg_tp_10">
-                        <div class="col-sm-6">
-                            <span style="color: red;" class="note">Note : Image size should be less than 100KB,
-                                resolution : 900X450.</span>
+					        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image size should be less than 100KB,resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="hotel_image_path" id="hotel_image_path">

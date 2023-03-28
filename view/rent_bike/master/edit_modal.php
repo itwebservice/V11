@@ -80,7 +80,7 @@ $drop_time = date('H:i', strtotime($sq_bike['drop_time']));
                                 <input type="hidden" id="image_upload_url1" name="image_upload_url"
                                     value="<?= $sq_bike['image_upload_url']; ?>" required>
                             </div>
-                            <div class="note">Note : Upload Image size below 100KB, resolution : 900X450.</div>
+				            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 100KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row mg_tp_20">

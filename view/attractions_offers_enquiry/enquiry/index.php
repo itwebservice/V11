@@ -26,8 +26,7 @@ include_once('enquiry_master_save.php');
             <ul id="files"></ul>
             <input type="hidden" id="txt_enquiry_csv_upload_dir" name="txt_enquiry_csv_upload_dir">
         </div>
-        <span style="color: red;line-height: 35px;     margin-left: 10px;" data-original-title="" title=""
-            class="note enquiry-note"><?= "Use CSV Import for Package Booking Enquiries only" ?></span>
+	    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Use CSV Import for Package Booking Enquiries only."><i class="fa fa-question-circle"></i></button>
     </div>
     <div class="col-sm-4 text-right text_left_sm_xs">
         <?php if ($role == 'Admin' || $role == 'Branch Admin') { ?>

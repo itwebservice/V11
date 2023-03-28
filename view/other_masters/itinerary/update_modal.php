@@ -34,11 +34,9 @@ $dest_id = $_POST['dest_id'];
           </div>
         </div>
         <div class="row mg_tp_10">
-          <div class="col-sm-12">  
-            <span style="color: red;" class="note" data-original-title="" title="">Note : Character limit for Special attraction is 85 characters, for Day-wise program is 2000 characters and for Overnight stay is 30 characters.</span>
-          </div>
-          <div class="col-sm-12 mg_tp_10"> 
-          <span style="color: red;" class="note" data-original-title="" title="">For saving daywise program keep checkbox selected!</span>
+          <div class="col-sm-12">
+		        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Character limit for Special attraction is 85 characters, for Day-wise program is 2000 characters and for Overnight stay is 30 characters."><i class="fa fa-question-circle"></i></button> 
+            <span style="color: red;" class="note" data-original-title="" title="">For saving daywise program keep checkbox selected!</span>
           </div>
         </div>
         <div class="row">

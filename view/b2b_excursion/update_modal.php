@@ -319,11 +319,7 @@ $exc_name = ($sq_exc['excursion_name']);
 					<ul id="files" ></ul>
 					<input type="hidden" id="photo_upload_url_i1" name="photo_upload_url_i1" value="<?= $images_url ?>">
 				</div>(Upload Maximum 3 images)
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6">  
-				<span style="color: red;" class="note">Note : Image size should be less than 100KB, resolution : 900X450.</span>
+				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image size should be less than 100KB,resolution : 900X450."><i class="fa fa-question-circle"></i></button>
 			</div>
 		</div>
 		<div class="row mg_tp_20 mg_bt_20" id="images_list"></div>
