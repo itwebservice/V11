@@ -11,7 +11,7 @@ include_once('fouth_coming_attractions_save_modal.php');
 
 <div class="row">
 	<div class="col-md-12 text-right">
-    <span class="note" data-original-title="" title="">(Email is autosend by the system)</span>
+    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Email is autosend by the system."><i class="fa fa-question-circle"></i></button>
 		<button class="btn btn-info btn-sm ico_left" data-toggle="modal" data-target="#fouth_coming_attractions_save_modal"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Attraction</button>
 	</div>
 </div>

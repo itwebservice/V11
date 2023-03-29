@@ -97,10 +97,9 @@ elseif ($section_name == '4') {
         </div>
     </div>
     <div class="row mg_bt_10">
-        <div class="col-md-8">
-            <label class="alert-danger">Note: For saving package keep checkbox selected!</label>
-        </div>
+        <div class="col-md-8"></div>
         <div class="col-md-4 text-right">
+            <button type="button" class="btn btn-excel btn-sm" title="Note : For saving package keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
             <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_dest_packages_footer')" title="Add Row"><i class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_dest_packages_footer');" title="Delete Row"><i class="fa fa-trash"></i></button>
         </div>
@@ -276,10 +275,10 @@ elseif ($section_name == '6') {
             </select>
         </div>
     </div>
-    <div class="row mg_bt_10"> <div class="col-md-8 no-pad">
+    <div class="row mg_bt_10"> <div class="col-md-8 text-right">
+        <button type="button" class="btn btn-excel btn-sm" title="Note : For saving activities keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
         <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_activities','2');city_lzloading('.pop_city')" title="Add Row"><i class="fa fa-plus"></i></button>
         <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_activities','2');" title="Delete Row"><i class="fa fa-trash"></i></button>
-        <div class="col-md-10 mg_tp_10"><label class="alert-danger">Note: For saving activities keep checkbox selected!</label></div>
     </div> </div>
 
     <div class="row mg_bt_20"> <div class="col-md-8">
@@ -416,10 +415,10 @@ elseif ($section_name == '8') {
             </select>
         </div>
     </div>
-    <div class="row mg_bt_10"> <div class="col-md-8 no-pad">
+    <div class="row mg_bt_10"> <div class="col-md-8 text-right">
+        <button type="button" class="btn btn-excel btn-sm" title="Note : For saving hotels keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
         <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_hotels');city_lzloading('.hotel_city')" title="Add Row"><i class="fa fa-plus"></i></button>
         <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_hotels');" title="Delete Row"><i class="fa fa-trash"></i></button>
-        <div class="col-md-10 mg_tp_10"><label class="alert-danger">Note: For saving hotels keep checkbox selected!</label></div>
     </div> </div>
 
     <div class="row mg_bt_20"> <div class="col-md-8">
@@ -619,8 +618,8 @@ elseif ($section_name == '10') {
         <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
     </div>
 </div>
-<script src="<?= BASE_URL ?>js/ajaxupload.3.5.js"></script>
 <script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>
+<script src="<?= BASE_URL ?>js/ajaxupload.3.5.js"></script>
 <script src="cms/index.js"></script>
 
 <script type="text/javascript">

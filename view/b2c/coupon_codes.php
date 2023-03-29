@@ -6,8 +6,8 @@ $coupon_codes = ($query['coupon_codes'] != '' && $query['coupon_codes'] != 'null
 <form id="section_hotels">
     <legend>Define Coupon codes</legend>
     <div class="row">
-        <div class="col-md-8"> <label class="alert-danger">For saving coupon keep checkbox selected!</label> </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-excel btn-sm" title="Note : For saving coupon keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
             <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_coupons')" title="Add Row"><i
                     class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_coupons');" title="Delete Row"><i

@@ -48,7 +48,7 @@ $branch_status = $_POST['branch_status'];
               </div>
             </div>
             <div class="row">
-              <div class="col-md-9 col-sm-9 mg_bt_20">
+              <div class="col-md-12 col-sm-9 mg_bt_20">
                 <span style="color: red;line-height: 35px;" data-original-title="" title="" class="note"><?= $txn_feild_note ?></span>
               </div>  
             </div>

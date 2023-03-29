@@ -34,7 +34,7 @@ include_once('../../layouts/fullwidth_app_header.php');
                 <ul id="files" ></ul>
                 <input type="hidden" id="logo_upload_url" name="logo_upload_url">
                 </div>
-                <span style="color: red;line-height: 35px;" data-original-title="" title="" class="note"><?= "Only JPG, PNG or JPEG files are Allowed." ?></span>
+    		    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Only JPG, PNG or JPEG files are Allowed."><i class="fa fa-question-circle"></i></button>
             </div>
         </div>
         <div class="row mg_tp_10">

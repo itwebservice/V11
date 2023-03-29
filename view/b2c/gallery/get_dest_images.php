@@ -47,11 +47,7 @@ foreach ($gallery as $struct) {
             <ul id="files"></ul>
             <input type="hidden" id="image_upload_url1" name="image_upload_url1">
         </div>
-    </div>
-</div>
-<div class="row mg_bt_20">
-    <div class="col-md-8">
-        <div class="note">Note : Upload Image size below 100KB, resolution : 600*300, Format : JPEG,JPG,PNG.</div>
+    		<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 100KB, resolution : 600*300, Format : JPEG,JPG,PNG."><i class="fa fa-question-circle"></i></button>
     </div>
 </div>
 <script type="text/javascript">

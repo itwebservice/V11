@@ -244,7 +244,7 @@
             <div class="row">
                 <div class="col-xs-12">
 
-                <div class="row">
+                    <div class="row">
                         <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10"></div>
                         <div class="col-md-6 col-sm-12">
 	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Group Costing or Per person costing to display on quotation."><i class="fa fa-question-circle"></i></button>

@@ -11,7 +11,7 @@ include_once('upcoming_tours_offer_save_modal.php');
 
 	<div class="row text-right">
 		<div class="col-md-12">
-			<span class="note" data-original-title="" title="">(Email is autosend by the system)</span>
+    		<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Email is autosend by the system."><i class="fa fa-question-circle"></i></button>
 			<button class="btn btn-info btn-sm ico_left" data-toggle="modal" data-target="#upcoming_tours_save_modal"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Upcoming Offer</button>
 		</div>
 	</div>	
