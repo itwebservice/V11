@@ -67,7 +67,7 @@ foreach ($bsmValues as $key => $value) {
                                         <td class="header_btn header_btn" style="padding:4px"><small id="basic_show-u_1"
                                                 style="color:red"><?= ($inclusive_b == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_b ?></span></small><input
                                                 type="number" id="basic_cost-u_1" name="basic_cost-u_1"
-                                                placeholder="Hotel Cost" title="Hotel Cost" value="<?= $basic_cost ?>"
+                                                placeholder="Basic Cost" title="Basic Cost" value="<?= $basic_cost ?>"
                                                 onchange="validate_balance(this.id);get_auto_values('quotation_date1','basic_cost-u_1','payment_mode','service_charge-u_1','markup_cost-u_1','update','true','service_charge');">
                                         </td>
 

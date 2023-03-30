@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9 col-sm-4 col-xs-12 mg_bt_20">
+                <div class="col-md-12 col-sm-8 col-xs-12 no-pad" id="options_div">
                 </div>
             </div>
         </div>

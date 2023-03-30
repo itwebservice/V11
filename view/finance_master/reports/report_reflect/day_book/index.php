@@ -19,7 +19,7 @@ $branch_status = $sq['branch_status'];
 <div class="app_panel_content Filter-panel">
 	<div class="row">
 		<div class="col-md-3">
-			<input type="text" name="date_filter" id="date_filter" placeholder="Date" title="Date" onchange="report_reflect();">
+			<input type="text" name="date_filter" id="date_filter" placeholder="Date" title="Date" onchange="report_reflect();" value="<?= date('d-m-Y') ?>">
 		</div>	
 	</div>
 </div>

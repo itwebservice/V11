@@ -117,7 +117,7 @@ else{
 <table class="table table-bordered">
 	<thead>
 		<tr class="table-heading-row">
-			<th>Hotel_Cost</th>
+			<th>Basic_Cost</th>
 			<th>Service_Charge</th>
 			<th>Tax_Amount</th>
 			<th>Markup_Amount</th>

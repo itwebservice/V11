@@ -15,12 +15,12 @@ for($quot=1; $quot <= $nofquotation; $quot++){
                         <div class="table-responsive">
                             <table id="dynamic_quotation_costing_h_<?= $quot ?>" class="table table-bordered table-hover table-striped no-marg pd_bt_51 mg_bt_0">
 
-                                <td class="header_btn header_btn" style="padding:4px"><small style="color:red" id="basic_show-<?= $quot ?>">&nbsp;</small><input type="number" id="basic_cost-<?= $quot ?>" name="basic_cost-<?= $quot ?>" placeholder="Hotel Cost" title="Hotel Cost" value="<?= $hotelcostArr[$quot-1] ?>"  onchange="validate_balance(this.id);get_auto_values('quotation_date','basic_cost-<?= $quot ?>','payment_mode','service_charge-<?= $quot ?>','markup_cost-<?= $quot ?>','save','true','service_charge')" style="width:120px!important;"> </td>
+                                <td class="header_btn header_btn" style="padding:4px"><small style="color:red" id="basic_show-<?= $quot ?>">&nbsp;</small><input type="number" id="basic_cost-<?= $quot ?>" name="basic_cost-<?= $quot ?>" placeholder="Basic Cost" title="Basic Cost" value="<?= $hotelcostArr[$quot-1] ?>"  onchange="validate_balance(this.id);get_auto_values('quotation_date','basic_cost-<?= $quot ?>','payment_mode','service_charge-<?= $quot ?>','markup_cost-<?= $quot ?>','save','true','service_charge')" style="width:120px!important;"> </td>
 
                                 <td class="header_btn header_btn" style="padding:4px"><small style="color:red" id="service_show-<?= $quot ?>">&nbsp;</small><input type="number" id="service_charge-<?= $quot ?>" name="service_charge-<?= $quot ?>" placeholder="Service Charge" title="Service Charge"   onchange="validate_balance(this.id);get_auto_values('quotation_date','basic_cost-<?= $quot ?>','payment_mode','service_charge-<?= $quot ?>','markup_cost-<?= $quot ?>','save','true','service_charge')" style="width:120px!important;"></td>
                                 <td class="header_btn header_btn" style="padding:4px"><small style="color:red" id="tax_apply_on<?= $quot ?>">&nbsp;</small><select title="Tax Apply On" id="tax_apply_on-<?= $quot ?>" name="tax_apply_on" class="form-control" onchange="get_auto_values('quotation_date','basic_cost-<?= $quot ?>','payment_mode','service_charge-<?= $quot ?>','markup_cost-<?= $quot ?>','save','true','service_charge');" style="width:180px!important;">
                                     <option value="">*Tax Apply On</option>
-                                    <option value="1">Hotel Cost</option>
+                                    <option value="1">Basic Cost</option>
                                     <option value="2">Service Charge</option>
                                     <option value="3">Total</option>
                                 </select></td>

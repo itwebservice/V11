@@ -25,7 +25,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
                     <tr>
                         <td><input id="chk_tour_group1" type="checkbox" checked></td>
                         <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." disabled  class="form-control" /></td>
-                        <td class="col-md-2 no-pad"><input placeholder="*Select Date" title="Activity Date" id="activity_date" class="form-control app_datepicker"/></td>
+                        <td class="col-md-2 no-pad"><input placeholder="*Select Date" title="Activity Date" id="activity_date" class="form-control app_datepicker" value="<?= date('d-m-Y') ?>"/></td>
                         <td class="col-md-3 no-pad"><input placeholder="*Activity Type" onchange="validate_spaces(this.id);validate_specialChar(this.id)" title="Activity Type" id="activity_type" class="form-control" /></td>
                         <td class="col-md-2 no-pad"><input placeholder="Time Taken" onchange="validate_spaces(this.id);validate_specialChar(this.id)"  title="Time Taken" id="time_taken" class="form-control" />
                         </td>

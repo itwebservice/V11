@@ -3446,6 +3446,8 @@ function foo(tableID, quot_table_id, rowCounts) {
       format: "d-m-Y",
       maxDate: "d-m-Y",
     });
+    row.cells[2].childNodes[0].value = get_date();
+    dynamic_date(row.cells[2].childNodes[0].id);
     $(row.cells[6]).addClass("hidden");
   }
   //*******Daily activity*******//
