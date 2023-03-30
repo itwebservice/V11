@@ -34,7 +34,7 @@ include_once("../../../model/model.php");
                                 <ul id="files"></ul>
                                 <input type="hidden" id="image_upload_url_testm" name="image_upload_url_testm">
                             </div>
-                            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload Image size below 1MB, resolution : 1800*700, Format : JPEG,JPG."><i class="fa fa-question-circle"></i></button>
+                            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 200KB, resolution : 900*450, Format : JPEG,JPG,PNG."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>                        
                     <div class="row mg_tp_20">

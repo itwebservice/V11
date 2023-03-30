@@ -42,7 +42,7 @@ $query = mysqli_fetch_assoc(mysqlQuery("SELECT * FROM `b2c_testimonials` where e
                                     <ul id="files"></ul>
                                     <input type="hidden" id="image_upload_url_testm1" name="image_upload_url_testm1" value="<?php echo $url; ?>">
                                 </div>
-                                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 1MB, resolution : 1800*700, Format : JPEG,JPG."><i class="fa fa-question-circle"></i></button>
+                                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 200KB, resolution : 900*450, Format : JPEG,JPG,PNG"><i class="fa fa-question-circle"></i></button>
                             </div>
                         </div>
                         <?php

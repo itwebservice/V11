@@ -245,12 +245,6 @@
                 <div class="col-xs-12">
 
                     <div class="row">
-                        <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10"></div>
-                        <div class="col-md-6 col-sm-12">
-	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Group Costing or Per person costing to display on quotation."><i class="fa fa-question-circle"></i></button>
-                        </div>
-                    </div>
-                    <div class="row mg_tp_10">
                         <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10">
                             <input type="number" id="discount" name="discount" placeholder="Discount" title="Discount" />
                         </div>
@@ -289,6 +283,12 @@
                                 <input type="hidden" id="upload_url" name="upload_url">
                             </div>
 	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Only Excel or Word files are allowed."><i class="fa fa-question-circle"></i></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10"></div>
+                        <div class="col-md-6 col-sm-12">
+	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Group Costing or Per person costing to display on quotation."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row mg_tp_20 text-center mg_bt_30">
