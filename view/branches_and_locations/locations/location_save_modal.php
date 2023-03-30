@@ -42,6 +42,7 @@ $('#frm_location_save').validate({
 		active_flag:{ required:true },
 	},
 	submitHandler:function(form){
+        $('#location_save').prop('disabled',true);
 		$('#location_save').button('loading');
 		var base_url = $('#base_url').val();
 		var location_name = $('#location_name').val();
@@ -53,12 +54,14 @@ $('#frm_location_save').validate({
 			var msg = result.split('--');				
 			if(msg[0]=='error'){
 				error_msg_alert(msg[1]);
+        		$('#location_save').prop('disabled',false);
 				$('#location_save').button('reset');
 				return false;
 			}
 			else{
 				success_msg_alert(result);
 				$('#location_save').button('reset');
+        		$('#location_save').prop('disabled',false);
 				$('#location_save_modal').modal('hide');
 				reset_form('frm_location_save');
 				// locations_list_reflect();

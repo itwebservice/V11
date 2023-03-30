@@ -132,7 +132,7 @@ $(function(){
       dest_name_s :  { required:true },
     },
     submitHandler:function(form){
-    
+      $('#save_checklist').prop('disabled',true);
       var base_url = $('#base_url').val();
       var entity_for = $('#entity_for').val();
       var dest_name = $('#dest_name_s').val();
@@ -147,6 +147,7 @@ $(function(){
         if(rowCount == 1){
           if(!row.cells[0].childNodes[0].checked){
             error_msg_alert("Atleast one checklist details is required!");
+            $('#save_checklist').prop('disabled',false);
             return false;
           }
         }
@@ -158,6 +159,7 @@ $(function(){
           if(entity_name=="")
           {
             error_msg_alert("Enter Checklist Name in Row "+(i+1));
+            $('#save_checklist').prop('disabled',false);
             return false;
           }  
           entity_name_arr.push(entity_name);          
@@ -165,6 +167,7 @@ $(function(){
       }
       if(!entity_name_arr.length){
         error_msg_alert("Atleast one checklist details is required!");
+        $('#save_checklist').prop('disabled',false);
         return false;
       }
       $('#save_checklist').button('loading');
@@ -176,11 +179,13 @@ $(function(){
           var msg = result.split('--');
           if(msg[0] == 'error'){
             error_msg_alert(msg[1]); 
+            $('#save_checklist').prop('disabled',false);
             $('#save_checklist').button('reset');
             return false;
           }else{
             success_msg_alert(msg[0]);
             $('#save_checklist').button('reset');
+            $('#save_checklist').prop('disabled',false);
             reset_form('frm_entity_save');
             $('#entity_save_modal').modal('hide');
             entities_list_reflect();

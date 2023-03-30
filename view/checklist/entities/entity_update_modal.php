@@ -143,6 +143,8 @@ $(function(){
       
     },
     submitHandler:function(form){
+      
+      $('#update_button').prop('disabled',true);
       var entity_id = $('#entity_id1').val();
       var base_url =$('#base_url').val();
       var checked_arr = new Array();
@@ -160,7 +162,8 @@ $(function(){
           var entry_id = row.cells[3].childNodes[0].value;
           
           if(row.cells[0].childNodes[0].checked){
-            if(entity_name == ''){ error_msg_alert("Enter Checklist Name in Row "+(i+1)); return false; }
+            if(entity_name == ''){ error_msg_alert("Enter Checklist Name in Row "+(i+1));
+            $('#update_button').prop('disabled',false); return false; }
           }
           entity_name_arr.push(entity_name);
           entry_id_arr.push(entry_id);
@@ -177,11 +180,13 @@ $(function(){
           var msg = result.split('--');
           if(msg[0] == 'error'){
             error_msg_alert(msg[1]); 
+            $('#update_button').prop('disabled',false);
             $('#save_checklist').button('reset');
             return false;
           }else{
             success_msg_alert(msg[0]);
             $('#update_button').button('reset');
+            $('#update_button').prop('disabled',false);
             $('#entity_update_modal').modal('hide');
             entities_list_reflect();
           }
