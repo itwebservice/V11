@@ -289,12 +289,16 @@ function copy_details() {
 }
 
 function visa_update_modal(visa_id) {
+    $('#visae_btn-'+visa_id).prop('disabled',true);
+    $('#visae_btn-'+visa_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('home/update_modal.php', {
         visa_id: visa_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_visa_update_content').html(data);
+        $('#visae_btn-'+visa_id).prop('disabled',false);
+        $('#visae_btn-'+visa_id).button('reset');
     });
 }
 
@@ -323,7 +327,6 @@ function calculate_total_amount(offset=''){
             service_tax_amount = parseFloat(service_tax_amount) + parseFloat(service_tax[2]);
         }
 	}
-	console.log(markup);
 	var markupservice_tax_amount = 0;
     if(parseFloat(service_tax_markup) !== 0.00 && (service_tax_markup) !== ""){
         var service_tax_markup1 = service_tax_markup.split(",");
@@ -416,11 +419,15 @@ function company_name_reflect() {
 // company_name_reflect();
 
 function visa_display_modal(visa_id, yr) {
+    $('#visav_btn-'+visa_id).prop('disabled',true);
+    $('#visav_btn-'+visa_id).button('loading');
     $.post('home/view/index.php', {
         visa_id: visa_id,
         yr: yr
     }, function(data) {
         $('#div_visa_content_display').html(data);
+        $('#visav_btn-'+visa_id).prop('disabled',false);
+        $('#visav_btn-'+visa_id).button('reset');
     });
 }
 

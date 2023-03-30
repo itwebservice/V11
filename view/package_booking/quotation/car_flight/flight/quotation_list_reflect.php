@@ -98,7 +98,7 @@ $array_s = array();
 			$emp_name,
 			$pdf_show.$whatsapp_show.' 
 
-			<button class="btn btn-info btn-sm" onclick="update_modal('.$row_quotation['quotation_id'].')" title="Update Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
+			<button class="btn btn-info btn-sm" onclick="update_modal('.$row_quotation['quotation_id'].')" id="update_btn'.$row_quotation['quotation_id'].'" title="Update Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
 			
 			<a href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>'
 		), "bg" =>$bg);

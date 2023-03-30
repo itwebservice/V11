@@ -128,7 +128,7 @@ $query .=" order by quotation_id desc ";
 		$copy_btn = ($row_quotation['status'] == '1') ? '<button class="btn btn-warning btn-sm" data-toggle="tooltip" onclick="quotation_clone('.$row_quotation['quotation_id'].')" title="Create copy of this quotation"><i class="fa fa-files-o"></i></button>': '';
 		$pdf_btn = ($row_quotation['status'] == '1') ? '<a onclick="loadOtherPage(\''.$url1.'\')" data-toggle="tooltip" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>' : '';
 		$mail_btn = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" id="btn_email_'.$count.'" class="btn btn-info btn-sm" onclick="quotation_email_send(this.id, '.$row_quotation['quotation_id'].')" title="'.$whatsapp_tooltip_change.'"><i class="fa fa-envelope-o"></i></a>' : '';
-		$mail_btn_b = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" title="Email Quotation to Backoffice" id="btn_email1_'.$count.'" class="btn btn-info btn-sm" onclick="quotation_email_send_backoffice_modal('.$row_quotation['quotation_id'].')"><i class="fa fa-paper-plane-o"></i></a>' : '';
+		$mail_btn_b = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" title="Email Quotation to Backoffice" id="email_backoffice_btn-'.$row_quotation['quotation_id'].'" class="btn btn-info btn-sm" onclick="quotation_email_send_backoffice_modal('.$row_quotation['quotation_id'].')"><i class="fa fa-paper-plane-o"></i></a>' : '';
 
 		$temp_arr = array( "data" => array(
 			(int)(++$count),
@@ -139,7 +139,7 @@ $query .=" order by quotation_id desc ";
 			number_format($row_quotation['quotation_cost'],2).$currency_amount,
 			$emp_name,
 			$pdf_btn.$mail_btn
-			.'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$copy_btn.$mail_btn_b.'
+			.'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" id="editq-\''.$row_quotation['quotation_id'].'\'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$copy_btn.$mail_btn_b.'
 			<a href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>',
 
 		), "bg" =>$bg);

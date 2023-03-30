@@ -166,13 +166,13 @@ function customer_info_load(offset='')
 function booking_update_modal(booking_id)
 {	
 	
-    $('#edit-'+booking_id).prop('disabled',true);
-    $('#edit-'+booking_id).button('loading');
+    $('#edith-'+booking_id).prop('disabled',true);
+    $('#edith-'+booking_id).button('loading');
 	var branch_status = $('#branch_status').val();
 	$.post('booking/booking_update_modal.php', { booking_id : booking_id, branch_status : branch_status }, function(data){
 		$('#div_booking_update_content').html(data);
-		$('#edit-'+booking_id).prop('disabled',false);
-		$('#edit-'+booking_id).button('reset');
+		$('#edith-'+booking_id).prop('disabled',false);
+		$('#edith-'+booking_id).button('reset');
 	});
 }
 function booking_display_modal(booking_id)

@@ -9,10 +9,8 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 <input type="hidden" id="whatsapp_switch" value="<?= $whatsapp_switch ?>">
 <div class="row text-right mg_bt_20">
     <div class="col-xs-12">
-        <button class="btn btn-excel btn-sm mg_bt_10_sm_xs" onclick="excel_report()" data-toggle="tooltip"
-            title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
-        <button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="save_modal()"><i
-                class="fa fa-plus"></i>&nbsp;&nbsp;Miscellaneous</button>
+        <button class="btn btn-excel btn-sm mg_bt_10_sm_xs" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
+        <button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="save_modal()" id="misc_save_btn"><i class="fa fa-plus"></i>&nbsp;&nbsp;Miscellaneous</button>
     </div>
 </div>
 
@@ -164,15 +162,6 @@ function visa_customer_list_reflect() {
 }
 visa_customer_list_reflect();
 
-function visa_update_modal(misc_id) {
-    var branch_status = $('#branch_status').val();
-    $.post('home/update_modal.php', {
-        misc_id: misc_id,
-        branch_status: branch_status
-    }, function(data) {
-        $('#div_visa_update_content').html(data);
-    });
-}
 
 function calculate_total_amount(offset = '') {
 
@@ -337,10 +326,27 @@ function adolescence_reflect(id) {
 
 function visa_display_modal(misc_id) {
 
+    $('#viewm_btn-'+misc_id).prop('disabled',true);
+    $('#viewm_btn-'+misc_id).button('loading');
     $.post('home/view/index.php', {
         misc_id: misc_id
     }, function(data) {
         $('#div_visa_content_display').html(data);
+        $('#viewm_btn-'+misc_id).prop('disabled',false);
+        $('#viewm_btn-'+misc_id).button('reset');
+    });
+}
+function visa_update_modal(misc_id) {
+    $('#updatem_btn-'+misc_id).prop('disabled',true);
+    var branch_status = $('#branch_status').val();
+    $('#updatem_btn-'+misc_id).button('loading');
+    $.post('home/update_modal.php', {
+        misc_id: misc_id,
+        branch_status: branch_status
+    }, function(data) {
+        $('#div_visa_update_content').html(data);
+        $('#updatem_btn-'+misc_id).prop('disabled',false);
+        $('#updatem_btn-'+misc_id).button('reset');
     });
 }
 
@@ -457,9 +463,13 @@ function whatsapp_send(emp_id, customer_id, booking_date, base_url, contact_no, 
 
 function save_modal() {
 
+    $('#misc_save_btn').prop('disabled',true);
+    $('#misc_save_btn').button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url + 'view/miscellaneous/home/save_modal.php', {}, function(data) {
         $('#save_html').html(data);
+        $('#misc_save_btn').prop('disabled',false);
+        $('#misc_save_btn').button('reset');
     });
 }
 

@@ -201,8 +201,8 @@ list_reflect();
 
 function update_modal(booking_id){
     
-    $('#edit-'+booking_id).prop('disabled',true);
-    $('#edit-'+booking_id).button('loading');
+    $('#editb-'+booking_id).prop('disabled',true);
+    $('#editb-'+booking_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('booking/update_modal.php', {
         booking_id: booking_id,
@@ -210,8 +210,8 @@ function update_modal(booking_id){
     }, function(data) {
 
         $('#div_modal').html(data);
-        $('#edit-'+booking_id).prop('disabled',false);
-        $('#edit-'+booking_id).button('reset');
+        $('#editb-'+booking_id).prop('disabled',false);
+        $('#editb-'+booking_id).button('reset');
 
     });
 
@@ -220,18 +220,16 @@ function update_modal(booking_id){
 
 
 function view_modal(booking_id)
-
 {
-
-    $('#view-'+booking_id).prop('disabled',true);
-    $('#view-'+booking_id).button('loading');
+    $('#viewb-'+booking_id).prop('disabled',true);
+    $('#viewb-'+booking_id).button('loading');
     $.post('booking/view/index.php', {
         booking_id: booking_id
     }, function(data) {
 
         $('#div_view_modal').html(data);
-        $('#view-'+booking_id).prop('disabled',false);
-        $('#view-'+booking_id).button('reset');
+        $('#viewb-'+booking_id).prop('disabled',false);
+        $('#viewb-'+booking_id).button('reset');
 
     });
 

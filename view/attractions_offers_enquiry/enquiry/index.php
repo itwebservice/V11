@@ -456,38 +456,52 @@ function excel_report_followup() {
 }
 
 function view_modal(enquiry_id) {
+	$('#enq_modal_view-'+enquiry_id).prop('disabled',true);
+	$('#enq_modal_view-'+enquiry_id).button('loading');
     $.post('view_modal.php', {
         enquiry_id: enquiry_id
     }, function(data) {
         $('#div_modal').html(data);
-        console.log(data)
+        $('#enq_modal_view-'+enquiry_id).prop('disabled',false);
+        $('#enq_modal_view-'+enquiry_id).button('reset');
     });
 }
 
 function update_modal(enquiry_id) {
+	$('#enq_modal_update-'+enquiry_id).prop('disabled',true);
+	$('#enq_modal_update-'+enquiry_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('edit_modal.php', {
         enquiry_id: enquiry_id,
         branch_status: branch_status
     }, function(data) {
-
         $('#div_modal').html(data);
+        $('#enq_modal_update-'+enquiry_id).prop('disabled',false);
+        $('#enq_modal_update-'+enquiry_id).button('reset');
     });
 }
 
 function followup_modal(enquiry_id) {
+	$('#followup_modal_add-'+enquiry_id).prop('disabled',true);
+	$('#followup_modal_add-'+enquiry_id).button('loading');
     $.post('followup/followup/display_modal.php', {
         enquiry_id: enquiry_id
     }, function(data) {
         $('#div_modal').html(data);
+        $('#followup_modal_add-'+enquiry_id).prop('disabled',false);
+        $('#followup_modal_add-'+enquiry_id).button('reset');
     });
 }
 
 function edit_modal(enquiry_id) {
+	$('#enq_modal_update-'+enquiry_id).prop('disabled',true);
+	$('#enq_modal_update-'+enquiry_id).button('loading');
     $.post('edit_modal.php', {
         enquiry_id: enquiry_id
     }, function(data) {
         $('#div_modal').html(data);
+        $('#enq_modal_update-'+enquiry_id).prop('disabled',false);
+        $('#enq_modal_update-'+enquiry_id).button('reset');
     });
 }
 
@@ -500,8 +514,12 @@ function followup_type_reflect(followup_status) {
 }
 
 function send() {
+	$('#send_btn').prop('disabled',true);
+	$('#send_btn').button('loading');
     $.post('send_enq_form.php', {}, function(data) {
         $('#send_btn_modal').html(data);
+        $('#send_btn').prop('disabled',false);
+        $('#send_btn').button('reset');
     });
 }
 </script>

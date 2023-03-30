@@ -220,10 +220,14 @@ function company_name_reflect() {
 }
 
 function package_view_modal(booking_id) {
+	$('#package_view_modal_btn-'+booking_id).prop('disabled',true);
+	$('#package_view_modal_btn-'+booking_id).button('loading');
     $.post('view/index.php', {
         booking_id: booking_id
     }, function(data) {
         $('#div_package_content_display').html(data);
+        $('#package_view_modal_btn-'+booking_id).prop('disabled',false);
+        $('#package_view_modal_btn-'+booking_id).button('reset');
     });
 }
 //*******************Get Dynamic Customer Name Dropdown**********************//
@@ -242,10 +246,15 @@ function dynamic_customer_load(cust_type, company_name) {
 }
 
 function voucher_modal(booking_id) {
+
+	$('#servoucher_btn-'+booking_id).prop('disabled',true);
+	$('#servoucher_btn-'+booking_id).button('loading');
     $.get("voucher_modal.php", {
         booking_id: booking_id
     }, function(data) {
         $('#voucher_modal').html(data);
+        $('#servoucher_btn-'+booking_id).prop('disabled',false);
+        $('#servoucher_btn-'+booking_id).button('reset');
     });
 }
 

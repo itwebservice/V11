@@ -1,8 +1,5 @@
 <?php
 include "../../model/model.php";
-/*======******Header******=======*/
-// require_once('../layouts/admin_header.php');
-// include('../../layouts/app_functions.php');
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $emp_id = $_SESSION['emp_id'];
@@ -225,14 +222,14 @@ function excel_report() {
 }
 
 function display_modal(id) {
-    $('#view-'+id).prop('disabled',true);
-    $('#view-'+id).button('loading');
+    $('#viewb-'+id).prop('disabled',true);
+    $('#viewb-'+id).button('loading');
     $.post('view/index.php', {
         id: id
     }, function(data) {
         $('#view_modal').html(data);
-        $('#view-'+id).prop('disabled',false);
-        $('#view-'+id).button('reset');
+        $('#viewb-'+id).prop('disabled',false);
+        $('#viewb-'+id).button('reset');
     });
 }
 //*******************Get Dynamic Customer Name Dropdown**********************//

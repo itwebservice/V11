@@ -147,7 +147,6 @@ function train_ticket_customer_list_reflect() {
         train_ticket_id: train_ticket_id,
         branch_status: branch_status
     }, function(data) {
-        // $('#div_train_ticket_customer_list_reflect').html(data);
         pagination_load(data, columns, true, true, 10, 'train_book', true);
 
     });
@@ -155,20 +154,28 @@ function train_ticket_customer_list_reflect() {
 train_ticket_customer_list_reflect();
 
 function train_ticket_update_modal(train_ticket_id) {
+    $('#update_btn-'+train_ticket_id).prop('disabled',true);
+    $('#update_btn-' + train_ticket_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('home/update/index.php', {
         train_ticket_id: train_ticket_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_train_ticket_modal').html(data);
+        $('#update_btn-'+train_ticket_id).prop('disabled',false);
+        $('#update_btn-'+train_ticket_id).button('reset');
     });
 }
 
 function train_ticket_view_modal(train_ticket_id) {
+    $('#view_btn-'+train_ticket_id).prop('disabled',true);
+    $('#view_btn-' + train_ticket_id).button('loading');
     $.post('home/view/index.php', {
         train_ticket_id: train_ticket_id
     }, function(data) {
         $('#div_train_ticket_view_modal').html(data);
+        $('#view_btn-'+train_ticket_id).prop('disabled',false);
+        $('#view_btn-' + train_ticket_id).button('reset');
         console.log(data)
     });
 }

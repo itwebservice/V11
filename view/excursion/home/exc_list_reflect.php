@@ -145,7 +145,7 @@ while($row_exc = mysqli_fetch_assoc($sq_exc)){
 		$invoice_date,
 		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
 		'.$voucher_btn.$update_btn.'
-		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="exc_display_modal('. $row_exc['exc_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
+		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="exc_display_modal('. $row_exc['exc_id'] .')" title="View Details" id="view_btn-'. $row_exc['exc_id'] .'"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 
 }

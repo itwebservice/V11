@@ -11,7 +11,7 @@ $branch_status = $_POST['branch_status'];
     <div class="col-md-12">
         <button class="btn btn-excel btn-sm" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i
                 class="fa fa-file-excel-o"></i></button>
-        <button class="btn btn-info btn-sm ico_left" onclick="visa_payment_save()"><i
+        <button class="btn btn-info btn-sm ico_left" id="btn_visa_receipt" onclick="visa_payment_save()"><i
                 class="fa fa-plus"></i>&nbsp;&nbsp;Receipt</button>
     </div>
 </div>
@@ -101,12 +101,16 @@ $('#payment_from_date_filter, #payment_to_date_filter').datetimepicker({
 $('#customer_id_filter, #visa_id_filter,#cust_type_filter').select2();
 dynamic_customer_load('', '');
 
-function visa_payment_save(vis_id) {
+function visa_payment_save() {
+    $('#btn_visa_receipt').prop('disabled',true);
+    $('#btn_visa_receipt').button('loading');
     var branch_status = $('#branch_status').val();
     $.post('payment/save_payment_modal.php', {
         branch_status: branch_status
     }, function(data) {
         $('#div_visa_payment_save').html(data);
+        $('#btn_visa_receipt').prop('disabled',false);
+        $('#btn_visa_receipt').button('reset');
     });
 }
 var columns = [{
@@ -181,11 +185,15 @@ visa_payment_list_reflect();
 
 function visa_payment_update_modal(payment_id) {
 
+    $('#editvr-'+payment_id).prop('disabled',true);
+    $('#editvr-'+payment_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('payment/visa_payment_update_modal.php', {
         payment_id: payment_id,
         branch_status: branch_status
     }, function(data) {
+        $('#editvr-'+payment_id).prop('disabled',false);
+        $('#editvr-'+payment_id).button('reset');
         $('#div_visa_payment_update').html(data);
     });
 }

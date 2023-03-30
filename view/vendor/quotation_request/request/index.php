@@ -79,8 +79,12 @@ function list_reflect(){
 list_reflect();
 
 function vendor_request_view_modal(request_id){
+	$('#supp_enq_modal_view'+request_id).prop('disabled',true);
+	$('#supp_enq_modal_view'+request_id).button('loading');
 	$.post('request/view/index.php', { request_id : request_id }, function(data){
 		$('#div_req_view').html(data);
+		$('#supp_enq_modal_view'+request_id).prop('disabled',false);
+		$('#supp_enq_modal_view'+request_id).button('reset');
 	});
 }
 

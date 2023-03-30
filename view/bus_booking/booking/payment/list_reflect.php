@@ -162,7 +162,7 @@ if($row_payment['payment_mode'] == 'Credit Note' || ($row_payment['payment_mode'
 	$edit_btn = '';
 	$delete_btn = '';
 }else{
-	$edit_btn = "<button class='btn btn-info btn-sm' data-toggle='tooltip' onclick='update_modal(".$row_payment['payment_id'].")' title='Update Details'><i class='fa fa-pencil-square-o'></i></button>";
+	$edit_btn = "<button class='btn btn-info btn-sm' data-toggle='tooltip' onclick='update_modal(".$row_payment['payment_id'].")' title='Update Details' id='editp-".$row_payment['payment_id']."'><i class='fa fa-pencil-square-o'></i></button>";
 	$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="p_delete_entry('.$row_payment['payment_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 }
 $temp_arr = array( "data" => array(

@@ -156,6 +156,17 @@ function exc_update_modal(exc_id) {
         $('#div_exc_update_content').html(data);
     });
 }
+function exc_display_modal(exc_id) {
+    $('#view_btn-'+exc_id).prop('disabled',true);
+    $('#view_btn-' + exc_id).button('loading');
+    $.post('home/view/index.php', {
+        exc_id: exc_id
+    }, function(data) {
+        $('#div_exc_content_display').html(data);
+        $('#view_btn-'+exc_id).prop('disabled',false);
+        $('#view_btn-' + exc_id).button('reset');
+    });
+}
 
 function calculate_total_amount(offset = '') {
 
@@ -292,13 +303,6 @@ function company_name_reflect() {
 }
 // company_name_reflect();
 
-function exc_display_modal(exc_id) {
-    $.post('home/view/index.php', {
-        exc_id: exc_id
-    }, function(data) {
-        $('#div_exc_content_display').html(data);
-    });
-}
 
 function excel_report() {
     var customer_id = $('#customer_id_filter').val()

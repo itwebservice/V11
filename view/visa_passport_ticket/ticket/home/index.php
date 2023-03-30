@@ -326,21 +326,29 @@ function save_modal_airfile() {
 }
 
 function ticket_update_modal(ticket_id) {
+    $('#update_ticket-'+ticket_id).prop('disabled',true);
+    $('#update_ticket-'+ticket_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/update/index.php', {
         ticket_id: ticket_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_ticket_modal').html(data);
+        $('#update_ticket-'+ticket_id).prop('disabled',false);
+        $('#update_ticket-'+ticket_id).button('reset');
     });
 }
 
 function ticket_display_modal(ticket_id) {
+    $('#display_ticket-'+ticket_id).prop('disabled',true);
+    $('#display_ticket-'+ticket_id).button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/view/index.php', {
         ticket_id: ticket_id
     }, function(data) {
         $('#div_ticket_modal').html(data);
+        $('#display_ticket-'+ticket_id).prop('disabled',false);
+        $('#display_ticket-'+ticket_id).button('reset');
     });
 }
 </script>

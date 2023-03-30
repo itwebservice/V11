@@ -67,7 +67,7 @@ if($row_booking['status']=='Cancel') {
 	$duty_slip = '';
 }
 else{
-	$update_btn = '<button class="btn btn-info btn-sm" data-toggle="tooltip" display="inline-block" onclick="booking_update_modal('.$row_booking['booking_id'] .')" id="edit-'.$row_booking['booking_id'] .'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+	$update_btn = '<button class="btn btn-info btn-sm" data-toggle="tooltip" display="inline-block" onclick="booking_update_modal('.$row_booking['booking_id'] .')" id="editc-'.$row_booking['booking_id'] .'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 	$bg='';
 	$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_booking['booking_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 	$duty_slip = '<button data-toggle="tooltip" display="inline" class="btn btn-danger btn-sm" onclick="booking_registration_pdf('.$row_booking['booking_id'] .')" title="Download Duty Slip"><i class="fa fa-file-pdf-o"></i></button>';
@@ -136,7 +136,7 @@ $temp_arr = array( "data" => array(
 	$invoice_date,
 	$duty_slip.'<a onclick="loadOtherPage(\''. $url1.'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'
 
-	<button class="btn btn-info btn-sm" display="inline-block" data-toggle="tooltip" onclick="car_display_modal('. $row_booking['booking_id'] .')" title="View Details" id="view-'.$row_booking['booking_id'] .'"><i class="fa fa-eye" aria-hidden="true"></i></button>
+	<button class="btn btn-info btn-sm" display="inline-block" data-toggle="tooltip" onclick="car_display_modal('. $row_booking['booking_id'] .')" title="View Details" id="viewc-'.$row_booking['booking_id'] .'"><i class="fa fa-eye" aria-hidden="true"></i></button>
 	
 	'.$cancelThisBookingBtn .''.$delete_btn
 ), "bg" =>$bg );

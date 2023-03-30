@@ -233,16 +233,16 @@ function save_modal()
 function update_modal(payment_id)
 
 {
-    $('#update-'+payment_id).prop('disabled',true);
-    $('#update-'+payment_id).button('loading');
+    $('#updater-'+payment_id).prop('disabled',true);
+    $('#updater-'+payment_id).button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url + '/view/group_tour/payment/update_modal.php', {
         payment_id: payment_id
     }, function(data) {
 
         $('#div_modal').html(data);
-        $('#update-'+payment_id).prop('disabled',false);
-        $('#update-'+payment_id).button('reset');
+        $('#updater-'+payment_id).prop('disabled',false);
+        $('#updater-'+payment_id).button('reset');
 
     });
 

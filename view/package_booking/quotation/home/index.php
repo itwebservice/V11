@@ -241,12 +241,15 @@ function get_tour_typewise_packages(tour_type) {
 get_tour_typewise_packages('booking_type_filter');
 
 function quotation_email_send_backoffice_modal(quotation_id) {
-    // $('#quot_save').button('loading');
+    
+	$('#email_backoffice_btn-'+quotation_id).prop('disabled',true);
+	$('#email_backoffice_btn-'+quotation_id).button('loading');
     $.post('backoffice_mail.php', {
         quotation_id: quotation_id
     }, function(data) {
         $('#backoffice_mail').html(data);
-        // $('#quot_save').button('reset');
+        $('#email_backoffice_btn-'+quotation_id).prop('disabled',false);
+        $('#email_backoffice_btn-'+quotation_id).button('reset');
     });
 }
 
@@ -260,13 +263,6 @@ function save_modal() {
         $('#quot_save').button('reset');
     });
 }
-// function update_modal(quotation_id,package_id){
-// 	alert(quotation_id);
-// 	var branch_status = $('#branch_status').val();
-// 	$.post('update/index.php', { quotation_id : quotation_id,package_id : package_id , branch_status : branch_status}, function(data){
-// 		$('#div_quotation_update').html(data);
-// 	});
-// }
 </script>
 <style>
 .action_width {

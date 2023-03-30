@@ -18,7 +18,7 @@ $role_id = $_SESSION['role_id'];
         <div class="col-xs-12">
             <button class="btn btn-excel btn-sm mg_bt_10" onclick="excel_report()" data-toggle="tooltip"
                 title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
-            <button class="btn btn-info btn-sm ico_left mg_bt_10" onclick="save_modal()"><i
+            <button class="btn btn-info btn-sm ico_left mg_bt_10" id="car_save_btn" onclick="save_modal()"><i
                     class="fa fa-plus"></i>&nbsp;&nbsp;Booking</button>
         </div>
     </div>
@@ -157,11 +157,15 @@ function booking_list_reflect() {
 booking_list_reflect();
 
 function save_modal() {
+    $('#car_save_btn').prop('disabled',true);
+    $('#car_save_btn').button('loading');
     var branch_status = $('#branch_status').val();
     $.post('booking_save_modal.php', {
         branch_status: branch_status
     }, function(data) {
         $('#div_car_content_display').html(data);
+        $('#car_save_btn').prop('disabled',false);
+        $('#car_save_btn').button('reset');
     });
 
 }
@@ -220,16 +224,16 @@ function customer_info_load(offset = '') {
 
 function booking_update_modal(booking_id) {
 
-    $('#edit-'+booking_id).prop('disabled',true);
+    $('#editc-'+booking_id).prop('disabled',true);
     $('#edit-'+booking_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('booking_update_modal.php', {
         booking_id: booking_id,
         branch_status: branch_status
     }, function(data) {
-        $('#edit-'+booking_id).prop('disabled',false);
+        $('#editc-'+booking_id).prop('disabled',false);
         $('#div_booking_update').html(data);
-        $('#edit-'+booking_id).button('reset');
+        $('#editc-'+booking_id).button('reset');
     });
 }
 
@@ -594,16 +598,13 @@ function dynamic_customer_load(cust_type, company_name) {
     });
 }
 
-
 function car_display_modal(booking_id) {
-    $('#view-'+booking_id).prop('disabled',true);
-    $('#view-'+booking_id).button('loading');
-    $.post('view/index.php', {
-        booking_id: booking_id
-    }, function(data) {
+    $('#viewc-'+booking_id).prop('disabled',true);
+    $('#viewc-'+booking_id).button('loading');
+    $.post('view/index.php', { booking_id: booking_id }, function(data) {
         $('#div_car_content_display').html(data);
-        $('#view-'+booking_id).prop('disabled',false);
-        $('#view-'+booking_id).button('reset');
+        $('#viewc-'+booking_id).prop('disabled',false);
+        $('#viewc-'+booking_id).button('reset');
     });
 }
 

@@ -128,6 +128,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	$sac_code = $sq_sac['hsn_sac_code'];
 	
 	$invoice_no = get_package_booking_id($row_booking['booking_id'],$year);
+	$booking_id = $row_booking['booking_id'];
 	$invoice_date = date('d-m-Y',strtotime($row_booking['booking_date']));
 	$customer_id = $row_booking['customer_id'];
 	$quotation_id = $row_booking['quotation_id'];
@@ -152,7 +153,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		// Booking Form
 		$b_url = BASE_URL."model/app_settings/print_html/booking_form_html/package_tour.php?booking_id=$row_booking[booking_id]&quotation_id=$quotation_id&branch_status=$branch_status&year=$year&credit_card_charges=$credit_card_charges";
 		$conf_form = '<a data-toggle="tooltip" style="display:inline-block" onclick="loadOtherPage(\''. $b_url .'\')" class="btn btn-info btn-sm" title="Download Confirmation Form" ><i class="fa fa-print"></i></a>';
-		$service_voucher = '<button data-toggle="tooltip" title="Download Service Voucher" class="btn btn-info btn-sm" onclick="voucher_modal('.$row_booking['booking_id'].')" ><i class="fa fa-print" data-toggle="tooltip"></i></button>';
+		$service_voucher = '<button data-toggle="tooltip" title="Download Service Voucher" class="btn btn-info btn-sm" onclick="voucher_modal('.$row_booking['booking_id'].')" id="servoucher_btn-'.$booking_id.'" ><i class="fa fa-print" data-toggle="tooltip"></i></button>';
 	}
 	$sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_booking[customer_id]'"));
 	if($sq_customer['type']=='Corporate'||$sq_customer['type'] == 'B2B'){
@@ -238,7 +239,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		$conf_form.'
 		<a data-toggle="tooltip" onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print" data-toggle="tooltip"></i></a>'
 		.$service_voucher.$update_btn.
-		'<button style="display:inline-block" class="btn btn-info btn-sm" onclick="package_view_modal('.$row_booking['booking_id'] .');btnDisableEnable(this.id)" id="package_view_modal_btn'.$row_booking['booking_id'] .'" title="View Details" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></button>
+		'<button style="display:inline-block" class="btn btn-info btn-sm" onclick="package_view_modal('.$row_booking['booking_id'] .');btnDisableEnable(this.id)" id="package_view_modal_btn-'.$row_booking['booking_id'] .'" title="View Details" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></button>
 		'.$delete_btn,
 
 		), "bg" =>$bg);

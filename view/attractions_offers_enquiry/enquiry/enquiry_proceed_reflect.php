@@ -194,15 +194,13 @@ while($row = mysqli_fetch_assoc($sq_enquiries)){
 		}
 	}
 	
-	$temp_arr1 = '<button style="display:inline-block" data-toggle="tooltip" class="btn btn-info btn-sm" onclick="followup_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="followup_modal_add'.$row['enquiry_id'].'" title="Add New Followup Details"><i class="fa fa-reply-all"></i></button>';
+	$temp_arr1 = '<button style="display:inline-block" data-toggle="tooltip" class="btn btn-info btn-sm" onclick="followup_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="followup_modal_add-'.$row['enquiry_id'].'" title="Add New Followup Details"><i class="fa fa-reply-all"></i></button>';
 	$actions_string .= $temp_arr1;
 
-	// if($role=='Admin' || $role=='Branch Admin'){
-		array_push($temp_arr['data'],$allocated_to);
-	// }
+	array_push($temp_arr['data'],$allocated_to);
 	$temp_arr2=array(
-		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="update_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="enq_modal_update'.$row['enquiry_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>',   //////////////LEFT HERE
-		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal('.$row['enquiry_id'] .');btnDisableEnable(this.id)" id="enq_modal_view'.$row['enquiry_id'].'" title="View Details"><i class="fa fa-eye"></i></button>'
+		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="update_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="enq_modal_update-'.$row['enquiry_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>',
+		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal('.$row['enquiry_id'] .');btnDisableEnable(this.id)" id="enq_modal_view-'.$row['enquiry_id'].'" title="View Details"><i class="fa fa-eye"></i></button>'
 	);
 	foreach($temp_arr2 as $vals) $actions_string .= $vals;
 	if($role=="Admin" || $role=='Branch Admin'){

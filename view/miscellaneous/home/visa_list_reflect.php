@@ -67,7 +67,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 	}
 	else {
 		$bg = "";
-		$update_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_update_modal('. $row_visa['misc_id'] .')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+		$update_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_update_modal('. $row_visa['misc_id'] .')" title="Update Details" id="updatem_btn-'. $row_visa['misc_id'] .'"><i class="fa fa-pencil-square-o"></i></button>';
 		$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_visa['misc_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 	}
 	//Get Total no of visa members
@@ -144,7 +144,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 		$emp_name,
 		$invoice_date,
 		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'
-		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_display_modal('. $row_visa['misc_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>
+		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="visa_display_modal('. $row_visa['misc_id'] .')" title="View Details" id="viewm_btn-'. $row_visa['misc_id'] .'"><i class="fa fa-eye" aria-hidden="true"></i></button>
 		'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 

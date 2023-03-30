@@ -161,7 +161,7 @@ while($row_ticket_payment = mysqli_fetch_assoc($sq_ticket_payment)){
 		$edit_btn = '';
 		$delete_btn = '';
 	}else{
-		$edit_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="ticket_payment_update_modal('.$row_ticket_payment['payment_id'] .')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+		$edit_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="ticket_payment_update_modal('.$row_ticket_payment['payment_id'] .')" id="updater-'.$row_ticket_payment['payment_id'] .'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 		$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="p_delete_entry('.$row_ticket_payment['payment_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 	}
 

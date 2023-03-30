@@ -258,12 +258,16 @@ function save_modal() {
 }
 
 function update_modal(quotation_id) {
+	$('#editq-'+quotation_id).prop('disabled',true);
+	$('#editq-'+quotation_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('update/index.php', {
         quotation_id: quotation_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_quotation_update').html(data);
+        $('#editq-'+quotation_id).prop('disabled',false);
+        $('#editq-'+quotation_id).button('reset');
     });
 }
 $(document).ready(function() {
@@ -274,10 +278,14 @@ $(document).ready(function() {
 });
 
 function quotation_email_send_backoffice_modal(quotation_id) {
+	$('#email_backoffice_btn-'+quotation_id).prop('disabled',true);
+	$('#email_backoffice_btn-'+quotation_id).button('loading');
     $.post('backoffice_mail.php', {
         quotation_id: quotation_id
     }, function(data) {
         $('#backoffice_mail').html(data);
+        $('#email_backoffice_btn-'+quotation_id).prop('disabled',false);
+        $('#email_backoffice_btn-'+quotation_id).button('reset');
     });
 }
 

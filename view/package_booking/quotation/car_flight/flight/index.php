@@ -178,12 +178,16 @@ function save_modal() {
 }
 
 function update_modal(quotation_id) {
+	$('#update_btn'+quotation_id).prop('disabled',true);
+	$('#update_btn'+quotation_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('update/index.php', {
         quotation_id: quotation_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_quotation_update').html(data);
+        $('#update_btn'+quotation_id).prop('disabled',false);
+        $('#update_btn'+quotation_id).button('reset');
     });
 }
 
