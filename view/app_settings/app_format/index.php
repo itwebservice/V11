@@ -101,9 +101,13 @@ if($sq_settings['quot_format'] == 2){
 <script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>
 <script type="text/javascript">
 function display_modal_invoive(){
+	$('#display_modal_invoive_btn').button('loading');
+	$('#display_modal_invoive_btn').prop('disabled',true);
 	var base_url = $('#base_url').val();
 	$.post(base_url+'view/app_settings/basic_info/view/index.php', {}, function(data){
         $('#invoice_format_image').html(data);
+		$('#display_modal_invoive_btn').button('reset');
+		$('#display_modal_invoive_btn').prop('disabled',false);
     });
 
 }

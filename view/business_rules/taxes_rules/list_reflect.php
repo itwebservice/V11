@@ -31,7 +31,7 @@ while($row_taxes = mysqli_fetch_assoc($sq_taxes)){
 		$row_taxes['name'],
 		$validity,
 		$row_taxes['travel_type'],
-		'<button class="btn btn-info btn-sm" onclick="update_modal('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" id="update_modal_tax_rules_edit'.$row_taxes['rule_id'] .'" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+		'<button class="btn btn-info btn-sm" onclick="update_modal('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" id="updatet_rule-'.$row_taxes['rule_id'] .'" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 		<button class="btn btn-warning btn-sm" onclick="copy_rule('.$row_taxes['rule_id'] .')btnDisableEnable(this.id)" id="update_modal_tax_rules_clone'.$row_taxes['rule_id'] .'" data-toggle="tooltip" title="Copy Tax Rule"><i class="fa fa-files-o"></i></button>
 		'), "bg" => $bg
 	);

@@ -113,8 +113,12 @@ function tour_master_validate( tour_type, tour_name, tour_cost, service_tax, adu
 }
 function display_modal(tour_id)
 {
+  $('#view_btn-'+tour_id).button('loading');
+  $('#view_btn-'+tour_id).prop('disabled',true);
 	$.post('view/index.php', {tour_id : tour_id}, function(data){
 		$('#div_modal_content').html(data);
+    $('#view_btn-'+tour_id).button('reset');
+	  $('#view_btn-'+tour_id).prop('disabled',false);
 	});
 }
 </script>

@@ -57,8 +57,8 @@ if ($visa_type != "") {
                                 onclick="send(<?= $row_emp['entry_id'] ?>)" title="Send via email and whatsapp"><i class="fa fa-paper-plane-o"></i></button>
                             <?php } ?>
                             <button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['entry_id'] ?>)"
-                                data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['entry_id'] ?>)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
+                                data-toggle="tooltip" id="updatet_btn-<?= $row_emp['entry_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['entry_id'] ?>)" data-toggle="tooltip" id="viewt_btn-<?= $row_emp['entry_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
                                 <?php
                                 $download_url = preg_replace('/(\/+)/', '/', $row_emp['upload_url']);
                                 $download_url2 = BASE_URL . str_replace('../', '', $download_url);

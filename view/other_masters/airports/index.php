@@ -22,64 +22,22 @@
 <script>
 // var action = 'inactive'; //Check if current action is going on or not. If not then inactive otherwise active
 var columns = [
-          { title: "Airport_Id" },
-          { title: "City" },
-          { title: "Airport" },
-          { title: "Code" },
-		  { title: "Status" },
-		  { title: "Actions" }
-      ];
+	{ title: "Airport_Id" },
+	{ title: "City" },
+	{ title: "Airport" },
+	{ title: "Code" },
+	{ title: "Status" },
+	{ title: "Actions" }
+];
 function list_reflect(){
 	$('#div_list_content').append('<div class="loader"></div>');
-  $.post('airports/list_reflect.php', {}, function(data){
+	$.post('airports/list_reflect.php', {}, function(data){
 	setTimeout(() => {
     	pagination_load(data,columns,true, false, 20, 'airport_table');
 		$('.loader').remove();
     }, 1000);
-  });
+	});
 }list_reflect();
-
-// function list_reflect(limit , start){
-// //   $('#search_ap_table').hide();
-// //   $('#tbl_list').show();
-// //   $('#tbl_list tbody').append('<div class="loader"></div>');
-//   $.post('airports/list_reflect.php', {limit:limit , start:start}, function(data){
-// 	  $(".loader").remove();
-//       $('#tbl_list tbody').append(data);
-//       action = 'inactive';
-//   });
-// }
-
-// if(action == 'inactive'){
-// 	var limit = 20; //The number of records to display per request
-// 	var start = 0; //The starting pointer of the data
-// 	action = 'active';
-// 	list_reflect(limit, start);
-// }
-
-// $("div.app_content_wrap").on('scroll' , function(event){
-//   if($('#tbl_list').is(":visible")==true){
-//     if($("div.app_content_wrap").scrollTop() + $("div.app_content_wrap").height() > $("#tbl_list tbody").height() && action == 'inactive'){
-//       action = 'active';
-//       start = start + limit;
-//       setTimeout(function(){
-//         list_reflect(limit, start);
-//       }, 0);
-//     }
-//   }
-// });
-
-// function SearchData(limit, start){
-// 	var search=$('#searcha').val();
-	
-// 	$('#search_ap_table').show();
-// 	$('#tbl_list').hide();
-//     $('#search_ap_table tbody').append('<div class="loader"></div>');
-// 	$.post('airports/search_data.php', {limit : limit , start:start, search : search}, function(data){
-// 		$(".loader").remove();
-// 		$('#search_ap_table tbody').html(data);
-// 	});
-// }
 
 function save_modal(){
 	$('#btn_save_modal').button('loading');
@@ -90,8 +48,12 @@ function save_modal(){
 }
 
 function update_modal(airport_id){
+	$('#airport_update-'+airport_id).button('loading');
+	$('#airport_update-'+airport_id).prop('disabled',true);
 	$.post('airports/update_modal.php', { airport_id : airport_id }, function(data){
 		$('#div_modal').html(data);
+		$('#airport_update-'+airport_id).button('reset');
+		$('#airport_update-'+airport_id).prop('disabled',false);
 	});
 }
 </script>

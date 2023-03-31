@@ -46,35 +46,29 @@ if ($branch_status == 'yes' && $login_role != 'Admin' && $role != 'Admin') {
 		$sq_emp = mysqlQuery($query);
 		while($row_emp = mysqli_fetch_assoc($sq_emp)){
 			if($row_emp['emp_id']!=0){
-			if($row_emp['id_proof_url']!=""){
-				$url = $row_emp['id_proof_url'];
-				$url = explode('uploads/', $url);
-				$url = BASE_URL.'uploads/'.$url[1];
-		    }
+				if($row_emp['id_proof_url']!=""){
+					$url = $row_emp['id_proof_url'];
+					$url = explode('uploads/', $url);
+					$url = BASE_URL.'uploads/'.$url[1];
+				}
 
-							$sq_location = mysqli_fetch_assoc(mysqlQuery("select * from locations where location_id='$row_emp[location_id]'"));
-							$sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$row_emp[branch_id]'"));
-							$sq_login = mysqli_fetch_assoc(mysqlQuery("select * from roles where emp_id='$row_emp[emp_id]'"));
+				$sq_location = mysqli_fetch_assoc(mysqlQuery("select * from locations where location_id='$row_emp[location_id]'"));
+				$sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$row_emp[branch_id]'"));
+				$sq_login = mysqli_fetch_assoc(mysqlQuery("select * from roles where emp_id='$row_emp[emp_id]'"));
 
-							$sq_role = mysqli_fetch_assoc(mysqlQuery("select * from role_master where role_id='$row_emp[role_id]'"));
-
-							$bg = ($row_emp['active_flag'] == "Inactive") ? "danger" : "";
+				$sq_role = mysqli_fetch_assoc(mysqlQuery("select * from role_master where role_id='$row_emp[role_id]'"));
+				$bg = ($row_emp['active_flag'] == "Inactive") ? "danger" : "";
 					?>
-                    <tr class="<?= $bg ?>">
-                        <td><?= $row_emp['emp_id'] ?></td>
-                        <td><?= $row_emp['first_name'] . ' ' . $row_emp['last_name'] ?></td>
-                        <!-- <td><?= $row_emp['mobile_no'] ?></td>
-				<td><?= $row_emp['email_id'] ?></td> -->
-				<td><?= $sq_location['location_name'] ?></td>
-				<td><?= $sq_branch['branch_name'] ?></td>
-				<td><?= strtoupper($sq_role['role_name']) ?></td>
-				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_view_btn<?= $row_emp['emp_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-					<button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_edit_btn<?= $row_emp['emp_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
-				</td>
-				<!-- <td>
-					<a href="<?= $url ?>" download class="btn-sm btn btn-info"><i class="fa fa-download"></i></a>
-				</td> -->
+				<tr class="<?= $bg ?>">
+					<td><?= $row_emp['emp_id'] ?></td>
+					<td><?= $row_emp['first_name'] . ' ' . $row_emp['last_name'] ?></td>
+					<td><?= $sq_location['location_name'] ?></td>
+					<td><?= $sq_branch['branch_name'] ?></td>
+					<td><?= strtoupper($sq_role['role_name']) ?></td>
+					<td>
+						<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_edit_btn-<?= $row_emp['emp_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+						<button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['emp_id'] ?>);btnDisableEnable(this.id)" id="display_modal_user_view_btn-<?= $row_emp['emp_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
+					</td>
                     </tr>
                     <?php
 						}

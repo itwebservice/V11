@@ -43,8 +43,12 @@ list_reflect();
 
 function update_modal(dest_id)
 {
+	$('#dest_update-'+dest_id).button('loading');
+	$('#dest_update-'+dest_id).prop('disabled',true);
 	$.post('destinations/update_modal.php', { dest_id : dest_id }, function(data){
 		$('#div_modal').html(data);
+		$('#dest_update-'+dest_id).button('reset');
+		$('#dest_update-'+dest_id).prop('disabled',false);
 	});
 }
 function excel_report()

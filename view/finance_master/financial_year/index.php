@@ -31,8 +31,12 @@ list_reflect();
 
 function update_modal(financial_year_id)
 {
+	$('#updatef_btn-'+financial_year_id).button('loading');
+	$('#updatef_btn-'+financial_year_id).prop('disabled',true);
     $.post('../finance_master/financial_year/update_modal.php', {financial_year_id : financial_year_id}, function(data){
         $('#div_modal').html(data);
+        $('#updatef_btn-'+financial_year_id).button('reset');
+        $('#updatef_btn-'+financial_year_id).prop('disabled',false);
     });
 }
 </script>

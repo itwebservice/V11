@@ -36,7 +36,7 @@ include_once("../../../model/model.php");
 				<td><?= $row_inc['tour_type'] ?></td>
 				<td><?= $label ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_inc['inclusion_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_inc['inclusion_id'] ?>)" title="Update Details" id="incl_update-<?= $row_inc['inclusion_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

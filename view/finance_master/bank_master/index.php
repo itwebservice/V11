@@ -43,14 +43,22 @@ list_reflect();
 
 function update_modal(bank_id)
 {
+	$('#updateb_btn-'+bank_id).button('loading');
+	$('#updateb_btn-'+bank_id).prop('disabled',true);
     $.post('../finance_master/bank_master/update_modal.php', {bank_id : bank_id}, function(data){
         $('#div_modal').html(data);
+	$('#updateb_btn-'+bank_id).button('reset');
+	$('#updateb_btn-'+bank_id).prop('disabled',false);
     });
 }
 function display_modal(bank_id)
 {
+	$('#displayb_btn-'+bank_id).button('loading');
+	$('#displayb_btn-'+bank_id).prop('disabled',true);
     $.post('../finance_master/bank_master/view/index.php', {bank_id : bank_id}, function(data){
         $('#div_view_modal').html(data);
+        $('#displayb_btn-'+bank_id).button('reset');
+        $('#displayb_btn-'+bank_id).prop('disabled',false);
     });
 }
 </script>

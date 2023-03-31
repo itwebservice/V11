@@ -22,7 +22,7 @@ include_once("../../../model/model.php");
 				<td><?= $row_ref['reference_id'] ?></td>
 				<td><?= $row_ref['reference_name'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ref['reference_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ref['reference_id'] ?>)" title="Update Details" id="ref_update-<?= $row_ref['reference_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

@@ -85,7 +85,7 @@ $status = $_POST['status'];
 							<form style="display:inline-block" action="update_modal.php" class="no-marg" method="POST">
 								<input type="hidden" id="package_id" style="display:inline-block" name="package_id" value="' . $row_tour['package_id'] . '">
 								<button class="btn btn-info btn-sm form-control" id="update_btn' . $row_tour['package_id'] . '" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-							</form>' .$copy_btn . '<button class="btn btn-info btn-sm" onclick="view_modal(' . $row_tour['package_id'] . ')" title="View Details"><i class="fa fa-eye"></i></button>'; ?>
+							</form>' .$copy_btn . '<button class="btn btn-info btn-sm" onclick="view_modal(' . $row_tour['package_id'] . ')" id="view_btn-' . $row_tour['package_id'] . '" title="View Details"><i class="fa fa-eye"></i></button>'; ?>
                         </td>
                     </tr>
                     <?php } ?>

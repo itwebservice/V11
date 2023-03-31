@@ -50,8 +50,8 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 		'<span onclick="showNum(' .$count. ');" id="phone-y'. $count.'" class="row_value phone">'.$masked.'</span><span id="phone-x'. $count.'" class="hidden" >'.$contact_no.'</span>',
 		'<span onclick="showEmail('. $count.');" id="phone-ye'. $count.'" class="row_value phone">'. $masked_email1 .'</span><span id="phone-xe'. $count.'" class="hidden" >'. $email_id.'</span>',
 		'<button class="btn btn-info btn-sm" onclick="customer_history_modal('. $row_customer['customer_id'].' )" title="Download Outstanding Payment Summary" data-toggle="tooltip"><i class="fa fa-print"></i></button>
-		<button class="btn btn-info btn-sm" onclick="customer_update_modal('. $row_customer['customer_id'] .');btnDisableEnable(this.id)" id="customer_display_modal_edit_btn'. $row_customer['customer_id'] .'" title="Update Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
-		<button class="btn btn-info btn-sm" onclick="customer_display_modal('. $row_customer['customer_id'] .');btnDisableEnable(this.id)" id="customer_display_modal_view_btn'. $row_customer['customer_id'] .'" title="View Details" data-toggle="tooltip"><i class="fa fa-eye"></i></button>'), "bg" => $bg
+		<button class="btn btn-info btn-sm" onclick="customer_update_modal('. $row_customer['customer_id'] .');btnDisableEnable(this.id)" id="customer_display_modal_edit_btn-'. $row_customer['customer_id'] .'" title="Update Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
+		<button class="btn btn-info btn-sm" onclick="customer_display_modal('. $row_customer['customer_id'] .');btnDisableEnable(this.id)" id="customer_display_modal_view_btn-'. $row_customer['customer_id'] .'" title="View Details" data-toggle="tooltip"><i class="fa fa-eye"></i></button>'), "bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 
 }

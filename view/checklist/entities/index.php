@@ -49,14 +49,22 @@ entities_list_reflect();
 function update_modal(entity_id)
 {
 	
+    $('#update_btn-'+entity_id).button('loading');
+    $('#update_btn-'+entity_id).prop('disabled',true);
     $.post('entity_update_modal.php', {entity_id : entity_id}, function(data){
         $('#div_entitiesup_list').html(data);
+        $('#update_btn-'+entity_id).button('reset');
+        $('#update_btn-'+entity_id).prop('disabled',false);
     });
 }
 function view_modal(entity_id)
 {
+    $('#view_btn-'+entity_id).button('loading');
+    $('#view_btn-'+entity_id).prop('disabled',true);
 	$.post('view_to_do_name.php', {entity_id : entity_id}, function(data){
         $('#div_view_entries').html(data);
+        $('#view_btn-'+entity_id).button('reset');
+        $('#view_btn-'+entity_id).prop('disabled',false);
     });
 }
 // checklist_content_reflect();

@@ -63,16 +63,16 @@ function list_reflect()
 
 list_reflect();
 
-function update_modal(inclusion_id)
+function update_modal(inclusion_id){
 
-{
-
+	$('#incl_update-'+inclusion_id).button('loading');
+	$('#incl_update-'+inclusion_id).prop('disabled',true);
 	$.post('inclusions/update_modal.php', { inclusion_id : inclusion_id }, function(data){
 
 		$('#div_modal').html(data);
-
+		$('#incl_update-'+inclusion_id).button('reset');
+		$('#incl_update-'+inclusion_id).prop('disabled',false);
 	});
-
 }
 
 </script>

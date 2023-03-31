@@ -56,7 +56,7 @@ $status = $_GET['status'];
                                 <input type="hidden" id="tour_id" style="display:inline-block" name="tour_id" value="' . $row_tour['tour_id'] . '">
                                 <button class="btn btn-info btn-sm form-control" id="update_btn' . $row_tour['tour_id'] . '" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
                             </form>'; ?>
-                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_tour['tour_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_tour['tour_id'] ?>)" title="View Details" id="view_btn-<?= $row_tour['tour_id'] ?>"><i class="fa fa-eye"></i></button>
                         </td>
 
                     </tr>

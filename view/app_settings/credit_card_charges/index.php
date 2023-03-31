@@ -42,8 +42,12 @@ list_reflect();
 
 function update_modal(entry_id){
 
+	$('#updatec_btn-'+entry_id).button('loading');
+	$('#updatec_btn-'+entry_id).prop('disabled',true);
     $.post('credit_card_charges/update_modal.php', {entry_id : entry_id}, function(data){
         $('#div_modal').html(data);
+        $('#updatec_btn-'+entry_id).button('reset');
+        $('#updatec_btn-'+entry_id).prop('disabled',false);
     });
 }
 </script>

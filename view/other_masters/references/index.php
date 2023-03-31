@@ -27,8 +27,12 @@ function list_reflect()
 list_reflect();
 function update_modal(reference_id)
 {
+	$('#ref_update-'+reference_id).button('loading');
+	$('#ref_update-'+reference_id).prop('disabled',true);
 	$.post('references/update_modal.php', { reference_id : reference_id }, function(data){
 		$('#div_modal').html(data);
+		$('#ref_update-'+reference_id).button('reset');
+		$('#ref_update-'+reference_id).prop('disabled',false);
 	});
 }
 </script>

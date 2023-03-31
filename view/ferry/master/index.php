@@ -1,6 +1,6 @@
 <div class="row mg_bt_20">
   <div class="col-md-12 text-right">
-    <button class="btn btn-info btn-sm ico_left" title="Add new Ferry/Cruise" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Ferry/Cruise</button>
+    <button class="btn btn-info btn-sm ico_left" title="Add new Ferry/Cruise" id="save_ferry_btn" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Ferry/Cruise</button>
   </div>
   </div>
   <div class="app_panel_content Filter-panel">
@@ -29,8 +29,12 @@
 
 <script>
 function save_modal(){
+  $('#save_ferry_btn').button('loading');
+  $('#save_ferry_btn').prop('disabled',true);
 	$.post('master/save_modal.php', { }, function (data) {
 		$('#div_save_modal').html(data);
+    $('#save_ferry_btn').button('reset');
+    $('#save_ferry_btn').prop('disabled',false);
 	});
 }
 </script>

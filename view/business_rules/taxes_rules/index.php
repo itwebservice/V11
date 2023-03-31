@@ -77,8 +77,12 @@ function save_modal(){
 }
 
 function update_modal(rule_id){
+	$('#updatet_rule-'+rule_id).button('loading');
+	$('#updatet_rule-'+rule_id).prop('disabled',true);
 	$.post('taxes_rules/update_modal.php', {rule_id : rule_id}, function(data){
 		$('#div_modal_content').html(data);
+        $('#updatet_rule-'+rule_id).button('reset');
+        $('#updatet_rule-'+rule_id).prop('disabled',false);
 	});
 }
 function copy_rule(rule_id){

@@ -18,14 +18,22 @@ function master_list_reflect () {
 master_list_reflect();
 
 function edit_modal (entry_id) {
+	$('#bike_update-'+entry_id).button('loading');
+	$('#bike_update-'+entry_id).prop('disabled',true);
 	$.post('master/edit_modal.php', { entry_id: entry_id }, function (data) {
 		$('#div_edit_modal').html(data);
+		$('#bike_update-'+entry_id).button('loading');
+		$('#bike_update-'+entry_id).prop('disabled',true);
 	});
 }
 
 function bike_type_modal () {
+	$('#add_bike_type_btn').button('loading');
+	$('#add_bike_type_btn').prop('disabled',true);
 	$.post('master/save_bike_type.php', {}, function (data) {
 		$('#div_view_modal').html(data);
+		$('#add_bike_type_btn').button('reset');
+		$('#add_bike_type_btn').prop('disabled',false);
 	});
 }
 

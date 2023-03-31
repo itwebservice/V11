@@ -65,8 +65,12 @@ list_reflect();
 
 function update_modal(terms_and_conditions_id)
 {
+    $('#update_btn-'+terms_and_conditions_id).button('loading');
+    $('#update_btn-'+terms_and_conditions_id).prop('disabled',true);
     $.post('update_modal.php', {terms_and_conditions_id : terms_and_conditions_id}, function(data){
         $('#div_modal').html(data);
+        $('#update_btn-'+terms_and_conditions_id).button('reset');
+        $('#update_btn-'+terms_and_conditions_id).prop('disabled',false);
     });
 }
 function get_dest_dropdown(service_type){

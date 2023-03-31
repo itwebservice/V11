@@ -17,8 +17,12 @@ function master_list_reflect () {
 master_list_reflect();
 
 function edit_modal (entry_id) {
+	$('#updatef_btn-'+entry_id).button('loading');
+	$('#updatef_btn-'+entry_id).prop('disabled',true);
 	$.post('master/edit_modal.php', { entry_id: entry_id }, function (data) {
 		$('#div_edit_modal').html(data);
+		$('#updatef_btn-'+entry_id).button('reset');
+		$('#updatef_btn-'+entry_id).prop('disabled',false);
 	});
 }
 

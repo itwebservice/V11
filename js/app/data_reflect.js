@@ -1,9 +1,14 @@
 var base_url = $('#base_url').val();
 
 function theme_color_scheme_save_modal() {
+  
+	$('#theme_color_scheme_save_modal_btn').button('loading');
+	$('#theme_color_scheme_save_modal_btn').prop('disabled',true);
   var base_url = $('#base_url').val();
   $.post(base_url + 'view/layouts/theme_color_scheme_save.php', {}, function (data) {
     $('#app_color_scheme_content').html(data);
+    $('#theme_color_scheme_save_modal_btn').button('reset');
+    $('#theme_color_scheme_save_modal_btn').prop('disabled',false);
   });
 }
 

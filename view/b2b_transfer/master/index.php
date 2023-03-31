@@ -1,6 +1,6 @@
 <div class="row mg_bt_10">
   <div class="col-md-12 text-right">
-    <button class="btn btn-info btn-sm ico_left" onclick="service_time_modal();" data-toggle="tooltip" title="Add Pickup and Return Service timings"><i class="fa fa-plus"></i>&nbsp;&nbsp;Service Timing</button>
+    <button class="btn btn-info btn-sm ico_left" id="service_time_btn" onclick="service_time_modal();" data-toggle="tooltip" title="Add Pickup and Return Service timings"><i class="fa fa-plus"></i>&nbsp;&nbsp;Service Timing</button>
     <button class="btn btn-info btn-sm ico_left" data-toggle="modal" data-target="#master_save_modal" title="Add new Vehicle"><i class="fa fa-plus"></i>&nbsp;&nbsp;Vehicle</button>
   </div>
 </div>

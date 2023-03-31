@@ -195,14 +195,22 @@ function showEmail(count)
 }
 function customer_update_modal(customer_id)
 {
+	$('#customer_display_modal_edit_btn-'+customer_id).button('loading');
+	$('#customer_display_modal_edit_btn-'+customer_id).prop('disabled',true);
 	$.post('customer_update_modal.php', { customer_id : customer_id }, function(data){
 		$('#div_customer_update_modal').html(data);
+        $('#customer_display_modal_edit_btn-'+customer_id).button('reset');
+        $('#customer_display_modal_edit_btn-'+customer_id).prop('disabled',false);
 	})
 }
 function customer_display_modal(customer_id)
 {
+	$('#customer_display_modal_view_btn-'+customer_id).button('loading');
+	$('#customer_display_modal_view_btn-'+customer_id).prop('disabled',true);
 	$.post('view/index.php', { customer_id : customer_id }, function(data){
 		$('#div_customer_update_modal').html(data);
+        $('#customer_display_modal_view_btn-'+customer_id).button('reset');
+        $('#customer_display_modal_view_btn-'+customer_id).prop('disabled',false);
 	})
 }
 function customer_history_modal(customer_id)

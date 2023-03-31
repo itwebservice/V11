@@ -4,7 +4,7 @@
 <div class="row mg_bt_10">
 
 <div class="col-md-12 text-right">
-  <button class="btn btn-info btn-sm ico_left" onclick="tariff_save_modal()" data-toggle="tooltip" title="Add new Tariff"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tariff</button>
+  <button class="btn btn-info btn-sm ico_left" onclick="tariff_save_modal()" id="save_ferryt_btn" data-toggle="tooltip" title="Add new Tariff"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tariff</button>
 </div>
 </div>
 <div id="div_tariffsave_modal"></div>
@@ -19,8 +19,12 @@
 $('#from_date_filter,#to_date_filter').datetimepicker({ timepicker:false, format:'d-m-Y' });
 function tariff_save_modal()
 {
+  $('#save_ferryt_btn').button('loading');
+  $('#save_ferryt_btn').prop('disabled',true);
   	$.post('tariff/save_modal.php', {}, function(data){
       $('#div_tariffsave_modal').html(data);
+      $('#save_ferryt_btn').button('reset');
+      $('#save_ferryt_btn').prop('disabled',false);
     });
 }
 </script>

@@ -25,7 +25,7 @@ while($row_ser = mysqli_fetch_assoc($sq_serv)){
 		$update_btn = '';
 	}else{
 		$bg = "";
-		$update_btn = '<button class="btn btn-info btn-sm" onclick="time_slotupdate_modal('.$row_ser['entry_id'] .')" data-toggle="tooltip" title="Update Timing Slot(s)"><i class="fa fa-pencil-square-o"></i></button>';
+		$update_btn = '<button class="btn btn-info btn-sm" onclick="time_slotupdate_modal('.$row_ser['entry_id'] .')" data-toggle="tooltip" id="tedit-'.$row_ser['entry_id'] .'" title="Update Timing Slot(s)"><i class="fa fa-pencil-square-o"></i></button>';
 	}
 	$temp_arr = array("data" =>array(
 		(int)(++$count),
@@ -34,7 +34,7 @@ while($row_ser = mysqli_fetch_assoc($sq_serv)){
 		$row_ser['departure_point'],
 		$row_ser['duration'],
 		$sq_currency['currency_code'],
-		'<button class="btn btn-info btn-sm" id="edit-'.$row_ser['entry_id'] .')" onclick="update_modal('.$row_ser['entry_id'] .')" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$update_btn), "bg" => $bg
+		'<button class="btn btn-info btn-sm" id="edit-'.$row_ser['entry_id'] .'" onclick="update_modal('.$row_ser['entry_id'] .')" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$update_btn), "bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 
 }
