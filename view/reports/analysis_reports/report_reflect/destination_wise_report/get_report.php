@@ -66,7 +66,7 @@ while ($data = mysqli_fetch_assoc($result)) {
         $total_selling,
     
     
-        '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+        '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details" id="view_btn-'. $data['dest_id'] .'"><i class="fa fa-eye"></i></button>'
 
 
     ), "bg" => $bg);

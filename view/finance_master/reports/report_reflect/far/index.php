@@ -11,7 +11,7 @@ $branch_status = $sq['branch_status'];
 <div class="row text-right mg_bt_10">
 	<div class="col-md-4 col-md-offset-8">
             <button class="btn btn-excel btn-sm" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>&nbsp;&nbsp;
-            <button class="btn btn-info btn-sm ico_left" id="btn_save_modal" onclick="save_modal()" title="Add New"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Asset</button>			
+            <button class="btn btn-info btn-sm ico_left" id="btn_far_save" onclick="save_modal()" title="Add New"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Asset</button>			
 	</div>
 </div>
 
@@ -50,12 +50,14 @@ $('#from_date_filter1').datetimepicker({ timepicker:false, format:'d-m-Y' });
 
 function save_modal()
 { 
+	$('#btn_far_save').prop('disabled',true);
 	var base_url = $('#base_url').val();
   	var branch_admin_id = $('#branch_admin_id').val();
-	$('#btn_save').button('loading');
+	$('#btn_far_save').button('loading');
 
 	$.post(base_url+'view/finance_master/reports/report_reflect/far/save_modal.php', {branch_admin_id : branch_admin_id }, function(data){
-		$('#btn_save').button('reset');
+		$('#btn_far_save').prop('disabled',false);
+		$('#btn_far_save').button('reset');
 		$('#div_modal').html(data);
 	});
 }

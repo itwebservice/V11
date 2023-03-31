@@ -234,7 +234,7 @@ for($i=0;$i<=count($airlines_main)-1;$i++)
                 $airlines_main[$i],
                 get_seats($id_main[$i]) + get_group_seats($id_main[$i]) +  get_package_seats($id_main[$i]),
                 get_amount($id_main[$i]) + get_group_amount($id_main[$i]) + get_package_amount($id_main[$i]),
-			    '<button class="btn btn-info btn-sm" onclick="view_com_airlines_modal('. $id_main[$i] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>' 
+			    '<button class="btn btn-info btn-sm" onclick="view_com_airlines_modal('. $id_main[$i] .')" data-toggle="tooltip" title="View Details" id="view_btn-'. $id_main[$i] .'"><i class="fa fa-eye"></i></button>' 
         ),"bg" =>$bg );
       
        array_push($array_s, $temparr);

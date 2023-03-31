@@ -42,7 +42,7 @@ function transport($dateQry)
                 'Transport Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'], 
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
               
             ), "bg" => null);
             array_push($array_s, $temparr);
@@ -70,7 +70,7 @@ function trainTicket($dateQry)
                 'Train Ticket Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -97,7 +97,7 @@ function ticketVendor($dateQry)
                 'Ticket Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -124,7 +124,7 @@ function cruiseMsater($dateQry)
                 'Cruise Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -151,7 +151,7 @@ function siteSeeing($dateQry)
                 'Excursion Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -178,7 +178,7 @@ function dmcMaster($dateQry)
                 'Dmc Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -205,7 +205,7 @@ function visaVendor($dateQry)
                 'Visa Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -232,7 +232,7 @@ function insuranceVendor($dateQry)
                 'Insurance Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -258,7 +258,7 @@ function insuranceVendor($dateQry)
 //                 'Other Vendor',
 //                 $db['totalPurchase'],
 //                 $db['basicCost'],
-//                 '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+//                 '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" id="view_btn-'. $db['vendorTypeId'] .'" title="View Details"><i class="fa fa-eye"></i></button>'
 //             ), "bg" => null);
 //             array_push($array_s, $temparr);
 //         }
@@ -284,7 +284,7 @@ function carrentalVendor($dateQry)
                 'Car Rental Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }
@@ -310,7 +310,7 @@ function hotelVendor($dateQry)
                 'Hotel Vendor',
                 $db['totalPurchase'],
                 $db['basicCost'],
-                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="allModal(`'.$db['vendorTypeId'].'`,`'.$db['vendorType'].'`,`'.$db['estimateTypeId'].'`,`'.$db['estimateType'].'`)" id="view_btn-'. $db['vendorTypeId'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
             ), "bg" => null);
             array_push($array_s, $temparr);
         }

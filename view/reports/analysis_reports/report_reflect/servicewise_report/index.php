@@ -69,9 +69,14 @@ function report_reflect(data){
 
 	function view_service_modal(enquiry_type)
 {
+	$('#view_btn-'+enquiry_type).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+enquiry_type).button('loading');
+
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/servicewise_report/view_service_modal.php', { enquiry_type : enquiry_type}, function(data){
 		$('#other_service_display').html(data);
+		$('#view_btn-'+enquiry_type).prop('disabled',false);
+		$('#view_btn-'+enquiry_type).button('reset');
 	});
 }
 </script>

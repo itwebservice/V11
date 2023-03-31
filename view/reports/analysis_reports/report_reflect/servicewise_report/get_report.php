@@ -387,7 +387,7 @@ $grptype = 'Group Booking';
                 get_service_enq_hot('Group Booking',$type),
                 get_service_enq_cold('Group Booking',$type),
                 
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Group Booking`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Group Booking" onclick="view_service_modal(`Group Booking`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -405,7 +405,7 @@ $grptype = 'Group Booking';
                 get_service_enq_strong('Package Booking',$type),
                 get_service_enq_hot('Package Booking',$type),
                 get_service_enq_cold('Package Booking',$type),
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Package Booking`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Package Booking" onclick="view_service_modal(`Package Booking`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -423,7 +423,7 @@ $grptype = 'Group Booking';
                 get_service_enq_strong('Flight Ticket',$type),
                 get_service_enq_hot('Flight Ticket',$type),
                 get_service_enq_cold('Flight Ticket',$type),                
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Flight Ticket`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Flight Ticket" onclick="view_service_modal(`Flight Ticket`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -441,7 +441,7 @@ $grptype = 'Group Booking';
                 get_service_enq_strong('Hotel',$type),
                 get_service_enq_hot('Hotel',$type),
                 get_service_enq_cold('Hotel',$type),               
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Hotel`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Hotel" onclick="view_service_modal(`Hotel`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -461,7 +461,7 @@ $grptype = 'Group Booking';
                 get_service_enq_hot('Car Rental',$type),
                 get_service_enq_cold('Car Rental',$type),    
                 
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Car Rental`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Car Rental" onclick="view_service_modal(`Car Rental`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -479,7 +479,7 @@ $grptype = 'Group Booking';
                 get_service_enq_hot('Train Ticket',$type),
                 get_service_enq_cold('Train Ticket',$type),
               
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Train Ticket`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" id="view_btn-Train Ticket" onclick="view_service_modal(`Train Ticket`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -487,18 +487,17 @@ $grptype = 'Group Booking';
 
         $temparr = array("data" => array
         (
-                 
-               'Bus',
-                get_service_enq('Bus',$type),
-                get_enq_etr_active('Bus',$type),
-                get_enq_etr_infollow('Bus',$type),
-                get_enq_etr_dropped('Bus',$type),
-                get_enq_etr_converted('Bus',$type),
-                get_service_enq_strong('Bus',$type),
-                get_service_enq_hot('Bus',$type),
-                get_service_enq_cold('Bus',$type),
-                
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Bus`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+            'Bus',
+            get_service_enq('Bus',$type),
+            get_enq_etr_active('Bus',$type),
+            get_enq_etr_infollow('Bus',$type),
+            get_enq_etr_dropped('Bus',$type),
+            get_enq_etr_converted('Bus',$type),
+            get_service_enq_strong('Bus',$type),
+            get_service_enq_hot('Bus',$type),
+            get_service_enq_cold('Bus',$type),
+            
+            '<button class="btn btn-info btn-sm" id="view_btn-Bus" onclick="view_service_modal(`Bus`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -506,29 +505,21 @@ $grptype = 'Group Booking';
 
         $temparr = array("data" => array
         (
-                 
-               'Visa',
-                get_service_enq('Visa',$type),
-                get_enq_etr_active('Visa',$type),
-                get_enq_etr_infollow('Visa',$type),
-                get_enq_etr_dropped('Visa',$type),
-                get_enq_etr_converted('Visa',$type),
-                get_service_enq_strong('Visa',$type),
-                get_service_enq_hot('Visa',$type),
-                get_service_enq_cold('Visa',$type),
-                
-			    '<button class="btn btn-info btn-sm" onclick="view_service_modal(`Visa`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+            'Visa',
+            get_service_enq('Visa',$type),
+            get_enq_etr_active('Visa',$type),
+            get_enq_etr_infollow('Visa',$type),
+            get_enq_etr_dropped('Visa',$type),
+            get_enq_etr_converted('Visa',$type),
+            get_service_enq_strong('Visa',$type),
+            get_service_enq_hot('Visa',$type),
+            get_service_enq_cold('Visa',$type),
+            
+            '<button class="btn btn-info btn-sm" id="view_btn-Visa" onclick="view_service_modal(`Visa`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
         array_push($array_s, $temparr);
-
-    
-
-       
-
-    
-
 
 $footer_data = array("footer_data" => array(
 	'total_footers' => 9,

@@ -63,13 +63,15 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 	report_reflect(false);
 
 
-	function view_com_sector_modal(from_location,to_location)
+function view_com_sector_modal(from_location,to_location)
 {
-	
-	
+	$('#view_btn-'+from_location+to_location).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+from_location+to_location).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/comparative_sector_report/view_com_sector_modal.php', { from_location : from_location,to_location:to_location}, function(data){
 		$('#other_sector_display').html(data);
+		$('#view_btn-'+from_location+to_location).prop('disabled',false);
+		$('#view_btn-'+from_location+to_location).button('reset');
 	});
 }
 </script>

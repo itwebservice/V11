@@ -33,7 +33,7 @@ while($row_query = mysqli_fetch_assoc($sq_query)){
 		$row_query['cheque_payment'],
 		$row_query['bank_debit_amount'],
 		$row_query['bank_credit_amount'],
-		'<button class="btn btn-info btn-sm" onclick="display_modal('.$row_query['id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button></td>',
+		'<button class="btn btn-info btn-sm" onclick="display_modal('.$row_query['id'] .')" data-toggle="tooltip" title="View Details" id="adminv-'.$row_query['id'] .'"><i class="fa fa-eye"></i></button></td>',
 		$row_query['reconcl_amount'],
 		$row_query['bank_book_balance'],
 		$row_query['diff_amount'],

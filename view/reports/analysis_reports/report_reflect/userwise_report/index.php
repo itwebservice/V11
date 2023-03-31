@@ -69,10 +69,14 @@ function report_reflect(data){
 	report_reflect(false);
 	function view_user_modal(id)
 {
-	var base_url = $('#base_url').val();
-	$.post(base_url+'view/reports/analysis_reports/report_reflect/userwise_report/view_user_modal.php', {id : id}, function(data){
-		$('#other_user_display').html(data);
-	});
+		$('#view_btn-'+id).prop('disabled',true);
+		var base_url = $('#base_url').val();
+		$('#view_btn-'+id).button('loading');
+		$.post(base_url+'view/reports/analysis_reports/report_reflect/userwise_report/view_user_modal.php', {id : id}, function(data){
+			$('#other_user_display').html(data);
+			$('#view_btn-'+id).prop('disabled',false);
+			$('#view_btn-'+id).button('reset');
+		});
 }
 
 </script>

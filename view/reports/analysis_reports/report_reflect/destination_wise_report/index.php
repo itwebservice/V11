@@ -67,9 +67,13 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 
 	function view_desti_wise_modal(dest_id)
 {
+	$('#view_btn-'+dest_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+dest_id).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/destination_wise_report/view_desti_wise_modal.php', { dest_id : dest_id}, function(data){
 		$('#other_des_wise_display').html(data);
+		$('#view_btn-'+dest_id).prop('disabled',false);
+		$('#view_btn-'+dest_id).button('reset');
 	});
 }
 </script>

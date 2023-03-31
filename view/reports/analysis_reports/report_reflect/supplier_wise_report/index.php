@@ -102,9 +102,13 @@ function view_transport(transport_id)
 }
 function allModal(vendor_type_id,vendor_type,estimate_id,estimate_type)
 {
+	$('#view_btn-'+vendor_type_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+vendor_type_id).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/supplier_wise_report/all_modal_file.php',{ vendor_type_id : vendor_type_id,vendor_type : vendor_type,estimate_id:estimate_id,estimate_type:estimate_type}, function(data){
 		$('#other_supp_wise_display').html(data);
+		$('#view_btn-'+vendor_type_id).prop('disabled',false);
+		$('#view_btn-'+vendor_type_id).button('reset');
 	});
 }
 function ticket_Vendor(ticketvendor_id)

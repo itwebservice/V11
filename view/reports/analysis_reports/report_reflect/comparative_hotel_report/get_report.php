@@ -201,7 +201,7 @@ for($i=0;$i<=count($hotel_main)-1;$i++)
                 package_hotel_nights($id_main[$i]) +
                 get_nights($id_main[$i]),
                 // get_amount($id_main[$i]) +get_package_amount($id_main[$i]) ,
-			    '<button class="btn btn-info btn-sm" onclick="view_com_hotel_modal('. $id_main[$i] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>' 
+			    '<button class="btn btn-info btn-sm" onclick="view_com_hotel_modal('. $id_main[$i] .')" data-toggle="tooltip" title="View Details" id="view_btn-'. $id_main[$i] .'"><i class="fa fa-eye"></i></button>' 
         ),"bg" =>$bg );
       
        array_push($array_s, $temparr);
