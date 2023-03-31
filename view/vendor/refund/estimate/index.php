@@ -33,10 +33,12 @@ include_once('../../inc/vendor_generic_functions.php');
 $('#estimate_id_filter').select2();
 function save_modal(estimate_id)
 {
-	$('#btn_show_save_modal').button('loading');
+    $('#update_estimate-'+estimate_id).button('loading');
+    $('#update_estimate-'+estimate_id).prop('disabled',true);
 	$.post('estimate/save_modal.php', { estimate_id : estimate_id }, function(data){
 		$('#div_modal_content').html(data);
-		$('#btn_show_save_modal').button('reset');
+    $('#update_estimate-'+estimate_id).button('reset');
+    $('#update_estimate-'+estimate_id).prop('disabled',false);
 	});
 }
 

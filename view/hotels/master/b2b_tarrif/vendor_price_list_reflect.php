@@ -38,7 +38,7 @@ $count = 0;
 				<input style="display:inline-block" type="hidden" id="pricing_id" name="pricing_id" value="'.$row_req['pricing_id'].'">
 				<button style="display:inline-block" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Update Details"></i></button>
 			</form>
-			<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['pricing_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
+			<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['pricing_id'].'\')" data-toggle="tooltip" title="View Details" id="viewt_btn-'.$row_req['pricing_id'] .'"><i class="fa fa-eye"></i></button>
 			
 			'), "bg" => $bg);
 		array_push($array_s,$temp_arr); 

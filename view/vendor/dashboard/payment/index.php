@@ -111,9 +111,13 @@ function save_modal(){
 }
 
 function payment_update_modal(payment_id){
+    $('#updatep2_btn-'+payment_id).button('loading');
+    $('#updatep2_btn-'+payment_id).prop('disabled',true);
 	$.post('payment/payment_update_modal.php', { payment_id : payment_id }, function(data){
 		$('#div_payment_update_content').html(data);
 		payment_list_reflect();
+		$('#updatep2_btn-'+payment_id).button('reset');
+		$('#updatep2_btn-'+payment_id).prop('disabled',false);
 	});
 }
 

@@ -99,8 +99,12 @@ function payment_list_reflect()
 }
 payment_list_reflect();
 function payment_update_modal(payment_id){
+    $('#updatep1_btn-'+payment_id).button('loading');
+    $('#updatep1_btn-'+payment_id).prop('disabled',true);
 	$.post('payment/payment_update_modal.php', { payment_id : payment_id }, function(data){
 		$('#div_payment_update_content').html(data);
+		$('#updatep1_btn-'+payment_id).button('reset');
+		$('#updatep1_btn-'+payment_id).prop('disabled',false);
 		payment_list_reflect();
 	});
 }

@@ -110,11 +110,11 @@ function calculate_estimate_amount(offset='')
 	var service_tax_amount = 0;
     if(parseFloat(service_tax_subtotal) !== 0.00 && (service_tax_subtotal) !== ''){
 
-      var service_tax_subtotal1 = service_tax_subtotal.split(",");
-      for(var i=0;i<service_tax_subtotal1.length;i++){
-        var service_tax = service_tax_subtotal1[i].split(':');
-        service_tax_amount = parseFloat(service_tax_amount) + parseFloat(service_tax[2]);
-      }
+		var service_tax_subtotal1 = service_tax_subtotal.split(",");
+		for(var i=0;i<service_tax_subtotal1.length;i++){
+			var service_tax = service_tax_subtotal1[i].split(':');
+			service_tax_amount = parseFloat(service_tax_amount) + parseFloat(service_tax[2]);
+		}
     }
 
 	var net_total = parseFloat(basic_cost) + parseFloat(non_recoverable_taxes) + parseFloat(total_charge) + parseFloat(service_tax_amount) - parseFloat(discount) + parseFloat(our_commission) + parseFloat(tds);
@@ -150,9 +150,13 @@ vendor_estimate_list_reflect();
 
 function vendor_estimate_update_modal(estimate_id)
 {
+    $('#update_btn-'+estimate_id).button('loading');
+    $('#update_btn-'+estimate_id).prop('disabled',true);
 	$.post('estimate/vendor_estimate_update_modal.php', { estimate_id : estimate_id }, function(data){
 		$('#div_vendor_estimate_update').html(data);
 		vendor_estimate_list_reflect();
+		$('#update_btn-'+estimate_id).button('reset');
+		$('#update_btn-'+estimate_id).prop('disabled',false);
 	});
 }
 function vendor_payment_modal(estimate_id)

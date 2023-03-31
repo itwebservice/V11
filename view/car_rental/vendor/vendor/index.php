@@ -5,7 +5,7 @@ include "../../../../model/model.php";
 
 <div class="row text-right mg_bt_20">
     <div class="col-md-12 text-right">
-    	<button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="generic_city_save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;City</button>
+    	<button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="generic_city_save_modal()" id="btn_city_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;City</button>
     	&nbsp;&nbsp;
 		<button class="btn btn-info btn-sm ico_left" onclick="save_modal()" id="btn_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Vehicle Supplier</button>
     </div>
@@ -49,21 +49,31 @@ function vendor_list_reflect()
 vendor_list_reflect();
 function vendor_update_modal(vendor_id)
 {
+    $('#update_btn-'+vendor_id).button('loading');
+    $('#update_btn-'+vendor_id).prop('disabled',true);
 	$.post('vendor/vendor_update_modal.php', { vendor_id : vendor_id}, function(data){
 		$('#div_vendors_update').html(data);
+		$('#update_btn-'+vendor_id).button('reset');
+		$('#update_btn-'+vendor_id).prop('disabled',false);
 	});
 }
 function vendor_view_modal(vendor_id)
 {
+    $('#view_btn-'+vendor_id).button('loading');
+    $('#view_btn-'+vendor_id).prop('disabled',true);
 	$.post('vendor/view_modal.php', { vendor_id : vendor_id}, function(data){
 		$('#div_vendors_view').html(data);
+		$('#view_btn-'+vendor_id).button('reset');
+		$('#view_btn-'+vendor_id).prop('disabled',false);
 	});
 }
 function save_modal()
 {
-	$('#btn_save_modal').button('loading');
+    $('#btn_save_modal').prop('disabled',true);
+    $('#btn_save_modal').button('loading');
 	$.post('vendor/vendor_save.php', {}, function(data){
 		$('#btn_save_modal').button('reset');
+    	$('#btn_save_modal').prop('disabled',false);
 		$('#div_vendors_update').html(data);
 	});
 }

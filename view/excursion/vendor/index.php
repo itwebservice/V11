@@ -50,14 +50,22 @@ function list_reflect()
 list_reflect();
 function update_modal(vendor_id)
 {
+    $('#update_btn-'+vendor_id).button('loading');
+    $('#update_btn-'+vendor_id).prop('disabled',true);
 	$.post('update_modal.php', {vendor_id : vendor_id}, function(data){
 		$('#div_modal_content').html(data);
+		$('#update_btn-'+vendor_id).button('reset');
+		$('#update_btn-'+vendor_id).prop('disabled',false);
 	});
 }
 function view_modal(vendor_id)
 {
+    $('#view_btn-'+vendor_id).button('loading');
+    $('#view_btn-'+vendor_id).prop('disabled',true);
 	$.post('view_modal.php', {vendor_id : vendor_id}, function(data){
 		$('#div_modal_view').html(data);
+		$('#view_btn-'+vendor_id).button('reset');
+		$('#view_btn-'+vendor_id).prop('disabled',false);
 	});
 }
 function save_modal()

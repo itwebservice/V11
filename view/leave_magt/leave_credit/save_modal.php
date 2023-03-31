@@ -1,6 +1,5 @@
 <?php 
 include "../../../model/model.php";
- 
 ?>
 
 <div class="modal fade" id="save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">

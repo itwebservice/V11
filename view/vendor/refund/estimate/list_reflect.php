@@ -50,12 +50,12 @@ if($estimate_id!=""){
 				<td><?= $row_estimate['total_refund_amount'] ?></td>		
 				<?php if($row_estimate['cancel_est_flag'] == '0'){ ?>				
 					<td>
-						<button class="btn btn-info btn-sm" class="from-control" title="Calculate Refund Estimate" onclick="save_modal(<?= $row_estimate['estimate_id'] ?>)"><i class="fa fa-pencil-square-o"></i></button>
+						<button class="btn btn-info btn-sm" class="from-control" title="Calculate Refund Estimate" onclick="save_modal(<?= $row_estimate['estimate_id'] ?>)" id="update_estimate-<?= $row_estimate['estimate_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 					</td>
 				<?php }
 				else{ ?>
 					<td>
-						<button class="btn btn-info btn-sm" class="from-control" title="View Cancellation Estimate" onclick="save_modal(<?= $row_estimate['estimate_id'] ?>)"><i class="fa fa-eye"></i></button>
+						<button class="btn btn-info btn-sm" class="from-control" title="View Cancellation Estimate" onclick="save_modal(<?= $row_estimate['estimate_id'] ?>)" id="update_estimate-<?= $row_estimate['estimate_id'] ?>"><i class="fa fa-eye"></i></button>
 					</td>
 				<?php } ?>			
 			</tr>

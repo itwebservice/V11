@@ -76,12 +76,14 @@ function upcoming_tour_offer_disable(offer_id)
 
 function upcoming_tours_update_modal(offer_id)
 {	
-	$('#update-'+offer_id).button('loading');
+	$('#update_btn-'+offer_id).button('loading');
+	$('#update_btn-'+offer_id).prop('disabled',true);
 	$.post( 
 	"upcoming_tours_update_modal.php",
 	{ offer_id : offer_id },
 	function(data) {  
-			$('#div_upcoming_tours_update_modal').html(data);
-			$('#update-'+offer_id).button('reset');
+		$('#div_upcoming_tours_update_modal').html(data);
+		$('#update_btn-'+offer_id).button('reset');
+		$('#update_btn-'+offer_id).prop('disabled',false);
 	});
 }

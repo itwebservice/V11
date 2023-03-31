@@ -41,9 +41,13 @@ function attractions_view_modal()
 }
 function view_modal(att_id)
 {
-  $.post('view/index.php', { att_id: att_id }, function(data){
-    $('#div_view_modal').html(data);
-  });
+    $('#view_btn-'+att_id).button('loading');
+    $('#view_btn-'+att_id).prop('disabled',true);
+    $.post('view/index.php', { att_id: att_id }, function(data){
+      $('#div_view_modal').html(data);
+      $('#view_btn-'+att_id).button('reset');
+      $('#view_btn-'+att_id).prop('disabled',false);
+    });
 }
 </script>
 <script src="../js/fourth_coming_attraction.js"></script>

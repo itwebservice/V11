@@ -92,8 +92,7 @@ while($row_estimate = mysqli_fetch_assoc($sq_estimate)){
 		$removeDeleteBtn = null;
 	}else{
 		$cancel_button = '';
-		// $cancel_button = '<button class="btn btn-danger btn-sm" onclick="vendor_estimate_cancel('.$row_estimate['estimate_id'] .')" data-toggle="tooltip" title="Cancel this Purchase"><i class="fa fa-ban"></i></button>';
-		$update_btn = '<button class="btn btn-info btn-sm" onclick="vendor_estimate_update_modal('. $row_estimate['estimate_id'] .')" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+		$update_btn = '<button class="btn btn-info btn-sm" onclick="vendor_estimate_update_modal('. $row_estimate['estimate_id'] .')" data-toggle="tooltip" id="update_btn-'. $row_estimate['estimate_id'] .'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 		$removeDeleteBtn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="purchase_delete_entry('.$row_estimate['estimate_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 
 	}

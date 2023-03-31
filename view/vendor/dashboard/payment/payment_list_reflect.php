@@ -72,7 +72,7 @@ while($row_payment = mysqli_fetch_assoc($sq_payment)){
 		$evidence = '';
 	}
 	if($row_payment['payment_mode']!='Debit Note'){
-		$update_btn = '<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'].')"  title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+		$update_btn = '<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'].')"  title="Update Details" id="updatep2_btn-'. $row_payment['payment_id'] .'"><i class="fa fa-pencil-square-o"></i></button>';
 	}else{
 		$update_btn = '';
 	}
