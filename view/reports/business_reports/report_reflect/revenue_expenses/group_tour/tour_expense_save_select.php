@@ -99,16 +99,25 @@ function group_tour_widget(){
 }
 function view_purchase_modal(tour_id,tour_group_id)
 {
+	$('#supplierv_btn-'+tour_id+tour_group_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+tour_id+tour_group_id).button('loading');
 	$.post(base_url+'view/reports/business_reports/report_reflect/revenue_expenses/group_tour/view_purchase_modal.php', { tour_id : tour_id, tour_group_id : tour_group_id}, function(data){
 		$('#other_expnse_display').html(data);
+		$('#supplierv_btn-'+tour_id+tour_group_id).prop('disabled',false);
+    	$('#supplierv_btn-'+tour_id+tour_group_id).button('reset');
 	});
 }
 function other_expnse_modal(tour_id,tour_group_id)
 {
+	$('#suppliere_btn-'+tour_id+tour_group_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#suppliere_btn-'+tour_id+tour_group_id).button('loading');
 	$.post(base_url+'view/reports/business_reports/report_reflect/revenue_expenses/group_tour/other_expnse_modal.php', { tour_id : tour_id, tour_group_id : tour_group_id }, function(data){
 		$('#other_expnse_display').html(data);
+		$('#suppliere_btn-'+tour_id+tour_group_id).prop('disabled',false);
+    	$('#suppliere_btn-'+tour_id+tour_group_id).button('reset');
+		
 	});
 }
 $(function () {

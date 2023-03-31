@@ -158,13 +158,13 @@ $profit_loss = $total_sale - $total_purchase;
 		<?php
 		$sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$tourwise_details[emp_id]'"));
 		$emp = ($tourwise_details['emp_id'] == 0)?'Admin': $sq_emp['first_name'].' '.$sq_emp['last_name'];
-		$btn = ($bg == '') ? '<button class="btn btn-info btn-sm" onclick="package_other_expnse_modal('. $booking_id .')" title="Add Other expense amount"><i class="fa fa-plus"></i></button>' : 'NA';
+		$btn = ($bg == '') ? '<button class="btn btn-info btn-sm" id="suppliere_btn-'. $booking_id.'" onclick="package_other_expnse_modal('. $booking_id .')" title="Add Other expense amount"><i class="fa fa-plus"></i></button>' : 'NA';
 		?>
 			<tr class="<?=$bg?>">
 				<td><?= 1 ?></td>
 				<td><?= get_date_user($tourwise_details['booking_date']) ?></td>
 				<td><?= $tourwise_details['tour_name'] ?></td>
-				<td><button class="btn btn-info btn-sm" onclick="view_purchase_modal('<?= $tourwise_details['booking_id'] ?>')" title="View Details"><i class="fa fa-eye"></i></button></td>
+				<td><button class="btn btn-info btn-sm" onclick="view_purchase_modal('<?= $tourwise_details['booking_id'] ?>')" title="View Details" id="supplierv_btn-<?= $booking_id ?>"><i class="fa fa-eye"></i></button></td>
                 <td><?= $btn ?></td>
 				<td><?= $emp ?></td>
 			</tr>
