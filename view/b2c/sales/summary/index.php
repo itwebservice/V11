@@ -107,10 +107,15 @@ function excel_report()
 }
 function exc_view_modal(booking_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/b2c/sales/summary/view/index.php', { booking_id : booking_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#packagev_btn-'+booking_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
+	var base_url = $('#base_url').val();
+	$.post(base_url+'view/b2c/sales/summary/view/index.php', { booking_id : booking_id }, function(data){
+		$('#div_exc_content_display').html(data);
+		$('#packagev_btn-'+booking_id).prop('disabled',false);
+    	$('#packagev_btn-'+booking_id).button('reset');
+	});
 }
 function booking_id_dropdown_load(customer_id_filter, booking_id_filter)
 {
@@ -122,16 +127,24 @@ function booking_id_dropdown_load(customer_id_filter, booking_id_filter)
 }
 function supplier_view_modal(booking_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/b2c/sales/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
+	$.post(base_url+'view/b2c/sales/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
+		$('#div_exc_content_display').html(data);
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
+	});
 }
 function payment_view_modal(booking_id)
 {
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/b2c/sales/summary/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 		$('#div_exc_content_display').html(data);
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 </script>

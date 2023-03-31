@@ -42,11 +42,14 @@ function tour_group_dynamic_reflect1()
 }
 function travelers_details(id)
   {
+	  $('#'+id).prop('disabled',true);
     var base_url = $('#base_url').val();
     var traveler_group_id = $("#"+id).val();
+	  $('#'+id).button('loading');
     $.get('reports_content/package_tour/repeater_tourist_report/repeater_tourist_report_filter_popup.php', { traveler_group_id : traveler_group_id }, function(data){
-      console.log(data);
         $('#travelr_details_popup').html(data);
+        $('#'+id).prop('disabled',false);
+        $('#'+id).button('reset');
     });
   } 
 tour_group_dynamic_reflect1();

@@ -112,23 +112,35 @@ function booking_reflect()
 booking_reflect();
 function package_view_modal(booking_id)
   {
+    $('#packagev_btn-'+booking_id).prop('disabled',true);
     var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
     $.post(base_url+'view/b2b_sale/summary/view/index.php', { booking_id : booking_id }, function(data){
       $('#div_package_content_display').html(data);
+      $('#packagev_btn-'+booking_id).prop('disabled',false);
+      $('#packagev_btn-'+booking_id).button('reset');
     });
   }
   function supplier_view_modal(booking_id)
   {
+    $('#supplierv_btn-'+booking_id).prop('disabled',true);
     var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
     $.post(base_url+'view/b2b_sale/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
       $('#div_package_content_display').html(data);
+		  $('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
     });
   }
 function payment_view_modal(booking_id)
 {
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/b2b_sale/summary/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 	  $('#div_package_content_display').html(data);
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 $(function () {
