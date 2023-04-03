@@ -379,7 +379,7 @@ $(function(){
 				reflection_arr.push([{'tax_apply_on':tax_apply_on,
 					'tax_value':tax_value}]);
 
-				if(check > from && check < to){
+				if(check >= from && check <= to){
 					purchase_date_arr.push(purchase_date);
 				}
 				else{
