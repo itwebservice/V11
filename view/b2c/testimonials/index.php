@@ -30,9 +30,11 @@ function list_reflect(){
 list_reflect();
 function update_modal(entry_id){
 
-	// $('#btn_save_modal').button('loading');
+	$('#update_btn-'+entry_id).prop('disabled',true);
+	$('#update_btn-'+entry_id).button('loading');
 	$.post('testimonials/update_modal.php', {entry_id:entry_id}, function(data){
-		// $('#btn_save_modal').button('reset');
+		$('#update_btn-'+entry_id).prop('disabled',false);
+		$('#update_btn-'+entry_id).button('reset');
 		$('#div_update_modal').html(data);
 	});
 }

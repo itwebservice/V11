@@ -53,7 +53,7 @@ $query .=" order by entry_id desc";
 				<!-- <td><?= $row_customer['raised_by'] ?></td>
 				<td><?= $row_customer['credit_type'] ?></td> -->
 				<td>
-					<button class="btn <?= $color ?> btn-sm" onclick="customer_update_modal(<?= $row_customer['entry_id'] ?>,<?= $row_customer['register_id'] ?>)" title="Update status"><i class="fa <?= $icon?>" aria-hidden="true"></i></button>
+					<button class="btn <?= $color ?> btn-sm" onclick="customer_update_modal(<?= $row_customer['entry_id'] ?>,<?= $row_customer['register_id'] ?>)" id="updatec-<?= $row_customer['entry_id'] ?>" title="Update status"><i class="fa <?= $icon?>" aria-hidden="true"></i></button>
 				</td>
 			</tr>
 			<?php } ?>
@@ -66,8 +66,13 @@ $('#tbl_customer_list').dataTable({
 		"pagingType": "full_numbers"
 	});
 function customer_update_modal(entry_id,register_id){
+
+    $('#updatec-'+entry_id).prop('disabled',true);
+    $('#updatec-'+entry_id).button('loading');
 	$.post('credit_management/customer_update_modal.php', { entry_id : entry_id ,register_id:register_id}, function(data){
 		$('#div_customer_update_modals').html(data);
+		$('#updatec-'+entry_id).prop('disabled',false);
+		$('#updatec-'+entry_id).button('reset');
 	})
 }
 </script>

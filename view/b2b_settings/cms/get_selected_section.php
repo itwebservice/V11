@@ -522,7 +522,7 @@ elseif ($section_name == '9') {
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <input class="btn btn-sm btn-danger" style="padding-left: 10px !important;" type="button" value="Select Image" id="select_image" onclick="get_dest_images('dest_name<?= ($i+1) ?>','imagel<?=($i+1)?>');"/>
+                    <input class="btn btn-sm btn-danger" style="padding-left: 10px !important;" type="button" value="Select Image" id="select_image-<?= ($i+1) ?>" onclick="get_dest_images('dest_name<?= ($i+1) ?>','imagel<?=($i+1)?>');"/>
                     <input type="hidden" value="" id="imagel<?=($i+1)?>"/>
                 </div>
             </div>
@@ -561,7 +561,7 @@ elseif ($section_name == '9') {
                 </select>
             </div>
             <div class="col-md-2">
-                <input class="btn btn-sm <?= $button_class?>" style="padding-left: 10px !important;" type="button" value="<?= $button_text?>" id="select_image" onclick="get_dest_images('dest_name<?= ($i+1) ?>','imagel<?=($i+1)?>');"/>
+                <input class="btn btn-sm <?= $button_class?>" style="padding-left: 10px !important;" type="button" value="<?= $button_text?>" id="select_image-<?= ($i+1) ?>" onclick="get_dest_images('dest_name<?= ($i+1) ?>','imagel<?=($i+1)?>');"/>
                 <input type="hidden" value="<?= $newUrl ?>" id="imagel<?=($i+1)?>"/>
             </div>
         </div>

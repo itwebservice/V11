@@ -30,9 +30,11 @@ function list_reflect(){
 list_reflect();
 function update_modal(entry_id){
 
-	// $('#btn_save_modal').button('loading');
+	$('#updateb_btn-'+entry_id).prop('disabled',true);
+	$('#updateb_btn-'+entry_id).button('loading');
 	$.post('blogs/update_modal.php', {entry_id:entry_id}, function(data){
-		// $('#btn_save_modal').button('reset');
+		$('#updateb_btn-'+entry_id).prop('disabled',false);
+		$('#updateb_btn-'+entry_id).button('reset');
 		$('#div_update_modal').html(data);
 	});
 }

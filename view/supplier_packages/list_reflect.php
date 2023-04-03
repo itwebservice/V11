@@ -70,7 +70,7 @@ $today_date = date('Y-m-d');
 			<?php }
 			?>
 			<td>
-				<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ser['package_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+				<button class="btn btn-info btn-sm" id="update_btn-<?= $row_ser['package_id'] ?>" onclick="update_modal(<?= $row_ser['package_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 			</td>
 		</tr>
 		<script>

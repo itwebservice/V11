@@ -70,9 +70,7 @@ while($row_sale = mysqli_fetch_assoc($row_sale1)){
 	$sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$customer_id'"));
 	$cust_name = $sq_cust['first_name'].' '.$sq_cust['last_name'];
 	// Invoice
-	// if($row_sale['service'] == 'Holiday'){
-		$tour_name = $enq_data[0]->package_name;
-	// }
+	$tour_name = $enq_data[0]->package_name;
 	$service_sac = ($row_sale['service'] == 'Holiday') ? "Package Tour" : "Group Tour";
 	$total_pax = intval($enq_data[0]->adults)+intval($enq_data[0]->chwob)+intval($enq_data[0]->chwb)+intval($enq_data[0]->infant)+intval($enq_data[0]->extra_bed);
 	$sq_sac = mysqli_fetch_assoc(mysqlQuery("select * from sac_master where service_name='$service_sac'")); 
@@ -118,11 +116,6 @@ while($row_sale = mysqli_fetch_assoc($row_sale1)){
 		}
 	}
 	$cancel_amt = $row_sale['cancel_amount'];
-	// if($bg != ''){
-	// 	$bal_amount = ($paid_amount > $cancel_amt) ? 0 : floatval($cancel_amt) - floatval($paid_amount)-floatval($credit_card_charges);
-	// }else{
-	// 	$bal_amount = floatval($total_cost1) - floatval($paid_amount);
-	// }
 	// Invoice PDF
 	$url1 = BASE_URL."model/app_settings/print_html/invoice_html/body/b2c_invoice.php?invoice_no=$booking_id&invoice_date=$booking_date&customer_id=$customer_id&service_name=$service_name&sac_code=$sac_code&tour_name=$tour_name&booking_id=$row_sale[booking_id]&credit_card_charges=$credit_card_charges&total_cost=$total_cost&tax_amount=$tax_amount&grand_total=$grand_total&coupon_amount=$coupon_amount&net_total=$net_total&tax=$tax&paid_amount=$paid_amount&total_pax=$total_pax&branch_status=$branch_status&bal_amount=$balance_amount&canc_amount=$cancel_amt&bg=$bg";
 
@@ -139,7 +132,7 @@ while($row_sale = mysqli_fetch_assoc($row_sale1)){
 		number_format($balance_amount,2),
 		$conf_btn.'<a data-toggle="tooltip" onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print" data-toggle="tooltip"></i></a>'.$voucher_modal.'<a data-toggle="tooltip" onclick="loadOtherPage(\''.$url .'\')" class="btn btn-info btn-sm" title="Download Receipt"><i class="fa fa-print"></i></a>		
 
-		<button style="display:inline-block" class="btn btn-info btn-sm" onclick="package_view_modal('.$row_sale['booking_id'] .')" title="View Details" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></button>
+		<button style="display:inline-block" class="btn btn-info btn-sm" onclick="package_view_modal('.$row_sale['booking_id'] .')" title="View Details" id="view_btn-'.$row_sale['booking_id'] .'" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></button>
 		'
 	
 	), "bg" =>$bg);

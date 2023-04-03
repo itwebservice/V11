@@ -14,7 +14,7 @@ $branch_status = $sq['branch_status'];
         <button class="btn btn-excel btn-sm mg_bt_20" id="send_btn" onclick="send_reg()" data-toggle="tooltip" title="Send Registration Form"><i class="fa fa-paper-plane-o"></i></button>
         <?php if($role == 'Admin' || $role == 'Branch Admin'){?>
         <button class="btn btn-excel btn-sm mg_bt_20" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>&nbsp;&nbsp;
-        <?php } ?><button class="btn btn-info btn-sm mg_bt_20 ico_left" id="btn_save_modal" onclick="save_modal();" title="Add B2B Agnet" data-toggle="tooltip"><i class="fa fa-plus"></i>&nbsp;&nbsp;B2B Agent</button>
+        <?php } ?><button class="btn btn-info btn-sm mg_bt_20 ico_left" id="save_agent_btn" onclick="save_modal();" title="Add B2B Agnet" data-toggle="tooltip"><i class="fa fa-plus"></i>&nbsp;&nbsp;B2B Agent</button>
     </div>
 </div>
 
@@ -45,10 +45,12 @@ $branch_status = $sq['branch_status'];
 <script src="<?= BASE_URL ?>js/app/field_validation.js"></script>
 <script>
 function send_reg(){
+    $('#send_btn').prop('disabled',true);
 	$('#send_btn').button('loading');
 	$.post('inc/send_reg_form.php', { }, function(data){
         $('#div_modal').html(data);
         $('#send_btn').button('reset');
+        $('#send_btn').prop('disabled',false);
 	});
 }
 
@@ -72,9 +74,14 @@ function excel_report(){
     window.location = 'excel_report.php?active_flag='+active_flag+'&branch_status='+branch_status+'&approve_status='+approve_status;
 }
 function save_modal(){
+    
+    $('#save_agent_btn').prop('disabled',true);
+    $('#save_agent_btn').button('loading');
     var branch_status = $('#branch_status').val();
     $.post('save/index.php', {branch_status, branch_status}, function(data){
-          $('#div_view_modal').html(data);
+        $('#div_view_modal').html(data);
+        $('#save_agent_btn').prop('disabled',false);
+        $('#save_agent_btn').button('reset');
     });
 }
 function change_fields_status(approval_status){
