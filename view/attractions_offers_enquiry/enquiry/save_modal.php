@@ -44,11 +44,6 @@ $branch_status = $_POST['branch_status'];
                             <input type="hidden" id="cust_data" name="cust_data" value='<?= get_customer_hint() ?>'>
                         </div>
                         <div class="col-md-3 col-sm-6 mg_bt_10">
-                            <input type="number" class="form-control" id="txt_mobile_no"
-                                onchange="mobile_validate(this.id);" name="txt_mobile_no" placeholder="*Mobile No"
-                                title="Mobile No">
-                        </div>
-                        <div class="col-md-3 col-sm-6 mg_bt_10">
                             <div class="row">
                                 <div class="col-md-6" style="padding-right:0px;">
                                     <select name="country_code" id="country_code" title="Country Code"
@@ -62,6 +57,11 @@ $branch_status = $_POST['branch_status'];
                                         placeholder="WhatsApp No" title="WhatsApp No" style="width: 140px;">
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mg_bt_10">
+                            <input type="number" class="form-control" id="txt_mobile_no"
+                                onchange="mobile_validate(this.id);" name="txt_mobile_no" placeholder="*Mobile No"
+                                title="Mobile No">
                         </div>
                         <div class="col-md-3 col-sm-6 mg_bt_10">
                             <input type="text" class="form-control" id="txt_email_id" name="txt_email_id"

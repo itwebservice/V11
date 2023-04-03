@@ -291,6 +291,7 @@ while($row_customer = mysqli_fetch_assoc($sq_customer)){
 		$row_customer['contact_no'],
 		$row_customer['email_id'],
 		get_date_user($row_customer['created_at']),
+		'<button class="btn btn-info btn-sm" onclick="group_view_modal('.$row_customer['booking_id'] .')" id="packagev_btn-'. $row_customer['booking_id'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>',
 		number_format($servie_total,2),
 		number_format($row_customer['cancel_amount'],2),
 		number_format($servie_total-$row_customer['cancel_amount'],2),
@@ -312,7 +313,7 @@ $footer_data = array("footer_data" => array(
 	'class0' =>"",
 
 	'foot1' => "TOTAL CANCEL : ".number_format($cancel_total,2),
-	'col1' => 2,
+	'col1' => 3,
 	'class1' =>"danger text-right",
 	
 	'foot2' => "TOTAL SALE : ".number_format($net_total,2),

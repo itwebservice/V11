@@ -65,6 +65,7 @@ var column = [
 	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Booking_Date"},
+	{ title : "View"},
 	{ title : "Sale", className:"info text-right"},
 	{ title : "Cancel", className:"danger text-right"},
 	{ title : "Total", className:"info text-right"},
@@ -91,6 +92,18 @@ function list_reflect()
 }
 list_reflect();
 
+function group_view_modal(id)
+  {
+	$('#packagev_btn-'+id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+id).button('loading');
+    var base_url = $('#base_url').val();
+    $.post(base_url+'view/b2b_sale/summary/view/index.php', { booking_id : id }, function(data){
+    	$('#div_package_content_display').html(data);
+		  $('#packagev_btn-'+id).prop('disabled',false);
+    	$('#packagev_btn-'+id).button('reset');
+    });
+  }
 function excel_report()
 {
 	var customer_id = $('#cust_filter').val();

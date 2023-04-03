@@ -205,6 +205,7 @@ if($branch_status=='yes'){
 }
 $query .= " order by booking_id desc";
 $row_count =11;
+$vendor_name1 = '';
 
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B'.$row_count, "Sr. No")
@@ -343,20 +344,19 @@ $row_count =11;
         $sq_purchase_count = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Car Rental' and estimate_type_id='$row_car[booking_id]' and delete_status='0'"));
         if($sq_purchase_count == 0){  $p_due_date = 'NA'; }
         $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Car Rental' and estimate_type_id='$row_car[booking_id]' and delete_status='0'");
-        while($row_purchase = mysqli_fetch_assoc($sq_purchase)){  	
-			if($row_purchase['purchase_return'] == 0){
-				$total_purchase += $row_purchase['net_total'];
-			}
-			else if($row_purchase['purchase_return'] == 2){
-				$cancel_estimate = json_decode($row_purchase['cancel_estimate']);
-				$p_purchase = ($row_purchase['net_total'] - floatval($cancel_estimate[0]->net_total));
-				$total_purchase += $p_purchase;
-			}
+        while($row_purchase = mysqli_fetch_assoc($sq_purchase)){	
+            if($row_purchase['purchase_return'] == 0){
+                $total_purchase += $row_purchase['net_total'];
+            }
+            else if($row_purchase['purchase_return'] == 2){
+                $cancel_estimate = json_decode($row_purchase['cancel_estimate']);
+                $p_purchase = ($row_purchase['net_total'] - floatval($cancel_estimate[0]->net_total));
+                $total_purchase += $p_purchase;
+            }
+            $vendor_name = get_vendor_name_report($row_purchase['vendor_type'], $row_purchase['vendor_type_id']);
+            if($vendor_name != ''){ $vendor_name1 .= $vendor_name.','; }
         }
-        $sq_purchase1 = mysqli_fetch_assoc(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Car Rental' and estimate_type_id='$row_car[booking_id]' and delete_status='0'"));       
-        $vendor_name = get_vendor_name_report($sq_purchase1['vendor_type'], $sq_purchase1['vendor_type_id']);
-        if($vendor_name == ''){ $vendor_name1 = 'NA';  }
-        else{ $vendor_name1 = $vendor_name; }   
+        $vendor_name1 = substr($vendor_name1, 0, -1);
 
         $sq_incentive = mysqli_fetch_assoc(mysqlQuery("select * from booker_sales_incentive where booking_id='$row_car[booking_id]' and service_type='Car Rental'"));
     $objPHPExcel->setActiveSheetIndex(0)

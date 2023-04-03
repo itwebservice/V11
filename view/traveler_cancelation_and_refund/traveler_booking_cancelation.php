@@ -60,8 +60,8 @@ $sq_total_travel_paid_amount = mysqli_fetch_assoc(mysqlQuery("select sum(amount)
                     <tr class="cancelation-table-title table-heading-row">
 
                         <th>S_No.</th>
-                        <th>Adol</th>
                         <th>Passenger_name</th>
+                        <th>Adol</th>
                         <th>Age</th>
                         <th>Cancel</th>
 
@@ -105,9 +105,9 @@ $sq_total_travel_paid_amount = mysqli_fetch_assoc(mysqlQuery("select sum(amount)
                                 echo "class=" . $color; ?>>
 
                             <td><?php echo $counter ?></td>
-                            <td style="text-align:left;"><?php echo $row['adolescence'] ?></td>
 
                             <td style="text-align:left;"><?php echo $row['first_name'] . ' ' . $row['last_name'] ?></td>
+                            <td style="text-align:left;"><?php echo $row['adolescence'] ?></td>
                             <td style="text-align:left;"><?php echo $row['age'] ?></td>
 
 

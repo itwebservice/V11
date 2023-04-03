@@ -38,7 +38,7 @@ elseif($role!='Admin' && $role!='Branch Admin' && $role!='Hr' && $role!='Account
 	<thead>
 		<tr class="table-heading-row">
 			<th>S_No.</th>
-			<th>Employee_Name</th>
+			<th>User_Name</th>
 			<th>Request_date</th>
 			<th>Status</th>
 			<th>Total_days</th>

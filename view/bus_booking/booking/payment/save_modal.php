@@ -66,6 +66,18 @@ $branch_status = $_POST['branch_status']
           </div>
         </div>
         <div class="row mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <input class="hidden" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <select class="hidden" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
+            ><option value=''>Select Identifier</option></select>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <input class="hidden" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
+          </div>
+        </div>
+        <div class="row mg_bt_10">
           <div class="col-md-3">
             <input type="text" id="bank_name" name="bank_name" class="form-control bank_suggest" placeholder="Bank Name" title="Bank Name" disabled>
           </div>
@@ -82,16 +94,6 @@ $branch_status = $_POST['branch_status']
           <div class="col-md-3 col-sm-3">
             <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="Outstanding" title="Outstanding" readonly/>
             <input type="hidden" id="canc_status" name="canc_status" class="form-control"/>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <input class="hidden" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <select class="hidden" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
-            ><option value=''>Select Identifier</option></select>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <input class="hidden" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
           </div>
         </div>
         <div class="row mg_tp_20">

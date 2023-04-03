@@ -15,9 +15,9 @@ $role_id = $_SESSION['role_id'];
       <div class="modal-body">
 
         <div class="row">
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
               <select name="booking_id" id="booking_id" style="width:100%" onchange="get_outstanding('hotel',this.id);">
-                <option value="">Select Booking</option>
+                <option value="">*Select Booking ID</option>
                   <?php
                   $query = "select * from hotel_booking_master where 1 and delete_status='0' ";
                   include "../../../../model/app_settings/branchwise_filteration.php";
@@ -52,44 +52,44 @@ $role_id = $_SESSION['role_id'];
                   } ?>
               </select>
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="payment_date" name="payment_date" title="Date" placeholder="*Date" value="<?= date('d-m-Y') ?>" onchange="check_valid_date(this.id)">
           </div>          
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <select id="payment_mode" name="payment_mode" required title="Mode" onchange="payment_master_toggles(this.id, 'bank_name', 'transaction_id', 'bank_id');get_identifier_block('identifier','payment_mode','credit_card_details','credit_charges');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges')">
                 <?php get_payment_mode_dropdown(); ?>
             </select>  
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="payment_amount" name="payment_amount" title="Amount" placeholder="*Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','transaction_id','bank_name','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
           </div>
 
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+						<input class="hidden" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<select class="hidden" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
+						><option value=''>Select Identifier</option></select>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input class="hidden" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
+					</div>
+        </div>
+				<div class="row mg_tp_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="bank_name" name="bank_name" onchange="fname_validate(this.id);"  class="form-control bank_suggest" placeholder="Bank Name" title="Bank Name" readonly />
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="number" id="transaction_id" name="transaction_id" onchange="validate_specialChar(this.id)" class="form-control" placeholder="Cheque No / ID" title="Cheque No / ID" readonly />
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <select name="bank_id" id="bank_id" title="Select Bank" disabled>
               <?php get_bank_dropdown() ?>
             </select>
           </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-						<input class="hidden" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<select class="hidden" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
-						><option value=''>Select Identifier</option></select>
-					</div>
-          </div>
-				<div class="row mg_tp_10">
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<input class="hidden" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
-					</div>
 				</div>
         <div class="row mg_tp_10">
-          <div class="col-md-4 col-sm-3">
+          <div class="col-md-3 col-sm-3">
             <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="Outstanding" title="Outstanding" readonly/>
             <input type="hidden" id="canc_status" name="canc_status" class="form-control"/>
           </div>

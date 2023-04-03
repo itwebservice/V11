@@ -121,7 +121,7 @@ public function finance_save($ticket_id,$row_spec)
       }
       $i++;
     }
-    $particular = 'Sales against ('.$sq_ticket['tour_type'].' Air Ticket) pax: '.$cust_name.' * '.$pax.' passenger(s) '.$pass.', ticket no ('.$ticket_no.') /GDS PNR ('.strtoupper($pnr).') [Invoice no '.get_ticket_booking_id($ticket_id,$yr2).' '.get_date_user($sq_ticket['created_at']).']';
+    $particular = 'Sales against ('.$sq_ticket['tour_type'].' Air Ticket) pax: '.$cust_name.' * '.$pax.' passenger(s) '.$pass.', ticket no ('.strtoupper($ticket_no).') /Airline PNR ('.strtoupper($pnr).') [Invoice no '.get_ticket_booking_id($ticket_id,$yr2).' '.get_date_user($sq_ticket['created_at']).']';
   }
 
   global $transaction_master;

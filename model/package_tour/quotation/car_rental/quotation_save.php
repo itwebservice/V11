@@ -122,7 +122,7 @@ public function quotation_whatsapp(){
 	$route = ($sq_quotation['travel_type'] == "Local") ? $sq_quotation['local_places_to_visit']: $sq_quotation['places_to_visit'];
 
 	$whatsapp_msg = rawurlencode('Dear '.$sq_quotation['customer_name'].',
-Hope you are doing great. This is car on rent quotation details as per your request. We look forward to having you onboard with us.
+Hope you are doing great. This is car rental quotation details as per your request. We look forward to having you onboard with us.
 *Route* : '.$route.'
 *Total Days* : '.$sq_quotation['days_of_traveling'].' Days
 *Quotation Cost* : '.$currency.$sq_quotation['total_tour_cost'].'

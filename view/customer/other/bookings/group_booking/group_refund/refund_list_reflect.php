@@ -14,6 +14,7 @@ if($tourwise_traveler_id!=""){
     <thead>      
         <tr class="table-heading-row">
             <th>S_No.</th>
+            <th>Passenger_name</th>
             <th>Booking_ID</th>
             <th>Refund_Date</th>
             <th>Bank_Name</th>
@@ -60,10 +61,13 @@ if($tourwise_traveler_id!=""){
             $footer_pending_total = str_replace(',', '', $sq_paid_amount_string[1]);
             $sq_can_amount1 = currency_conversion($currency,$sq_booking['currency_code'],$sq_can_amount);
             $sq_canc_amount_string = explode(' ',$sq_can_amount1);
-            $footer_canc_total = str_replace(',', '', $sq_canc_amount_string[1]);         
+            $footer_canc_total = str_replace(',', '', $sq_canc_amount_string[1]); 
+
+            $sq_pass = mysqli_fetch_assoc(mysqlQuery("select * from travelers_details where traveler_id='$row[traveler_id]'"));        
             ?>
             <tr class="<?= $bg;?>">
                 <td><?php echo $sr_no ?></td>
+                <td><?php echo $sq_pass['first_name'].' '.$sq_pass['last_name'] ?></td>
                 <td><?= get_group_booking_id($row['tourwise_traveler_id'],$year) ?></td>
                 <td><?php echo date("d-m-Y", strtotime($row['refund_date'])) ?></td>
                 <td><?php echo $row['bank_name'] ?></td>
@@ -75,7 +79,7 @@ if($tourwise_traveler_id!=""){
     </tbody>
     <tfoot>
     	<tr class="active">
-    		<th colspan="1" class="text-right info">Refund : <?= number_format($footer_paid_total,2); ?></th>
+    		<th colspan="2" class="text-right info">Refund : <?= number_format($footer_paid_total,2); ?></th>
             <th colspan="2" class="text-right warning">Pending : <?= number_format($footer_pending_total,2);?></th>
             <th colspan="2" class="text-right danger">Cencelled : <?= number_format($footer_canc_total,2); ?></th>
             <th colspan="2" class="text-right success">Total Refund : <?= number_format(($footer_paid_total-$footer_pending_total- $footer_canc_total),2);?></th>

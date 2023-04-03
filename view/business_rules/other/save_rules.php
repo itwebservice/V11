@@ -87,14 +87,14 @@ include_once("../../../model/model.php");
           </div>
           <div class="row mg_tp_10">
               <div class="col-md-3">
-                  <input type="number" placeholder="*Amount" min="0" title="Amount" id="amounts" class="form-control" required />
-              </div>
-              <div class="col-md-3">
                   <select name="amount_in" id="amount_in" data-toggle="tooltip" class="form-control" title="Amount In" onchange="check_amount(this.id);" required>
                       <option value="">*Amount In</option>
                       <option value="Percentage">Percentage</option>
                       <option value="Flat">Flat</option>
                   </select>
+              </div>
+              <div class="col-md-3">
+                  <input type="number" placeholder="*Amount" min="0" title="Amount" id="amounts" class="form-control" required />
               </div>
               <div class="col-md-3">
                   <select name="target_amount" id="target_amount" data-toggle="tooltip" class="form-control" title="Target Amount" required>

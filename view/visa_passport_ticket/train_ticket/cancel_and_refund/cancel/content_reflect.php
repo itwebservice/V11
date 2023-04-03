@@ -21,7 +21,7 @@ $train_ticket_id = $_POST['train_ticket_id'];
 				}
 				
 	            begin_widget();
-	                $title_arr = array("Booking Amount", "Service Charge", "Delivery Charge","Tax","Roundoff","Total Amount", "Paid Amount");
+	                $title_arr = array("Basic Amount", "Service Charge", "Delivery Charge","Tax","Roundoff","Total Amount", "Paid Amount");
 	                $content_arr = array( $sq_train_ticket_info['basic_fair'] , $sq_train_ticket_info['service_charge'],$sq_train_ticket_info['delivery_charges'], $service_tax_amount,$sq_train_ticket_info['roundoff'],$sq_train_ticket_info['net_total'], $sq_payment_info['sum']);
 					
 					if($sq_train_ticket_info['net_total'] == ''){ $total_amount = 0; }

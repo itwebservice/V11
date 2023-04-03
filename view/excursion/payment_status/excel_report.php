@@ -204,6 +204,7 @@ $query .= " and emp_id='$emp_id'";
 }
 $query .= " order by exc_id desc";
 $row_count = 11;
+$vendor_name1 = '';
 
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('B'.$row_count, "Sr. No")
@@ -339,8 +340,7 @@ $row_count = 11;
             $sq_purchase_count = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Excursion Booking' and estimate_type_id='$row_exc[exc_id]' and delete_status='0'"));
             if($sq_purchase_count == 0){  $p_due_date = 'NA'; }
             $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Excursion Booking' and estimate_type_id='$row_exc[exc_id]' and delete_status='0'");
-            while($row_purchase = mysqli_fetch_assoc($sq_purchase)){
-                $p_due_date = get_date_user($row_purchase['due_date']);  
+            while($row_purchase = mysqli_fetch_assoc($sq_purchase)){	
                 if($row_purchase['purchase_return'] == 0){
                     $total_purchase += $row_purchase['net_total'];
                 }
@@ -349,11 +349,10 @@ $row_count = 11;
                     $p_purchase = ($row_purchase['net_total'] - floatval($cancel_estimate[0]->net_total));
                     $total_purchase += $p_purchase;
                 }
-            }   
-            $sq_purchase1 = mysqli_fetch_assoc(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Excursion Booking' and estimate_type_id='$row_exc[exc_id]' and delete_status='0'"));        
-            $vendor_name = get_vendor_name_report($sq_purchase1['vendor_type'], $sq_purchase1['vendor_type_id']);
-            if($vendor_name == ''){ $vendor_name1 = 'NA';  }
-            else{ $vendor_name1 = $vendor_name; }  
+                $vendor_name = get_vendor_name_report($row_purchase['vendor_type'], $row_purchase['vendor_type_id']);
+                if($vendor_name != ''){ $vendor_name1 .= $vendor_name.','; }
+            }
+            $vendor_name1 = substr($vendor_name1, 0, -1);
 
             $sq_incentive = mysqli_fetch_assoc(mysqlQuery("select * from booker_sales_incentive where booking_id='$row_exc[exc_id]' and service_type='Excursion Booking'"));
     	$objPHPExcel->setActiveSheetIndex(0)
