@@ -87,8 +87,12 @@ function save_modal(){
 }
 function expense_update_modal(expense_id)
 {
+    $('#update_btn-'+expense_id).prop('disabled',true);
+    $('#update_btn-'+expense_id).button('loading');
 	$.post('booking/expense_update_modal.php', { expense_id : expense_id}, function(data){		
 		$('#div_expense_estimate_update').html(data);
+		$('#update_btn-'+expense_id).prop('disabled',false);
+		$('#update_btn-'+expense_id).button('reset');
 	});
 }
 function delete_entry(expense_id)

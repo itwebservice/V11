@@ -131,10 +131,15 @@ $(document).ready(function() {
 });
 
 function update_income_modal(payment_id) {
+
+    $('#updateo_btn-'+payment_id).prop('disabled',true);
+    $('#updateo_btn-'+payment_id).button('loading');
     $.post('other_income/update_modal.php', {
         payment_id: payment_id
     }, function(data) {
         $('#div_crud_content').html(data);
+        $('#updateo_btn-'+payment_id).prop('disabled',false);
+        $('#updateo_btn-'+payment_id).button('reset');
     });
 }
 
@@ -149,11 +154,15 @@ function excel_report() {
 }
 
 function entry_display_modal(entry_id) {
+    $('#viewo_btn-'+entry_id).prop('disabled',true);
+    $('#viewo_btn-'+entry_id).button('loading');
     var base_url = $('#base_url').val();
     $.post('other_income/income_details.php', {
         income_type_id: entry_id
     }, function(data) {
         $('#div_crud_content').html(data);
+        $('#viewo_btn-'+entry_id).prop('disabled',false);
+        $('#viewo_btn-'+entry_id).button('reset');
     });
 }
 

@@ -68,12 +68,12 @@ function save_modal()
 }
 function update_modal(entry_id)
 {
-	$('#edit-'+entry_id).button('loading');
-	$('#edit-'+entry_id).prop('disabled',true);
+	$('#editj-'+entry_id).button('loading');
+	$('#editj-'+entry_id).prop('disabled',true);
 	$.post('journal_entries/update_modal.php', { entry_id : entry_id }, function(data){
 		$('#div_modal').html(data);
-		$('#edit-'+entry_id).button('reset');
-		$('#edit-'+entry_id).prop('disabled',false);
+		$('#editj-'+entry_id).button('reset');
+		$('#editj-'+entry_id).prop('disabled',false);
 	});
 }
 

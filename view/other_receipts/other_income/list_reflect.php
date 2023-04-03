@@ -36,7 +36,7 @@ while($row_income = mysqli_fetch_assoc($sq_income)){
 	$year1 = explode("-", $sq_paid['payment_date']);
 	$yr1 = $year1[0];
 	$bg = '';
-	$update_btn = '<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Update Details" onclick="update_income_modal('. $sq_paid['payment_id'] .')"><i class="fa fa-pencil-square-o"></i></button>';
+	$update_btn = '<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Update Details" onclick="update_income_modal('. $sq_paid['payment_id'] .')" id="updateo_btn-'. $sq_paid['payment_id'] .'"><i class="fa fa-pencil-square-o"></i></button>';
 	if($sq_paid['clearance_status']=="Pending"){ 
 		$bg='warning';
 		$sq_pending_amount = $sq_pending_amount + $sq_paid['payment_amount'];
@@ -77,7 +77,7 @@ while($row_income = mysqli_fetch_assoc($sq_income)){
 		$sq_paid['payment_amount'] ,
 		'<a onclick="loadOtherPage(\''. $url1 .'\')" data-toggle="tooltip" class="btn btn-info btn-sm" title="Download Receipt"><i class="fa fa-print"></i></a>
 		'.$update_btn.'
-		<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="entry_display_modal('. $row_income['income_id'] .')" title="View Details"><i class="fa fa-eye"></i></button>
+		<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="entry_display_modal('. $row_income['income_id'] .')" title="View Details" id="viewo_btn-'. $row_income['income_id'] .'"><i class="fa fa-eye"></i></button>
 		<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_income['income_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>'
 		), "bg" =>$bg);
 

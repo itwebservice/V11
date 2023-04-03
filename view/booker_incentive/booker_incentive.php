@@ -155,8 +155,12 @@ $branch_status = $sq['branch_status'];
 	}
 	function incentive_edit_modal(booking_id, emp_id,booking_type)
 	{
+		$('#update_btn-'+booking_id).prop('disabled',true);
+		$('#update_btn-'+booking_id).button('loading');
 		$.post('package_tour_incentive_edit_modal.php', { booking_id : booking_id, emp_id : emp_id,booking_type:booking_type }, function(data){
-			$('#div_incentive_save_popup').html(data);	
+			$('#div_incentive_save_popup').html(data);
+			$('#update_btn-'+booking_id).prop('disabled',false);
+			$('#update_btn-'+booking_id).button('reset');	
 		});
 	}
 	function add_incentive(ele, booking_id,emp_id,purchase,booking_amt){

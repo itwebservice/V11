@@ -41,7 +41,7 @@ while($row_journal = mysqli_fetch_assoc($sq_journal)){
 		$sq_journal_entry['type'],
 		$row_journal['narration'],
 		number_format($sq_journal_debit['amount'],2),
-		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal('.$row_journal['entry_id'] .')" title="Update Details" id="edit-'.$row_journal['entry_id'].'"><i class="fa fa-pencil-square-o"></i></button><button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="entry_display_modal('.$row_journal['entry_id'].')" title="View Details" id="view-'.$row_journal['entry_id'].'"><i class="fa fa-eye"></i></button>
+		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal('.$row_journal['entry_id'] .')" title="Update Details" id="editj-'.$row_journal['entry_id'].'"><i class="fa fa-pencil-square-o"></i></button><button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="entry_display_modal('.$row_journal['entry_id'].')" title="View Details" id="view-'.$row_journal['entry_id'].'"><i class="fa fa-eye"></i></button>
 		<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_journal['entry_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>'
 	);
 	array_push($array_s,$temp_arr); 

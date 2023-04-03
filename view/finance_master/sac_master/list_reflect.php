@@ -23,7 +23,7 @@ include "../../../model/model.php";
 				<td><?= $row_sac['service_name'] ?></td>
 				<td><?= $row_sac['hsn_sac_code'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_sac['sac_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_sac['sac_id'] ?>)" id="update_sac-<?= $row_sac['sac_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php
