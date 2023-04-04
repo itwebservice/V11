@@ -72,6 +72,16 @@ $branch_status = $sq['branch_status'];
             <input type="text" id="to_date_filter" onchange="validate_validDate('from_date_filter','to_date_filter');"
                 name="to_date_filter" placeholder="To Date" title="To Date">
         </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
+        </div>
         <div class="col-md-3 col-sm-12 col-xs-12 mg_bt_10">
             <button class="btn btn-sm btn-info ico_right" onclick="list_reflect()">Proceed&nbsp;&nbsp;<i
                     class="fa fa-arrow-right"></i></button>
@@ -143,6 +153,7 @@ function list_reflect() {
     var cust_type = $('#cust_type_filter').val();
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('list_reflect.php', {
         customer_id: customer_id,
@@ -151,7 +162,8 @@ function list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,
+        financial_year_id:financial_year_id_filter
     }, function(data) {
         pagination_load(data, columns, true, true, 20, 'packageb_table', true);
         $('.loader').remove();

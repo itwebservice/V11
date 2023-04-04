@@ -5,6 +5,7 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 ?>
 <input type="hidden" id="whatsapp_switch" value="<?= $whatsapp_switch ?>">
 <div class="row text-right mg_bt_20">
@@ -63,6 +64,16 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date"
                 onchange="validate_validDate('from_date','to_date')">
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12 form-group">
             <button class="btn btn-sm btn-info ico_right" onclick="visa_customer_list_reflect()">Proceed&nbsp;&nbsp;<i
@@ -144,6 +155,7 @@ function visa_customer_list_reflect() {
     var cust_type = $('#cust_type_filter').val();
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
 
     $.post('home/visa_list_reflect.php', {
@@ -153,7 +165,7 @@ function visa_customer_list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         // $('#div_visa_customer_list_reflect').html(data);
         pagination_load(data, columns, true, true, 10, 'misc_book', true);

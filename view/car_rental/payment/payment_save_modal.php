@@ -21,37 +21,39 @@ $role_id = $_SESSION['role_id'];
         <div class="row">
           <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
               <select name="booking_id" id="booking_id" style="width:100%" title="Booking ID" onchange="get_outstanding('car',this.id);">
-                <option value="">*Select Booking ID</option>
-                <?php
-                $query = "select * from car_rental_booking where 1 and delete_status='0' ";
-                include "../../../model/app_settings/branchwise_filteration.php";
-                $query .= " and financial_year_id = '".$_SESSION['financial_year_id']."' order by booking_id desc";
-                $sq_booking = mysqlQuery($query);
+                  <option value="">*Select Booking ID</option>
+                  <?php
+                  $query = "select * from car_rental_booking where 1 and delete_status='0' ";
+                  include "../../../model/app_settings/branchwise_filteration.php";
+                  $query .= " and financial_year_id = '".$_SESSION['financial_year_id']."' order by booking_id desc";
+                  $sq_booking = mysqlQuery($query);
+                  while($row_booking = mysqli_fetch_assoc($sq_booking)){
 
-                while($row_booking = mysqli_fetch_assoc($sq_booking))
-                {
-                  $date = $row_booking['created_at'];
-                  $yr = explode("-", $date);
-                  $year =$yr[0];
-                  $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_booking[customer_id]'"));
+                    $date = $row_booking['created_at'];
+                    $yr = explode("-", $date);
+                    $year = $yr[0];
+                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_booking[customer_id]'"));
 
-                  $status = '';
-                  if($row_booking['status'] == 'Cancel'){
-                    $status = '(Cancelled)';
-                    $sq_payment_total = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as sum from car_rental_payment where booking_id='$row_booking[booking_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
-                    $paid_amount = $sq_payment_total['sum'];
-                    $canc_amount=$row_booking['cancel_amount'];
-                    $balance = ($paid_amount > $canc_amount) ? 0 : floatval($canc_amount) - floatval($paid_amount);
-                    if($balance <= 0) continue;
-                  }
-                    if($sq_customer['type']=='Corporate'||$sq_customer['type']=='B2B'){
-                          ?>
+                    $status = '';
+                    if($row_booking['status'] == 'Cancel'){
+                      $status = '(Cancelled)';
+                      $sq_payment_total = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as sum from car_rental_payment where booking_id='$row_booking[booking_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
+                      $paid_amount = $sq_payment_total['sum'];
+                      $canc_amount=$row_booking['cancel_amount'];
+                      $balance = ($paid_amount > $canc_amount) ? 0 : floatval($canc_amount) - floatval($paid_amount);
+                      if($balance <= 0) continue;
+                    }
+                    if($sq_customer['type']=='Corporate'||$sq_customer['type']=='B2B'){ ?>
                         <option value="<?= $row_booking['booking_id'] ?>"><?= get_car_rental_booking_id($row_booking['booking_id'],$year)." : ".$sq_customer['company_name'].' '.$status ?></option>
-                    <?php }  else{ ?>
+                    <?php }
+                    else{ ?>
                         <option value="<?= $row_booking['booking_id'] ?>"><?= get_car_rental_booking_id($row_booking['booking_id'],$year)." : ".$sq_customer['first_name'].' '.$sq_customer['last_name'].' '.$status ?></option>
                     <?php }
                   } ?>
               </select>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+            <input type="text" id="payment_date" name="payment_date" class="form-control" placeholder="Date" title="Date" value="<?= date('d-m-Y')?>" onchange="check_valid_date(this.id)">
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <select id="payment_mode" name="payment_mode" class="form-control" required title="Mode" onchange="payment_master_toggles(this.id, 'bank_name', 'transaction_id', 'bank_id');get_identifier_block('identifier','payment_mode','credit_card_details','credit_charges');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges')">
@@ -61,9 +63,6 @@ $role_id = $_SESSION['role_id'];
           <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="payment_amount" class="form-control" name="payment_amount" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','transaction_id','bank_name','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
           </div>
-          <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-            <input type="text" id="payment_date" name="payment_date" class="form-control" placeholder="Date" title="Date" value="<?= date('d-m-Y')?>" onchange="check_valid_date(this.id)">
-          </div>     
         </div>   
           <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

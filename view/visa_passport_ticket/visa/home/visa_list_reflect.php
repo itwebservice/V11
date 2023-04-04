@@ -3,7 +3,7 @@ include "../../../../model/model.php";
 $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $emp_id = $_SESSION['emp_id'];
 $role_id = $_SESSION['role_id'];
 

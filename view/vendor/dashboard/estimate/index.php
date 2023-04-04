@@ -3,6 +3,7 @@ include_once('../../../../model/model.php');
 $role = $_SESSION['role'];
 $emp_id= $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 ?>
 <input type="hidden" id="branch_status" name="branch_status" value="<?= $branch_status ?>">
@@ -46,6 +47,16 @@ $branch_status = $_POST['branch_status'];
 			</select>
 		</div>
 		<div id="div_payment_for_content2"></div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
+        </div>
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<button class="btn btn-sm btn-info ico_right" onclick="vendor_estimate_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
 		</div>
@@ -140,8 +151,9 @@ function vendor_estimate_list_reflect()
 	var branch_status = $('#branch_status').val();
 	var estimate_type_id = get_estimate_type_id('estimate_type2', '2');
 	var vendor_type_id = get_vendor_type_id('vendor_type2', '2');
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
-	$.post('estimate/vendor_estimate_list_reflect.php', { estimate_type : estimate_type, estimate_type_id : estimate_type_id, vendor_type : vendor_type, vendor_type_id : vendor_type_id , branch_status : branch_status}, function(data){
+	$.post('estimate/vendor_estimate_list_reflect.php', { estimate_type : estimate_type, estimate_type_id : estimate_type_id, vendor_type : vendor_type, vendor_type_id : vendor_type_id , branch_status : branch_status,financial_year_id:financial_year_id_filter}, function(data){
 		pagination_load(data, column, true, true, 20, 'estimate',true);
 		$('.loader').remove();
 	});
@@ -168,23 +180,21 @@ function vendor_payment_modal(estimate_id)
 function vendor_estimate_cancel(estimate_id)
 {
 	$('#vi_confirm_box').vi_confirm_box({
-        message: 'Are you sure?',
-      	callback: function(data1){
-          if(data1=="yes"){
-            
-              $.ajax({
-                type: 'post',
-                url: base_url()+'controller/vendor/dashboard/estimate/cancel_estimate.php',
-                data:{ estimate_id : estimate_id },
-                success: function(result){
-                  msg_alert(result);
-                  vendor_estimate_list_reflect();
-                }
-              });
-
-          }
-        }
-  	});
+	message: 'Are you sure?',
+		callback: function(data1){
+		if(data1=="yes"){
+			$.ajax({
+				type: 'post',
+				url: base_url()+'controller/vendor/dashboard/estimate/cancel_estimate.php',
+				data:{ estimate_id : estimate_id },
+				success: function(result){
+				msg_alert(result);
+				vendor_estimate_list_reflect();
+				}
+			});
+		}
+		}
+	});
 }
 
 function excel_report()

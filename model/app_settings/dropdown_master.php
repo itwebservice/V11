@@ -581,6 +581,17 @@ function get_financial_year_dropdown($all=true){
     <?php
   }
 }
+//Financial year dropdown
+function get_financial_year_dropdown_filter($financial_year_id){
+
+  $sq_finacial_year = mysqlQuery("select * from financial_year where active_flag!='Inactive' and financial_year_id!='$financial_year_id' order by financial_year_id desc");
+  while($row_financial_year = mysqli_fetch_assoc($sq_finacial_year)){
+  $financial_year = get_date_user($row_financial_year['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($row_financial_year['to_date']);
+  ?>
+  <option value="<?= $row_financial_year['financial_year_id'] ?>"><?= $financial_year  ?></option>
+  <?php
+  }
+}
 
 //Airport Name dropdown
 function get_airport_name_dropdown(){

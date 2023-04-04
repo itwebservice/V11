@@ -4,6 +4,7 @@ $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 
 include_once('booking_save_modal.php');
@@ -39,6 +40,16 @@ include_once('booking_save_modal.php');
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date','to_date')">
 		</div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
+        </div>
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<button class="btn btn-sm btn-info ico_right" onclick="booking_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
 		</div>
@@ -83,7 +94,8 @@ function booking_list_reflect()
 	var cust_type = $('#cust_type_filter').val();
 	var company_name = $('#company_filter').val();
 	var branch_status = $('#branch_status').val();
-	$.post('booking/booking_list_reflect.php', { customer_id : customer_id, booking_id : booking_id, from_date : from_date, to_date : to_date , cust_type : cust_type, company_name : company_name, branch_status : branch_status}, function(data){
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
+	$.post('booking/booking_list_reflect.php', { customer_id : customer_id, booking_id : booking_id, from_date : from_date, to_date : to_date , cust_type : cust_type, company_name : company_name, branch_status : branch_status,financial_year_id:financial_year_id_filter}, function(data){
 		pagination_load(data,columns,true,true,20,'hotel_book',true);
 	});
 }

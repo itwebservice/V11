@@ -10,17 +10,20 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_id = $_POST['branch_id'];
 $status = $_POST['status'];
 
 global $app_quot_format,$currency;
 if($status != ''){
 
-	$query = "select * from package_tour_quotation_master where financial_year_id='$financial_year_id' and status='$status'";
+	$query = "select * from package_tour_quotation_master where status='$status'";
 }else{
 
-	$query = "select * from package_tour_quotation_master where financial_year_id='$financial_year_id' and status='1' ";
+	$query = "select * from package_tour_quotation_master where status='1' ";
+}
+if($financial_year_id!=""){
+	$query .=" and financial_year_id='$financial_year_id'";
 }
 
 if($from_date!='' && $to_date!=""){

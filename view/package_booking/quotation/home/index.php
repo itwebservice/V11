@@ -94,10 +94,18 @@ $financial_year_id = $_SESSION['financial_year_id'];
                         </select>
                     </div>
                     <?php } ?>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                            <?php
+                            $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                            $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                            ?>
+                            <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                            <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                        </select>
+                    </div>
                     <div class="col-md-3 col-sm-6 col-xs-12 mg_tp_10">
-                        <button class="btn btn-sm btn-info ico_right"
-                            onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i
-                                class="fa fa-arrow-right"></i></button>
+                        <button class="btn btn-sm btn-info ico_right" onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -177,6 +185,7 @@ function quotation_list_reflect() {
     var branch_status = $('#branch_status').val();
     var branch_id = $('#branch_id_filter1').val();
     var status = $('#status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('quotation_list_reflect.php', {
         from_date: from_date,
@@ -186,7 +195,8 @@ function quotation_list_reflect() {
         quotation_id: quotation_id,
         branch_status: branch_status,
         branch_id: branch_id,
-        status: status
+        status: status,
+        financial_year_id:financial_year_id_filter
     }, function(data) {
         pagination_load(data, column, true, false, 20, 'package_table');
         $('.loader').remove();

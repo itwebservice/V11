@@ -2,7 +2,7 @@
 include_once("../../../../model/model.php");
 $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $array_s = array();
 $temp_arr = array();

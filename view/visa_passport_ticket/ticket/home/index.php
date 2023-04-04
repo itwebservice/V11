@@ -3,6 +3,7 @@ include "../../../../model/model.php";
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $emp_id = $_SESSION['emp_id'];
 $branch_status = $_POST['branch_status'];
 ?>
@@ -65,6 +66,16 @@ $branch_status = $_POST['branch_status'];
         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date"
                 onchange="validate_validDate('from_date','to_date')">
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
         </div>
         <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10">
             <button class="btn btn-sm btn-info ico_right" onclick="ticket_customer_list_reflect()">Proceed&nbsp;&nbsp;<i
@@ -265,6 +276,7 @@ function ticket_customer_list_reflect() {
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
     var base_url = $('#base_url').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/ticket_list_reflect.php', {
         customer_id: customer_id,
@@ -273,7 +285,7 @@ function ticket_customer_list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         pagination_load(data, columns, true, true, 20, 'flight_book', true);
         $('.loader').remove();

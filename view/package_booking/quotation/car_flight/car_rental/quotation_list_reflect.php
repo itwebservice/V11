@@ -10,14 +10,17 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 if($status != ''){
 
-	$query = "select * from car_rental_quotation_master where financial_year_id='$financial_year_id' and status='$status'";
+	$query = "select * from car_rental_quotation_master where status='$status'";
 }else{
 
-	$query = "select * from car_rental_quotation_master where financial_year_id='$financial_year_id' and status='1' ";
+	$query = "select * from car_rental_quotation_master where status='1' ";
+}
+if($financial_year_id!=""){
+	$query .=" and financial_year_id='$financial_year_id'";
 }
 if($from_date!='' && $to_date!=""){
 

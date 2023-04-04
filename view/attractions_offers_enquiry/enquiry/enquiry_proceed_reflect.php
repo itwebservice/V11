@@ -1,13 +1,13 @@
 <?php
 include "../../../model/model.php";
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $login_id = $_SESSION['login_id'];
 $emp_id = $_SESSION['emp_id'];
 $array_s = array();
 $temp_arr = array();
+$financial_year_id = $_POST['financial_year_id'];
 $enquiry_type = $_POST['enquiry_type'];
 $enquiry = $_POST['enquiry'];
 $enquiry_status_filter = $_POST['enquiry_status'];

@@ -1,5 +1,6 @@
 <?php
 include "../../../model/model.php";
+$financial_year_id = $_SESSION['financial_year_id'];
 ?>
 
 <div class="row text-right mg_bt_20">
@@ -35,10 +36,14 @@ include "../../../model/model.php";
             <input type="text" name="to_date_filter" id="to_date_filter" placeholder="To Date" title="To Date"
                 class="form-control" onchange="validate_validDate('from_date_filter','to_date_filter');">
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10 hidden">
-            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Financial Year"
-                class="form-control">
-                <?php get_financial_year_dropdown(); ?>
+        <div class="col-md-3 col-sm-6 mg_bt_10">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year" class="form-control">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
             </select>
         </div>
         <div class="col-md-3 col-xs-12">

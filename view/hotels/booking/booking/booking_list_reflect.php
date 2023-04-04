@@ -11,7 +11,7 @@ $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 
 $query = "select * from hotel_booking_master where financial_year_id='$financial_year_id' and delete_status='0' ";

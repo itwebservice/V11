@@ -4,7 +4,7 @@ include "../../../model/model.php";
 $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
 $income_type_id = $_POST['income_type_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $query = "select * from other_income_master where 1 and delete_status='0'";
 if($from_date!="" && $to_date!=""){

@@ -10,7 +10,7 @@ $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
 $bank_id = $_POST['bank_id'];
 $dbank_id = $_POST['dbank_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $query = "select * from inter_bank_transfer_master where 1 and delete_status=0 and amount!=0 ";
 if ($from_date != "" && $to_date != "") {

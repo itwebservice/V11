@@ -2,6 +2,7 @@
 include "../../../../model/model.php";
 $emp_id = $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 $role = $_POST['role'];
 $role_id = $_POST['role_id'];
@@ -72,6 +73,16 @@ $role_id = $_POST['role_id'];
                 onchange="validate_validDate('from_date','to_date');" placeholder="To Date" placeholder="To Date"
                 title="To Date">
         </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
+        </div>
         <div class="col-md-3 col-sm-6 col-xs-12 form-group">
             <button class="btn btn-sm btn-info ico_right" onclick="visa_customer_list_reflect()">Proceed&nbsp;&nbsp;<i
                     class="fa fa-arrow-right"></i></button>
@@ -97,43 +108,6 @@ $('#from_date, #to_date').datetimepicker({
 });
 dynamic_customer_load('', '');
 
-function business_rule_load() {
-    get_auto_values('booking_date', 'visa_issue_amount', 'payment_mode', 'service_charge', 'markup', 'save', 'true',
-        'service_charge', 'discount');
-}
-
-function adolescence_reflect(id) {
-    var dateString1 = $("#" + id).val();
-    var today = new Date();
-    var birthDate = php_to_js_date_converter(dateString1);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    var d = today.getDate() - birthDate.getDate();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-
-    var millisecondsPerDay = 1000 * 60 * 60 * 24;
-    var millisBetween = today.getTime() - birthDate.getTime();
-    var days = millisBetween / millisecondsPerDay;
-
-    var count = id.substr(10);
-    var adl = "";
-    var no_days = Math.floor(days);
-
-    if (no_days <= 730 && no_days > 0) {
-        adl = "Infant";
-    }
-    if (no_days > 730 && no_days <= 4383) {
-        adl = "Children";
-    }
-    if (no_days > 4383) {
-        adl = "Adult";
-    }
-
-    $('#adolescence' + count).val(adl);
-
-}
 var columns = [{
         title: "Invoice_No"
     },
@@ -190,6 +164,7 @@ function visa_customer_list_reflect() {
     var cust_type = $('#cust_type_filter').val();
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('home/visa_list_reflect.php', {
         customer_id: customer_id,
@@ -198,7 +173,7 @@ function visa_customer_list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         // $('#div_visa_customer_list_reflect').html(data);
         pagination_load(data, columns, true, true, 10, 'visa_book', true);
@@ -206,6 +181,44 @@ function visa_customer_list_reflect() {
     });
 }
 visa_customer_list_reflect();
+
+function business_rule_load() {
+    get_auto_values('booking_date', 'visa_issue_amount', 'payment_mode', 'service_charge', 'markup', 'save', 'true',
+        'service_charge', 'discount');
+}
+
+function adolescence_reflect(id) {
+    var dateString1 = $("#" + id).val();
+    var today = new Date();
+    var birthDate = php_to_js_date_converter(dateString1);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    var d = today.getDate() - birthDate.getDate();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+    var millisBetween = today.getTime() - birthDate.getTime();
+    var days = millisBetween / millisecondsPerDay;
+
+    var count = id.substr(10);
+    var adl = "";
+    var no_days = Math.floor(days);
+
+    if (no_days <= 730 && no_days > 0) {
+        adl = "Infant";
+    }
+    if (no_days > 730 && no_days <= 4383) {
+        adl = "Children";
+    }
+    if (no_days > 4383) {
+        adl = "Adult";
+    }
+
+    $('#adolescence' + count).val(adl);
+
+}
 
 function save_modal() {
 

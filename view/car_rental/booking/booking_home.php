@@ -4,6 +4,7 @@ include "../../../model/model.php";
 // require_once('../../layouts/admin_header.php');
 $emp_id = $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='car_rental/booking/index.php'"));
 $branch_status = $sq['branch_status'];
 $role = $_SESSION['role'];
@@ -50,6 +51,16 @@ $role_id = $_SESSION['role_id'];
                 <input type="text" id="traveling_date_to_filter" name="traveling_date_to_filter" placeholder="To Date"
                     title="To Date"
                     onchange="validate_validDate('traveling_date_from_filter','traveling_date_to_filter');">
+            </div>
+            <div class="col-md-3 col-sm-6 mg_bt_10">
+                <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                    <?php
+                    $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                    $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                    ?>
+                    <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                    <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                </select>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                 <button class="btn btn-sm btn-info ico_right" onclick="booking_list_reflect()">Proceed&nbsp;&nbsp;<i
@@ -140,6 +151,7 @@ function booking_list_reflect() {
     var cust_type = $('#cust_type_filter').val();
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
     $.post('booking_list_reflect.php', {
         customer_id: customer_id,
         traveling_date_from: traveling_date_from,
@@ -147,7 +159,7 @@ function booking_list_reflect() {
         cust_type: cust_type,
         booking_id: booking_id,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         // $('#div_booking_list').html(data);
         pagination_load(data, columns, true, true, 10, 'car_rental_book',true);

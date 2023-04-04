@@ -31,13 +31,13 @@ $branch_status = $sq['branch_status'];
 					<div class="app_panel_content Filter-panel">
 						<div class="row">
 							<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-								<input type="text" id="from_date_filter"  name="from_date_filter" placeholder="From Date" title="From Date" onchange="get_to_date(this.id,'to_date_filter');quotation_list_reflect()">
+								<input type="text" id="from_date_filter"  name="from_date_filter" placeholder="From Date" title="From Date" onchange="get_to_date(this.id,'to_date_filter');">
 							</div>
 							<div class="col-md-3 col-sm-3 col-xs-12 mg_bt_10_xs">
-								<input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date_filter','to_date_filter');quotation_list_reflect()">
+								<input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date_filter','to_date_filter');">
 							</div>
 							<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-								<select name="quotation_id" title="Select Quotation" id="quotation_id" onchange="quotation_list_reflect()" style="width:100%">
+								<select name="quotation_id" title="Select Quotation" id="quotation_id" style="width:100%">
 									<option value="">Select Quotation</option>
 									<?php 
 									$query = "select * from car_rental_quotation_master where 1 and financial_year_id='$financial_year_id' and status='1'";
@@ -64,11 +64,24 @@ $branch_status = $sq['branch_status'];
 								</select>
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12">
-								<select name="status" id="status" title="Status" style="width:100%" onchange="quotation_list_reflect()">
+								<select name="status" id="status" title="Status" style="width:100%">
 									<option value="">Status</option>
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>
+							</div>
+							<div class="col-md-3 col-sm-6 mg_tp_10">
+								<select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+									<?php
+									$sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+									$financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+									?>
+									<option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+									<?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+								</select>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-12 mg_tp_10">
+								<button class="btn btn-sm btn-info ico_right" onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
 							</div>
 						</div>
 					</div>
@@ -110,8 +123,9 @@ function quotation_list_reflect()
 	var quotation_id = $('#quotation_id').val();
 	var branch_status = $('#branch_status').val();
 	var status = $('#status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
-	$.post('quotation_list_reflect.php', { from_date : from_date, to_date : to_date, quotation_id : quotation_id , branch_status : branch_status,status:status}, function(data){
+	$.post('quotation_list_reflect.php', { from_date : from_date, to_date : to_date, quotation_id : quotation_id , branch_status : branch_status,status:status,financial_year_id:financial_year_id_filter}, function(data){
 		pagination_load(data, column, true, false, 20, 'car_table');
 		$('.loader').remove();
 	})

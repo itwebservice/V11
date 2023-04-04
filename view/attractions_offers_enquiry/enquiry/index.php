@@ -150,7 +150,17 @@ include_once('enquiry_master_save.php');
                     <option value="<?= "Cold" ?>">Cold</option>
                 </select>
             </div>
-            <div class="col-md-3 col-sm-6 ">
+            <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                    <?php
+                    $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                    $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                    ?>
+                    <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                    <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                </select>
+            </div>	
+            <div class="col-md-3 col-sm-6 mg_tp_10">
                 <button class="btn btn-sm btn-info ico_right" onclick="enquiry_proceed_reflect()">Proceed&nbsp;&nbsp;<i
                         class="fa fa-arrow-right"></i></button>
             </div>
@@ -237,29 +247,12 @@ function enqiury_from_csv_save() {
     var enq_csv_dir = document.getElementById("txt_enquiry_csv_upload_dir").value;
     var base_url = $('#base_url').val();
 
-    // $.ajax({
-    //     type: 'post',
-    //     url: base_url + 'controller/attractions_offers_enquiry/enquiry_csv_save_v.php',
-    //     data: {
-    //         enq_csv_dir: enq_csv_dir
-    //     },
-    //     success: function(data) {
-    //         console.log(data);
-    //         if (data == "This enquiry is not exists.") {
-    //             prompt_error_enquiry(enq_csv_dir, data);
-    //         } else {
-                prompt_error_enquiry(enq_csv_dir, '');
-    //         }
-    //     }
-    // });
+    prompt_error_enquiry(enq_csv_dir, '');
 }
 
 function prompt_error_enquiry(obj, msg) {
 
     var status = $('#id_proof_status');
-    // if (msg == "This enquiry is not exists.") {
-    //     actual_enq_save(obj);
-    // } else {
         $('#vi_confirm_box').vi_confirm_box({
             message: "Are you sure to save?",
             callback: function(data1) {
@@ -272,7 +265,6 @@ function prompt_error_enquiry(obj, msg) {
                 }
             }
         });
-    //}
 }
 
 function actual_enq_save(obj) {
@@ -364,7 +356,7 @@ function enquiry_proceed_reflect() {
     var reference_id_filter = $('#reference_id_filter').val();
     var emp_id_filter = $('#emp_id_filter').val();
     var branch_status = $('#branch_status').val();
-    // var branch_filter = $('#branch_filter').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.ajax({
         url: "enquiry_proceed_reflect.php",
@@ -377,7 +369,8 @@ function enquiry_proceed_reflect() {
             to_date: to_date,
             emp_id_filter: emp_id_filter,
             branch_status: branch_status,
-            reference_id_filter: reference_id_filter
+            reference_id_filter: reference_id_filter,
+            financial_year_id:financial_year_id_filter
         },
         cache: false,
         success: function(data) {
