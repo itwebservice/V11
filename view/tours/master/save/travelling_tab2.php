@@ -196,13 +196,8 @@
                                                                 </select>
                                                             </td>
                                                             <td><select name="plane_class-1" id="plane_class-1"
-                                                                    title="Class">
-                                                                    <option value="">*Class</option>
-                                                                    <option value="Economy">Economy</option>
-                                                                    <option value="Premium Economy">Premium Economy
-                                                                    </option>
-                                                                    <option value="Business">Business</option>
-                                                                    <option value="First Class">First Class</option>
+                                                                    title="Class" style="width: 200px;">
+                            	                                    <?php get_flight_class_dropdown(); ?>
                                                                 </select></td>
                                                             <td><input type="hidden" id="from_city-1"></td>
                                                             <td><input type="hidden" id="to_city-1"></td>
@@ -286,6 +281,7 @@
 </form>
 
 <script>
+$('#airline_name-1').select2();
 // App_accordion
 jQuery(document).ready(function() {
     jQuery(".panel-heading").click(function() {

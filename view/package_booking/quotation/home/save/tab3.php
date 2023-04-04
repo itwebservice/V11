@@ -62,13 +62,8 @@
                                                                     <?php get_airline_name_dropdown(); ?>
                                                                 </select></td>
                                                             <td><select name="plane_class" id="plane_class1"
-                                                                    title="Class" style="width: 120px;">
-                                                                    <option value="">Class</option>
-                                                                    <option value="Economy">Economy</option>
-                                                                    <option value="Premium Economy">Premium Economy
-                                                                    </option>
-                                                                    <option value="Business">Business</option>
-                                                                    <option value="First Class">First Class</option>
+                                                                    title="Class" style="width: 170px !important;">
+                            	                                        <?php get_flight_class_dropdown(); ?>
                                                                 </select></td>
                                                             <td><input type="text" id="txt_dapart1" name="txt_dapart"
                                                                     class="app_datetimepicker"

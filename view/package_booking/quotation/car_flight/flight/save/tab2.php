@@ -69,12 +69,7 @@
 
                                                     <td><select name="plane_class-1" id="plane_class-1" title="Class"
                                                             style="width: 150px;">
-
-                                                            <option value="">Class Type</option>
-                                                            <option value="Economy">Economy</option>
-                                                            <option value="Business">Business</option>
-                                                            <option value="First Class">First Class</option>
-                                                            <option value="Other">Other</option>
+                                                            <?php get_flight_class_dropdown(); ?>
 
                                                         </select></td>
                                                     <td><input type="text" id="adult-1" name="adult-1"

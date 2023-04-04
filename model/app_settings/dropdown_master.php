@@ -767,6 +767,19 @@ function get_train_class_dropdown()
 <?php
 
 }
+//Get Train Class dropdown
+function get_flight_class_dropdown()
+{ ?>
+
+<option value="">Class</option>
+<option value="First Class">First Class</option>
+<option value="Economy">Economy</option>
+<option value="Premium Economy">Premium Economy</option>
+<option value="Business">Business</option>
+<option value="Other">Other</option>
+
+<?php
+} 
 
 //Get app settings Tax Name
 

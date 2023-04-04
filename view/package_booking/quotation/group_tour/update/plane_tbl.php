@@ -25,13 +25,9 @@
 			            </select>
 	                </td>
 
-		            <td><select name="plane_class-1" id="plane_class-1" title="Class" style="width: 100%;">
-		            	<option value="">Class</option>
-		            	<option value="Economy">Economy</option>
-	                    <option value="Premium Economy">Premium Economy</option>
-	                    <option value="Business">Business</option>
-	                    <option value="First Class">First Class</option>
-		           		</select></td>	            
+		            <td><select name="plane_class-1" id="plane_class-1" title="Class" style="width: 180px!important;">
+                        <?php get_flight_class_dropdown(); ?>
+						</select></td>	            
 
 		            <td><input type="text" id="txt_dapart-1" name="txt_dapart-1" class="app_datetimepicker" placeholder="Departure Date and Time" title="Departure Date and Time" style="width: 100%;" value="<?= date('d-m-Y H:i') ?>" onchange="get_to_datetime(this.id,'txt_arrval-1')" /></td>
 
@@ -69,7 +65,7 @@
 			                      <?php get_airline_name_dropdown(); ?>
 			            </select></td>		
 
-			            <td><select name="plane_class-<?= $offset.$count ?>_d" id="plane_class-<?= $offset.$count ?>_d" title="Class">
+			            <td><select name="plane_class-<?= $offset.$count ?>_d" id="plane_class-<?= $offset.$count ?>_d" title="Class" style="width: 180px!important;">
 			            		<?php if($row_q_plane['class']!=''){ ?>
 			            		<option value="<?= $row_q_plane['class'] ?>"><?= $row_q_plane['class'] ?></option>
 			            		<?php } ?>

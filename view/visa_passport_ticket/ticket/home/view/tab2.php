@@ -15,7 +15,7 @@
 							<th>Flight Duration</th>
 							<th>Layover Time</th>
 							<th>Airline</th>
-							<th>Cabin</th>
+							<th>Class</th>
 							<th>Sub-category</th>
 							<th>Flight No</th>
 							<th>GDS PNR</th>

@@ -113,7 +113,7 @@ if($sq_c_package['transport_bus_id'] !=''){
                                 $drop = $airport_nam." (".$airport_code.")";
                             }
 							?>
-							<tr>
+							<tr class="<?php echo $bg; ?>">
 								<td><?= $q_transport['vehicle_name'].$similar_text ?></td>
 								<td><?= get_date_user($row_entry['transport_from_date']) ?></td>
 								<td><?= $pickup ?></td>
@@ -154,7 +154,7 @@ if($sq_c_package['city_id'] !=''){
 						$q_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
 						$sq_ex = mysqli_fetch_assoc(mysqlQuery("select * from excursion_master_tariff where entry_id='$row_entry[exc_id]'"));
 						?>
-						<tr>
+						<tr class="<?php echo $bg; ?>">
 							<td><?php echo get_datetime_user($row_entry['exc_date']) ?></td>
 							<td><?= $q_city['city_name'] ?></td>
 							<td><?= $sq_ex['excursion_name'] ?></td>

@@ -144,13 +144,9 @@ if($pass_entry_id!=''){
 									</select>
 									</div>
 									<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
-										<select name="class" id="class-<?= $sq_trip_entries_count ?>" title="Cabin" data-dyn-valid="required">
+										<select name="class" id="class-<?= $sq_trip_entries_count ?>" title="Class" data-dyn-valid="required">
 										<?php if($flight_details[0]->class_arr[$i]!=''){?><option value="<?= $flight_details[0]->class_arr[$i] ?>"><?= $flight_details[0]->class_arr[$i] ?></option><?php } ?>
-											<option value="">Cabin</option>
-											<option value="Economy">Economy</option>
-											<option value="Business">Business</option>
-											<option value="First Class">First Class</option>
-											<option value="Other">Other</option>
+                            				<?php get_flight_class_dropdown(); ?>
 										</select>
 									</div>
 									<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
