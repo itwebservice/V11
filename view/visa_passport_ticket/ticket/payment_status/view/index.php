@@ -93,7 +93,7 @@ $year = $yr[0];
                       <th>Flight Duration</th>
                       <th>Layover Time</th>
                       <th>Airline</th>
-                      <th>Cabin</th>
+                      <th>Class</th>
                       <th>Sub-category</th>
                       <th>Flight_No.</th>
                       <th>GDS_PNR</th>
