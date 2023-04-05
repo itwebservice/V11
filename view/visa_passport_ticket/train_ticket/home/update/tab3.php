@@ -187,6 +187,7 @@ $('#frm_tab3').validate({
 		var ticket_number_arr = new Array();
 
 		var entry_id_arr = new Array();
+		var e_checkbox_arr = [];
 
 
 
@@ -195,6 +196,18 @@ $('#frm_tab3').validate({
         var table = document.getElementById("tbl_dynamic_train_ticket_master");
 
         var rowCount = table.rows.length;
+		var checked_count = 0;
+		for (var i = 0; i < rowCount; i++) {
+			var row = table.rows[i];
+			if (row.cells[0].childNodes[0].checked) {
+				checked_count++;
+			}
+		}
+		if (checked_count == 0) {
+			error_msg_alert("Atleast one passenger details is required!");
+			$('#btn_ticket_update').prop('disabled', false);
+			return false;
+		}
 
         
 
@@ -206,9 +219,6 @@ $('#frm_tab3').validate({
 
            
 
-          if(row.cells[0].childNodes[0].checked)
-
-          {
           	  var honorific = row.cells[2].childNodes[0].value;
 
 			  var first_name = row.cells[3].childNodes[0].value;
@@ -260,10 +270,10 @@ $('#frm_tab3').validate({
 			  seat_number_arr.push(seat_number);
 			  ticket_number_arr.push(ticket_number);
 			  entry_id_arr.push(entry_id);
+            e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 
 
 
-          }      
 
         }
 
@@ -300,7 +310,7 @@ $('#frm_tab3').validate({
 
 							url: base_url+'controller/visa_passport_ticket/train_ticket/ticket_master_update.php',
 
-							data:{ train_ticket_id : train_ticket_id, customer_id : customer_id, type_of_tour : type_of_tour, basic_fair : basic_fair, service_charge : service_charge, delivery_charges : delivery_charges, gst_on : gst_on, taxation_type : taxation_type, taxation_id : taxation_id, service_tax : service_tax, service_tax_subtotal : service_tax_subtotal, net_total : net_total, payment_due_date : payment_due_date, honorific_arr : honorific_arr, first_name_arr : first_name_arr, middle_name_arr : middle_name_arr, last_name_arr : last_name_arr, birth_date_arr : birth_date_arr, adolescence_arr : adolescence_arr, coach_number_arr : coach_number_arr, seat_number_arr : seat_number_arr, ticket_number_arr : ticket_number_arr, entry_id_arr : entry_id_arr, travel_datetime_arr : travel_datetime_arr, travel_from_arr : travel_from_arr, travel_to_arr : travel_to_arr, train_name_arr : train_name_arr, train_no_arr : train_no_arr, ticket_status_arr : ticket_status_arr, class_arr : class_arr, booking_from_arr : booking_from_arr, boarding_at_arr : boarding_at_arr, arriving_datetime_arr : arriving_datetime_arr, trip_entry_id : trip_entry_id, booking_date1 : booking_date1,reflections:reflections,bsmValues:bsmValues,roundoff:roundoff  },
+							data:{ train_ticket_id : train_ticket_id, customer_id : customer_id, type_of_tour : type_of_tour, basic_fair : basic_fair, service_charge : service_charge, delivery_charges : delivery_charges, gst_on : gst_on, taxation_type : taxation_type, taxation_id : taxation_id, service_tax : service_tax, service_tax_subtotal : service_tax_subtotal, net_total : net_total, payment_due_date : payment_due_date, honorific_arr : honorific_arr, first_name_arr : first_name_arr, middle_name_arr : middle_name_arr, last_name_arr : last_name_arr, birth_date_arr : birth_date_arr, adolescence_arr : adolescence_arr, coach_number_arr : coach_number_arr, seat_number_arr : seat_number_arr, ticket_number_arr : ticket_number_arr, entry_id_arr : entry_id_arr,e_checkbox_arr:e_checkbox_arr, travel_datetime_arr : travel_datetime_arr, travel_from_arr : travel_from_arr, travel_to_arr : travel_to_arr, train_name_arr : train_name_arr, train_no_arr : train_no_arr, ticket_status_arr : ticket_status_arr, class_arr : class_arr, booking_from_arr : booking_from_arr, boarding_at_arr : boarding_at_arr, arriving_datetime_arr : arriving_datetime_arr, trip_entry_id : trip_entry_id, booking_date1 : booking_date1,reflections:reflections,bsmValues:bsmValues,roundoff:roundoff  },
 
 							success:function(result){
 

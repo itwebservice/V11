@@ -444,16 +444,21 @@ $branch_status = $sq['branch_status'];
 
 				var table = document.getElementById("tbl_dynamic_visa");
 				var rowCount = table.rows.length;
+				var checked_count = 0;
+				for (var i = 0; i < rowCount; i++) {
+					var row = table.rows[i];
+					if (row.cells[0].childNodes[0].checked) {
+						checked_count++;
+					}
+				}
+				if (checked_count == 0) {
+					error_msg_alert("Atleast one passenger details is required!");
+					$('#btn_visa_master_save').prop('disabled', false);
+					return false;
+				}
 
 				for (var i = 0; i < rowCount; i++) {
 					var row = table.rows[i];
-					if (rowCount == 1) {
-						if (!row.cells[0].childNodes[0].checked) {
-							error_msg_alert("Atleast one passenger is required!");
-							$('#btn_visa_master_save').prop('disabled', false);
-							return false;
-						}
-					}
 					if (row.cells[0].childNodes[0].checked) {
 						var first_name = row.cells[2].childNodes[0].value;
 						var middle_name = row.cells[3].childNodes[0].value;

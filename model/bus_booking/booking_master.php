@@ -804,6 +804,7 @@ public function booking_update()
     $reporting_time_arr = $_POST['reporting_time_arr'];
     $boarding_point_access_arr = $_POST['boarding_point_access_arr'];
     $entry_id_arr = $_POST['entry_id_arr'];
+    $e_checkbox_arr = $_POST['e_checkbox_arr'];
     
     $service_tax_markup = $_POST['service_tax_markup'];
     $markup = $_POST['markup'];
@@ -844,47 +845,55 @@ public function booking_update()
 
 
         $date_of_journey_arr[$i] = get_datetime_db($date_of_journey_arr[$i]);
-
-        if($entry_id_arr[$i] == ""){
-
-
-
-            $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from bus_booking_entries"));
-
-            $entry_id = $sq_max['max'] + 1;    
+        if($e_checkbox_arr[$i] == 'true'){
+            if($entry_id_arr[$i] == ""){
 
 
 
-            $sq_entry = mysqlQuery("insert into bus_booking_entries(entry_id, booking_id, company_name,seat_type, bus_type, pnr_no, origin, destination, date_of_journey, reporting_time, boarding_point_access) values ('$entry_id', '$booking_id', '$company_name_arr[$i]', '$bus_type_arr[$i]','$bus_type_new_arr[$i]', '$pnr_no_arr[$i]', '$origin_arr[$i]', '$destination_arr[$i]', '$date_of_journey_arr[$i]', '$reporting_time_arr[$i]', '$boarding_point_access_arr[$i]')");
+                $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from bus_booking_entries"));
 
-            if(!$sq_entry){
-
-                $GLOBALS['flag'] = false;
-
-                echo "error--Some entries not saved!";
-
-            }    
+                $entry_id = $sq_max['max'] + 1;    
 
 
 
-        }
+                $sq_entry = mysqlQuery("insert into bus_booking_entries(entry_id, booking_id, company_name,seat_type, bus_type, pnr_no, origin, destination, date_of_journey, reporting_time, boarding_point_access) values ('$entry_id', '$booking_id', '$company_name_arr[$i]', '$bus_type_arr[$i]','$bus_type_new_arr[$i]', '$pnr_no_arr[$i]', '$origin_arr[$i]', '$destination_arr[$i]', '$date_of_journey_arr[$i]', '$reporting_time_arr[$i]', '$boarding_point_access_arr[$i]')");
 
-        else{
+                if(!$sq_entry){
+
+                    $GLOBALS['flag'] = false;
+
+                    echo "error--Some entries not saved!";
+
+                }    
 
 
-
-            $sq_entry = mysqlQuery("update bus_booking_entries set company_name='$company_name_arr[$i]', seat_type='$bus_type_arr[$i]',bus_type ='$bus_type_new_arr[$i]', pnr_no='$pnr_no_arr[$i]', origin='$origin_arr[$i]', destination='$destination_arr[$i]', date_of_journey='$date_of_journey_arr[$i]', reporting_time='$reporting_time_arr[$i]', boarding_point_access='$boarding_point_access_arr[$i]' where entry_id='$entry_id_arr[$i]'");
-
-            if(!$sq_entry){
-
-                $GLOBALS['flag'] = false;
-
-                echo "error--Some entries not updated!";
 
             }
 
+            else{
 
 
+
+                $sq_entry = mysqlQuery("update bus_booking_entries set company_name='$company_name_arr[$i]', seat_type='$bus_type_arr[$i]',bus_type ='$bus_type_new_arr[$i]', pnr_no='$pnr_no_arr[$i]', origin='$origin_arr[$i]', destination='$destination_arr[$i]', date_of_journey='$date_of_journey_arr[$i]', reporting_time='$reporting_time_arr[$i]', boarding_point_access='$boarding_point_access_arr[$i]' where entry_id='$entry_id_arr[$i]'");
+
+                if(!$sq_entry){
+
+                    $GLOBALS['flag'] = false;
+
+                    echo "error--Some entries not updated!";
+
+                }
+
+
+
+            }
+        }else{
+            
+            $sq_entry = mysqlQuery("delete from bus_booking_entries where entry_id='$entry_id_arr[$i]'");
+            if(!$sq_entry){
+                $GLOBALS['flag'] = false;
+                echo "error--Some entries not deleted!";
+            }
         }
 
 

@@ -120,7 +120,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                                         ?>
                                         <tr class="<?= $bg ?>">
                                             <td><input class="css-checkbox" id="chk_visa<?= $offset . $count ?>_d"
-                                                    type="checkbox" checked disabled><label class="css-label"
+                                                    type="checkbox" checked><label class="css-label"
                                                     for="chk_visa<?= $offset ?>"> <label></td>
                                             <td><input maxlength="15" value="<?= $count ?>" type="text" name="username"
                                                     placeholder="Sr. No." class="form-control" disabled /></td>
@@ -516,23 +516,27 @@ $(function() {
             var issue_date_arr = new Array();
             var expiry_date_arr = new Array();
             var nationality_arr = new Array();
-            //	var received_documents_arr = new Array();
+			var e_checkbox_arr = [];
             var appointment_date_arr = new Array();
             var entry_id_arr = new Array();
 
             var table = document.getElementById("tbl_dynamic_visa_update");
             var rowCount = table.rows.length;
+            var checked_count = 0;
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+                if (row.cells[0].childNodes[0].checked) {
+                    checked_count++;
+                }
+            }
+            if (checked_count == 0) {
+                error_msg_alert("Atleast one passenger details is required!");
+                $('#visa_update').prop('disabled', false);
+                return false;
+            }
 
             for (var i = 0; i < rowCount; i++) {
                 var row = table.rows[i];
-                if (rowCount == 1) {
-                    if (!row.cells[0].childNodes[0].checked) {
-                        error_msg_alert("Atleast one passenger is required!");
-                        $('#visa_update').prop('disabled', false);
-                        return false;
-                    }
-                }
-                if (row.cells[0].childNodes[0].checked) {
                     var first_name = row.cells[2].childNodes[0].value;
                     var middle_name = row.cells[3].childNodes[0].value;
                     var last_name = row.cells[4].childNodes[0].value;
@@ -544,9 +548,6 @@ $(function() {
                     var issue_date = row.cells[10].childNodes[0].value;
                     var expiry_date = row.cells[11].childNodes[0].value;
                     var nationality = row.cells[12].childNodes[0].value;
-                    //var received_documents = "";
-                    // $(row.cells[13]).find('option:selected').each(function(){ received_documents += $(this).attr('value')+','; });
-                    // received_documents = received_documents.trimChars(",");
                     var apointment = row.cells[13].childNodes[0].value;
                     if (row.cells[14]) {
                         var entry_id = row.cells[14].childNodes[0].value;
@@ -556,17 +557,19 @@ $(function() {
 
                     var msg = "";
 
-                    if (first_name == "") {
-                        msg += "First name is required in row:" + (i + 1) + "<br>";
-                    }
-                    if (visa_country_name == "") {
-                        msg += "Visa Country name is required in row:" + (i + 1) + "<br>";
-                    }
-                    if (visa_type == "") {
-                        msg += "Visa Type is required in row:" + (i + 1) + "<br>";
-                    }
-                    if (nationality == "") {
-                        msg += "Nationality is required in row:" + (i + 1) + "<br>";
+                    if (row.cells[0].childNodes[0].checked) {
+                        if (first_name == "") {
+                            msg += "First name is required in row:" + (i + 1) + "<br>";
+                        }
+                        if (visa_country_name == "") {
+                            msg += "Visa Country name is required in row:" + (i + 1) + "<br>";
+                        }
+                        if (visa_type == "") {
+                            msg += "Visa Type is required in row:" + (i + 1) + "<br>";
+                        }
+                        if (nationality == "") {
+                            msg += "Nationality is required in row:" + (i + 1) + "<br>";
+                        }
                     }
 
                     if (msg != "") {
@@ -586,10 +589,9 @@ $(function() {
                     issue_date_arr.push(issue_date);
                     expiry_date_arr.push(expiry_date);
                     nationality_arr.push(nationality);
-                    //	received_documents_arr.push(received_documents);
                     entry_id_arr.push(entry_id);
                     appointment_date_arr.push(apointment);
-                }
+                	e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
             }
 
             var hotel_sc = $('#hotel_sc').val();
@@ -657,7 +659,7 @@ $(function() {
                             due_date1: due_date1,
                             balance_date1: balance_date1,
                             nationality_arr: nationality_arr,
-                            appointment_date_arr: appointment_date_arr,
+                            appointment_date_arr: appointment_date_arr,e_checkbox_arr:e_checkbox_arr,
                             markup: markup,
                             service_tax_markup: service_tax_markup,
                             reflections: reflections,

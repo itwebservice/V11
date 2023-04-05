@@ -32,7 +32,7 @@ while($row_cruise_details = mysqli_fetch_assoc($sq_cruise_details))
 
 <tr>
 
-	<td><input id="chk_cruise1<?php echo $count_t.'t' ?>" type="checkbox" onchange="calculate_cruise_expense('tbl_dynamic_cruise_package_booking')" checked disabled ></td>
+	<td><input id="chk_cruise1<?php echo $count_t.'t' ?>" type="checkbox" onchange="calculate_cruise_expense('tbl_dynamic_cruise_package_booking')" checked ></td>
 
 	<td><input maxlength="15" type="text" id="tr_cruise_sr_no" name="tr_cruise_sr_no" placeholder="Sr.No." value="<?= $count_t ?>" disabled/></td>
     <td><input type="text" id="cruise_departure_date<?= $count_t ?>t" name="cruise_departure_date<?= $count_t ?>t" placeholder="Departure Date & Time" title="Departure Date & Time" class="app_datetimepicker" value="<?= get_datetime_user($row_cruise_details['dept_datetime']) ?>" onchange="get_to_datetime(this.id,'cruise_arrival_date<?= $count_t ?>t');" style="width:156px"></td>

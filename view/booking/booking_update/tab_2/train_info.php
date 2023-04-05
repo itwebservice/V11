@@ -32,7 +32,7 @@ while($row_train_details = mysqli_fetch_assoc($sq_train_details))
 
 <tr>
 
-	<td><input id="<?php echo 'check-btn-train-'.$count_t.'t' ?>" type="checkbox" onchange="calculate_train_expense('tbl_train_travel_details_dynamic_row')" checked disabled ></td>
+	<td><input id="<?php echo 'check-btn-train-'.$count_t.'t' ?>" type="checkbox" onchange="calculate_train_expense('tbl_train_travel_details_dynamic_row')" checked ></td>
 
 	<td><input maxlength="15" type="text" id="tr_train_sr_no" name="tr_train_sr_no" placeholder="Sr.No." value="<?= $count_t ?>" disabled/></td>
 

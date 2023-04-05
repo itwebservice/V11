@@ -11,7 +11,7 @@ else{
         $count++;
     ?>
         <tr>
-            <td><input class="css-checkbox" id="chk_ticket<?= $count ?>_u" type="checkbox"  onchange="get_auto_values('booking_date','basic_fair','payment_mode','service_charge','markup','update','true','basic','basic');" checked disabled><label class="css-label" for="chk_ticket<?= $count ?>_u"> </label></td>
+            <td><input class="css-checkbox" id="chk_ticket<?= $count ?>_u" type="checkbox"  onchange="get_auto_values('booking_date','basic_fair','payment_mode','service_charge','markup','update','true','basic','basic');" checked><label class="css-label" for="chk_ticket<?= $count ?>_u"> </label></td>
             <td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
             <td><select style="width:120px;" name="honorific" id="honorific<?= $count ?>_u" title="Honorific">
                 <option value="<?= $row_entry['honorific'] ?>"><?= $row_entry['honorific'] ?></option>

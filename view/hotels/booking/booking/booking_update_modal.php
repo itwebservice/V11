@@ -137,7 +137,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                                         ?>
                                         <tr class="<?= $bg ?>">
                                             <td><input id="chk_hotel_<?= $prefix . $count ?>_f" type="checkbox"
-                                                    onchange="total_fun1();" checked disabled></td>
+                                                    onchange="total_fun1();" checked></td>
                                             <td><input maxlength="15" type="text" name="username" value="<?= $count ?>"
                                                     placeholder="Sr. No." disabled /></td>
                                             <td><select id="city_id<?= $prefix . $count ?>_f" style="width:150px"
@@ -614,6 +614,7 @@ $(function() {
             var meal_plan_arr = new Array();
             var conf_no_arr = new Array();
             var entry_id_arr = new Array();
+			var e_checkbox_arr = [];
 
             var table = document.getElementById("tbl_hotel_booking_update");
             var rowCount = table.rows.length;
@@ -632,8 +633,6 @@ $(function() {
             for (var i = 0; i < rowCount; i++) {
 
                 var row = table.rows[i];
-                if (row.cells[0].childNodes[0].checked) {
-
                     var city_id = row.cells[2].childNodes[0].value;
                     var hotel_id = row.cells[3].childNodes[0].value;
                     var check_in = row.cells[4].childNodes[0].value;
@@ -654,6 +653,8 @@ $(function() {
                     }
 
                     var msg = "";
+                if (row.cells[0].childNodes[0].checked) {
+
                     if (city_id == "") {
                         msg += "City is required in row:" + (i + 1) + '<br>';
                     }
@@ -672,6 +673,7 @@ $(function() {
                     if (no_of_nights == "") {
                         msg += "No of Nights is required in row:" + (i + 1) + '<br>';
                     }
+                }
 
                     if (msg != "") {
                         error_msg_alert(msg);
@@ -692,8 +694,8 @@ $(function() {
                     meal_plan_arr.push(meal_plan);
                     conf_no_arr.push(conf_no);
                     entry_id_arr.push(entry_id);
+                	e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
                 }
-            }
 
             var hotel_sc = $('#hotel_sc').val();
             var hotel_markup = $('#hotel_markup').val();
@@ -766,7 +768,7 @@ $(function() {
                             extra_beds_arr: extra_beds_arr,
                             meal_plan_arr: meal_plan_arr,
                             conf_no_arr: conf_no_arr,
-                            entry_id_arr: entry_id_arr,
+                            entry_id_arr: entry_id_arr,e_checkbox_arr:e_checkbox_arr,
                             due_date1: due_date1,
                             booking_date1: booking_date1,
                             reflections: reflections,

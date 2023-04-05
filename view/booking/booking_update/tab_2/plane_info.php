@@ -31,7 +31,7 @@ $sq_city2 = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master whe
 ?>
 <tr>
 
-	<td ><input id="<?php echo 'check-btn-plane-'.$count_p.'p' ?>" type="checkbox" onchange="calculate_plane_expense('tbl_plane_travel_details_dynamic_row')" checked disabled ></td>
+	<td ><input id="<?php echo 'check-btn-plane-'.$count_p.'p' ?>" type="checkbox" onchange="calculate_plane_expense('tbl_plane_travel_details_dynamic_row')" checked ></td>
 
 	<td><input maxlength="15" type="text" id="" name="username" value="<?php echo $count_p ?>" placeholder="Sr.No."/></td>
 

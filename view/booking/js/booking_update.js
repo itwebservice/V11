@@ -34,13 +34,25 @@ function update_booking_details() {
 	var m_passport_issue_date = new Array();
 	var m_passport_expiry_date = new Array();
 	var m_traveler_id = new Array();
+	var e_checkbox_arr = [];
 
 	var table = document.getElementById('tbl_member_dynamic_row');
 	var rowCount = table.rows.length;
-
+	var checked_count = 0;
 	for (var i = 0; i < rowCount; i++) {
 		var row = table.rows[i];
 		if (row.cells[0].childNodes[0].checked) {
+			checked_count++;
+		}
+	}
+	if (checked_count == 0) {
+		error_msg_alert("Atleast one passenger details is required!");
+		$('#btn_update').prop('disabled', false);
+		return false;
+	}
+
+	for (var i = 0; i < rowCount; i++) {
+		var row = table.rows[i];
 			var honorific = row.cells[2].childNodes[0].value;
 			var first_name = row.cells[3].childNodes[0].value;
 			var middle_name = row.cells[4].childNodes[0].value;
@@ -67,7 +79,7 @@ function update_booking_details() {
 			m_passport_issue_date.push(passport_issue_date);
 			m_passport_expiry_date.push(passport_expiry_date);
 			m_traveler_id.push(traveler_id);
-		}
+			e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 	}
 
 	var m_email_id = $('#txt_m_email_id1').val();
@@ -131,13 +143,13 @@ function update_booking_details() {
 	var train_amount = new Array();
 	var train_seats = new Array();
 	var train_id = new Array();
+	var train_checkbox_arr = [];
 
 	var table = document.getElementById('tbl_train_travel_details_dynamic_row');
 	var rowCount = table.rows.length;
 
 	for (var i = 0; i < rowCount; i++) {
 		var row = table.rows[i];
-		if (row.cells[0].childNodes[0].checked) {
 			var travel_date_temp = row.cells[2].childNodes[0];
 			var travel_date1 = $(travel_date_temp).val();
 			var from_location1 = row.cells[3].childNodes[0].value;
@@ -164,7 +176,7 @@ function update_booking_details() {
 			train_amount.push(amount1);
 			train_seats.push(seats1);
 			train_id.push(train_id1);
-		}
+			train_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 	}
 
 	//** Plane travel details starts here
@@ -179,6 +191,7 @@ function update_booking_details() {
 	var plane_company = new Array();
 	var plane_id = new Array();
 	var arravl_arr = new Array();
+	var plane_checkbox_arr = [];
 
 	var table = document.getElementById('tbl_plane_travel_details_dynamic_row');
 	var rowCount = table.rows.length;
@@ -186,7 +199,6 @@ function update_booking_details() {
 	for (var i = 0; i < rowCount; i++) {
 		var row = table.rows[i];
 
-		if (row.cells[0].childNodes[0].checked) {
 			var travel_date_temp = row.cells[2].childNodes[0];
 			var travel_date1 = $(travel_date_temp).val();
 
@@ -215,7 +227,7 @@ function update_booking_details() {
 			plane_company.push(company1);
 			plane_id.push(plane_id1);
 			arravl_arr.push(arravl1);
-		}
+			plane_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 	}
 
 	//**Cruise travel details starts here
@@ -227,13 +239,13 @@ function update_booking_details() {
 	var cruise_seats_arr = new Array();
 	var cruise_amount_arr = new Array();
 	var c_entry_id_arr = new Array();
+	var cruise_checkbox_arr = [];
 
 	var table = document.getElementById('tbl_dynamic_cruise_package_booking');
 	var rowCount = table.rows.length;
 
 	for (var i = 0; i < rowCount; i++) {
 		var row = table.rows[i];
-		if (row.cells[0].childNodes[0].checked) {
 			var dept_date = row.cells[2].childNodes[0].value;
 			var arrival_date = row.cells[3].childNodes[0].value;
 			var route = row.cells[4].childNodes[0].value;
@@ -256,7 +268,7 @@ function update_booking_details() {
 			cruise_seats_arr.push(seats1);
 			cruise_amount_arr.push(amount1);
 			c_entry_id_arr.push(c_entry_id);
-		}
+			cruise_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 	}
 
 	//**Visa Details
@@ -359,6 +371,7 @@ function update_booking_details() {
 						m_handover_adnary: m_handover_adnary,
 						m_handover_gift: m_handover_gift,
 						'm_traveler_id[]': m_traveler_id,
+						e_checkbox_arr:e_checkbox_arr,
 						relative_honorofic: relative_honorofic,
 						relative_name: relative_name,
 						relative_relation: relative_relation,
@@ -430,7 +443,7 @@ function update_booking_details() {
 						tour_fee_subtotal_2: tour_fee_subtotal_2,
 						net_total: net_total,
 						special_request: special_request,
-						'arravl_arr[]': arravl_arr,
+						'arravl_arr[]': arravl_arr,plane_checkbox_arr:plane_checkbox_arr,train_checkbox_arr:train_checkbox_arr,
 						cruise_dept_date_arr: cruise_dept_date_arr,
 						cruise_arrival_date_arr: cruise_arrival_date_arr,
 						route_arr: route_arr,
@@ -438,7 +451,7 @@ function update_booking_details() {
 						sharing_arr: sharing_arr,
 						cruise_seats_arr: cruise_seats_arr,
 						cruise_amount_arr: cruise_amount_arr,
-						c_entry_id_arr: c_entry_id_arr,
+						c_entry_id_arr: c_entry_id_arr,cruise_checkbox_arr:cruise_checkbox_arr,
 						cruise_ticket_path: cruise_ticket_path,
 						cruise_expense: cruise_expense,
 						cruise_service_charge: cruise_service_charge,

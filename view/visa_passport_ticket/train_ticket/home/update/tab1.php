@@ -69,6 +69,17 @@ $('#frm_tab1').validate({
         var msg = "";
         var table = document.getElementById("tbl_dynamic_train_ticket_master");
         var rowCount = table.rows.length;
+		var checked_count = 0;
+		for (var i = 0; i < rowCount; i++) {
+			var row = table.rows[i];
+			if (row.cells[0].childNodes[0].checked) {
+				checked_count++;
+			}
+		}
+		if (checked_count == 0) {
+			error_msg_alert("Atleast one passenger details is required!");
+			return false;
+		}
         
         for(var i=0; i<rowCount; i++)
         {

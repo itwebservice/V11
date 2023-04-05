@@ -195,8 +195,6 @@ else if($reflections[0]->tax_apply_on == '3') {
                         }
                     }
                     $readonly = ($inclusive_d != '') ? 'readonly' : '';
-                    // echo "<pre>";
-                    // var_dump($bsmValues)
                     ?>
 
                     <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
@@ -439,14 +437,26 @@ $('#frm_update').validate({
         var reporting_time_arr = new Array();
         var boarding_point_access_arr = new Array();
         var entry_id_arr = new Array();
+        var e_checkbox_arr = [];
 
         var msg = "";
         var table = document.getElementById("tbl_dynamic_bus_booking");
         var rowCount = table.rows.length;
-
+        var checked_count = 0;
         for (var i = 0; i < rowCount; i++) {
             var row = table.rows[i];
             if (row.cells[0].childNodes[0].checked) {
+                checked_count++;
+            }
+        }
+        if (checked_count == 0) {
+            error_msg_alert("Atleast one bus details is required!");
+            $('#btn_update').prop('disabled', false);
+            return false;
+        }
+
+        for (var i = 0; i < rowCount; i++) {
+            var row = table.rows[i];
                 var company_name = row.cells[2].childNodes[0].value;
                 var bus_type = row.cells[3].childNodes[0].value;
                 var bus_type_new = row.cells[4].childNodes[0].value;
@@ -457,21 +467,23 @@ $('#frm_update').validate({
                 var reporting_time = row.cells[9].childNodes[0].value;
                 var boarding_point_access = row.cells[10].childNodes[0].value;
 
+                if (row.cells[0].childNodes[0].checked) {
 
-                if (company_name == '') {
-                    error_msg_alert("Enter Bus Operator name at row " + (i + 1));
-                    $('#btn_update').prop('disabled', false);
-                    return false;
-                }
-                if (origin == '') {
-                    error_msg_alert("Enter Source at row " + (i + 1));
-                    $('#btn_update').prop('disabled', false);
-                    return false;
-                }
-                if (destination == '') {
-                    error_msg_alert("Enter Destination at row " + (i + 1));
-                    $('#btn_update').prop('disabled', false);
-                    return false;
+                    if (company_name == '') {
+                        error_msg_alert("Enter Bus Operator name at row " + (i + 1));
+                        $('#btn_update').prop('disabled', false);
+                        return false;
+                    }
+                    if (origin == '') {
+                        error_msg_alert("Enter Source at row " + (i + 1));
+                        $('#btn_update').prop('disabled', false);
+                        return false;
+                    }
+                    if (destination == '') {
+                        error_msg_alert("Enter Destination at row " + (i + 1));
+                        $('#btn_update').prop('disabled', false);
+                        return false;
+                    }
                 }
 
                 if (row.cells[11]) {
@@ -503,8 +515,8 @@ $('#frm_update').validate({
                 boarding_point_access_arr.push(boarding_point_access);
 
                 entry_id_arr.push(entry_id);
+                e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 
-            }
         }
         if (msg != "") {
 
@@ -550,7 +562,7 @@ $('#frm_update').validate({
                         date_of_journey_arr: date_of_journey_arr,
                         reporting_time_arr: reporting_time_arr,
                         boarding_point_access_arr: boarding_point_access_arr,
-                        entry_id_arr: entry_id_arr,
+                        entry_id_arr: entry_id_arr,e_checkbox_arr:e_checkbox_arr,
                         balance_date1: balance_date1,
                         reflections: reflections,
                         service_tax_markup: service_tax_markup,

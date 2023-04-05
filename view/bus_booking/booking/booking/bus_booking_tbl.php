@@ -113,7 +113,7 @@ if (!$update_form) {
 
 <tr>
 
-    <td><input class="css-checkbox" id="chk_booking<?= $count ?>_u" type="checkbox" checked disabled><label
+    <td><input class="css-checkbox" id="chk_booking<?= $count ?>_u" type="checkbox" checked><label
             class="css-label" for="chk_booking<?= $count ?>_u"> <label></td>
 
     <td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No."

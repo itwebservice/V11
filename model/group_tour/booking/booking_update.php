@@ -58,7 +58,7 @@ public function complete_booking_information_update()
   $m_handover_adnary = $_POST['m_handover_adnary'];
 
   $m_handover_gift = $_POST['m_handover_gift'];
-
+  $e_checkbox_arr = $_POST['e_checkbox_arr'];
 
 
   //**Getting relatives details
@@ -151,6 +151,7 @@ public function complete_booking_information_update()
   $train_seats = $_POST['train_seats'];
 
   $train_id = $_POST['train_id'];
+  $train_checkbox_arr = $_POST['train_checkbox_arr'];
 
 
 
@@ -174,6 +175,7 @@ public function complete_booking_information_update()
   $plane_id = $_POST['plane_id'];
 
   $arravl_arr = $_POST['arravl_arr'];
+  $plane_checkbox_arr = $_POST['plane_checkbox_arr'];
 
   // Cruise
   $cruise_dept_date_arr =$_POST['cruise_dept_date_arr'] ?: [];
@@ -184,6 +186,7 @@ public function complete_booking_information_update()
   $cruise_seats_arr =$_POST['cruise_seats_arr'];
   $cruise_amount_arr =$_POST['cruise_amount_arr'];
   $c_entry_id_arr =$_POST['c_entry_id_arr'];
+  $cruise_checkbox_arr = $_POST['cruise_checkbox_arr'];
 
   //**Visa Details
 
@@ -266,7 +269,7 @@ public function complete_booking_information_update()
 
   //** This function saves travelers details and returns traveleres group id.
 
-   $this->traveler_member_details_update($traveler_group_id, $m_honorific, $m_first_name, $m_middle_name, $m_last_name, $m_gender, $m_birth_date, $m_age, $m_adolescence, $m_passport_no, $m_passport_issue_date, $m_passport_expiry_date, $m_handover_adnary, $m_handover_gift, $m_traveler_id);
+   $this->traveler_member_details_update($traveler_group_id, $m_honorific, $m_first_name, $m_middle_name, $m_last_name, $m_gender, $m_birth_date, $m_age, $m_adolescence, $m_passport_no, $m_passport_issue_date, $m_passport_expiry_date, $m_handover_adnary, $m_handover_gift, $m_traveler_id,$e_checkbox_arr);
 
   
 
@@ -286,7 +289,7 @@ public function complete_booking_information_update()
 
   //** This function stores the traveling information
 
-  $this->update_traveling_information( $tourwise_id, $train_travel_date, $train_from_location, $train_to_location, $train_train_no, $train_travel_class, $train_travel_priority, $train_amount, $train_seats, $train_id, $plane_travel_date, $from_city_id_arr, $plane_from_location, $to_city_id_arr, $plane_to_location, $plane_amount, $plane_seats, $plane_company, $plane_id, $arravl_arr,$cruise_dept_date_arr, $cruise_arrival_date_arr, $route_arr, $cabin_arr, $sharing_arr, $cruise_seats_arr, $cruise_amount_arr,$c_entry_id_arr );
+  $this->update_traveling_information( $tourwise_id, $train_travel_date, $train_from_location, $train_to_location, $train_train_no, $train_travel_class, $train_travel_priority, $train_amount, $train_seats, $train_id, $plane_travel_date, $from_city_id_arr, $plane_from_location, $to_city_id_arr, $plane_to_location, $plane_amount, $plane_seats, $plane_company, $plane_id, $arravl_arr,$cruise_dept_date_arr, $cruise_arrival_date_arr, $route_arr, $cabin_arr, $sharing_arr, $cruise_seats_arr, $cruise_amount_arr,$c_entry_id_arr,$train_checkbox_arr,$plane_checkbox_arr,$cruise_checkbox_arr);
 
 
 
@@ -349,7 +352,7 @@ function get_particular($customer_id,$tour_id,$tour_group_id,$id){
 
 ///////////////////////////////////***** Updating Traveleres Members Information *********/////////////////////////////////////////////////////////////
 
-public function traveler_member_details_update($traveler_group_id, $m_honorific, $m_first_name, $m_middle_name, $m_last_name, $m_gender, $m_birth_date, $m_age, $m_adolescence, $m_passport_no, $m_passport_issue_date, $m_passport_expiry_date, $m_handover_adnary, $m_handover_gift, $m_traveler_id)
+public function traveler_member_details_update($traveler_group_id, $m_honorific, $m_first_name, $m_middle_name, $m_last_name, $m_gender, $m_birth_date, $m_age, $m_adolescence, $m_passport_no, $m_passport_issue_date, $m_passport_expiry_date, $m_handover_adnary, $m_handover_gift, $m_traveler_id,$e_checkbox_arr)
 {  
 
     $m_handover_adnary = mysqlREString($m_handover_adnary);    
@@ -389,32 +392,44 @@ public function traveler_member_details_update($traveler_group_id, $m_honorific,
     if($m_passport_issue_date[$i]!=""){  $m_passport_issue_date[$i] = date("Y-m-d", strtotime($m_passport_issue_date[$i])); }
 
     if($m_passport_expiry_date[$i]!=""){  $m_passport_expiry_date[$i] = date("Y-m-d", strtotime($m_passport_expiry_date[$i])); }
-    if($count_travelers == '1')
-    {    
-        $sq = mysqlQuery("update travelers_details set  m_honorific = '$m_honorific[$i]', first_name = '$m_first_name[$i]', middle_name = '$m_middle_name[$i]', last_name = '$m_last_name[$i]', gender = '$m_gender[$i]', birth_date = '$m_birth_date[$i]', age = '$m_age[$i]', adolescence = '$m_adolescence[$i]', passport_no='$m_passport_no[$i]', passport_issue_date='$m_passport_issue_date[$i]', passport_expiry_date='$m_passport_expiry_date[$i]', handover_adnary = '$m_handover_adnary', handover_gift = '$m_handover_gift', status = 'Active' where traveler_id='$m_traveler_id[$i]'");
-        if(!$sq)
-        {
-          $GLOBALS['flag'] = false;
-          echo "Error at row".($i+1)." for traveler members.";
-          //exit;
-        }
-    }   
-    else
-    {  
-        $sq = mysqlQuery("select max(traveler_id) as max from travelers_details");
-        $value = mysqli_fetch_assoc($sq);
-        $max_traveler_id = $value['max'] + 1;       
+    
+		if($e_checkbox_arr[$i] == 'true'){
+      if($count_travelers == '1')
+      {    
+          $sq = mysqlQuery("update travelers_details set  m_honorific = '$m_honorific[$i]', first_name = '$m_first_name[$i]', middle_name = '$m_middle_name[$i]', last_name = '$m_last_name[$i]', gender = '$m_gender[$i]', birth_date = '$m_birth_date[$i]', age = '$m_age[$i]', adolescence = '$m_adolescence[$i]', passport_no='$m_passport_no[$i]', passport_issue_date='$m_passport_issue_date[$i]', passport_expiry_date='$m_passport_expiry_date[$i]', handover_adnary = '$m_handover_adnary', handover_gift = '$m_handover_gift', status = 'Active' where traveler_id='$m_traveler_id[$i]'");
+          if(!$sq)
+          {
+            $GLOBALS['flag'] = false;
+            echo "Error at row".($i+1)." for traveler members.";
+            //exit;
+          }
+      }   
+      else
+      {  
+          $sq = mysqlQuery("select max(traveler_id) as max from travelers_details");
+          $value = mysqli_fetch_assoc($sq);
+          $max_traveler_id = $value['max'] + 1;       
 
-        $query = "insert into travelers_details (traveler_id, traveler_group_id, m_honorific, first_name, middle_name, last_name, gender, birth_date, age, adolescence, passport_no, passport_issue_date, passport_expiry_date, handover_adnary, handover_gift, status) values ('$max_traveler_id','$traveler_group_id', '$m_honorific[$i]', '$m_first_name[$i]', '$m_middle_name[$i]', '$m_last_name[$i]', '$m_gender[$i]', '$m_birth_date[$i]', '$m_age[$i]', '$m_adolescence[$i]', '$m_passport_no[$i]', '$m_passport_issue_date[$i]', '$m_passport_expiry_date[$i]', '$m_handover_adnary', '$m_handover_gift', 'Active')";        
-        $sq = mysqlQuery($query); 
+          $query = "insert into travelers_details (traveler_id, traveler_group_id, m_honorific, first_name, middle_name, last_name, gender, birth_date, age, adolescence, passport_no, passport_issue_date, passport_expiry_date, handover_adnary, handover_gift, status) values ('$max_traveler_id','$traveler_group_id', '$m_honorific[$i]', '$m_first_name[$i]', '$m_middle_name[$i]', '$m_last_name[$i]', '$m_gender[$i]', '$m_birth_date[$i]', '$m_age[$i]', '$m_adolescence[$i]', '$m_passport_no[$i]', '$m_passport_issue_date[$i]', '$m_passport_expiry_date[$i]', '$m_handover_adnary', '$m_handover_gift', 'Active')";        
+          $sq = mysqlQuery($query); 
 
-        if(!$sq)
-        {
-          $GLOBALS['flag'] = false;
-          echo "Error at row".($i+1)." for traveler members.";
-          //exit;
-        }
-    }   
+          if(!$sq)
+          {
+            $GLOBALS['flag'] = false;
+            echo "Error at row".($i+1)." for traveler members.";
+            //exit;
+          }
+      }  
+    }else{
+      
+			$sq = mysqlQuery("delete from travelers_details where traveler_id='$m_traveler_id[$i]'");
+      if(!$sq)
+      {
+        $GLOBALS['flag'] = false;
+        echo "Error at row".($i+1)." for traveler members.";
+        //exit;
+      }
+    }
 }  
 
 
@@ -506,7 +521,7 @@ public function traveler_personal_information_update($tourwise_traveler_id, $m_e
 
 ///////////////////////////////////***** Updating Traveling Information *********/////////////////////////////////////////////////////////////
 
- public function update_traveling_information( $tourwise_id, $train_travel_date, $train_from_location, $train_to_location, $train_train_no, $train_travel_class, $train_travel_priority, $train_amount, $train_seats, $train_id, $plane_travel_date, $from_city_id_arr, $plane_from_location, $to_city_id_arr,$plane_to_location, $plane_amount, $plane_seats, $plane_company, $plane_id, $arravl_arr,$cruise_dept_date_arr, $cruise_arrival_date_arr, $route_arr, $cabin_arr, $sharing_arr, $cruise_seats_arr, $cruise_amount_arr,$c_entry_id_arr )
+ public function update_traveling_information( $tourwise_id, $train_travel_date, $train_from_location, $train_to_location, $train_train_no, $train_travel_class, $train_travel_priority, $train_amount, $train_seats, $train_id, $plane_travel_date, $from_city_id_arr, $plane_from_location, $to_city_id_arr,$plane_to_location, $plane_amount, $plane_seats, $plane_company, $plane_id, $arravl_arr,$cruise_dept_date_arr, $cruise_arrival_date_arr, $route_arr, $cabin_arr, $sharing_arr, $cruise_seats_arr, $cruise_amount_arr,$c_entry_id_arr,$train_checkbox_arr,$plane_checkbox_arr,$cruise_checkbox_arr )
 
  {
 
@@ -547,58 +562,67 @@ public function traveler_personal_information_update($tourwise_traveler_id, $m_e
         $count_train_details = mysqli_num_rows(mysqlQuery("select * from train_master where train_id='$train_id[$i]'"));
 
 
+				if($train_checkbox_arr[$i] == 'true'){
 
-        if($count_train_details == 1)
+          if($count_train_details == 1)
 
-        {
+          {
 
-            $sq = mysqlQuery("update train_master set date = '$train_travel_date[$i]', from_location = '$train_from_location[$i]', to_location = '$train_to_location[$i]', train_no = '$train_train_no[$i]', train_priority = '$train_travel_priority[$i]', train_class = '$train_travel_class[$i]', amount = '$train_amount[$i]', seats = '$train_seats[$i]'  where train_id = '$train_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
+              $sq = mysqlQuery("update train_master set date = '$train_travel_date[$i]', from_location = '$train_from_location[$i]', to_location = '$train_to_location[$i]', train_no = '$train_train_no[$i]', train_priority = '$train_travel_priority[$i]', train_class = '$train_travel_class[$i]', amount = '$train_amount[$i]', seats = '$train_seats[$i]'  where train_id = '$train_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
 
-            if(!$sq)
+              if(!$sq)
 
-             {
+              {
+
+                  $GLOBALS['flag'] = false;
+
+                  echo "Train Details Not Saved";
+
+                  //exit;
+
+              } 
+
+
+
+          }  
+
+          else
+
+          {  
+
+            $sq = mysqlQuery("select max(train_id) as max from train_master");
+
+            $value = mysqli_fetch_assoc($sq);
+
+            $max_train_id = $value['max'] + 1;;
+
+
+
+            $sq = mysqlQuery(" insert into train_master (train_id, tourwise_traveler_id, date, from_location, to_location, train_no, amount, seats, train_priority, train_class ) values ('$max_train_id', '$tourwise_id', '$train_travel_date[$i]', '$train_from_location[$i]', '$train_to_location[$i]', '$train_train_no[$i]', '$train_amount[$i]', '$train_seats[$i]', '$train_travel_priority[$i]', '$train_travel_class[$i]') ");
+
+              if(!$sq)
+
+              {
 
                 $GLOBALS['flag'] = false;
 
-                echo "Train Details Not Saved";
+                echo "Error at row".($i+1)." for train information.";
 
                 //exit;
 
-             } 
+              }   
 
 
 
-        }  
-
-        else
-
-        {  
-
-          $sq = mysqlQuery("select max(train_id) as max from train_master");
-
-          $value = mysqli_fetch_assoc($sq);
-
-          $max_train_id = $value['max'] + 1;;
-
-
-
-          $sq = mysqlQuery(" insert into train_master (train_id, tourwise_traveler_id, date, from_location, to_location, train_no, amount, seats, train_priority, train_class ) values ('$max_train_id', '$tourwise_id', '$train_travel_date[$i]', '$train_from_location[$i]', '$train_to_location[$i]', '$train_train_no[$i]', '$train_amount[$i]', '$train_seats[$i]', '$train_travel_priority[$i]', '$train_travel_class[$i]') ");
-
-            if(!$sq)
-
-            {
-
-              $GLOBALS['flag'] = false;
-
-              echo "Error at row".($i+1)." for train information.";
-
-              //exit;
-
-            }   
-
-
-
+          }
         }
+        else{
+					$sq_entry = mysqlQuery("delete from train_master where train_id = '$train_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
+					if(!$sq_entry){
+						$GLOBALS['flag'] = false;
+						echo "error--Some entries not deleted!";
+					}
+				}
 
 
 
@@ -654,55 +678,63 @@ public function traveler_personal_information_update($tourwise_traveler_id, $m_e
 
         $count_plane_details = mysqli_num_rows(mysqlQuery("select * from plane_master where plane_id='$plane_id[$i]'"));
 
+				if($plane_checkbox_arr[$i] == 'true'){
 
-
-        if($count_plane_details == 1)
-
-        {
-
-          $sq = mysqlQuery("update plane_master set date = '$plane_travel_date[$i]', from_location = '$from_location', to_location = '$to_location', company = '$plane_company[$i]', amount = '$plane_amount[$i]', seats = '$plane_seats[$i]', arraval_time = '$arravl_arr[$i]', from_city='$from_city_id_arr[$i]', to_city='$to_city_id_arr[$i]'  where plane_id = '$plane_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
-
-           if(!$sq)
-
-           {
-
-              $GLOBALS['flag'] = false;
-
-              echo "Plane Details Not Saved";
-
-              //exit;
-
-           } 
-
-        }  
-
-        else
-
-        {  
-
-          $sq = mysqlQuery("select max(plane_id) as max from plane_master");
-
-          $value = mysqli_fetch_assoc($sq);
-
-          $max_plane_id = $value['max'] + 1;
-
-          $sq = mysqlQuery(" insert into plane_master (plane_id, tourwise_traveler_id, date, from_city, to_city, from_location, to_location, company, amount, seats, arraval_time ) values ('$max_plane_id', '$tourwise_id', '$plane_travel_date[$i]', '$from_city_id_arr[$i]', '$to_city_id_arr[$i]', '$from_location', '$to_location', '$plane_company[$i]', '$plane_amount[$i]', '$plane_seats[$i]', '$arravl_arr[$i]') ");
-
-
-
-          if(!$sq)
+          if($count_plane_details == 1)
 
           {
 
-            $GLOBALS['flag'] = false;
+            $sq = mysqlQuery("update plane_master set date = '$plane_travel_date[$i]', from_location = '$from_location', to_location = '$to_location', company = '$plane_company[$i]', amount = '$plane_amount[$i]', seats = '$plane_seats[$i]', arraval_time = '$arravl_arr[$i]', from_city='$from_city_id_arr[$i]', to_city='$to_city_id_arr[$i]'  where plane_id = '$plane_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
 
-            echo "Error at row".($i+1)." for Flight information.";
+            if(!$sq)
 
-            //exit;
+            {
+
+                $GLOBALS['flag'] = false;
+
+                echo "Plane Details Not Saved";
+
+                //exit;
+
+            } 
+
+          }  
+
+          else
+
+          {  
+
+            $sq = mysqlQuery("select max(plane_id) as max from plane_master");
+
+            $value = mysqli_fetch_assoc($sq);
+
+            $max_plane_id = $value['max'] + 1;
+
+            $sq = mysqlQuery(" insert into plane_master (plane_id, tourwise_traveler_id, date, from_city, to_city, from_location, to_location, company, amount, seats, arraval_time ) values ('$max_plane_id', '$tourwise_id', '$plane_travel_date[$i]', '$from_city_id_arr[$i]', '$to_city_id_arr[$i]', '$from_location', '$to_location', '$plane_company[$i]', '$plane_amount[$i]', '$plane_seats[$i]', '$arravl_arr[$i]') ");
+
+
+
+            if(!$sq)
+
+            {
+
+              $GLOBALS['flag'] = false;
+
+              echo "Error at row".($i+1)." for Flight information.";
+
+              //exit;
+
+            } 
 
           } 
-
-        } 
+        }
+        else{
+					$sq_entry = mysqlQuery("delete from plane_master where plane_id = '$plane_id[$i]' and tourwise_traveler_id = '$tourwise_id'");
+					if(!$sq_entry){
+						$GLOBALS['flag'] = false;
+						echo "error--Some entries not deleted!";
+					}
+				}
 
       }
       //**Saves Cruise Information    
@@ -723,21 +755,30 @@ public function traveler_personal_information_update($tourwise_traveler_id, $m_e
 
         $cruise_dept_date_arr[$i] = date("Y-m-d, H:i", strtotime($cruise_dept_date_arr[$i]));        
         $cruise_arrival_date_arr[$i] = date("Y-m-d, H:i", strtotime($cruise_arrival_date_arr[$i])); 
-       
-        if($c_entry_id_arr[$i] == ''){
-            $sq = mysqlQuery("select max(cruise_id) as max from group_cruise_master");
-            $value = mysqli_fetch_assoc($sq);
-            $max_cruise_id = $value['max'] + 1;
-            $sq = mysqlQuery("insert into group_cruise_master (cruise_id, booking_id, dept_datetime, arrival_datetime, route, cabin,sharing, seats, amount ) values ('$max_cruise_id', '$tourwise_id', '$cruise_dept_date_arr[$i]', '$cruise_arrival_date_arr[$i]', '$route_arr[$i]', '$cabin_arr[$i]', '$sharing_arr[$i]', '$cruise_seats_arr[$i]', '$cruise_amount_arr[$i]') ");
-            if(!$sq)
-            {
-              $GLOBALS['flag'] = false;
-              echo "Error at row".($i+1)." for cruise information.";
-            }
+
+				if($plane_checkbox_arr[$i] == 'true'){
+          if($c_entry_id_arr[$i] == ''){
+              $sq = mysqlQuery("select max(cruise_id) as max from group_cruise_master");
+              $value = mysqli_fetch_assoc($sq);
+              $max_cruise_id = $value['max'] + 1;
+              $sq = mysqlQuery("insert into group_cruise_master (cruise_id, booking_id, dept_datetime, arrival_datetime, route, cabin,sharing, seats, amount ) values ('$max_cruise_id', '$tourwise_id', '$cruise_dept_date_arr[$i]', '$cruise_arrival_date_arr[$i]', '$route_arr[$i]', '$cabin_arr[$i]', '$sharing_arr[$i]', '$cruise_seats_arr[$i]', '$cruise_amount_arr[$i]') ");
+              if(!$sq)
+              {
+                $GLOBALS['flag'] = false;
+                echo "Error at row".($i+1)." for cruise information.";
+              }
+          }
+          else{
+              $sq = mysqlQuery("update group_cruise_master set dept_datetime = '$cruise_dept_date_arr[$i]', arrival_datetime = '$cruise_arrival_date_arr[$i]', route = '$route_arr[$i]', cabin = '$cabin_arr[$i]', sharing = '$sharing_arr[$i]', seats = '$cruise_seats_arr[$i]', amount = '$cruise_amount_arr[$i]'  where cruise_id = '$c_entry_id_arr[$i]' and booking_id = '$tourwise_id'");
+          }   
+        }else{
+					$sq_entry = mysqlQuery("delete from group_cruise_master where cruise_id = '$c_entry_id_arr[$i]' and booking_id = '$tourwise_id'");
+					if(!$sq_entry){
+						$GLOBALS['flag'] = false;
+						echo "error--Some entries not deleted!";
+					}
+
         }
-        else{
-            $sq = mysqlQuery("update group_cruise_master set dept_datetime = '$cruise_dept_date_arr[$i]', arrival_datetime = '$cruise_arrival_date_arr[$i]', route = '$route_arr[$i]', cabin = '$cabin_arr[$i]', sharing = '$sharing_arr[$i]', seats = '$cruise_seats_arr[$i]', amount = '$cruise_amount_arr[$i]'  where cruise_id = '$c_entry_id_arr[$i]' and booking_id = '$tourwise_id'");
-        }   
 
 
 

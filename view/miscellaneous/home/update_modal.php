@@ -117,7 +117,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 												$count++;
 										?>
 												<tr class="<?= $bg ?>">
-													<td><input class="css-checkbox" id="chk_visa<?= $offset . $count ?>_d" type="checkbox" checked disabled><label class="css-label" for="chk_visa<?= $offset ?>"> <label></td>
+													<td><input class="css-checkbox" id="chk_visa<?= $offset . $count ?>_d" type="checkbox" checked><label class="css-label" for="chk_visa<?= $offset ?>"> <label></td>
 													<td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
 													<td><input type="text" id="first_name<?= $offset . $count ?>_d" onchange="fname_validate(this.id)" name="first_name<?= $offset . $count ?>_d" placeholder="First Name" title="First Name" value="<?= $row_entry['first_name'] ?>" /></td>
 													<td><input type="text" id="middle_name<?= $offset . $count ?>_d" name="middle_name<?= $offset . $count ?>_d" onchange="fname_validate(this.id)" placeholder="Middle Name" title="Middle Name" value="<?= $row_entry['middle_name'] ?>" /></td>
@@ -373,6 +373,11 @@ else if($reflections[0]->tax_apply_on == '3') {
 				var narration = $('#narration1').val();
 				var service = $('#service1').val();
 
+				if (service == '') {
+					error_msg_alert("Enter Services in Service details!");
+					$('#misc_update').prop('disabled', false);
+					return false;
+				}
 				var first_name_arr = new Array();
 				var middle_name_arr = new Array();
 				var last_name_arr = new Array();
@@ -382,20 +387,26 @@ else if($reflections[0]->tax_apply_on == '3') {
 				var issue_date_arr = new Array();
 				var expiry_date_arr = new Array();
 				var entry_id_arr = new Array();
+				var e_checkbox_arr = [];
 
 				var table = document.getElementById("tbl_dynamic_miscellaneous_update");
 				var rowCount = table.rows.length;
 
-				if (service == '') {
-					error_msg_alert("Enter Services in Service details!");
+				var checked_count = 0;
+				for (var i = 0; i < rowCount; i++) {
+					var row = table.rows[i];
+					if (row.cells[0].childNodes[0].checked) {
+						checked_count++;
+					}
+				}
+				if (checked_count == 0) {
+					error_msg_alert("Atleast one passenger details is required!");
 					$('#misc_update').prop('disabled', false);
 					return false;
 				}
 
 				for (var i = 0; i < rowCount; i++) {
 					var row = table.rows[i];
-
-					if (row.cells[0].childNodes[0].checked) {
 
 						var first_name = row.cells[2].childNodes[0].value;
 						var middle_name = row.cells[3].childNodes[0].value;
@@ -414,17 +425,19 @@ else if($reflections[0]->tax_apply_on == '3') {
 
 						var msg = "";
 
-						if (first_name == "") {
-							msg += "First name is required in row:" + (i + 1) + "<br>";
-						}
-						if (passport_id != "") {
-							if (issue_date == "") {
-								msg += "Issue Date is required in row:" + (i + 1) + "<br>";
+						if (row.cells[0].childNodes[0].checked) {
+							if (first_name == "") {
+								msg += "First name is required in row:" + (i + 1) + "<br>";
 							}
-							if (expiry_date == "") {
-								msg += "Expiry Date is required in row:" + (i + 1) + "<br>";
-							}
+							if (passport_id != "") {
+								if (issue_date == "") {
+									msg += "Issue Date is required in row:" + (i + 1) + "<br>";
+								}
+								if (expiry_date == "") {
+									msg += "Expiry Date is required in row:" + (i + 1) + "<br>";
+								}
 
+							}
 						}
 
 
@@ -443,8 +456,8 @@ else if($reflections[0]->tax_apply_on == '3') {
 						issue_date_arr.push(issue_date);
 						expiry_date_arr.push(expiry_date);
 						entry_id_arr.push(entry_id);
+                		e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 
-					}
 				}
 				var misc_sc = $('#misc_sc').val();
 				var misc_markup = $('#misc_markup').val();
@@ -502,7 +515,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 								passport_id_arr: passport_id_arr,
 								issue_date_arr: issue_date_arr,
 								expiry_date_arr: expiry_date_arr,
-								entry_id_arr: entry_id_arr,
+								entry_id_arr: entry_id_arr,e_checkbox_arr:e_checkbox_arr,
 								due_date1: due_date1,
 								balance_date1: balance_date1,
 								service: service,

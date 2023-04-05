@@ -34,8 +34,7 @@
                                 ?>
                                 <tr class="<?= $bg ?>">
                                     <td><input id="<?php echo "check-btn-member-" . $count_m . 'm' ?>" type="checkbox"
-                                            onchange="payment_details_reflected_data('tbl_member_dynamic_row')" checked
-                                            disabled></td>
+                                            onchange="payment_details_reflected_data('tbl_member_dynamic_row')" checked></td>
 
                                     <td><input maxlength="15" type="text" name="username" value="<?php echo $count_m ?>"
                                             placeholder="ID" disabled /></td>

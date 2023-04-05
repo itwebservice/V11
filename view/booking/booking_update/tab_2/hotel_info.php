@@ -17,7 +17,7 @@ while($row_hotel_details = mysqli_fetch_assoc($sq_hotel_details)){
 $count_p++;
 ?>
     <tr>
-		<td><input class="css-checkbox" id="chk_dest1<?= $count_p ?>" type="checkbox" disabled checked><label      class="css-label" for="chk_dest1" checked> <label></td>
+		<td><input class="css-checkbox" id="chk_dest1<?= $count_p ?>" type="checkbox" checked><label class="css-label" for="chk_dest1" checked> <label></td>
 		<td><input maxlength="15" value="<?= $count_p ?>" type="text" name="no" placeholder="Sr. No." class="form-control" disabled />
 		</td>
 		<td><input id="city_name<?= $count_p ?>" name="city_name1" class="form-control" style="width:100%" title="City Name" value="<?= $city['city_name']?>" readonly> 
