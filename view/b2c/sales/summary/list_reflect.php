@@ -104,8 +104,8 @@ while($row_booking = mysqli_fetch_assoc($sq_exc)){
 	number_format($paid_amount, 2),
 	'<button class="btn btn-info btn-sm" id="paymentv_btn-'. $row_booking['booking_id'] .'" onclick="payment_view_modal('.$row_booking['booking_id'] .')"  data-toggle="tooltip" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>',
 	number_format($balance_amount, 2),
-	number_format($total_purchase,2),
-	'<button class="btn btn-info btn-sm" id="supplierv_btn-'. $row_booking['booking_id'] .'" onclick="supplier_view_modal('. $row_booking['booking_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>',
+	// number_format($total_purchase,2),
+	// '<button class="btn btn-info btn-sm" id="supplierv_btn-'. $row_booking['booking_id'] .'" onclick="supplier_view_modal('. $row_booking['booking_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>',
 	$emp_name,
 	), "bg" =>$bg);
 	array_push($array_s,$temp_arr);
