@@ -126,7 +126,6 @@ $("#customer_name").autocomplete({
         $("#customer_name").val(ui.item.label);
         var newOption = $("<option selected='selected'></option>").val(ui.item.country_id).text(ui.item.country_code);
         $('#country_code').append(newOption).trigger('change.select2');
-        // $('#country_code').val(ui.item.country_id);
         $('#whatsapp_no').val(ui.item.contact_no);
         $('#email_id').val(ui.item.email_id);
     },

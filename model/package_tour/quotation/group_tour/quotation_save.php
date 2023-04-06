@@ -15,6 +15,7 @@ public function quotation_master_save()
 	$total_days =  $_POST['total_days'];
 	$customer_name =  $_POST['customer_name'];
 	$mobile_number = $_POST['mobile_number'];
+	$country_code = $_POST['country_code'];
 	$email_id =  $_POST['email_id'];
 	$total_adult = $_POST['total_adult'];
 	$total_children =  $_POST['total_children'];
@@ -88,7 +89,8 @@ public function quotation_master_save()
     $excl = addslashes($excl);
 	$terms = addslashes($terms);
 	$bsmValues = json_encode($bsmValues);
-	$sq_quotation = mysqlQuery("insert into group_tour_quotation_master ( quotation_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, mobile_number,email_id, total_adult, total_children, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type,  adult_cost, children_cost , infant_cost, with_bed_cost, tour_cost,service_charge, service_tax_subtotal, quotation_cost, incl, excl, terms, tour_group_id, created_at, login_id, enquiry_id, tour_group,emp_id,bsm_values,currency_code,status ) values ( '$quotation_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$mobile_number','$email_id', '$total_adult', '$total_children', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$adult_cost','$children_cost','$infant_cost','$with_bed_cost','$tour_cost','$service_charge', '$service_tax_subtotal', '$total_tour_cost','$incl','$excl','$terms', '$tour_group_id', '$created_at', '$login_id', '$enquiry_id', '$tour_group','$emp_id','$bsmValues','$currency_code','1' )");
+	$whatsapp_no = $country_code.$mobile_no;
+	$sq_quotation = mysqlQuery("insert into group_tour_quotation_master ( quotation_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, mobile_number,country_code,whatsapp_no,email_id, total_adult, total_children, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type,  adult_cost, children_cost , infant_cost, with_bed_cost, tour_cost,service_charge, service_tax_subtotal, quotation_cost, incl, excl, terms, tour_group_id, created_at, login_id, enquiry_id, tour_group,emp_id,bsm_values,currency_code,status ) values ( '$quotation_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$whatsapp_no','$country_code','$mobile_no','$email_id', '$total_adult', '$total_children', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$adult_cost','$children_cost','$infant_cost','$with_bed_cost','$tour_cost','$service_charge', '$service_tax_subtotal', '$total_tour_cost','$incl','$excl','$terms', '$tour_group_id', '$created_at', '$login_id', '$enquiry_id', '$tour_group','$emp_id','$bsmValues','$currency_code','1' )");
 
 	if($sq_quotation){
 		////////////Enquiry Save///////////

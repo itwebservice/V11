@@ -47,9 +47,16 @@
 	    	<input type="text" id="customer_name" name="customer_name" onchange="fname_validate(this.id)" placeholder="*Customer Name" title="Customer Name">
             <input type="hidden" id="cust_data" name="cust_data" value='<?= get_customer_hint() ?>'>
 	    </div>
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-			<input type="text" id="mobile_no" name="mobile_no" onchange="mobile_validate(this.id)" placeholder="*Whatsapp no with country code" title="*Whatsapp no with country code">
-		</div>
+        <div class="col-md-3 col-sm-6 mg_bt_10">
+            <div class="col-md-3" style="padding-left:0px;">
+                <select name="country_code" id="country_code" title="Country code">
+                    <?= get_country_code(); ?>
+                </select>
+            </div>
+            <div class="col-md-9" style="padding-left:60px;padding-right:0px;">
+                <input type="text" class="form-control" id="mobile_no" onchange="mobile_validate(this.id);" name="mobile_no" placeholder="*WhatsApp No" title="WhatsApp No">
+            </div>
+        </div>
 	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
 		</div>	
@@ -143,6 +150,7 @@
 	</div>
 </form>
 <script>
+$('#country_code').select2();
 $("#customer_name").autocomplete({
     source: JSON.parse($('#cust_data').val()),
     select: function(event, ui) {
@@ -187,6 +195,7 @@ $('#frm_tab1').validate({
 		places_to_visit : { required : function(){  if($('#travel_type').val()=="Outstation"){ return true; }else{ return false; }  }  },
 		traveling_date : { required : function(){  if($('#travel_type').val()=="Outstation"){ return true; }else{ return false; }  }  },
 		mobile_no : { required : true },
+		country_code : { required : true }
 	},
 	messages:{
 		extra_km_cost	:	"Only Numbers Allowed",

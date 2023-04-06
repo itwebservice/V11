@@ -9,6 +9,7 @@ public function quotation_master_save()
 	$customer_name = $_POST['customer_name'];
 	$email_id = $_POST['email_id'];
     $mobile_no = $_POST['mobile_no'];
+	$country_code = $_POST['country_code'];
     $total_pax = $_POST['total_pax'];
     $days_of_traveling = $_POST['days_of_traveling'];
 	$traveling_date =  $_POST['traveling_date'];
@@ -46,13 +47,13 @@ public function quotation_master_save()
 	$roundoff = $_POST['roundoff'];
 
 	$bsmValues = json_decode(json_encode($_POST['bsmValues']));
-  	foreach($bsmValues[0] as $key => $value){
-      switch($key){
-		case 'basic' : $subtotal = ($value != "") ? $value : $subtotal;break;
-		case 'service' : $service_charge = ($value != "") ? $value : $service_charge;break;
-		case 'markup' : $markup_cost = ($value != "") ? $value : $markup_cost;break;
-      }
-    }
+	foreach($bsmValues[0] as $key => $value){
+		switch($key){
+			case 'basic' : $subtotal = ($value != "") ? $value : $subtotal;break;
+			case 'service' : $service_charge = ($value != "") ? $value : $service_charge;break;
+			case 'markup' : $markup_cost = ($value != "") ? $value : $markup_cost;break;
+		}
+	}
 
 	$enquiry_content = '[{"name":"total_pax","value":"'.$total_pax.'"},{"name":"days_of_traveling","value":"'.$days_of_traveling.'"},{"name":"traveling_date","value":"'.$traveling_date.'"},{"name":"vehicle_type","value":"'.''.'"},{"name":"travel_type","value":"'.$travel_type.'"},{"name":"budget","value":"0"},{"name":"places_to_visit","value":"'.$places_to_visit.'"}]';
 
@@ -61,19 +62,18 @@ public function quotation_master_save()
 	$from_date = get_date_db($from_date);
 	$to_date = get_date_db($to_date);
 	$created_at = date('Y-m-d');
-	 
+
 	$customer_name = addslashes($customer_name);
 	$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(quotation_id) as max from car_rental_quotation_master"));
 	$quotation_id = $sq_max['max']+1;
     $bsmValues = json_encode($bsmValues);
 	$places_to_visit = addslashes($places_to_visit);
 	$local_places_to_visit = addslashes($local_places_to_visit);
-	$q = "insert into car_rental_quotation_master ( quotation_id, enquiry_id, login_id,emp_id, branch_admin_id,financial_year_id, customer_name,email_id,mobile_no, total_pax,days_of_traveling,traveling_date,travel_type,places_to_visit,vehicle_name,from_date,to_date,route,extra_km_cost,extra_hr_cost,daily_km,subtotal,markup_cost,markup_cost_subtotal,taxation_id,service_charge,service_tax_subtotal,permit,toll_parking,driver_allowance,total_tour_cost,created_at,quotation_date,total_hrs,total_km,rate,total_max_km,state_entry,other_charge,capacity,local_places_to_visit,bsm_values,roundoff,status) values ('$quotation_id','$enquiry_id','$login_id','$emp_id', '$branch_admin_id','$financial_year_id', '$customer_name','$email_id','$mobile_no', '$total_pax','$days_of_traveling','$traveling_date','$travel_type','$places_to_visit','$vehicle_name','$from_date','$to_date','','$extra_km_cost','$extra_hr_cost','$daily_km','$subtotal','$markup_cost','$markup_cost_subtotal','$taxation_id','$service_charge','$service_tax_subtotal','$permit','$toll_parking','$driver_allowance','$total_tour_cost','$created_at','$quotation_date','$total_hr','$total_km','$rate','$total_max_km','$state_entry','$other_charge','$capacity','$local_places_to_visit','$bsmValues','$roundoff','1')";
+	$whatsapp_no = $country_code.$mobile_no;
 	
-	$sq_quotation = mysqlQuery($q);
+	$sq_quotation = mysqlQuery("insert into car_rental_quotation_master ( quotation_id, enquiry_id, login_id,emp_id, branch_admin_id,financial_year_id, customer_name,email_id,mobile_no,country_code,whatsapp_no, total_pax,days_of_traveling,traveling_date,travel_type,places_to_visit,vehicle_name,from_date,to_date,route,extra_km_cost,extra_hr_cost,daily_km,subtotal,markup_cost,markup_cost_subtotal,taxation_id,service_charge,service_tax_subtotal,permit,toll_parking,driver_allowance,total_tour_cost,created_at,quotation_date,total_hrs,total_km,rate,total_max_km,state_entry,other_charge,capacity,local_places_to_visit,bsm_values,roundoff,status) values ('$quotation_id','$enquiry_id','$login_id','$emp_id', '$branch_admin_id','$financial_year_id', '$customer_name','$email_id','$whatsapp_no','$country_code','$mobile_no', '$total_pax','$days_of_traveling','$traveling_date','$travel_type','$places_to_visit','$vehicle_name','$from_date','$to_date','','$extra_km_cost','$extra_hr_cost','$daily_km','$subtotal','$markup_cost','$markup_cost_subtotal','$taxation_id','$service_charge','$service_tax_subtotal','$permit','$toll_parking','$driver_allowance','$total_tour_cost','$created_at','$quotation_date','$total_hr','$total_km','$rate','$total_max_km','$state_entry','$other_charge','$capacity','$local_places_to_visit','$bsmValues','$roundoff','1')");
 
 	if($sq_quotation){
-		 
 		////////////Enquiry Save///////////
 		if($enquiry_id == 0){
 			$sq_max_id = mysqli_fetch_assoc(mysqlQuery("select max(enquiry_id) as max from enquiry_master"));

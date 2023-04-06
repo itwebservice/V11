@@ -78,9 +78,16 @@ $role_id = $_SESSION['role_id'];
 
                 </div>
 
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <input type="text" id="mobile_no" name="mobile_no" placeholder="*WhatsApp No with country code"
-                        onchange="mobile_validate(this.id)" title="*WhatsApp No with country code">
+                <div class="col-md-4 col-sm-6">
+                    <div class="col-md-4" style="padding-left:0px;">
+                        <select name="country_code" id="country_code" title="Country code">
+                            <?= get_country_code(); ?>
+                        </select>
+                    </div>
+                    <div class="col-md-8" style="padding-left:12px;padding-right:0px;">
+                        <input type="text" class="form-control" id="mobile_no" onchange="mobile_validate(this.id);"
+                            name="mobile_no" placeholder="*WhatsApp No" title="WhatsApp No">
+                    </div>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
 
@@ -165,6 +172,7 @@ $role_id = $_SESSION['role_id'];
 <?= end_panel() ?>
 
 <script>
+$('#country_code').select2();
 $("#customer_name").autocomplete({
     source: JSON.parse($('#cust_data').val()),
     select: function(event, ui) {
@@ -196,6 +204,9 @@ $('#frm_tab1').validate({
 
     rules: {
         enquiry_id: {
+            required: true
+        },
+        country_code: {
             required: true
         },
         mobile_no: {

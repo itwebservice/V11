@@ -9,6 +9,7 @@ public function quotation_master_save()
 	$customer_name = $_POST['customer_name'];
     $email_id = $_POST['email_id'];
     $mobile_no = $_POST['mobile_no'];
+	$country_code = $_POST['country_code'];
 	$quotation_date =  $_POST['quotation_date'];
 	$subtotal =  $_POST['subtotal'];
 	$markup_cost =  $_POST['markup_cost'];
@@ -50,7 +51,8 @@ public function quotation_master_save()
 	$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(quotation_id) as max from flight_quotation_master"));
 	$quotation_id = $sq_max['max']+1;
 	$bsmValues = json_encode($bsmValues);
-	$sq_quotation = mysqlQuery("INSERT INTO flight_quotation_master ( quotation_id, enquiry_id, login_id, branch_admin_id,financial_year_id, emp_id,customer_name,  email_id, mobile_no,subtotal,markup_cost,markup_cost_subtotal,service_tax,service_charge,quotation_cost,quotation_date,bsm_values,roundoff,created_at,status) VALUES ('$quotation_id','$enquiry_id','$login_id', '$branch_admin_id','$financial_year_id', '$emp_id', '$customer_name','$email_id','$mobile_no','$subtotal','$markup_cost','$markup_cost_subtotal','$service_tax','$service_charge','$total_tour_cost','$quotation_date','$bsmValues','$roundoff','$created_at','1')");
+	$whatsapp_no = $country_code.$mobile_no;
+	$sq_quotation = mysqlQuery("INSERT INTO flight_quotation_master ( quotation_id, enquiry_id, login_id, branch_admin_id,financial_year_id, emp_id,customer_name,  email_id, mobile_no,country_code,whatsapp_no,subtotal,markup_cost,markup_cost_subtotal,service_tax,service_charge,quotation_cost,quotation_date,bsm_values,roundoff,created_at,status) VALUES ('$quotation_id','$enquiry_id','$login_id', '$branch_admin_id','$financial_year_id', '$emp_id', '$customer_name','$email_id','$whatsapp_no','$country_code','$mobile_no','$subtotal','$markup_cost','$markup_cost_subtotal','$service_tax','$service_charge','$total_tour_cost','$quotation_date','$bsmValues','$roundoff','$created_at','1')");
 
 	if($sq_quotation){
 		////////////Enquiry Save///////////

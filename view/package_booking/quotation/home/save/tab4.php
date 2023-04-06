@@ -384,6 +384,7 @@
 
             var email_id = $('#email_id').val();
             var mobile_no = $('#mobile_no').val();
+			var country_code = $('#country_code').val();
 
             var total_adult = $('#total_adult').val();
 
@@ -1069,6 +1070,7 @@
                                 customer_name: customer_name,
                                 email_id: email_id,
                                 mobile_no: mobile_no,
+                                country_code:country_code,
                                 total_adult: total_adult,
                                 total_infant: total_infant,
                                 total_passangers: total_passangers,

@@ -179,7 +179,10 @@ function get_enquiry_details(offset = '') {
 			$('#total_days' + offset).val(result.total_days);
 			$('#customer_name' + offset).val(result.name);
 			$('#email_id' + offset).val(result.email_id);
-			$('#mobile_no' + offset).val(result.country_code+result.landline_no);
+			$('#mobile_no' + offset).val(result.landline_no);
+			$('#country_code' + offset).val(result.country_code);
+			$('#country_code').trigger('change');
+
 			$('#total_adult' + offset).val(result.total_adult);
 			$('#total_infant' + offset).val(result.total_infant);
 

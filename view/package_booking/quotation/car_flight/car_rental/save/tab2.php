@@ -112,6 +112,7 @@ $('#frm_tab4').validate({
 		var customer_name = $('#customer_name').val();
 		var email_id = $('#email_id').val();
 		var mobile_no = $('#mobile_no').val();
+		var country_code = $('#country_code').val();
 		var total_pax = $("#total_pax").val();
 		var days_of_traveling = $('#days_of_traveling').val();
 		var traveling_date = $('#traveling_date').val();
@@ -171,7 +172,7 @@ $('#frm_tab4').validate({
 
 			url: base_url+'controller/package_tour/quotation/car_rental/quotation_save.php',
 
-			data:{ enquiry_id : enquiry_id , login_id : login_id, emp_id : emp_id,total_pax : total_pax, days_of_traveling : days_of_traveling,traveling_date : traveling_date, travel_type : travel_type, places_to_visit : places_to_visit,vehicle_name : vehicle_name, from_date : from_date, to_date : to_date,extra_km_cost : extra_km_cost , extra_hr_cost : extra_hr_cost, daily_km : daily_km, subtotal : subtotal,markup_cost : markup_cost,markup_cost_subtotal : markup_cost_subtotal, taxation_id : taxation_id, service_charge : service_charge , service_tax_subtotal : service_tax_subtotal, permit : permit, toll_parking : toll_parking, driver_allowance : driver_allowance , total_tour_cost : total_tour_cost, customer_name : customer_name,quotation_date : quotation_date, email_id : email_id, mobile_no : mobile_no, branch_admin_id : branch_admin_id,financial_year_id :financial_year_id,travel_type:travel_type,vehicle_name:vehicle_name,total_hr:total_hr,total_km:total_km,rate:rate,total_max_km:total_max_km,other_charge:other_charge,state_entry:state_entry,capacity:capacity,local_places_to_visit:local_places_to_visit, bsmValues : bsmValues, roundoff : roundoff},
+			data:{ enquiry_id : enquiry_id , login_id : login_id, emp_id : emp_id,total_pax : total_pax, days_of_traveling : days_of_traveling,traveling_date : traveling_date, travel_type : travel_type, places_to_visit : places_to_visit,vehicle_name : vehicle_name, from_date : from_date, to_date : to_date,extra_km_cost : extra_km_cost , extra_hr_cost : extra_hr_cost, daily_km : daily_km, subtotal : subtotal,markup_cost : markup_cost,markup_cost_subtotal : markup_cost_subtotal, taxation_id : taxation_id, service_charge : service_charge , service_tax_subtotal : service_tax_subtotal, permit : permit, toll_parking : toll_parking, driver_allowance : driver_allowance , total_tour_cost : total_tour_cost, customer_name : customer_name,quotation_date : quotation_date, email_id : email_id, mobile_no : mobile_no, country_code : country_code,branch_admin_id : branch_admin_id,financial_year_id :financial_year_id,travel_type:travel_type,vehicle_name:vehicle_name,total_hr:total_hr,total_km:total_km,rate:rate,total_max_km:total_max_km,other_charge:other_charge,state_entry:state_entry,capacity:capacity,local_places_to_visit:local_places_to_visit, bsmValues : bsmValues, roundoff : roundoff},
 		
 			success: function(message){
 

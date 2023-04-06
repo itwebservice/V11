@@ -88,7 +88,9 @@ function get_enquiry_details(offset = '') {
 				let trav_date = result.traveling_date.split(' ');
 				$('#customer_name' + offset).val(result.name);
 				$('#email_id' + offset).val(result.email_id);
-				$('#mobile_no' + offset).val(result.country_code+result.landline_no);
+				$('#mobile_no' + offset).val(result.landline_no);
+				$('#country_code' + offset).val(result.country_code);
+				$('#country_code'+ offset).trigger('change');
 				$('#total_pax' + offset).val(result.total_pax);
 				$('#days_of_traveling' + offset).val(result.days_of_traveling);
 				$('#from_date' + offset).val(trav_date[0]);
@@ -218,7 +220,9 @@ function get_flight_enquiry_details(offset = '') {
 			success: function (result) {
 				$('#customer_name' + offset).val(result.name);
 				$('#email_id' + offset).val(result.email_id);
-				$('#mobile_no' + offset).val(result.country_code+result.landline_no);
+				$('#mobile_no' + offset).val(result.landline_no);
+				$('#country_code' + offset).val(result.country_code);
+				$('#country_code'+ offset).trigger('change');
 				var enquiry_content = JSON.parse(result.enquiry_content);
 				var count_td = 1;
 				var table = document.getElementById('tbl_flight_quotation_dynamic_plane');
