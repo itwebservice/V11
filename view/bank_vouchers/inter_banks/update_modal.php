@@ -90,6 +90,7 @@ $('#frm_update').validate({
   },
   submitHandler:function(form){
 
+    $('#btn_update').prop('disabled',true);
     var base_url = $('#base_url').val();
     var from_bank_id = $('#from_bank_id').val();
     var to_bank_id = $('#to_bank_id').val();            
@@ -107,19 +108,28 @@ $('#frm_update').validate({
      { error_msg_alert("Can not update amount else make it 0"); return false;}
 
     $('#btn_update').button('loading');
+    $.post(base_url+'view/load_data/finance_date_validation.php', { check_date: payment_date }, function(data){
+      if(data !== 'valid'){
+        error_msg_alert("The Receipt date does not match between selected Financial year.");
+        $('#btn_update').prop('disabled',false);
+        $('#btn_update').button('reset');
+        return false;
+      }else{
 
-    $.ajax({
-      type:'post',
-      url:base_url+'controller/bank_vouchers/bank_transfer_update.php',
-      data: { entry_id : entry_id, payment_amount : payment_amount, f_name : f_name,trans_type : trans_type,ins_no : ins_no,ins_date : ins_date,lapse_date : lapse_date,payment_old_amount : payment_old_amount,from_bank_id : from_bank_id,to_bank_id : to_bank_id,payment_date : payment_date},
-      success:function(result){        
-        msg_alert(result);
-        var msg = result.split('--');
-        if(msg[0]!="error"){
-          $('#update_modal').modal('hide');
-          list_reflect();
-        }
-      }     
+        $.ajax({
+          type:'post',
+          url:base_url+'controller/bank_vouchers/bank_transfer_update.php',
+          data: { entry_id : entry_id, payment_amount : payment_amount, f_name : f_name,trans_type : trans_type,ins_no : ins_no,ins_date : ins_date,lapse_date : lapse_date,payment_old_amount : payment_old_amount,from_bank_id : from_bank_id,to_bank_id : to_bank_id,payment_date : payment_date},
+          success:function(result){        
+            msg_alert(result);
+            var msg = result.split('--');
+            if(msg[0]!="error"){
+              $('#update_modal').modal('hide');
+              list_reflect();
+            }
+          }     
+        });
+      }
     });
 
   }

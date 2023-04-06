@@ -92,6 +92,7 @@ $('#frm_update').validate({
   },
   submitHandler:function(form){
 
+    $('#btn_update').prop('disabled',true);
     var base_url = $('#base_url').val();
 
     var bank_id = $('#bank_id1').val();
@@ -107,17 +108,26 @@ $('#frm_update').validate({
     }
 
     $('#btn_update').button('loading');
-    $.ajax({
-      type:'post',
-      url:base_url+'controller/bank_vouchers/cash_deposit_update.php',
-      data: { deposit_id : deposit_id,bank_id : bank_id, payment_amount : payment_amount, payment_date : payment_date,payment_evidence_url : payment_evidence_url,payment_old_amount : payment_old_amount},
-      success:function(result){        
-        msg_alert(result);
-        var msg = result.split('--');
-        if(msg[0]!="error"){
-          $('#update_modal').modal('hide');
-          list_reflect();
-        }
+    $.post(base_url+'view/load_data/finance_date_validation.php', { check_date: payment_date }, function(data){
+      if(data !== 'valid'){
+        error_msg_alert("The Receipt date does not match between selected Financial year.");
+        $('#btn_update').prop('disabled',false);
+        $('#btn_update').button('reset');
+        return false;
+      }else{
+        $.ajax({
+          type:'post',
+          url:base_url+'controller/bank_vouchers/cash_deposit_update.php',
+          data: { deposit_id : deposit_id,bank_id : bank_id, payment_amount : payment_amount, payment_date : payment_date,payment_evidence_url : payment_evidence_url,payment_old_amount : payment_old_amount},
+          success:function(result){        
+            msg_alert(result);
+            var msg = result.split('--');
+            if(msg[0]!="error"){
+              $('#update_modal').modal('hide');
+              list_reflect();
+            }
+          }
+        });
       }
     });
   }

@@ -111,19 +111,28 @@ $('#frm_update').validate({
       return false;
     }
     $('#btn_update').button('loading');
-    $.ajax({
-      type:'post',
-      url:base_url+'controller/tour_estimate/other_income/income_update.php',
-      data: { payment_id : payment_id, income_type_id : income_type_id, payment_amount : payment_amount, payment_date : payment_date, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id,payment_old_value : payment_old_value },
-      success:function(result){        
-        msg_alert(result);
-        var msg = result.split('--');
-        if(msg[0]!="error"){
-          $('#update_modal').modal('hide');
-          income_list_reflect();
-        }
-      }     
-    });
+    $.post(base_url+'view/load_data/finance_date_validation.php', { check_date: payment_date }, function(data){
+      if(data !== 'valid'){
+        error_msg_alert("The Receipt date does not match between selected Financial year.");
+        $('#btn_update').prop('disabled',false);
+        $('#btn_update').button('reset');
+        return false;
+      }else{
+        $.ajax({
+          type:'post',
+          url:base_url+'controller/tour_estimate/other_income/income_update.php',
+          data: { payment_id : payment_id, income_type_id : income_type_id, payment_amount : payment_amount, payment_date : payment_date, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id,payment_old_value : payment_old_value },
+          success:function(result){        
+            msg_alert(result);
+            var msg = result.split('--');
+            if(msg[0]!="error"){
+              $('#update_modal').modal('hide');
+              income_list_reflect();
+            }
+          }     
+        });
+      }
+  });
 
   }
 });
