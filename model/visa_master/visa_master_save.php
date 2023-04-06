@@ -246,8 +246,9 @@ Hope you are doing great. Thank you for enquiry with us. Following is the visa i
 *Country Name* : ' . $sq_visa['country_id'] . '
 *Visa Type* : ' . $sq_visa['visa_type'] . '
 *Total Amount* : ' . number_format($sq_visa['fees']+$sq_visa['markup'],2) . '
-*Time Taken* : ' . $sq_visa['time_taken'] . '
-*List Of Documents* : ' . strip_tags($sq_visa['list_of_documents']));
+*Time Taken* : ' . $sq_visa['time_taken']);
+
+$whatsapp_msg .= '%0a*List Of Documents* : '.BASE_URL.'/model/visa_master/whats_app_data_print.php?entry_id='.base64_encode($entry_id) ;
 
 if($UploadURL != ''){
   $download_url = preg_replace('/(\/+)/','/',$sq_visa['upload_url']);
