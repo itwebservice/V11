@@ -112,6 +112,7 @@ public function vendor_payment_delete(){
 	$bank_id = $sq_estimate_info['bank_id'];
 	$clearance_status = $sq_estimate_info['clearance_status'];
 	$created_at = $sq_estimate_info['created_at'];
+	$canc_status = $sq_estimate_info['status'];
 	$payment_amount1 = 0;
 
 	$vendor_type_val = get_vendor_name($vendor_type, $vendor_type_id);
@@ -146,7 +147,7 @@ public function vendor_payment_delete(){
 	$transaction_id = $transaction_id;
 	$payment_amount = 0;
 	$payment_date = $payment_date;
-	$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, 0, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, 0, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	$old_gl_id = $gl_id = $pay_gl;
 	$payment_side = "Credit";
@@ -159,7 +160,7 @@ public function vendor_payment_delete(){
 	$transaction_id = $transaction_id;
 	$payment_amount = 0;
 	$payment_date = $payment_date;
-	$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, 0, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, 0, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	$old_gl_id = $gl_id = $supplier_gl;
 	$payment_side = "Debit";
@@ -175,7 +176,7 @@ public function vendor_payment_delete(){
 	$bank_name = $bank_name;
 	$transaction_id = $transaction_id;
 	$bank_id = $bank_id;
-	$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	$clearance_status = $clearance_status;
 	$payment_side = "Credit";
 	$payment_type = ($payment_mode=="Cash") ? "Cash" : "Bank";
@@ -232,7 +233,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $total_purchase;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_purchase, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_purchase, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $supplier_gl;
 	    $payment_side = "Debit";
@@ -246,7 +247,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 			$transaction_id = $transaction_id1;
 			$payment_amount = $advance_nullify;
 			$payment_date = $payment_date;
-			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 			$ledger_particular = get_ledger_particular('By','Cash/Bank');
 			$gl_id = $supplier_gl;
 			$payment_side = "Credit";
@@ -259,7 +260,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $payment_amount1;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $pay_gl;
 	    $payment_side = "Credit";
@@ -272,7 +273,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $balance_amount;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $balance_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $balance_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $supplier_gl;
 	    $payment_side = "Debit";
@@ -286,7 +287,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $total_payment_amount;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $supplier_gl;
 	    $payment_side = "Debit";
@@ -300,7 +301,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 			$transaction_id = $transaction_id1;
 			$payment_amount = $advance_nullify;
 			$payment_date = $payment_date;
-			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 			$ledger_particular = get_ledger_particular('By','Cash/Bank');
 			$gl_id = $supplier_gl;
 			$payment_side = "Credit";
@@ -313,7 +314,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $payment_amount1;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $pay_gl;
 	    $payment_side = "Credit";
@@ -328,7 +329,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $total_payment_amount;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $total_payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $supplier_gl;
 	    $payment_side = "Debit";
@@ -342,7 +343,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 			$transaction_id = $transaction_id1;
 			$payment_amount = $advance_nullify;
 			$payment_date = $payment_date;
-			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+			$payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $advance_nullify, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 			$ledger_particular = get_ledger_particular('By','Cash/Bank');
 			$gl_id = $supplier_gl;
 			$payment_side = "Credit";
@@ -355,7 +356,7 @@ public function finance_save($payment_id,$row_spec,$branch_admin_id)
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $payment_amount1;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,'');
 		$ledger_particular = get_ledger_particular('By','Cash/Bank');
 	    $gl_id = $pay_gl;
 	    $payment_side = "Credit";
@@ -373,7 +374,7 @@ public function bank_cash_book_save($payment_id,$purchase_type,$pay_amount,$purc
 		$payment_mode = $_POST['payment_mode'];
 		$bank_name = $_POST['bank_name'];
 		$transaction_id = $_POST['transaction_id'];
-		//$remark = $_POST['remark'];	
+		$canc_status = $_POST['canc_status'];	
 		$bank_id = $_POST['bank_id'];
 		$payment_evidence_url = $_POST['payment_evidence_url'];
 
@@ -381,7 +382,7 @@ public function bank_cash_book_save($payment_id,$purchase_type,$pay_amount,$purc
 			
 			$payment_date = date('Y-m-d', strtotime($payment_date1));
 			$year1 = explode("-", $payment_date);
-			$yr1 =$year1[0];
+			$yr1 = $year1[0];
 
 			global $bank_cash_book_master;
 			
@@ -393,7 +394,7 @@ public function bank_cash_book_save($payment_id,$purchase_type,$pay_amount,$purc
 			$bank_name = $bank_name;
 			$transaction_id = $transaction_id;
 			$bank_id = $bank_id;
-			$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date1, $pay_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+			$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date1, $pay_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 			$clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
 			$payment_side = "Credit";
 			$payment_type = ($payment_mode=="Cash") ? "Cash" : "Bank";
@@ -479,6 +480,8 @@ public function finance_update($sq_payment_info, $clearance_status1,$estimate_id
 	$year1 = explode("-", $payment_date);
 	$yr1 =$year1[0];
 	global $transaction_master;
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("select status from vendor_payment_master where payment_id='$payment_id'"));
+	$canc_status = $sq_payment['status'];
 
     //Getting New cash/Bank Ledger
     if($payment_mode == 'Cash') {  $pay_gl_new = 20; $type='CASH PAYMENT'; }
@@ -499,61 +502,21 @@ public function finance_update($sq_payment_info, $clearance_status1,$estimate_id
 	$sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from ledger_master where customer_id='$vendor_type_id' and user_type='$vendor_type' and group_sub_id='105'"));
 	$supplier_gl = $sq_cust['ledger_id'];
 
-	// if($payment_amount1 < $payment_old_value)
-	// {
-	// 	$supp_amount= $payment_old_value - $payment_amount1;
-	// 	$pay_gl = ($payment_mode != $payment_old_mode) ? $pay_gl_new : $pay_gl_old; 
-	// 	////////Supplier Amount//////   
-	//     $module_name = $vendor_type;
-	//     $module_entry_id = $payment_id;
-	//     $transaction_id = $transaction_id1;
-	//     $payment_amount = $supp_amount;
-	//     $payment_date = $payment_date;
-	//     $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $supp_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
-	//     $gl_id = $supplier_gl;
-	//     $payment_side = "Credit";
-	//     $clearance_status = "";
-	//     $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
-
-	//     //////Payment Amount///////
-	//     $module_name = $vendor_type;
-	//     $module_entry_id = $payment_id;
-	//     $transaction_id = $transaction_id1;
-	//     $payment_amount = $payment_old_value;
-	//     $payment_date = $payment_date;
-	//     $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
-	//     $gl_id = $pay_gl;
-	//     $payment_side = "Debit";
-	//     $clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
-	//     $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
-
-	//     //////Payment Amount///////
-	//     $module_name = $vendor_type;
-	//     $module_entry_id = $payment_id;
-	//     $transaction_id = $transaction_id1;
-	//     $payment_amount = $payment_amount1;
-	//     $payment_date = $payment_date;
-	//     $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
-	//     $gl_id = $pay_gl;
-	//     $payment_side = "Credit";
-	//     $clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
-	//     $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
-	// }
-	// else if($payment_amount1 > $payment_old_value)
-	// {
-		$supp_amount = $payment_amount1 - $payment_old_value;
+	if($payment_amount1 < $payment_old_value)
+	{
+		$supp_amount= $payment_old_value - $payment_amount1;
 		$pay_gl = ($payment_mode != $payment_old_mode) ? $pay_gl_new : $pay_gl_old; 
-		// ////////Supplier Amount//////   
-	    // $module_name = $vendor_type;
-	    // $module_entry_id = $payment_id;
-	    // $transaction_id = $transaction_id1;
-	    // $payment_amount = $supp_amount;
-	    // $payment_date = $payment_date;
-	    // $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $supp_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
-	    // $gl_id = $supplier_gl;
-	    // $payment_side = "Debit";
-	    // $clearance_status = "";
-	    // $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
+		////////Supplier Amount//////   
+	    $module_name = $vendor_type;
+	    $module_entry_id = $payment_id;
+	    $transaction_id = $transaction_id1;
+	    $payment_amount = $supp_amount;
+	    $payment_date = $payment_date;
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $supp_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
+	    $gl_id = $supplier_gl;
+	    $payment_side = "Credit";
+	    $clearance_status = "";
+	    $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
 
 	    //////Payment Amount///////
 	    $module_name = $vendor_type;
@@ -561,7 +524,47 @@ public function finance_update($sq_payment_info, $clearance_status1,$estimate_id
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $payment_old_value;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
+	    $gl_id = $pay_gl;
+	    $payment_side = "Debit";
+	    $clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
+	    $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
+
+	    //////Payment Amount///////
+	    $module_name = $vendor_type;
+	    $module_entry_id = $payment_id;
+	    $transaction_id = $transaction_id1;
+	    $payment_amount = $payment_amount1;
+	    $payment_date = $payment_date;
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount1, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
+	    $gl_id = $pay_gl;
+	    $payment_side = "Credit";
+	    $clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
+	    $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
+	}
+	else if($payment_amount1 > $payment_old_value)
+	{
+		$supp_amount = $payment_amount1 - $payment_old_value;
+		$pay_gl = ($payment_mode != $payment_old_mode) ? $pay_gl_new : $pay_gl_old; 
+		////////Supplier Amount//////   
+	    $module_name = $vendor_type;
+	    $module_entry_id = $payment_id;
+	    $transaction_id = $transaction_id1;
+	    $payment_amount = $supp_amount;
+	    $payment_date = $payment_date;
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $supp_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
+	    $gl_id = $supplier_gl;
+	    $payment_side = "Debit";
+	    $clearance_status = "";
+	    $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
+
+	    //////Payment Amount///////
+	    $module_name = $vendor_type;
+	    $module_entry_id = $payment_id;
+	    $transaction_id = $transaction_id1;
+	    $payment_amount = $payment_old_value;
+	    $payment_date = $payment_date;
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	    $gl_id = $pay_gl;
 	    $payment_side = "Debit";
 	    $clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
@@ -573,15 +576,15 @@ public function finance_update($sq_payment_info, $clearance_status1,$estimate_id
 	    $transaction_id = $transaction_id1;
 	    $payment_amount = $payment_old_value;
 	    $payment_date = $payment_date;
-	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	    $payment_particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_old_value, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	    $gl_id = $supplier_gl;
 	    $payment_side = "Credit";
 		$clearance_status = ($payment_mode=="Cheque") ? "Pending" : "";
 	    $transaction_master->transaction_save($module_name, $module_entry_id, $transaction_id, $payment_amount, $payment_date, $payment_particular, $gl_id, '',$payment_side, $clearance_status, $row_spec,$branch_admin_id,'',$type);
-	// }
-	// else{
-	// 	//Do Nothing
-	// }
+	}
+	else{
+		//Do Nothing
+	}
 
 }
 
@@ -602,6 +605,8 @@ public function bank_cash_book_update($clearance_status,$estimate_id_full)
 	$payment_date = date('Y-m-d', strtotime($payment_date));
 	$year1 = explode("-", $payment_date);
 	$yr1 =$year1[0];
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("select status from vendor_payment_master where payment_id='$payment_id'"));
+	$canc_status = $sq_payment['status'];
 
 	global $bank_cash_book_master;
 	
@@ -613,7 +618,7 @@ public function bank_cash_book_update($clearance_status,$estimate_id_full)
 	$bank_name = $bank_name;
 	$transaction_id = $transaction_id;
 	$bank_id = $bank_id;
-	$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full);
+	$particular = get_purchase_paid_partucular(get_vendor_payment_id($payment_id,$yr1), $payment_date, $payment_amount, $vendor_type, $vendor_type_id,$payment_mode,$bank_id,$transaction_id,$estimate_id_full,$canc_status);
 	$clearance_status = $clearance_status;
 	$payment_side = "Credit";
 	$payment_type = ($payment_mode=="Cash") ? "Cash" : "Bank";

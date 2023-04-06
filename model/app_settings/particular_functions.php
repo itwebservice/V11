@@ -182,7 +182,7 @@ function get_sales_paid_particular($payment_id, $date, $amount, $customer_id, $p
 
 
 
-function get_purchase_paid_partucular($invoice_id, $date, $amount, $vendor_type, $vendor_type_id, $payment_mode,$bank_id,$cheque_no1,$estimate_id_full='')
+function get_purchase_paid_partucular($invoice_id, $date, $amount, $vendor_type, $vendor_type_id, $payment_mode,$bank_id,$cheque_no1,$estimate_id_full='',$canc_status)
 
 {
   $date = get_date_user($date);
@@ -196,7 +196,9 @@ function get_purchase_paid_partucular($invoice_id, $date, $amount, $vendor_type,
   $sq_bank = mysqli_fetch_assoc(mysqlQuery("select bank_name from bank_master where bank_id='$bank_id'"));
   $bank_name = $sq_bank['bank_name'];
 
-  $particular = 'Paid to '.$vendor_name.' payment id '.$invoice_id;
+  $particular = ($canc_status == 'cancel') ? 'Cancellation Charges p' : 'P';
+
+  $particular .= 'aid to '.$vendor_name.' payment id '.$invoice_id;
   $particular .= ($estimate_id_full!= '') ? ' against '.$estimate_id_full : '';
   $particular .= ' through '.$payment_mode.' on Dt '.$date;
 

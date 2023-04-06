@@ -35,19 +35,14 @@ $sq_supplier = mysqlQuery($query);
 		<?php
 		$count = 1;
 		while($row_supplier = mysqli_fetch_assoc($sq_supplier)){	
+
 			$total_payment = 0;
 			$sq_supplier_p = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as payment_amount from vendor_payment_master where estimate_id='$row_supplier[estimate_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
 			$total_paid = $sq_supplier_p['payment_amount'];
 			$cancel_est = $row_supplier['cancel_amount'];
 
-			$vendor_type_val = get_vendor_name($row_supplier['vendor_type'], $row_supplier['vendor_type_id']);
-			$estimate_type_val = get_estimate_type_name($row_supplier['estimate_type'], $row_supplier['estimate_type_id']);
-			$date = $row_supplier['purchase_date'];
-			$yr = explode("-", $date);
-			$year = $yr[0];
-			$purchase = get_vendor_estimate_id($row_supplier['estimate_id'],$year).": ".$vendor_type_val."(".$row_supplier['vendor_type'].") : ".$estimate_type_val;
-
 			if($row_supplier['purchase_return'] == '1'){
+				$status = '(Cancelled)';
 				if($total_paid > 0){
 					if($cancel_est >0){
 						if($total_paid > $cancel_est){
@@ -63,12 +58,22 @@ $sq_supplier = mysqlQuery($query);
 					$balance_amount = $cancel_est;
 				}
 			}else if($row_supplier['purchase_return'] == '2'){
+				$status = '(Cancelled)';
 				$cancel_estimate = json_decode($row_supplier['cancel_estimate']);
 				$balance_amount = (($row_supplier['net_total'] - floatval($cancel_estimate[0]->net_total)) + $cancel_est) - $total_paid;
 			}
 			else{
+				$status = '';
 				$balance_amount = $row_supplier['net_total'] - $total_paid;
 			}
+
+			$vendor_type_val = get_vendor_name($row_supplier['vendor_type'], $row_supplier['vendor_type_id']);
+			$estimate_type_val = get_estimate_type_name($row_supplier['estimate_type'], $row_supplier['estimate_type_id']);
+			$date = $row_supplier['purchase_date'];
+			$yr = explode("-", $date);
+			$year = $yr[0];
+			$purchase = get_vendor_estimate_id($row_supplier['estimate_id'],$year).$status.": ".$vendor_type_val."(".$row_supplier['vendor_type'].") : ".$estimate_type_val;
+
 			if($balance_amount > '0'){
 				if($row_supplier['estimate_type']=='Group Tour'){
 					$sq_tour_group = mysqli_fetch_assoc(mysqlQuery("select * from tour_groups where group_id='$row_supplier[estimate_type_id]'"));

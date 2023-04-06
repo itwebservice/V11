@@ -33,11 +33,13 @@ function get_payment_outstanding(estimate_id){
   var base_url = $('#base_url').val();
   var estimate_id1 = $('#'+estimate_id).val();
   $.post(base_url+'view/vendor/inc/get_payment_outstanding.php', { estimate_id : estimate_id1 },function(data){
-    console.log(data);
-    if(data == ""){
+    data = data.split('=');
+    if(data[0] == ""){
       $('#outstanding').val(parseFloat(0));
+      $('#canc_status').val(parseFloat(0));
     }else{
-      $('#outstanding').val(data);
+      $('#outstanding').val(data[0]);
+      $('#canc_status').val(data[1]);
     }
   });
 
