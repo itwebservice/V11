@@ -1,4 +1,4 @@
-<?php 
+<?php
 $role= $_SESSION['role'];
 $emp_id= $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
