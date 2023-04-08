@@ -37,7 +37,7 @@ $branch_status = $_POST['branch_status'];
                   ?>
                   <option value="" >*Select Booking ID</option>
                   <?php 
-                    $query = "select * from tourwise_traveler_details where financial_year_id='$financial_year_id' and 1 and delete_status='0' ";
+                    $query = "select * from tourwise_traveler_details where delete_status='0' ";
                     include "../../../model/app_settings/branchwise_filteration.php";
                     $query .= " order by id desc";
                     $sq_booking = mysqlQuery($query);

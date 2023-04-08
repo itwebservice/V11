@@ -142,7 +142,7 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
-								<input class="form-control" type="text" name="booking_date" id="booking_date" value="<?= date('d-m-Y') ?>" placeholder="*Booking Date" title="*Booking Date" onchange="check_valid_date(this.id);get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','service_charge','basic' );">
+								<input class="form-control" type="text" name="booking_date" id="booking_date" value="<?= date('d-m-Y') ?>" placeholder="*Booking Date" title="*Booking Date" onchange="get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','service_charge','basic' );">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
@@ -238,7 +238,11 @@ $branch_status = $sq['branch_status'];
 <script>
 	$('#visa_save_modal').modal('show');
 	$('#vcurrency_code').select2();
-	$('#expiry_date1,#payment_date,#due_date,#booking_date').datetimepicker({
+	$('#expiry_date1,#due_date').datetimepicker({
+		timepicker: false,
+		format: 'd-m-Y',
+	});
+	$('#booking_date,#payment_date').datetimepicker({
 		timepicker: false,
 		format: 'd-m-Y',
 	});

@@ -25,7 +25,7 @@ $branch_status = $_POST['branch_status']
                   <?php
                   $query = "select * from bus_booking_master where 1 and delete_status='0'";
                   include "../../../../model/app_settings/branchwise_filteration.php";
-                  $query .= " and financial_year_id = '".$_SESSION['financial_year_id']."' order by booking_id desc";
+                  $query .= " order by booking_id desc";
                   $sq_booking = mysqlQuery($query);
                   while($row_booking = mysqli_fetch_assoc($sq_booking)){
                   

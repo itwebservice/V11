@@ -867,7 +867,10 @@ public function booking_update()
 		}
     //Get Particular
     $pax = intval($adults) + intval($childrens);
-    $particular = $this->get_particular($customer_id,$pax,$no_of_nights_arr[0],$check_in_arr[0],$category_arr[0],$hotel_id_arr[0],$booking_id);
+    $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
+    $check_in = get_datetime_user($sq_hotel['check_in']);
+
+    $particular = $this->get_particular($customer_id,$pax,$sq_hotel['no_of_nights'],$check_in,$sq_hotel['category'],$sq_hotel['hotel_id'],$booking_id);
 		//Finance update
 		$this->finance_update($sq_booking_info, $row_spec,$particular);
 

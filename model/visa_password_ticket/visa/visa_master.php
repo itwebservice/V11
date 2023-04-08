@@ -623,7 +623,7 @@ class visa_master
 				$transaction_id = $transaction_id1;
 				$payment_amount = $payment_amount1;
 				$payment_date = $payment_date1;
-				$payment_particular = $particular;
+				$payment_particular = get_sales_paid_particular(get_visa_booking_id($visa_id, $yr1), $payment_date1, $payment_amount1, $customer_id, $payment_mode, get_visa_booking_id($visa_id, $yr1), $bank_id1, $transaction_id1);
 				$ledger_particular = get_ledger_particular('By', 'Cash/Bank');
 				$gl_id = $pay_gl;
 				$payment_side = "Debit";
@@ -770,7 +770,6 @@ class visa_master
 					if ($entry_id_arr[$i] == "") {
 
 						$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from visa_master_entries"));
-
 						$entry_id = $sq_max['max'] + 1;
 
 						$sq_entry = mysqlQuery("insert into visa_master_entries(entry_id, visa_id, first_name, middle_name, last_name, birth_date, adolescence, visa_country_name, visa_type, passport_id, issue_date, expiry_date, nationality, received_documents,appointment_date) values('$entry_id', '$visa_id', '$first_name_arr[$i]', '$middle_name_arr[$i]', '$last_name_arr[$i]', '$birth_date_arr[$i]', '$adolescence_arr[$i]', '$visa_country_name_arr[$i]', '$visa_type_arr[$i]', '$passport_id_arr[$i]', '$issue_date_arr[$i]', '$expiry_date_arr[$i]', '$nationality_arr[$i]', '$received_documents_arr[$i]','$appointment_date_arr[$i]')");
@@ -802,12 +801,13 @@ class visa_master
 			$sq_pass_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$visa_id' and status!='Cancel'"));
 	
 			$pass_name = $row_visa_type['first_name'].' '.$row_visa_type['last_name'];
+			$visa_type = $row_visa_type['visa_type'];
 			$booking_date = $balance_date1;
 			$yr = explode("-", $booking_date);
 			$year = $yr[0];
 
 			//Get Particular
-			$particular = $this->get_particular($customer_id, $visa_type_arr[0], get_visa_booking_id($visa_id,$year), $pass_name,$sq_pass_count);
+			$particular = $this->get_particular($customer_id, $visa_type, get_visa_booking_id($visa_id,$year), $pass_name,$sq_pass_count);
 			//Finance update
 			$this->finance_update($sq_visa_info, $row_spec, $particular);
 

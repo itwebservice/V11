@@ -255,7 +255,6 @@ $('#quotation_id').select2();
 $('#frm_flight_details').validate({
 	submitHandler:function(form, e){
 		$('#update_btn').prop('disabled',true);
-		$('#update_btn').button('loading');
 		e.preventDefault();
 		var base_url = $('#base_url').val();
 		var count = $('#count').val();
@@ -316,13 +315,15 @@ $('#frm_flight_details').validate({
 		if(airpf_flag || airpt_flag || dd_flag || ad_flag || airline_flag || date_mismatch){
 			error_msg_alert(err_msg);
 			$('#update_btn').prop('disabled',false);
-			$('#update_btn').button('reset');
 			return false;
 		}
-
-		if(type_of_tour == undefined) { error_msg_alert(msg); return false;}
-
+		if(type_of_tour == undefined){
+			error_msg_alert(msg);
+			$('#update_btn').prop('disabled',false);
+			return false;
+		}
 		var airlin_pnr_arr = getDynFields('airlin_pnr');
+		$('#update_btn').button('loading');
 		$.ajax({
 			type: 'post',
 			url: base_url+'controller/visa_passport_ticket/ticket/ticket_pnr_check.php',

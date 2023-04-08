@@ -157,6 +157,9 @@ public function ticket_master_update(){
 
 
 			}
+			if($adolescence_arr[$i] != "Infant"){
+				$pax++;
+			}
 		}else{
 			
 			$sq_entry = mysqlQuery("delete from train_ticket_master_entries where entry_id='$entry_id_arr[$i]'");
@@ -167,9 +170,6 @@ public function ticket_master_update(){
 				echo "error--Some entries not deleted!";
 
 			}
-		}
-		if($adolescence_arr[$i] != "Infant"){
-			$pax++;
 		}
 
 		
@@ -236,8 +236,10 @@ public function ticket_master_update(){
 
 	}
 
+	$sq_train = mysqli_fetch_assoc(mysqlQuery("select * from train_ticket_master_trip_entries where train_ticket_id='$train_ticket_id'"));
+	$sq_train_master = mysqli_fetch_assoc(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id='$train_ticket_id'"));
 	//Get Particular
-	$particular = $this->get_particular($customer_id,$pax,$sector,$train_no_arr[0],$ticket_number_arr[0],$class_arr[0],$train_ticket_id);
+	$particular = $this->get_particular($customer_id,$pax,$sector,$sq_train['train_no'],$sq_train_master['ticket_number'],$sq_train['class'],$train_ticket_id);
 	//Finance update
 	$this->finance_update($sq_ticket_info, $row_spec, $particular);
 

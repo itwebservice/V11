@@ -22,7 +22,7 @@ $branch_status = $_POST['branch_status']
                 <?php
                   $query = "select * from excursion_master where 1 and delete_status='0' ";
                   include "branchwise_filteration.php";
-                  $query .= " and financial_year_id = '".$_SESSION['financial_year_id']."'  order by exc_id desc";
+                  $query .= " order by exc_id desc";
                   $sq_booking = mysqlQuery($query);
 
                   while($row_booking = mysqli_fetch_assoc($sq_booking)){

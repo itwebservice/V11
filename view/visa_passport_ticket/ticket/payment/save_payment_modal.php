@@ -98,7 +98,6 @@ $branch_status = $sq['branch_status'];
               <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="Outstanding" title="Outstanding" readonly/>
               <input type="hidden" id="canc_status" name="canc_status" class="form-control"/>
             </div>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-9 col-sm-9">
@@ -110,6 +109,7 @@ $branch_status = $sq['branch_status'];
               <div class="col-xs-12">
                 <button id="btn_save_patment" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
               </div>
+          </div>
           </div>
 
         </form>

@@ -684,7 +684,7 @@ public function finance_save($booking_id, $payment_id, $row_spec, $branch_admin_
 			$transaction_id = $transaction_id1;
 			$payment_amount = $payment_amount1;
 			$payment_date = $payment_date1;
-			$payment_particular = $particular;
+			$payment_particular = get_sales_paid_particular(get_bus_booking_id($booking_id,$yr1), $payment_date1, $payment_amount1, $customer_id, $payment_mode, get_bus_booking_id($booking_id,$yr1),$bank_id1,$transaction_id1);
 			$ledger_particular = get_ledger_particular('By','Cash/Bank');
 			$gl_id = $pay_gl;
 			$payment_side = "Debit";
@@ -902,12 +902,12 @@ public function booking_update()
 
     }
 
-
+	$sq_bus = mysqli_fetch_assoc(mysqlQuery("select * from bus_booking_entries where booking_id='$booking_id'"));
     $booking_date = $balance_date1;
     $yr = explode("-", $booking_date);
     $year = $yr[0];
     //Get Particular
-    $particular = $this->get_particular($customer_id,$pnr_no_arr[0], $origin_arr[0], $destination_arr[0],$date_of_journey_arr[0],get_bus_booking_id($booking_id,$year));
+    $particular = $this->get_particular($customer_id,$sq_bus['pnr_no'], $sq_bus['origin'], $sq_bus['destination'],$sq_bus['date_of_journey'],get_bus_booking_id($booking_id,$year));
 
 	//Finance update
 
