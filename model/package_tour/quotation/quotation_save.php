@@ -165,7 +165,7 @@ public function quotation_master_save()
 		if($enquiry_id == 0){
 			$sq_max_id = mysqli_fetch_assoc(mysqlQuery("select max(enquiry_id) as max from enquiry_master"));
 			$enquiry_id1 = $sq_max_id['max']+1;
-			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Package Booking','Strong', '$customer_name', '$mobile_no','$mobile_no', '$email_id','', '$emp_id','', '$quotation_date', '$quotation_date', '', '$enquiry_content')");
+			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content,country_code ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Package Booking','Strong', '$customer_name', '$mobile_no','$mobile_no', '$email_id','', '$emp_id','', '$quotation_date', '$quotation_date', '', '$enquiry_content','$country_code')");
 			if($sq_enquiry){
 				for($j=0; $j<sizeof($quotation_id_arr); $j++){
 					$sq_quot_update = mysqlQuery("update package_tour_quotation_master set enquiry_id='$enquiry_id1' where quotation_id='$quotation_id_arr[$j]'");
