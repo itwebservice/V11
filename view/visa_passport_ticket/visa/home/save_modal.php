@@ -475,11 +475,6 @@ $branch_status = $sq['branch_status'];
 						var issue_date = row.cells[10].childNodes[0].value;
 						var expiry_date = row.cells[11].childNodes[0].value;
 						var nationality = row.cells[12].childNodes[0].value;
-						//var received_documents = "";
-						// $(row.cells[13]).find('option:selected').each(function() {
-						// 	received_documents += $(this).attr('value') + ',';
-						// });
-						// received_documents = received_documents.trimChars(",");
 						var appointment = row.cells[13].childNodes[0].value;
 						var msg = "";
 
@@ -513,7 +508,6 @@ $branch_status = $sq['branch_status'];
 						issue_date_arr.push(issue_date);
 						expiry_date_arr.push(expiry_date);
 						nationality_arr.push(nationality);
-						//received_documents_arr.push(received_documents);
 						appointment_date_arr.push(appointment);
 					}
 				}
@@ -547,9 +541,8 @@ $branch_status = $sq['branch_status'];
 
 				$('#btn_visa_master_save').button('loading');
 				//Validation for booking and payment date in login financial year
-				var check_date1 = $('#booking_date').val();
 				$.post(base_url + 'view/load_data/finance_date_validation.php', {
-					check_date: check_date1
+					check_date: booking_date
 				}, function(data) {
 						if (data !== 'valid') {
 							error_msg_alert("The Booking date does not match between selected Financial year.");

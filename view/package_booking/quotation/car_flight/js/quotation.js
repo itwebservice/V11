@@ -98,9 +98,7 @@ function get_enquiry_details(offset = '') {
 				$('#traveling_date' + offset).val(result.traveling_date);
 				$('#vehicle_name' + offset).val(result.vehicle_type);
 				$('#travel_type' + offset).val(result.travel_type);
-				
 				$('#local_places_to_visit' + offset).html(result.places_to_visit);
-				// $('#travel_type' + offset).select2().trigger("change");
 			}
 			else {
 				$('#customer_name' + offset).val('');
@@ -108,8 +106,6 @@ function get_enquiry_details(offset = '') {
 				$('#mobile_no' + offset).val('');
 				$('#total_pax' + offset).val('');
 				$('#days_of_traveling' + offset).val('');
-				$('#from_date' + offset).val('');
-				$('#to_date' + offset).val('');
 				$('#traveling_date' + offset).val('');
 				$('#vehicle_name' + offset).val('');
 				$('#travel_type' + offset).val('');
@@ -118,6 +114,21 @@ function get_enquiry_details(offset = '') {
 				$('#total_hr' + offset).val('');
 				$('#total_km' + offset).val('');
 				
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth() + 1; //January is 0!
+			
+				var yyyy = today.getFullYear();
+				if (dd < 10) {
+					dd = "0" + dd;
+				}
+				if (mm < 10) {
+					mm = "0" + mm;
+				}
+				var today = dd + "-" + mm + "-" + yyyy;
+				$('#from_date' + offset).val(today);
+				$('#to_date' + offset).val(today);
+
 				if(offset!=''){
 					$('#travel_type1').prop('disabled', false);
 				}
