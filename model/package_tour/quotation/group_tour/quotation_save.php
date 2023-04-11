@@ -41,7 +41,7 @@ public function quotation_master_save()
 	$financial_year_id = $_POST['financial_year_id'];
 
 	$country_code = $_POST['country_code'];
-	$mobile_no = $country_code.$_POST['mobile_no'];
+	$mobile_no = $_POST['mobile_no'];
 
 	//Train
     $train_from_location_arr = $_POST['train_from_location_arr'] ?: [];

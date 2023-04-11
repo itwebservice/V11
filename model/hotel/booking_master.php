@@ -854,6 +854,7 @@ public function booking_update()
             echo "error--Sorry, Some hotels are not updated!";
             //exit;
           }
+          $pax = intval($adults) + intval($childrens);
 
         }
       }else{
@@ -866,7 +867,6 @@ public function booking_update()
       }
 		}
     //Get Particular
-    $pax = intval($adults) + intval($childrens);
     $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
     $check_in = get_datetime_user($sq_hotel['check_in']);
 

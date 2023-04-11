@@ -812,12 +812,12 @@ public function booking_update()
     
     $reflections = json_decode(json_encode($_POST['reflections']));
     $bsmValues = json_decode(json_encode($_POST['bsmValues']));
-  foreach($bsmValues[0] as $key => $value){
-      switch($key){
-      case 'basic' : $basic_cost = ($value != "") ? $value : $basic_cost;break;
-      case 'service' : $service_charge = ($value != "") ? $value : $service_charge;break;
-      case 'markup' : $markup = ($value != "") ? $value : $markup;break;
-      }
+    foreach($bsmValues[0] as $key => $value){
+        switch($key){
+            case 'basic' : $basic_cost = ($value != "") ? $value : $basic_cost;break;
+            case 'service' : $service_charge = ($value != "") ? $value : $service_charge;break;
+            case 'markup' : $markup = ($value != "") ? $value : $markup;break;
+        }
     }
 	//**Starting Transaction 
 	begin_t();
