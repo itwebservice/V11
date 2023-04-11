@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $flag = true;
 
@@ -1130,11 +1130,34 @@ function send_mail_to_traveler($booking_id, $tour_name, $tour_from_date, $tour_t
  //////////////////////////////////**Booking successfull sms send to traveler end**/////////////////////////////////////
 public function whatsapp_send(){
   
-  global $app_contact_no,$secret_key,$encrypt_decrypt,$app_contact_no;
+  global $app_contact_no,$secret_key,$encrypt_decrypt,$app_contact_no,$currency;
   $tour_name = $_POST['tour_name'];
   $tour_date = $_POST['tour_from_date'];
   $customer_id = $_POST['customer_id'];
-	$emp_id = $_POST['emp_id '];
+	$emp_id = $_POST['emp_id'];
+	$booking_id = $_POST['booking_id'];
+
+  $sq_booking_info = mysqli_fetch_assoc(mysqlQuery("SELECT total_travel_expense,actual_tour_expense,customer_id,net_total,currency_code,booking_date from package_tour_booking_master where booking_id='$booking_id'"));
+  $sq_total_paid = mysqli_fetch_assoc(mysqlQuery("select sum(amount) as sum,sum(`credit_charges`) as sumc from package_payment_master where booking_id='$booking_id' and clearance_status!='Cancelled'"));
+
+  $credit_card_amount = $sq_total_paid['sumc'];
+  $total_amount = $sq_booking_info['net_total'] + $credit_card_amount;
+  $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
+  
+	$date = $sq_booking_info['booking_date'];
+	$yr = explode("-", $date);
+	$year =$yr[0];
+  $invoice_no = get_package_booking_id($booking_id,$year);
+
+	$pass_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id'"));
+	$cancle_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$booking_id' and status='Cancel'"));
+	if($pass_count == $cancle_count){
+    $sq_esti = mysqli_fetch_assoc(mysqlQuery("select * from package_refund_traveler_estimate where booking_id='$booking_id'"));
+    $canc_amount = $sq_esti['cancel_amount'];
+    $outstanding = ($paid_amount > $canc_amount) ? 0 : (floatval($canc_amount) - floatval($paid_amount)) + $credit_card_amount;
+  }else{
+    $outstanding =  $total_amount - $paid_amount;
+  }
 
   $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$customer_id'"));
   $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key);
@@ -1147,10 +1170,19 @@ public function whatsapp_send(){
 	else{
 		$contact = $sq_emp_info['mobile_no'];
 	}
+  $total_amount1 = currency_conversion($currency,$sq_booking_info['currency_code'],$total_amount);
+  $paid_amount1 = currency_conversion($currency,$sq_booking_info['currency_code'],$paid_amount);
+  $outstanding1 = currency_conversion($currency,$sq_booking_info['currency_code'],$outstanding);
+
 	$whatsapp_msg = rawurlencode('Dear '.$customer_name.',
 Hope you are doing great. This is to inform you that your booking is confirmed with us. We look forward to provide you a great experience.
+*Booking ID* : '.$invoice_no.'
+*Service Name* : '.'Package Tour Booking'.'
 *Tour Name* : '.$tour_name.'
 *Travel Date* : '.$tour_date.'
+*Total Amount* : '.$total_amount1.'
+*Paid Amount* : '.$paid_amount1.'
+*Balance Amount* : '.$outstanding1.'
 Please contact for more details : '.$contact.'
 Thank you.');
 	$link = 'https://web.whatsapp.com/send?phone='.$contact_no.'&text='.$whatsapp_msg;

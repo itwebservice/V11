@@ -845,7 +845,7 @@ $(function () {
 															window.open(base_url+'view/vendor/dashboard/estimate/estimate_save_modal.php?type=Package Tour&amount='+basic_amount+'&booking_id='+msg1[1]);			
 															setTimeout(() => {
 																if ($('#whatsapp_switch').val() == 'on'){
-																	whatsapp_send_b(quotation_id,tour_name,	tour_from_date,	customer_id);
+																	whatsapp_send_b(quotation_id,tour_name,	tour_from_date,	customer_id,emp_id,msg1[1]);
 																}
 															}, 1000);
 															$('#btn_package_tour_master_save').button('reset');
@@ -868,7 +868,7 @@ $(function () {
 	});
 });
 
-function whatsapp_send_b(quotation_id, tour_name, tour_from_date, customer_id, emp_id) {
+function whatsapp_send_b(quotation_id, tour_name, tour_from_date, customer_id, emp_id,booking_id) {
 	$.post(
 		$('#base_url').val() + 'controller/package_tour/booking/whatsapp_send.php',
 		{
@@ -876,7 +876,8 @@ function whatsapp_send_b(quotation_id, tour_name, tour_from_date, customer_id, e
 			tour_name: tour_name,
 			tour_from_date: tour_from_date,
 			customer_id: customer_id,
-			emp_id: emp_id
+			emp_id: emp_id,
+			booking_id : booking_id
 		},
 		function (data) {
 			window.open(data);
