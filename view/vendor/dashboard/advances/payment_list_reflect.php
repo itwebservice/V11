@@ -73,7 +73,7 @@ while($row_payment = mysqli_fetch_assoc($sq_payment)){
 		$row_payment['bank_name'],
 		$row_payment['transaction_id'],
 		''.$evidence.'
-		<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'] .')" data-toggle="tooltip" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>'.
+		<button class="btn btn-info btn-sm" onclick="payment_update_modal('.$row_payment['payment_id'] .')" data-toggle="tooltip" title="Update Details" id="updatea_btn-'. $row_payment['payment_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'.
 		'<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="advance_delete_entry('.$row_payment['payment_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>'
 	
 		), "bg" =>$bg);

@@ -8,7 +8,7 @@ $estimate_type_id = $_POST['estimate_type_id'];
 $vendor_type_id = $_POST['vendor_type_id'];
 $emp_id = $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_status = $_POST['branch_status']; 
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
@@ -92,8 +92,7 @@ while($row_estimate = mysqli_fetch_assoc($sq_estimate)){
 		$removeDeleteBtn = null;
 	}else{
 		$cancel_button = '';
-		// $cancel_button = '<button class="btn btn-danger btn-sm" onclick="vendor_estimate_cancel('.$row_estimate['estimate_id'] .')" data-toggle="tooltip" title="Cancel this Purchase"><i class="fa fa-ban"></i></button>';
-		$update_btn = '<button class="btn btn-info btn-sm" onclick="vendor_estimate_update_modal('. $row_estimate['estimate_id'] .')" data-toggle="tooltip" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>';
+		$update_btn = '<button class="btn btn-info btn-sm" onclick="vendor_estimate_update_modal('. $row_estimate['estimate_id'] .')" data-toggle="tooltip" id="update_btn-'. $row_estimate['estimate_id'] .'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 		$removeDeleteBtn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="purchase_delete_entry('.$row_estimate['estimate_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 
 	}

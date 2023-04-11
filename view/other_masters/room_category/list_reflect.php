@@ -8,7 +8,7 @@ include_once("../../../model/model.php");
 		<tr class="table-heading-row">
 			<th>ID</th>
 			<th>Room Category</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,7 +22,7 @@ include_once("../../../model/model.php");
 				<td><?= $row_ref['entry_id'] ?></td>
 				<td><?= $row_ref['room_category'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ref['entry_id'] ?>)" title="Edit Room Category"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" id="roomc_update-<?= $row_ref['entry_id'] ?>" onclick="update_modal(<?= $row_ref['entry_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

@@ -144,13 +144,9 @@ if($pass_entry_id!=''){
 									</select>
 									</div>
 									<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
-										<select name="class" id="class-<?= $sq_trip_entries_count ?>" title="Cabin" data-dyn-valid="required">
+										<select name="class" id="class-<?= $sq_trip_entries_count ?>" title="Class" data-dyn-valid="required">
 										<?php if($flight_details[0]->class_arr[$i]!=''){?><option value="<?= $flight_details[0]->class_arr[$i] ?>"><?= $flight_details[0]->class_arr[$i] ?></option><?php } ?>
-											<option value="">Cabin</option>
-											<option value="Economy">Economy</option>
-											<option value="Business">Business</option>
-											<option value="First Class">First Class</option>
-											<option value="Other">Other</option>
+                            				<?php get_flight_class_dropdown(); ?>
 										</select>
 									</div>
 									<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
@@ -259,7 +255,6 @@ $('#quotation_id').select2();
 $('#frm_flight_details').validate({
 	submitHandler:function(form, e){
 		$('#update_btn').prop('disabled',true);
-		$('#update_btn').button('loading');
 		e.preventDefault();
 		var base_url = $('#base_url').val();
 		var count = $('#count').val();
@@ -320,13 +315,15 @@ $('#frm_flight_details').validate({
 		if(airpf_flag || airpt_flag || dd_flag || ad_flag || airline_flag || date_mismatch){
 			error_msg_alert(err_msg);
 			$('#update_btn').prop('disabled',false);
-			$('#update_btn').button('reset');
 			return false;
 		}
-
-		if(type_of_tour == undefined) { error_msg_alert(msg); return false;}
-
+		if(type_of_tour == undefined){
+			error_msg_alert(msg);
+			$('#update_btn').prop('disabled',false);
+			return false;
+		}
 		var airlin_pnr_arr = getDynFields('airlin_pnr');
+		$('#update_btn').button('loading');
 		$.ajax({
 			type: 'post',
 			url: base_url+'controller/visa_passport_ticket/ticket/ticket_pnr_check.php',
@@ -456,8 +453,16 @@ event_airport_s(num_airp);
 function copy_values(){
 	var count = $('#div_dynamic_ticket_info').attr('data-counter');
 	var currentdate = new Date(); 
-	var datetime = currentdate.getDate() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
+	var day = currentdate.getDate();
+	var month = currentdate.getMonth() + 1;
+	if (day < 10) {
+		day = '0' + day;
+	}
+	if (month < 10) {
+		month = '0' + month;
+	}
+	var datetime = day + "-"
+                + month + "-" 
                 + currentdate.getFullYear() + " "  
                 + currentdate.getHours() + ":"  
                 + currentdate.getMinutes();

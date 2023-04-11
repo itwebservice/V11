@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-3 col-sm-7 col-xs-10 mg_bt_10_xs">
                         <input class="form-control" type="text" id="txt_r_name" name="txt_r_name"
-                            onchange="fname_validate(this.id)" placeholder="Enter Full Name" title="Full Name"
+                            onchange="fname_validate(this.id)" placeholder="Full Name" title="Full Name"
                             value="<?php echo $tourwise_details['relative_name'] ?>" />
                     </div>
 
@@ -36,7 +36,7 @@
 
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <input class="form-control" type="text" id="txt_r_mobile" onchange="mobile_validate(this.id)"
-                            name="txt_r_mobile" title="Mobile Number" placeholder="Enter Mobile Number"
+                            name="txt_r_mobile" title="Mobile Number" placeholder="Mobile Number"
                             value="<?php echo $tourwise_details['relative_mobile_no'] ?>" />
                     </div>
 

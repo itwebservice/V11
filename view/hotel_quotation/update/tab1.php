@@ -58,14 +58,7 @@ $costDetails = json_decode($sq_quotation['costing_details'], true);
                     <input type="text" id="customer_name1" name="customer_name" placeholder="Customer Name"
                         value="<?= $enquiryDetails['customer_name'] ?>" title="Customer Name">
                 </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <input type="text" id="email_id1" name="email_id" placeholder="Email Id" title="Email Id"
-                        value="<?= $enquiryDetails['email_id'] ?>">
-                </div>
-            </div>
-            <div class="row mg_tp_10">
-                <div class="col-md-4 col-sm-6 mg_bt_10">
+                <div class="col-md-4 col-sm-6">
                     <div class="col-md-4" style="padding-left:0px;">
                         <input type="hidden" id="cc_value" value="<?= $enquiryDetails['country_code'] ?>">
                         <select name="country_code" id="country_code1" style="width:100px;" title="Country code">
@@ -77,6 +70,13 @@ $costDetails = json_decode($sq_quotation['costing_details'], true);
                             name="whatsapp_no" placeholder="WhatsApp No" title="WhatsApp No"
                             value="<?= $enquiryDetails['whatsapp_no'] ?>">
                     </div>
+                </div>
+
+            </div>
+            <div class="row mg_tp_10">
+                <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                    <input type="text" id="email_id1" name="email_id" placeholder="Email Id" title="Email Id"
+                        value="<?= $enquiryDetails['email_id'] ?>">
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" id="total_adult1" name="total_adult" placeholder="Total Adult(s)"

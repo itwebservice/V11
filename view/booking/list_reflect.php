@@ -3,7 +3,7 @@ include "../../model/model.php";
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $emp_id = $_SESSION['emp_id'];
 
 $branch_status = $_POST['branch_status'];
@@ -264,9 +264,8 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 		$emp_name,
 		get_date_user($date),
 		$conf_btn.
-		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Download Invoice"><i class="fa fa-print"></i></a>'.'
-
-		<button  data-toggle="tooltip" class="btn btn-info btn-sm" style="display:inline-block" onclick="display_modal(\''.$row_booking['id'] .'\')" title="View Details" id="view-'.$row_booking['id'].'"><i class="fa fa-eye"></i></button>'.$update_btn.$delete_btn), "bg" => $bg
+		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Download Invoice"><i class="fa fa-print"></i></a>'.$update_btn.'
+		<button  data-toggle="tooltip" class="btn btn-info btn-sm" style="display:inline-block" onclick="display_modal(\''.$row_booking['id'] .'\')" title="View Details" id="viewb-'.$row_booking['id'].'"><i class="fa fa-eye"></i></button>'.$delete_btn), "bg" => $bg
 		);
 	array_push($array_s,$temp_arr); 
 

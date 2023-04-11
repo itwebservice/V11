@@ -5,7 +5,7 @@ require_once('../layouts/admin_header.php');
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='other_expense/index.php'"));
 $branch_status = $sq['branch_status'];
 ?>
-<?= begin_panel('Other Expense',83) ?>
+<?= begin_panel('Other Expenses',83) ?>
 <input type="hidden" id="branch_status" name="branch_status" value="<?= $branch_status ?>">
 <div class="row text-center text_left_sm_xs mg_bt_20">
   <label for="rd_expense_booking" class="app_dual_button mg_bt_10 active">

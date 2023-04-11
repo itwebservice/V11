@@ -34,10 +34,10 @@ $enq_details = mysqli_fetch_assoc(mysqlQuery("Select * from enquiry_master where
                                 <option value="Group Booking">Group Booking</option>
                                 <option value="Hotel">Hotel</option>
                                 <option value="Flight Ticket">Flight Ticket</option>
-                                <option value="Car Rental">Car Rental</option>
                                 <option value="Visa">Visa</option>
-                                <option value="Bus">Bus</option>
+                                <option value="Car Rental">Car Rental</option>
                                 <option value="Train Ticket">Train Ticket</option>
+                                <option value="Bus">Bus</option>
                             </select>
                         </div>
                     </div>

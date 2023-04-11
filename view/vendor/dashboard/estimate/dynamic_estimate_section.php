@@ -62,8 +62,8 @@ $offset = $_POST['dynamic_estimate_count'];
 
         <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10">
 
-            <input type="number" id="basic_cost_s-<?= $offset ?>" name="basic_cost_s" placeholder="*Basic Cost"
-                title="Basic Cost"
+            <input type="number" id="basic_cost_s-<?= $offset ?>" name="basic_cost_s" placeholder="*Basic Amount"
+                title="Basic Amount"
                 onchange="calculate_estimate_amount('_s-<?= $offset ?>');brule_for_one(this.id,'true','basic')">
 
         </div>

@@ -17,6 +17,7 @@ while($row_supplier = mysqli_fetch_assoc($sq_supplier)){
 	$cancel_est = $row_supplier['cancel_amount'];
 
 	if($row_supplier['purchase_return'] == '1'){
+		$status = 'cancel';
 		if($total_paid > 0){
 			if($cancel_est >0){
 				if($total_paid > $cancel_est){
@@ -32,13 +33,15 @@ while($row_supplier = mysqli_fetch_assoc($sq_supplier)){
 			$balance_amount += $cancel_est;
 		}
 	}else if($row_supplier['purchase_return'] == '2'){
+		$status = 'cancel';
 		$cancel_estimate = json_decode($row_supplier['cancel_estimate']);
 		$balance_amount += (($row_supplier['net_total'] - floatval($cancel_estimate[0]->net_total)) + $cancel_est) - $total_paid;
 	}
 	else{
+		$status = '';
 		$balance_amount += $row_supplier['net_total'] - $total_paid;
 	}
 }
 $balance_amount = ($balance_amount) < 0 ? 0 : $balance_amount;
-echo $balance_amount;
+echo $balance_amount.'='.$status;
 ?>

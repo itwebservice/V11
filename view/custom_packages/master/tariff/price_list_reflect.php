@@ -19,11 +19,10 @@ while($row_req = mysqli_fetch_assoc($sq_query_login)){
 		(int)(++$count),
 		$row_req['package_name'].'('.$row_req['package_code'] .')',
 		$row_req['total_days'].'D/'.$row_req['total_nights'].'N',
-		'<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['package_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
-		<form style="display:inline-block" action="tariff/update/index.php" id="frm_booking_'.$count.'" method="POST">
+		'<form style="display:inline-block" action="tariff/update/index.php" id="frm_booking_'.$count.'" method="POST">
 			<input style="display:inline-block" type="hidden" id="package_id" name="package_id" value="'.$row_req['package_id'].'">
 			<button style="display:inline-block" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Update Details"></i></button>
-		</form>
+		</form><button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['package_id'].'\')" data-toggle="tooltip" id="viewt_btn-' . $row_req['package_id'] . '" title="View Details"><i class="fa fa-eye"></i></button>
 		'), "bg" => $bg);
 	array_push($array_s,$temp_arr); 
 }

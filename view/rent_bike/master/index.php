@@ -1,6 +1,6 @@
 <div class="row mg_bt_10">
 <div class="col-md-12 text-right">
-  <button class="btn btn-info btn-sm ico_left" onclick="bike_type_modal();" data-toggle="tooltip" title="Add Bike Type"><i class="fa fa-plus"></i>&nbsp;&nbsp;Bike Type</button>
+  <button class="btn btn-info btn-sm ico_left" onclick="bike_type_modal();" data-toggle="tooltip" title="Add Bike Type" id="add_bike_type_btn"><i class="fa fa-plus"></i>&nbsp;&nbsp;Bike Type</button>
   <button class="btn btn-info btn-sm ico_left" data-toggle="modal" data-target="#master_save_modal" title="Add New Bike"><i class="fa fa-plus"></i>&nbsp;&nbsp;Bike</button>
 </div>
 </div>

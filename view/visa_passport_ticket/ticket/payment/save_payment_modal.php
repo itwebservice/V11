@@ -55,17 +55,29 @@ $branch_status = $sq['branch_status'];
                 }
                 ?>
               </select>
-            </div>
+            </div>     
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <input type="text" id="payment_date" name="payment_date" class="form-control" placeholder="*Date" title="Date" value="<?= date('d-m-Y')?>" onchange="check_valid_date(this.id)">
+            </div>  
             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
               <select name="payment_mode" id="payment_mode" class="form-control" title="Mode" onchange="payment_master_toggles(this.id, 'bank_name', 'transaction_id', 'bank_id');;get_identifier_block('identifier','payment_mode','credit_card_details','credit_charges');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges')">
                   <?php get_payment_mode_dropdown(); ?>
               </select>
-            </div>           
-            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-              <input type="text" id="payment_date" name="payment_date" class="form-control" placeholder="*Date" title="Date" value="<?= date('d-m-Y')?>" onchange="check_valid_date(this.id)">
-            </div>  
+            </div>      
             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
               <input type="text" id="payment_amount" name="payment_amount" class="form-control" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','transaction_id','bank_name','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <select class="hidden form-control" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
+              ><option value=''>Select Identifier</option></select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <input class="hidden form-control" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
             </div>
           </div>
           <div class="row">
@@ -86,16 +98,6 @@ $branch_status = $sq['branch_status'];
               <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="Outstanding" title="Outstanding" readonly/>
               <input type="hidden" id="canc_status" name="canc_status" class="form-control"/>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <select class="hidden form-control" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
-              ><option value=''>Select Identifier</option></select>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <input class="hidden form-control" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-9 col-sm-9">
@@ -107,6 +109,7 @@ $branch_status = $sq['branch_status'];
               <div class="col-xs-12">
                 <button id="btn_save_patment" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
               </div>
+          </div>
           </div>
 
         </form>

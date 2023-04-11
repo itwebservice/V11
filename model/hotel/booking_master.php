@@ -805,6 +805,7 @@ public function booking_update()
 	$meal_plan_arr = $_POST['meal_plan_arr'];
 	$conf_no_arr = $_POST['conf_no_arr'];
 	$entry_id_arr = $_POST['entry_id_arr'];
+	$e_checkbox_arr = $_POST['e_checkbox_arr'];
   $reflections = json_encode($_POST['reflections']);
   $service_tax_markup = $_POST['service_tax_markup'];
   $bsmValues = json_decode(json_encode($_POST['bsmValues']));
@@ -832,32 +833,44 @@ public function booking_update()
 			$check_in_arr[$i] = get_datetime_db($check_in_arr[$i]);
 			$check_out_arr[$i] = get_datetime_db($check_out_arr[$i]);
 
-			if($entry_id_arr[$i]==""){
+      if($e_checkbox_arr[$i] == 'true'){
+        if($entry_id_arr[$i]==""){
 
-				$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from hotel_booking_entries"));
-				$entry_id = $sq_max['max'] + 1;
+          $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from hotel_booking_entries"));
+          $entry_id = $sq_max['max'] + 1;
 
-				$sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id, '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
-				if(!$sq_entry){
-					$GLOBALS['flag'] = false;
-					echo "error--Sorry, Some hotels are not saved!";
-					//exit;
-				}
+          $sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id, '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
+          if(!$sq_entry){
+            $GLOBALS['flag'] = false;
+            echo "error--Sorry, Some hotels are not saved!";
+            //exit;
+          }
 
-			}
-			else{
-				$sq_entry = mysqlQuery("UPDATE hotel_booking_entries set city_id='$city_id_arr[$i]', hotel_id='$hotel_id_arr[$i]', check_in='$check_in_arr[$i]', check_out='$check_out_arr[$i]', no_of_nights='$no_of_nights_arr[$i]', rooms='$rooms_arr[$i]', room_type='$room_type_arr[$i]', category='$category_arr[$i]', accomodation_type='$accomodation_type_arr[$i]', extra_beds='$extra_beds_arr[$i]', meal_plan='$meal_plan_arr[$i]', conf_no='$conf_no_arr[$i]'  where entry_id='$entry_id_arr[$i]'");
-				if(!$sq_entry){
-					$GLOBALS['flag'] = false;
-					echo "error--Sorry, Some hotels are not updated!";
-					//exit;
-				}
+        }
+        else{
+          $sq_entry = mysqlQuery("UPDATE hotel_booking_entries set city_id='$city_id_arr[$i]', hotel_id='$hotel_id_arr[$i]', check_in='$check_in_arr[$i]', check_out='$check_out_arr[$i]', no_of_nights='$no_of_nights_arr[$i]', rooms='$rooms_arr[$i]', room_type='$room_type_arr[$i]', category='$category_arr[$i]', accomodation_type='$accomodation_type_arr[$i]', extra_beds='$extra_beds_arr[$i]', meal_plan='$meal_plan_arr[$i]', conf_no='$conf_no_arr[$i]' where entry_id='$entry_id_arr[$i]'");
+          if(!$sq_entry){
+            $GLOBALS['flag'] = false;
+            echo "error--Sorry, Some hotels are not updated!";
+            //exit;
+          }
+          $pax = intval($adults) + intval($childrens);
 
-			}
+        }
+      }else{
+        
+					$sq_entry = mysqlQuery("delete from hotel_booking_entries where entry_id='$entry_id_arr[$i]'");
+					if(!$sq_entry){
+						$GLOBALS['flag'] = false;
+						echo "error--Some entries not deleted!";
+					}
+      }
 		}
     //Get Particular
-    $pax = intval($adults) + intval($childrens);
-    $particular = $this->get_particular($customer_id,$pax,$no_of_nights_arr[0],$check_in_arr[0],$category_arr[0],$hotel_id_arr[0],$booking_id);
+    $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
+    $check_in = get_datetime_user($sq_hotel['check_in']);
+
+    $particular = $this->get_particular($customer_id,$pax,$sq_hotel['no_of_nights'],$check_in,$sq_hotel['category'],$sq_hotel['hotel_id'],$booking_id);
 		//Finance update
 		$this->finance_update($sq_booking_info, $row_spec,$particular);
 

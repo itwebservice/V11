@@ -92,9 +92,7 @@
                 <div class="panel panel-default panel-body app_panel_style mg_tp_20 mg_bt_20">
                     <div class="row">
                         <div class="col-md-12 text-right mg_bt_10">
-                            <button type="button" class="btn btn-info ico_left"
-                                onClick="addRow('tbl_dynamic_tour_group')"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_tour_group')"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
 

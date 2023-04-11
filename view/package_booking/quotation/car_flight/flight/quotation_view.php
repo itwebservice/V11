@@ -108,7 +108,7 @@ else{
 			<th>Basic Amount</th>
 			<th>Service Charge</th>
 			<th>Tax</th>
-			<th>Markup Cost</th>
+			<th>Markup Amount</th>
 			<th>Markup Tax</th>
 			<th>Round_Off</th>
 			<th>Quotation_cost</th>

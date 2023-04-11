@@ -80,22 +80,20 @@
 </script>
 <div class="col-md-3 col-sm-6 mg_tp_20">
   <select style="width:100%;" id="booking_type" name="booking_type" onchange="all_bookings_report_filter(this.value)"> 
-      <option value="Group Tour">Group Tour</option>
       <option value="Package Tour">Package Tour</option>
-      <option value="Visa Booking">Visa</option>
-      <option value="Flight Booking">Flight</option>
-      <option value="Train Booking">Train</option>
+      <option value="Group Tour">Group Tour</option>
       <option value="Hotel Booking">Hotel</option>
-      <option value="Bus Booking">Bus</option>
+      <option value="Flight Booking">Flight</option>
+      <option value="Visa Booking">Visa</option>
       <option value="Car Rental Booking">Car Rental</option>
-      <!-- <option value="Passport Booking">Passport</option>
-      <option value="Forex Booking">Forex</option> -->
       <option value="Excursion Booking">Activity</option>
+      <option value="Train Booking">Train</option>
+      <option value="Bus Booking">Bus</option>
       <option value="Miscellaneous Booking">Miscellaneous</option>
       <option value="B2B Booking">B2B</option>
       <option value="B2C Booking">B2C</option>
   </select>
 </div>
 <div id="div_report_content1" class="main_block loader_parent">
-  <script type="text/javascript">all_bookings_report_filter('Group Tour');</script>
+  <script type="text/javascript">all_bookings_report_filter('Package Tour');</script>
 </div>

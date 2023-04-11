@@ -7,7 +7,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/ticket/index.php'"));
 $branch_status = $sq['branch_status'];
 ?>
-<?= begin_panel('Flight Ticket',52) ?>
+<?= begin_panel('Flight Ticket Booking',52) ?>
 <input type="hidden" id="branch_status" name="branch_status" value="<?= $branch_status ?>" >
 <div class="row text-center text_left_sm_xs mg_bt_20">
 	<label for="rd_ticket_home" class="app_dual_button active mg_bt_10">

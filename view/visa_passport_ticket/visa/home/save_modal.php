@@ -39,10 +39,10 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div id="cust_details">
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input class="form-control" type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" readonly>
+									<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
+									<input class="form-control" type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12">
 									<input class="form-control hidden" type="text" id="company_name" name="company_name" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
@@ -66,8 +66,8 @@ $branch_status = $sq['branch_status'];
 
 						<div class="row mg_bt_10">
 							<div class="col-xs-12 text-right text_center_xs">
-								<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_visa')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-								<button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_visa');alltable_visa_cost('tbl_dynamic_visa');"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_visa')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_visa');alltable_visa_cost('tbl_dynamic_visa');"><i class="fa fa-trash"></i></button>
 							</div>
 						</div>
 
@@ -119,7 +119,7 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small id="markup_show" style="color:red">&nbsp;</small>
-								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup " title="Markup" onchange="get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','markup','basic');validate_balance(this.id)">
+								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','markup','basic');validate_balance(this.id)">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
@@ -142,7 +142,7 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
-								<input class="form-control" type="text" name="booking_date" id="booking_date" value="<?= date('d-m-Y') ?>" placeholder="*Booking Date" title="*Booking Date" onchange="check_valid_date(this.id);get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','service_charge','basic' );">
+								<input class="form-control" type="text" name="booking_date" id="booking_date" value="<?= date('d-m-Y') ?>" placeholder="*Booking Date" title="*Booking Date" onchange="get_auto_values('booking_date','visa_issue_amount','payment_mode','service_charge','markup','save','false','service_charge','basic' );">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
@@ -238,7 +238,11 @@ $branch_status = $sq['branch_status'];
 <script>
 	$('#visa_save_modal').modal('show');
 	$('#vcurrency_code').select2();
-	$('#expiry_date1,#payment_date,#due_date,#booking_date').datetimepicker({
+	$('#expiry_date1,#due_date').datetimepicker({
+		timepicker: false,
+		format: 'd-m-Y',
+	});
+	$('#booking_date,#payment_date').datetimepicker({
 		timepicker: false,
 		format: 'd-m-Y',
 	});
@@ -444,16 +448,21 @@ $branch_status = $sq['branch_status'];
 
 				var table = document.getElementById("tbl_dynamic_visa");
 				var rowCount = table.rows.length;
+				var checked_count = 0;
+				for (var i = 0; i < rowCount; i++) {
+					var row = table.rows[i];
+					if (row.cells[0].childNodes[0].checked) {
+						checked_count++;
+					}
+				}
+				if (checked_count == 0) {
+					error_msg_alert("Atleast one passenger details is required!");
+					$('#btn_visa_master_save').prop('disabled', false);
+					return false;
+				}
 
 				for (var i = 0; i < rowCount; i++) {
 					var row = table.rows[i];
-					if (rowCount == 1) {
-						if (!row.cells[0].childNodes[0].checked) {
-							error_msg_alert("Atleast one passenger is required!");
-							$('#btn_visa_master_save').prop('disabled', false);
-							return false;
-						}
-					}
 					if (row.cells[0].childNodes[0].checked) {
 						var first_name = row.cells[2].childNodes[0].value;
 						var middle_name = row.cells[3].childNodes[0].value;
@@ -466,11 +475,6 @@ $branch_status = $sq['branch_status'];
 						var issue_date = row.cells[10].childNodes[0].value;
 						var expiry_date = row.cells[11].childNodes[0].value;
 						var nationality = row.cells[12].childNodes[0].value;
-						//var received_documents = "";
-						// $(row.cells[13]).find('option:selected').each(function() {
-						// 	received_documents += $(this).attr('value') + ',';
-						// });
-						// received_documents = received_documents.trimChars(",");
 						var appointment = row.cells[13].childNodes[0].value;
 						var msg = "";
 
@@ -504,7 +508,6 @@ $branch_status = $sq['branch_status'];
 						issue_date_arr.push(issue_date);
 						expiry_date_arr.push(expiry_date);
 						nationality_arr.push(nationality);
-						//received_documents_arr.push(received_documents);
 						appointment_date_arr.push(appointment);
 					}
 				}
@@ -538,9 +541,8 @@ $branch_status = $sq['branch_status'];
 
 				$('#btn_visa_master_save').button('loading');
 				//Validation for booking and payment date in login financial year
-				var check_date1 = $('#booking_date').val();
 				$.post(base_url + 'view/load_data/finance_date_validation.php', {
-					check_date: check_date1
+					check_date: booking_date
 				}, function(data) {
 						if (data !== 'valid') {
 							error_msg_alert("The Booking date does not match between selected Financial year.");

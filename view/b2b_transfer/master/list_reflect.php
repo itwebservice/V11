@@ -23,7 +23,7 @@ while($row_vehicle = mysqli_fetch_assoc($sq_vehicle))
 		$row_vehicle['vehicle_type'],
 		$row_vehicle['vehicle_name'],
 		$row_vehicle['seating_capacity'],
-		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="edit_modal('.$row_vehicle['entry_id'] .')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>'),"bg" => $bg
+		'<button class="btn btn-info btn-sm" data-toggle="tooltip" id="update_btn-'.$row_vehicle['entry_id'] .'" onclick="edit_modal('.$row_vehicle['entry_id'] .')" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'),"bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 
 }

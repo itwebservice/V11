@@ -20,9 +20,7 @@
                     <div class="col-md-12 text-right text_center_xs">
                         <div class="col-md-6 text-left">
                         </div>
-                        <button type="button" class="btn btn-info btn-sm ico_left"
-                            onClick="addRow('tbl_package_tariff','2')"><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_package_tariff','2')"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="row">

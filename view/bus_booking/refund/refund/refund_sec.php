@@ -48,7 +48,7 @@ $remaining=$refund_amount-$toal_refund_sum;
 <hr>
 <div class="row text-right mg_bt_20">
 	<div class="col-xs-12">
-		<button class="btn btn-info btn-sm ico_left" id="save_refund_btn" onclick="refund_save_modal()"><i class="fa fa-plus"></i>New Refund</button>
+		<button class="btn btn-info btn-sm ico_left" id="save_brefund_btn" onclick="refund_save_modal()"><i class="fa fa-plus"></i>New Refund</button>
 	</div>
 </div>
 <div id="div_refund_modal"></div>
@@ -112,7 +112,6 @@ $remaining=$refund_amount-$toal_refund_sum;
 			$refund_id = $row_refund['refund_id'];
 
 			$url = BASE_URL."model/app_settings/generic_refund_voucher_pdf.php?v_voucher_no=$v_voucher_no&booking_id=".get_bus_booking_id($booking_id,$year)."&v_refund_date=$v_refund_date&v_refund_to=$v_refund_to&v_service_name=$v_service_name&v_refund_amount=$v_refund_amount&v_payment_mode=$v_payment_mode&customer_id=$customer_id&refund_id=$refund_id&currency_code=";
-
 			?>
 			<tr class="<?= $bg ?>">			
 				<td><?= $count ?></td>
@@ -149,16 +148,16 @@ $('#tbl_busrefund_list').dataTable({
 });
 function refund_save_modal()
 {	
-	$('#save_refund_btn').prop('disabled',true);
+	$('#save_brefund_btn').prop('disabled',true);
 	var booking_id = $('#booking_id').val();
 	var total_refund_val= $('#total_refund_val').val();
 	var refund_amount_val= $('#refund_amount_val').val();
 	var remaining_val=Number(refund_amount_val)-Number(total_refund_val);
-	$('#save_refund_btn').button('loading');
+	$('#save_brefund_btn').button('loading');
 	$.post('refund/refund_save_modal.php', { booking_id : booking_id , remaining_val : remaining_val}, function(data){
 		$('#div_refund_modal').html(data);
-		$('#save_refund_btn').prop('disabled',false);
-		$('#save_refund_btn').button('reset');
+		$('#save_brefund_btn').prop('disabled',false);
+		$('#save_brefund_btn').button('reset');
 	});
 }
 </script>

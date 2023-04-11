@@ -90,11 +90,18 @@ $role_id = $_SESSION['role_id'];
 
 			<input type="text" id="customer_name1" name="customer_name1" onchange="fname_validate(this.id)" placeholder="*Customer Name" title="Customer Name" value="<?= $sq_quotation['customer_name'] ?>" required>
 		</div>
-
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-
-			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile Number" title="Mobile Number" value="<?= $sq_quotation['mobile_number'] ?>" onchange="mobile_validate(this.id)">
-			
+		<div class="col-md-3 col-sm-6 mg_bt_10">
+			<div class="col-md-3" style="padding-left:0px;">
+				<input type="hidden" id="cc_value" value="<?= $sq_quotation['country_code'] ?>">
+				<select name="country_code1" id="country_code1" title="Country code">
+					<?= get_country_code(); ?>
+				</select>
+			</div>
+			<div class="col-md-9" style="padding-left:14px;padding-right:0px;">
+				<input type="text" class="form-control" id="mobile_no1" onchange="mobile_validate(this.id);"
+					name="mobile_no1" placeholder="WhatsApp No" title="WhatsApp No"
+					value="<?= $sq_quotation['whatsapp_no'] ?>">
+			</div>
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
@@ -185,6 +192,7 @@ $role_id = $_SESSION['role_id'];
 </form>
 
 <script>
+$('#country_code1').val($('#cc_value').val()).select2();
 $('#frm_tab1_u').validate({
 	rules:{
 		enquiry_id1 : { required : true },
@@ -192,6 +200,7 @@ $('#frm_tab1_u').validate({
 		from_date1 : { required : true },
 		to_date1 : { required : true },
 		total_adult1 : { required : true },
+		country_code1 : { required : true },
 	},
 	submitHandler:function(form){
 		$('a[href="#tab3_u"]').tab('show');

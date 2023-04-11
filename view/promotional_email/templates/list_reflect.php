@@ -23,7 +23,7 @@ while($row_sms_group = mysqli_fetch_assoc($sq_sms_group)){
 		(int)(++$count),
 		$row_sms_group['template_type'],
         date('d-m-Y',strtotime($row_sms_group['created_at'])),
-		'<button class="btn btn-info btn-sm" onclick="view_modal(\''.$row_sms_group['template_id'] .'\')" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></button>'	
+		'<button class="btn btn-info btn-sm" onclick="view_modal(\''.$row_sms_group['template_id'] .'\')" data-toggle="tooltip" title="View Details" id="view_btn-'.$row_sms_group['template_id'] .'"><i class="fa fa-eye"></i></button>'	
 		), "bg" =>$bg);
 	array_push($array_s,$temp_arr);
 	

@@ -46,8 +46,8 @@ $sq_location = mysqli_fetch_assoc(mysqlQuery("select * from locations where loca
                                     </select>
                                 </div>
                                 <div class="col-sm-4 mg_bt_10">
-                                    <input type="text" id="branch_name1" name="branch_name1" placeholder="Branch Name"
-                                        class="form-control" title="Branch Name"
+                                    <input type="text" id="branch_name1" name="branch_name1" placeholder="Company Branch Name"
+                                        class="form-control" title="Company Branch Name"
                                         value="<?= $sq_branch['branch_name'] ?>">
                                 </div>
                                 <div class="col-sm-4 mg_bt_10">

@@ -85,8 +85,8 @@ $remaining = $refund_amount - $sq_total_ref_paid_amount['sum'];
                             class="form-control" />
                     </div>
                     <div class="col-sm-6 col-xs-12 mg_bt_10">
-                        <input type="text" id="refund_date" name="refund_date" placeholder="*Payment Date"
-                            title="Payment Date" value="<?= date('d-m-Y') ?>" class="form-control">
+                        <input type="text" id="refund_date" name="refund_date" placeholder="*Refund Date"
+                            title="Refund Date" value="<?= date('d-m-Y') ?>" class="form-control">
                     </div>
                 </div>
 

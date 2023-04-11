@@ -6,8 +6,8 @@ $popular_dest = ($query['popular_tours'] != '' && $query['popular_tours'] != 'nu
 <form id="section_package">
     <legend>Define Top Group Tours</legend>
     <div class="row">
-        <div class="col-md-6"> <label class="alert-danger">For saving group tours keep checkbox selected!</label> </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-excel btn-sm" title="Note : For saving group tours keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
             <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_dest_tours')" title="Add Row"><i
                     class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_dest_tours');"
@@ -26,7 +26,7 @@ $popular_dest = ($query['popular_tours'] != '' && $query['popular_tours'] != 'nu
                                 class="form-control" disabled /></td>
                         <td><select name="dest_name-1" id="dest_name-1"
                                 onchange="package_dynamic_reflect(this.id);get_package_image(this.id)"
-                                style="width:100%;" class="form-control app_select2">
+                                style="width:300px;" class="form-control app_select2">
                                 <option value="">*Select Destination</option>
                                 <?php
                                     $sq_query = mysqlQuery("select * from destination_master where status != 'Inactive'");
@@ -36,11 +36,11 @@ $popular_dest = ($query['popular_tours'] != '' && $query['popular_tours'] != 'nu
                                 <?php } ?>
                             </select></td>
                         <td><select id="package-1" name="package-1" title="Select Tour" class="form-control"
-                                style="width:100%;">
+                                style="width:200px">
                                 <option value="">*Select Tour</option>
                             </select></td>
                         <td><select id="image-1" name="image-1" title="Select Image" class="form-control app_select2"
-                                style="width:150px!important;">
+                                style="width:250px!important;">
                                 <option value="">*Select Image</option>
                             </select></td>
                         <script>

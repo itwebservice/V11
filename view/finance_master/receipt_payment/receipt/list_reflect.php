@@ -9,7 +9,7 @@ $branch_status = $_POST['branch_status'];
 $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
 $bank_id = $_POST['bank_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $query = "select * from receipt_payment_master where 1 and payment_amount!='0' ";
 if($from_date!="" && $to_date!=""){
@@ -21,7 +21,7 @@ if($from_date!="" && $to_date!=""){
 if($bank_id!=""){
 	$query .= " and bank_id='$bank_id' ";
 }
-if($financial_year_id!=""){
+if($financial_year_id != ""){
 	$query .=" and financial_year_id='$financial_year_id'";
 }
 $query .= " order by id desc";
@@ -78,7 +78,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 				</td>
 				<td><?= ($sq_emp['first_name'] !='') ? $sq_emp['first_name'].' '.$sq_emp['last_name'] : 'Admin' ?></td>
 				<td class="text-center">
-					<button class="btn btn-info btn-sm form-control" onclick="update_modal(<?= $row_deposit['id'] ?>)" title="Edit Details" id="edit-<?= $row_deposit['id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm form-control" onclick="update_modal(<?= $row_deposit['id'] ?>)" title="Update Details" id="edit-<?= $row_deposit['id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 					<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="rp_delete_entry(<?=$row_deposit['id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 				</td>
 			</tr>

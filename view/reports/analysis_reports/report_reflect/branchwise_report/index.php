@@ -103,11 +103,15 @@
 
 
 	function view_branch_modal(branch_id) {
+		$('#view_btn-'+branch_id).prop('disabled',true);
 		var base_url = $('#base_url').val();
+		$('#view_btn-'+branch_id).button('loading');
 		$.post(base_url + 'view/reports/analysis_reports/report_reflect/branchwise_report/view_branch_modal.php', {
 			branch_id: branch_id
 		}, function(data) {
 			$('#other_branch_display').html(data);
+			$('#view_btn-'+branch_id).prop('disabled',false);
+			$('#view_btn-'+branch_id).button('reset');
 		});
 	}
 </script>

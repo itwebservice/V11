@@ -36,11 +36,11 @@ global $app_version;
       <div class="login_wrap_inner">
 
         <div class="row"> <div class="col-md-12"> 
-              <input class="form-control" id="username" name="username" type="text" placeholder="Vendor Name" required/>
+              <input class="form-control" id="username" name="username" type="text" placeholder="Vendor Name" title="Vendor Name" required/>
         </div> </div><br>
 
         <div class="row"> <div class="col-md-12"> 
-              <input class="form-control" id="password" name="password" type="password" placeholder="Password" required/>
+              <input class="form-control" id="password" name="password" type="password" placeholder="Mobile No" title="Mobile No" required/>
         </div> </div> <br>
 
         <div class="row"> <div class="col-md-12 text-center"> 

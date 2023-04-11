@@ -18,8 +18,8 @@ while($row_req = mysqli_fetch_assoc($sq_query)){
 		$temp_arr = array( "data" => array(
 			(int)(++$count),
 			$row_req['ferry_name'].'('.$row_req['ferry_type'].')',
-			'<button style="display:inline-block" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="Edit Details"></i></button>
-			<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'), "bg" => '');
+			'<button style="display:inline-block" data-toggle=tooltip" id="updatet_btn-'.$row_req['entry_id'] .'" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="Update Details"></i></button>
+			<button style="display:inline-block" id="viewt_btn-'.$row_req['entry_id'] .'" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'), "bg" => '');
 		array_push($array_s,$temp_arr);
 	}
 }

@@ -63,7 +63,20 @@
 
 	      <input type="text" class="form-control" id="customer_name1" name="customer_name1" onchange="fname_validate(this.id);"  placeholder="Customer Name" title="Customer Name" value="<?= $sq_quotation['customer_name'] ?>"> 
 
-	    </div>	        		                			        		        	        		
+	    </div>	 
+		<div class="col-md-3 col-sm-6">
+			<div class="col-md-4" style="padding-left:0px;">
+				<input type="hidden" id="cc_value" value="<?= $sq_quotation['country_code'] ?>">
+				<select name="country_code1" id="country_code1" title="Country code">
+					<?= get_country_code(); ?>
+				</select>
+			</div>
+			<div class="col-md-8" style="padding-left:12px;padding-right:0px;">
+				<input type="text" class="form-control" id="mobile_no1" onchange="mobile_validate(this.id);"
+					name="mobile_no1" placeholder="WhatsApp No" title="WhatsApp No"
+					value="<?= $sq_quotation['whatsapp_no'] ?>">
+			</div>
+		</div>       		                			        		        	        		
 
 
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
@@ -72,11 +85,6 @@
 
 		</div>	
 
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-
-			<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Whatsapp no with country code" onchange="mobile_validate(this.id);" title="Whatsapp no with country code" value="<?= $sq_quotation['mobile_no'] ?>">
-
-		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
 	    	<input type="text" class="form-control" id="quotation_date1" name="quotation_date1" placeholder="Quotation Date" title="Quotation Date" value="<?= get_date_user($sq_quotation['quotation_date']) ?>" onchange="get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','true','service_charge', true);"> 
@@ -110,6 +118,7 @@
 
 <script>
 $('#travel_datetime1').datetimepicker({format:'d-m-Y H:i' });
+$('#country_code1').val($('#cc_value').val()).select2();
 
  
 
@@ -117,7 +126,7 @@ $('#frm_tab11').validate({
 
 	rules:{
 
-			 
+		country_code1 : { required : true}		 
 
 	},
 

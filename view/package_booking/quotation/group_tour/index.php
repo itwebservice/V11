@@ -33,25 +33,21 @@ $financial_year_id = $_SESSION['financial_year_id'];
                     <div class="row">
                         <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
                             <input type="text" id="from_date_filter" name="from_date_filter" placeholder="From Date"
-                                title="From Date"
-                                onchange="get_to_date(this.id,'to_date_filter');quotation_list_reflect()">
+                                title="From Date" onchange="get_to_date(this.id,'to_date_filter');">
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
                             <input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date"
-                                title="To Date"
-                                onchange="validate_validDate('from_date_filter','to_date_filter');quotation_list_reflect()">
+                                title="To Date" onchange="validate_validDate('from_date_filter','to_date_filter');">
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <select name="booking_type_filter" id="booking_type_filter" title="Tour Type"
-                                onchange="quotation_list_reflect()">
+                            <select name="booking_type_filter" id="booking_type_filter" title="Tour Type">
                                 <option value="">Tour Type</option>
                                 <option value="Domestic">Domestic</option>
                                 <option value="International">International</option>
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <select name="tour_name" id="tour_name_filter" title="Select Tour Name" style="width:100%"
-                                onchange="quotation_list_reflect()">
+                            <select name="tour_name" id="tour_name_filter" title="Select Tour Name" style="width:100%">
                                 <option value="">Select Tour Name</option>
                                 <?php
                                 $query = "select distinct(tour_name) from group_tour_quotation_master where 1 and status='1'";
@@ -75,8 +71,7 @@ $financial_year_id = $_SESSION['financial_year_id'];
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <select name="quotation_id" id="quotation_id" title="Select Quotation"
-                                onchange="quotation_list_reflect()" style="width:100%">
+                            <select name="quotation_id" id="quotation_id" title="Select Quotation" style="width:100%">
                                 <option value="">Select Quotation</option>
                                 <?php
                                 $query = "select * from group_tour_quotation_master where 1 and financial_year_id='$financial_year_id' and status='1'";
@@ -104,8 +99,7 @@ $financial_year_id = $_SESSION['financial_year_id'];
                             </select>
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12">
-                            <select name="status" id="status" title="Status" style="width:100%"
-                                onchange="quotation_list_reflect()">
+                            <select name="status" id="status" title="Status" style="width:100%">
                                 <option value="">Status</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
@@ -116,11 +110,24 @@ $financial_year_id = $_SESSION['financial_year_id'];
                         <?php if ($role == 'Admin') { ?>
                         <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10_xs">
                             <select name="branch_id_filter" id="branch_id_filter1" title="Branch Name"
-                                style="width: 100%" onchange="quotation_list_reflect()">
+                                style="width: 100%">
                                 <?php get_branch_dropdown($role, $branch_admin_id, $branch_status) ?>
                             </select>
                         </div>
                         <?php } ?>
+                        <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                                <?php
+                                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                                ?>
+                                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <button class="btn btn-sm btn-info ico_right" onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+                        </div>
                     </div>
                 </div>
 
@@ -205,6 +212,7 @@ function quotation_list_reflect() {
     var branch_status = $('#branch_status').val();
     var branch_id = $('#branch_id_filter1').val();
     var status = $('#status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('quotation_list_reflect.php', {
         from_date: from_date,
@@ -214,7 +222,8 @@ function quotation_list_reflect() {
         quotation_id: quotation_id,
         branch_status: branch_status,
         branch_id: branch_id,
-        status: status
+        status: status,
+        financial_year_id:financial_year_id_filter
     }, function(data) {
         //$('#div_quotation_list_reflect').html(data);
         pagination_load(data, column, true, false, 20, 'group_table');
@@ -258,12 +267,16 @@ function save_modal() {
 }
 
 function update_modal(quotation_id) {
+	$('#editq-'+quotation_id).prop('disabled',true);
+	$('#editq-'+quotation_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('update/index.php', {
         quotation_id: quotation_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_quotation_update').html(data);
+        $('#editq-'+quotation_id).prop('disabled',false);
+        $('#editq-'+quotation_id).button('reset');
     });
 }
 $(document).ready(function() {
@@ -274,10 +287,14 @@ $(document).ready(function() {
 });
 
 function quotation_email_send_backoffice_modal(quotation_id) {
+	$('#email_backoffice_btn-'+quotation_id).prop('disabled',true);
+	$('#email_backoffice_btn-'+quotation_id).button('loading');
     $.post('backoffice_mail.php', {
         quotation_id: quotation_id
     }, function(data) {
         $('#backoffice_mail').html(data);
+        $('#email_backoffice_btn-'+quotation_id).prop('disabled',false);
+        $('#email_backoffice_btn-'+quotation_id).button('reset');
     });
 }
 

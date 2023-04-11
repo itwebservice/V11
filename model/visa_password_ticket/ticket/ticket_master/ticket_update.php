@@ -299,7 +299,7 @@ function get_particular($customer_id,$pax,$sector,$ticket_no,$pnr,$ticket_id){
 	
 	$sq_ct = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$customer_id'"));
 	$cust_name = ($sq_ct['type'] == 'Corporate' || $sq_ct['type'] == 'B2B') ? $sq_ct['company_name'] : $sq_ct['first_name'].' '.$sq_ct['last_name'];
-	return get_ticket_booking_id($ticket_id,$year). ' for '.$cust_name. '('.$sq_pass['first_name'].' '.$sq_pass['last_name'].') * '.$pax.' travelling for '.$sector.' against ticket no '.$ticket_no.'/Airline PNR '.strtoupper($pnr);
+	return get_ticket_booking_id($ticket_id,$year). ' for '.$cust_name. '('.$sq_pass['first_name'].' '.$sq_pass['last_name'].') * '.$pax.' travelling for '.$sector.' against ticket no '.strtoupper($ticket_no).'/Airline PNR '.strtoupper($pnr);
 }
 
 public function finance_update($sq_ticket_info, $row_spec,$particular){

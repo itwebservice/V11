@@ -32,11 +32,16 @@ $branch_status = $_POST['branch_status'];
 		        while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 
 		        	$date = $row_ticket['created_at'];
-                      $yr = explode("-", $date);
-                      $year =$yr[0];
-		          $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+					$yr = explode("-", $date);
+					$year =$yr[0];
+		          	$sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+					if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+						$customer_name = $sq_customer['company_name'];
+					} else {
+						$customer_name = $sq_customer['first_name'] . ' ' . $sq_customer['last_name'];
+					}
 		          ?>
-		          <option value="<?= $row_ticket['ticket_id'] ?>"><?= get_ticket_booking_id($row_ticket['ticket_id'],$year).' : '.$sq_customer['first_name'].' '.$sq_customer['last_name'] ?></option>
+		          <option value="<?= $row_ticket['ticket_id'] ?>"><?= get_ticket_booking_id($row_ticket['ticket_id'],$year).' : '.$customer_name ?></option>
 		          <?php
 		        }
 		        ?>

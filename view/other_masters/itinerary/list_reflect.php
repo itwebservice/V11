@@ -26,7 +26,7 @@ $dest_id = $_POST['dest_id'];
 				<td><?= $row_iti['dest_id'] ?></td>
 				<td><?= $row_iti['dest_name'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_iti['dest_id'] ?>)" title="Edit Itinerary"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_iti['dest_id'] ?>)" id="it_update-<?= $row_iti['dest_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

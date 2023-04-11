@@ -179,9 +179,13 @@ list_reflect();
 	}
 function visa_view_modal(visa_id,year)
 {
+	$('#packagev_btn-'+visa_id).prop('disabled',true);
 var base_url = $('#base_url').val();
+    $('#packagev_btn-'+visa_id).button('loading');
 $.post(base_url+'view/visa_passport_ticket/visa/payment_status/view/index.php', { visa_id : visa_id, year : year }, function(data){
   $('#div_package_content_display').html(data);
+		$('#packagev_btn-'+visa_id).prop('disabled',false);
+    	$('#packagev_btn-'+visa_id).button('reset');
 });
 }
 
@@ -196,17 +200,25 @@ function visa_id_dropdown_load(customer_id_filter, visa_id_filter)
 }
 function supplier_view_modal(visa_id)
 {
-	
+	$('#supplierv_btn-'+visa_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+visa_id).button('loading');
 	$.post(base_url+'view/visa_passport_ticket/visa/payment_status/view/supplier_view_modal.php', { visa_id : visa_id }, function(data){
-      $('#div_package_content_display').html(data);
+    $('#div_package_content_display').html(data);
+		$('#supplierv_btn-'+visa_id).prop('disabled',false);
+    	$('#supplierv_btn-'+visa_id).button('reset');
     });
 }
 function payment_view_modal(visa_id)
 {	
+	$('#paymentv_btn-'+visa_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+visa_id).button('loading');
 	var base_url = $('#base_url').val();
 	$.post(base_url+'view/visa_passport_ticket/visa/payment_status/view/payment_view_modal.php', { visa_id : visa_id }, function(data){
       $('#div_package_content_display').html(data);
+		$('#paymentv_btn-'+visa_id).prop('disabled',false);
+    	$('#paymentv_btn-'+visa_id).button('reset');
     });
 }
 </script>

@@ -9,8 +9,7 @@ include "../../../model/model.php";
           <th>Offer_Title</th>
           <th>Description</th>
           <th>Valid_Till</th>
-          <th>Edit</th>
-          <th>Disable</th>
+          <th>Actions</th>
         </tr> 
       </thead>
       <tbody>
@@ -26,8 +25,8 @@ include "../../../model/model.php";
             <td><?php echo $row_offer['title']; ?></td>
             <td><?php echo $row_offer['description']; ?></td>
             <td><?php echo date("d/m/Y", strtotime($row_offer['valid_date'])); ?></td>
-            <td><a class="btn btn-info btn-sm" href="#" onclick="upcoming_tours_update_modal(<?= $row_offer['offer_id'] ?>)" title="Edit Offer"><i class="fa fa-pencil-square-o"></i></a></td>
-            <td><button class="btn btn-danger btn-sm" onclick="upcoming_tour_offer_disable(<?php echo $row_offer['offer_id'] ?>)" title="Disable"><i class="fa fa-ban"></i></button></td>
+            <td><a class="btn btn-info btn-sm" href="#" onclick="upcoming_tours_update_modal(<?= $row_offer['offer_id'] ?>)" title="Update Details" id="update_btn-<?= $row_offer['offer_id'] ?>"><i class="fa fa-pencil-square-o"></i></a>
+            <button class="btn btn-danger btn-sm" onclick="upcoming_tour_offer_disable(<?php echo $row_offer['offer_id'] ?>)" title="Disable" id="delete_btn-<?= $row_offer['offer_id'] ?>"><i class="fa fa-ban"></i></button></td>
           </tr>
           <?php
         }    

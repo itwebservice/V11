@@ -24,13 +24,7 @@ while($row_dmc = mysqli_fetch_assoc($sq_dmc)){
 		$email_id = $encrypt_decrypt->fnDecrypt($row_dmc['email_id'], $secret_key);
 		$temp_arr = array("data" => array(
 			(int)(++$count), $row_dmc['company_name'],$sq_city['city_name'],$mobile_no,$row_dmc['contact_person_name'],
-			'
-			
-			
-			<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_view_modal('. $row_dmc['dmc_id'].')" title="View Details"><i class="fa fa-eye"></i></button>
-			<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_update_modal('.$row_dmc['dmc_id'] .')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
-			
-			'), "bg" => $bg);
+			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_update_modal('.$row_dmc['dmc_id'] .')" title="Update Details" id="update_btn-'. $row_dmc['dmc_id'].'"><i class="fa fa-pencil-square-o"></i></button><button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="dmc_view_modal('. $row_dmc['dmc_id'].')" id="view_btn-'. $row_dmc['dmc_id'].'" title="View Details"><i class="fa fa-eye"></i></button>'), "bg" => $bg);
 		array_push($array_s,$temp_arr); 
 }
 //print_r($array_s);

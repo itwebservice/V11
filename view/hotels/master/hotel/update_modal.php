@@ -503,10 +503,8 @@ $email_id2 = $encrypt_decrypt->fnDecrypt($sq_hotel['alternative_email_2'], $secr
                 <ul id="files" ></ul>
                 <input type="hidden" id="hotel_upload_url" name="hotel_upload_url" value='<?= $images_url ?>'>
             </div>  (Upload Maximum 10 images)
+		        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Image size should be less than 100KB,resolution : 900X450."><i class="fa fa-question-circle"></i></button>
           </div>
-            <div class="col-sm-6 mg_tp_10">  
-              <span style="color: red;" class="note">Note : Image size should be less than 100KB, resolution : 900X450.</span>
-            </div>
         </div>
       <div class="row mg_tp_20 mg_bt_20" id="images_list"></div>
 

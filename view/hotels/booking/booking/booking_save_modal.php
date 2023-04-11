@@ -82,12 +82,12 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                             </div>
                             <div id="cust_details">
                                 <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                    <input type="text" id="email_id" name="email_id" title="Email Id"
-                                        placeholder="Email ID" title="Email ID" readonly>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                     <input type="text" id="mobile_no" name="mobile_no" title="Mobile Number"
                                         placeholder="Mobile No" title="Mobile No" readonly>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                    <input type="text" id="email_id" name="email_id" title="Email Id"
+                                        placeholder="Email ID" title="Email ID" readonly>
                                 </div>
                                 <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                     <input type="text" id="company_name" class="hidden" name="company_name"
@@ -126,12 +126,8 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                         <legend>Hotel Details</legend>
                         <div class="row text-right mg_bt_10">
                             <div class="col-xs-12">
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_hotel_booking')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm ico_left"
-                                    onClick="deleteRow('tbl_hotel_booking')"><i
-                                        class="fa fa-times"></i>&nbsp;&nbsp;Delete </button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_hotel_booking')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_hotel_booking');"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -188,8 +184,8 @@ $tcs_readonly = ($sq_tcs['calc'] == '0') ? 'readonly' : '';
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="markup_show" style="color:red">&nbsp;</small>
-                                <input type="text" id="markup" name="markup" placeholder="Markup Cost"
-                                    title="Markup Cost"
+                                <input type="text" id="markup" name="markup" placeholder="Markup Amount"
+                                    title="Markup Amount"
                                     onchange="total_fun();get_auto_values('booking_date','sub_total','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id)">
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
@@ -637,9 +633,6 @@ $(function() {
                     }
                     if (rooms == "") {
                         msg += "No of Rooms is required in row:" + (i + 1) + '<br>';
-                    }
-                    if (extra_beds == "") {
-                        msg += "Extra beds is required in row:" + (i + 1) + '<br>';
                     }
                     if (no_of_nights == "") {
                         msg += "No of Nights is required in row:" + (i + 1) + '<br>';

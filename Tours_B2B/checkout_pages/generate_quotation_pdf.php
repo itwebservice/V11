@@ -27,11 +27,6 @@ $unique_timestamp =  md5(uniqid());
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 for-iPad">
-                        <div class="form-group">
-                            <input type="email" class="infoRow_txtbox" placeholder="*Email ID" id="email_id" name="email_id" title="Enter Email ID" data-toggle="tooltip" required/>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 for-iPad">
                         <div class="c-select2DD text-left">
                             <select class="infoRow_txtbox full-width" name="country_code1" id="country_code1" style="width:100%" required>
                                 <?= get_country_code() ?>
@@ -40,7 +35,12 @@ $unique_timestamp =  md5(uniqid());
                     </div>
                     <div class="col-md-4 col-sm-6 for-iPad">
                         <div class="form-group">
-                            <input type="number" minlength='4' maxlength='12' class="infoRow_txtbox" placeholder="*Contact Number" id="contact_no" name="contact_no" title="Enter Valid Contact Number" data-toggle="tooltip" required />
+                            <input type="number" minlength='4' maxlength='12' class="infoRow_txtbox" placeholder="*Mobile Number" id="contact_no" name="contact_no" title="Enter Valid Mobile Number" data-toggle="tooltip" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 for-iPad">
+                        <div class="form-group">
+                            <input type="email" class="infoRow_txtbox" placeholder="*Email ID" id="email_id" name="email_id" title="Enter Email ID" data-toggle="tooltip" required/>
                         </div>
                     </div>
                 </div>

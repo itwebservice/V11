@@ -72,7 +72,7 @@ $status = $_POST['status'];
 							$pdf_btn = '';
 						} else {
 							$pdf_btn = '<a onclick="loadOtherPage(\'' . $url1 . '\')" class="btn btn-info btn-sm" title="Print"><i class="fa fa-print"></i></a>';
-							$copy_btn = '<button class="btn btn-warning btn-sm" onclick="package_clone(' . $row_tour['package_id'] . ')" title="Copy"><i class="fa fa-files-o"></i></button>';
+							$copy_btn = '<button class="btn btn-warning btn-sm" onclick="package_clone(' . $row_tour['package_id'] . ')" title="Copy Package Tour"><i class="fa fa-files-o"></i></button>';
 						}
 
 					?>
@@ -81,15 +81,11 @@ $status = $_POST['status'];
                         <td><?= $row_tour['package_name'] . '(' . $row_tour['package_code'] . ')' ?></td>
                         <td><?= $row_tour['total_days'] . 'D/' . $row_tour['total_nights'] . 'N' ?></td>
                         <td><?php
-								echo $copy_btn . '
-					<button class="btn btn-info btn-sm" onclick="view_modal(' . $row_tour['package_id'] . ')" title="View Details"><i class="fa fa-eye"></i></button>
-				
-					' . $pdf_btn . '
-				
-					<form style="display:inline-block" action="update_modal.php" class="no-marg" method="POST">
-						<input type="hidden" id="package_id" style="display:inline-block" name="package_id" value="' . $row_tour['package_id'] . '">
-						<button class="btn btn-info btn-sm form-control" id="update_btn' . $row_tour['package_id'] . '" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-					</form>'; ?>
+							echo  $pdf_btn.'
+							<form style="display:inline-block" action="update_modal.php" class="no-marg" method="POST">
+								<input type="hidden" id="package_id" style="display:inline-block" name="package_id" value="' . $row_tour['package_id'] . '">
+								<button class="btn btn-info btn-sm form-control" id="update_btn' . $row_tour['package_id'] . '" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+							</form>' .$copy_btn . '<button class="btn btn-info btn-sm" onclick="view_modal(' . $row_tour['package_id'] . ')" id="view_btn-' . $row_tour['package_id'] . '" title="View Details"><i class="fa fa-eye"></i></button>'; ?>
                         </td>
                     </tr>
                     <?php } ?>

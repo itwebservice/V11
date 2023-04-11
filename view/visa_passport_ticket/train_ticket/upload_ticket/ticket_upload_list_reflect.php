@@ -21,7 +21,7 @@ if ($train_ticket_id == '') {
         <input type="hidden" id="train_ticket_upload_url" name="train_ticket_upload_url">
     </div>
     <div class="pull-right">
-        <span class="note">Note : Upload PDF,JPG,PNG Format.&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload PDF,JPG,PNG Format."><i class="fa fa-question-circle"></i></button>&nbsp;&nbsp;
     </div>
 </div>
 
@@ -151,3 +151,4 @@ $('#train_upload_ticket').dataTable({
     }
 });
 </script>
+<script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

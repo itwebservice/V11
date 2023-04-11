@@ -3,11 +3,9 @@
     <div class="app_panel" style="padding-top: 30px;">
 
         <div class="container">
-
             <div class="row">
 
                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_20" id="package_div">
-
                     <?php
 					$sq_tours = mysqlQuery("select * from custom_package_master where status !='Inactive'"); ?>
                     <select name="dest_name" id="dest_name" title="Select Destination"
@@ -22,30 +20,20 @@
                     </select>
                 </div>
                 <div class="col-md-7 col-sm-4 col-xs-12 mg_bt_20">
-                    <small class="note">Note - The Package is not available for this Destination.Please create here. <a
-                            href="../../../../custom_packages/master/index.php" target='_blank'><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Package Tour</a></small>
+	                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : The Package is not available for this Destination.Please create here."><i class="fa fa-question-circle"></i></button>&nbsp;&nbsp;
+                    <a href="../../../../custom_packages/master/index.php" target='_blank'><i class="fa fa-plus"></i>&nbsp;&nbsp;Package Tour</a>
                 </div>
                 <div class="col-md-12 col-sm-8 col-xs-12 no-pad" id="package_name_div">
-
                 </div>
-
             </div>
 
-
-
             <div class="row text-center mg_tp_20">
-
                 <div class="col-xs-12">
-
                     <button class="btn btn-info btn-sm ico_left" type="button" onclick="switch_to_tab1()"><i
                             class="fa fa-arrow-left"></i>&nbsp;&nbsp Previous</button>
-
                     &nbsp;&nbsp;
-
                     <button class="btn btn-info btn-sm ico_right">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
-
                 </div>
             </div>
             <input type="hidden" id="pckg_daywise_url" name="pckg_daywise_url" />

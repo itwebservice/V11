@@ -13,8 +13,8 @@ $sq_count4 = mysqli_num_rows(mysqlQuery("select * from hotel_weekend_tarrif wher
 					<?php if ($sq_count4 == 0) { ?>
 						<div class="row mg_bt_10">
 							<div class="col-md-12 text-right text_center_xs">
-								<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_weekend_tarrif')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-								<button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('table_hotel_weekend_tarrif')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+								<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_weekend_tarrif')"><i class="fa fa-plus"></i></button>
+								<button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_weekend_tarrif')"><i class="fa fa-trash"></i></button>
 							</div>
 						</div>
 						<div class="row">
@@ -33,7 +33,7 @@ $sq_count4 = mysqli_num_rows(mysqlQuery("select * from hotel_weekend_tarrif wher
 													<option value="Sunday">Sunday</option>
 												</select></td>
 											<td style='display:none;'><input type="text" id="single_bed" name="single_bed" placeholder="Single Bed" title="Single Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
-											<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Cost" title="Room Cost" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
+											<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 135px;" /></td>
 											<td style='display:none;'><input type="text" id="triple_bed" name="triple_bed" placeholder="Triple Bed" title="Triple Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
 											<td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
 											<td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 137px;" /></td>
@@ -60,7 +60,7 @@ $sq_count4 = mysqli_num_rows(mysqlQuery("select * from hotel_weekend_tarrif wher
 					<?php } else { ?>
 						<div class="row mg_bt_10">
 							<div class="col-md-12 text-right text_center_xs">
-								<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_weekend_tarrif')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+								<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_weekend_tarrif')"><i class="fa fa-plus"></i></button>
 							</div>
 						</div>
 						<div class="row">
@@ -86,7 +86,7 @@ $sq_count4 = mysqli_num_rows(mysqlQuery("select * from hotel_weekend_tarrif wher
 														<option value="Sunday">Sunday</option>
 													</select></td>
 												<td style='display:none;'><input type="text" id="single_bed" name="single_bed" placeholder="Single Bed" title="Single Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
-												<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Cost" title="Room Cost" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab4['double_bed'] ?>' /></td>
+												<td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab4['double_bed'] ?>' /></td>
 												<td style='display:none;'><input type="text" id="triple_bed" name="triple_bed" placeholder="Triple Bed" title="Triple Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
 												<td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab4['child_with_bed'] ?>' /></td>
 												<td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 137px;" value='<?= $row_tab4['child_without_bed'] ?>' /></td>

@@ -30,10 +30,10 @@ $branch_status = $_POST['branch_status'];
                                 <option value="Group Booking">Group Booking</option>
                                 <option value="Hotel">Hotel</option>
                                 <option value="Flight Ticket">Flight Ticket</option>
-                                <option value="Car Rental">Car Rental</option>
                                 <option value="Visa">Visa</option>
-                                <option value="Bus">Bus</option>
+                                <option value="Car Rental">Car Rental</option>
                                 <option value="Train Ticket">Train Ticket</option>
+                                <option value="Bus">Bus</option>
                             </select>
                         </div>
                     </div>
@@ -42,11 +42,6 @@ $branch_status = $_POST['branch_status'];
                             <input type="text" class="form-control" id="txt_name" name="txt_name"
                                 onchange="fname_validate(this.id)" placeholder="*Customer Name" title="Customer Name">
                             <input type="hidden" id="cust_data" name="cust_data" value='<?= get_customer_hint() ?>'>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mg_bt_10">
-                            <input type="number" class="form-control" id="txt_mobile_no"
-                                onchange="mobile_validate(this.id);" name="txt_mobile_no" placeholder="*Mobile No"
-                                title="Mobile No">
                         </div>
                         <div class="col-md-3 col-sm-6 mg_bt_10">
                             <div class="row">
@@ -62,6 +57,11 @@ $branch_status = $_POST['branch_status'];
                                         placeholder="WhatsApp No" title="WhatsApp No" style="width: 140px;">
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mg_bt_10">
+                            <input type="number" class="form-control" id="txt_mobile_no"
+                                onchange="mobile_validate(this.id);" name="txt_mobile_no" placeholder="*Mobile No"
+                                title="Mobile No">
                         </div>
                         <div class="col-md-3 col-sm-6 mg_bt_10">
                             <input type="text" class="form-control" id="txt_email_id" name="txt_email_id"

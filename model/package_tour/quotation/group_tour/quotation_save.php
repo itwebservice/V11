@@ -15,6 +15,7 @@ public function quotation_master_save()
 	$total_days =  $_POST['total_days'];
 	$customer_name =  $_POST['customer_name'];
 	$mobile_number = $_POST['mobile_number'];
+	$country_code = $_POST['country_code'];
 	$email_id =  $_POST['email_id'];
 	$total_adult = $_POST['total_adult'];
 	$total_children =  $_POST['total_children'];
@@ -40,7 +41,7 @@ public function quotation_master_save()
 	$financial_year_id = $_POST['financial_year_id'];
 
 	$country_code = $_POST['country_code'];
-	$mobile_no = $country_code.$_POST['mobile_no'];
+	$mobile_no = $_POST['mobile_no'];
 
 	//Train
     $train_from_location_arr = $_POST['train_from_location_arr'] ?: [];
@@ -88,14 +89,15 @@ public function quotation_master_save()
     $excl = addslashes($excl);
 	$terms = addslashes($terms);
 	$bsmValues = json_encode($bsmValues);
-	$sq_quotation = mysqlQuery("insert into group_tour_quotation_master ( quotation_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, mobile_number,email_id, total_adult, total_children, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type,  adult_cost, children_cost , infant_cost, with_bed_cost, tour_cost,service_charge, service_tax_subtotal, quotation_cost, incl, excl, terms, tour_group_id, created_at, login_id, enquiry_id, tour_group,emp_id,bsm_values,currency_code,status ) values ( '$quotation_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$mobile_number','$email_id', '$total_adult', '$total_children', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$adult_cost','$children_cost','$infant_cost','$with_bed_cost','$tour_cost','$service_charge', '$service_tax_subtotal', '$total_tour_cost','$incl','$excl','$terms', '$tour_group_id', '$created_at', '$login_id', '$enquiry_id', '$tour_group','$emp_id','$bsmValues','$currency_code','1' )");
+	$whatsapp_no = $country_code.$mobile_no;
+	$sq_quotation = mysqlQuery("insert into group_tour_quotation_master ( quotation_id, branch_admin_id,financial_year_id, tour_name, from_date, to_date, total_days, customer_name, mobile_number,country_code,whatsapp_no,email_id, total_adult, total_children, total_infant, total_passangers, children_without_bed, children_with_bed, quotation_date, booking_type,  adult_cost, children_cost , infant_cost, with_bed_cost, tour_cost,service_charge, service_tax_subtotal, quotation_cost, incl, excl, terms, tour_group_id, created_at, login_id, enquiry_id, tour_group,emp_id,bsm_values,currency_code,status ) values ( '$quotation_id', '$branch_admin_id','$financial_year_id', '$tour_name', '$from_date', '$to_date', '$total_days', '$customer_name', '$whatsapp_no','$country_code','$mobile_no','$email_id', '$total_adult', '$total_children', '$total_infant', '$total_passangers', '$children_without_bed', '$children_with_bed', '$quotation_date', '$booking_type', '$adult_cost','$children_cost','$infant_cost','$with_bed_cost','$tour_cost','$service_charge', '$service_tax_subtotal', '$total_tour_cost','$incl','$excl','$terms', '$tour_group_id', '$created_at', '$login_id', '$enquiry_id', '$tour_group','$emp_id','$bsmValues','$currency_code','1' )");
 
 	if($sq_quotation){
 		////////////Enquiry Save///////////
 		if($enquiry_id == 0){
 			$sq_max_id = mysqli_fetch_assoc(mysqlQuery("select max(enquiry_id) as max from enquiry_master"));
 			$enquiry_id1 = $sq_max_id['max']+1;
-			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Group Booking','Strong', '$customer_name', '$mobile_no', '$mobile_no', '$email_id','', '$emp_id', '', '$quotation_date', '$quotation_date', '', '$enquiry_content')");
+			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content,country_code ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Group Booking','Strong', '$customer_name', '$mobile_no', '$mobile_no', '$email_id','', '$emp_id', '', '$quotation_date', '$quotation_date', '', '$enquiry_content','$country_code')");
 			if($sq_enquiry){
 				$sq_quot_update = mysqlQuery("update group_tour_quotation_master set enquiry_id='$enquiry_id1' where quotation_id='$quotation_id'");
 			}

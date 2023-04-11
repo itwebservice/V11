@@ -282,15 +282,13 @@
                                 <ul id="files"></ul>
                                 <input type="hidden" id="upload_url" name="upload_url">
                             </div>
+	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Only Excel or Word files are allowed."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
-                    <div class="row mg_tp_20">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-sm-12 mg_bt_10"></div>
                         <div class="col-md-6 col-sm-12">
-                            <span style="color: red;" class="note">Note : Group Costing or Per person costing to display
-                                on quotation</span>
-                        </div>
-                        <div class="col-md-6 col-sm-12 text-right">
-                            <span style="color: red;" class="note">Note : Only Excel or Word files are allowed</span>
+	                        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Group Costing or Per person costing to display on quotation."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row mg_tp_20 text-center mg_bt_30">
@@ -386,6 +384,7 @@
 
             var email_id = $('#email_id').val();
             var mobile_no = $('#mobile_no').val();
+			var country_code = $('#country_code').val();
 
             var total_adult = $('#total_adult').val();
 
@@ -1071,6 +1070,7 @@
                                 customer_name: customer_name,
                                 email_id: email_id,
                                 mobile_no: mobile_no,
+                                country_code:country_code,
                                 total_adult: total_adult,
                                 total_infant: total_infant,
                                 total_passangers: total_passangers,

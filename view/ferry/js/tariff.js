@@ -17,12 +17,20 @@ function tariff_list_reflect () {
 }
 
 function view_modal (tariff_id) {
+	$('#viewt_btn-'+tariff_id).button('loading');
+	$('#viewt_btn-'+tariff_id).prop('disabled',true);
 	$.post('tariff/view/index.php', { entry_id: tariff_id }, function (data) {
 		$('#div_tariffsave_modal').html(data);
+		$('#viewt_btn-'+tariff_id).button('reset');
+		$('#viewt_btn-'+tariff_id).prop('disabled',false);
 	});
 }
 function tredit_modal (tariff_id) {
+	$('#updatet_btn-'+tariff_id).button('loading');
+	$('#updatet_btn-'+tariff_id).prop('disabled',true);
 	$.post('tariff/edit_modal.php', { entry_id: tariff_id }, function (data) {
 		$('#div_tariffsave_modal').html(data);
+		$('#updatet_btn-'+tariff_id).button('reset');
+		$('#updatet_btn-'+tariff_id).prop('disabled',false);
 	});
 }

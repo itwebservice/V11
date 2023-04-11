@@ -18,8 +18,8 @@
                                     <input type="hidden" id="hotel_tarrif_upload1" name="hotel_tarrif_upload1">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_tarrif3','3')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('table_hotel_tarrif3','3')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif3','3')"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_tarrif3','3')"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -31,14 +31,14 @@
                                         <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
                                         <td><select name="room_cat1" id="room_cat1" style="width:145px;" title="Room Category" class="form-control app_select2"><?php get_room_category_dropdown(); ?></select>
                                         </td>
-                                        <td><input type="text" id="m_occupancy" name="m_occupancy" placeholder="*Max Occupancy" title="Max Occupancy" onchange="validate_balance(this.id)" style="width: 130px;" /></td>
+                                        <td><input type="text" id="m_occupancy" name="m_occupancy" placeholder="*Max Occupancy" title="Max Occupancy" onchange="validate_balance(this.id)" style="width: 140px;" /></td>
                                         <td><input type="text" id="from_date1" class="form-control" name="from_date1" placeholder="Valid From" title="Valid From" value="<?= date('d-m-Y') ?>" onchange="get_to_date(this.id,'to_date1')" style="width: 120px;" /></td>
                                         <td><input type="text" id="to_date1" class="form-control" name="to_date1" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date1' ,'to_date1')" value="<?= date('d-m-Y') ?>" style="width: 120px;" /></td>
                                         <td style='display:none;'><input type="text" id="single_bed" name="single_bed" placeholder="Single Bed" title="Single Bed" onchange="validate_balance(this.id)" /></td>
-                                        <td><input type="text" id="double_bed" name="double_bed" placeholder="Room Cost" title="Room Cost" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
+                                        <td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 130px;" /></td>
                                         <td style='display:none;'><input type="text" id="triple_bed" name="triple_bed" placeholder="Triple Bed" title="Triple Bed" onchange="validate_balance(this.id)" /></td>
-                                        <td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>
-                                        <td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 137px;" /></td>
+                                        <td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 140px;" /></td>
+                                        <td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 145px;" /></td>
                                         <td style='display:none;'><input type="text" id="first_child" name="first_child" placeholder="First Child" title="First Child" onchange="validate_balance(this.id)" /></td>
                                         <td style='display:none;'><input type="text" id="second_child" name="second_child" placeholder="Second Child" title="Second Child" onchange="validate_balance(this.id)" /></td>
                                         <td><input type="text" id="with_bed" name="with_bed" placeholder="Extra Bed" title="Extra Bed" onchange="validate_balance(this.id)" style="width: 120px;" /></td>

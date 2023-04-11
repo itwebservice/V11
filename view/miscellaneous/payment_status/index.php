@@ -91,7 +91,7 @@ var column = [
 	{ title : "S_No."},
 	{ title : "Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Total_Pax"},
 	{ title : "booking_date"},
@@ -177,9 +177,13 @@ list_reflect();
 	}
 function visa_view_modal(misc_id)
 {
-var base_url = $('#base_url').val();
+	$('#packagev_btn-'+misc_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+misc_id).button('loading');
 $.post(base_url+'view/miscellaneous/payment_status/view/index.php', { misc_id : misc_id }, function(data){
   $('#div_package_content_display').html(data);
+		$('#packagev_btn-'+misc_id).prop('disabled',false);
+    	$('#packagev_btn-'+misc_id).button('reset');
 });
 }
 
@@ -195,16 +199,24 @@ function visa_id_dropdown_load(customer_id_filter, visa_id_filter)
 function supplier_view_modal(misc_id)
 {
 	
+	$('#supplierv_btn-'+misc_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+misc_id).button('loading');
 	$.post(base_url+'view/miscellaneous/payment_status/view/supplier_view_modal.php', { misc_id : misc_id }, function(data){
-      $('#div_package_content_display').html(data);
+    	$('#div_package_content_display').html(data);
+		$('#supplierv_btn-'+misc_id).prop('disabled',false);
+    	$('#supplierv_btn-'+misc_id).button('reset');
     });
 }
 function payment_view_modal(misc_id)
 {	
+	$('#paymentv_btn-'+misc_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+misc_id).button('loading');
 	$.post(base_url+'view/miscellaneous/payment_status/view/payment_view_modal.php', { misc_id : misc_id }, function(data){
-      $('#div_package_content_display').html(data);
+    	$('#div_package_content_display').html(data);
+		$('#paymentv_btn-'+misc_id).prop('disabled',false);
+    	$('#paymentv_btn-'+misc_id).button('reset');
     });
 }
 </script>

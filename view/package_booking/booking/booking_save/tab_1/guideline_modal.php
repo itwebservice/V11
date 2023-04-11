@@ -63,8 +63,8 @@
                         <span class="guidline_right pull-left">Please define as per selected From date/To date identify Total Transport Amount in Amount Field?</span>
                      </li>
                      <li class="app_guidline main_block app_info">
-                        <span class="guidline_left pull-left"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;Markup Cost</span>
-                        <span class="guidline_right pull-left">Mark up cost define profit from salling price.</span>
+                        <span class="guidline_left pull-left"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;Markup Amount</span>
+                        <span class="guidline_right pull-left">Markup amount define profit from salling price.</span>
                      </li>
                     <li class="app_guidline main_block app_warning">
                         <span class="guidline_left pull-left"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;>ROE</span>

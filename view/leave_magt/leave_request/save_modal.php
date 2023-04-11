@@ -33,7 +33,7 @@ $emp_id = $_SESSION['emp_id'];
                 <option value="">*Type Of Leave</option>
                 <option value="Casual">Casual</option>
                 <option value="Paid">Paid</option>
-                 <option value="Medical">Medical</option>
+                <option value="Medical">Medical</option>
                 <option value="Maternity">Maternity</option>
                 <option value="Paternity"> Paternity</option>
                 <option value="Leave without Pay">Leave without Pay</option>
@@ -48,7 +48,7 @@ $emp_id = $_SESSION['emp_id'];
 
           <div class="row text-center">
             <div class="col-xs-12">
-              <button class="btn btn-success" id="btn_save"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Request</button>
+              <button class="btn btn-success" id="btn_save"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save Request</button>
             </div>
           </div>
 

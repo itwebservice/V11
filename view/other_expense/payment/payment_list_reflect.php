@@ -112,7 +112,7 @@ $query .= " order by payment_id desc ";
                         <td style="display:flex;">
                             <button class="btn btn-info btn-sm"
                                 onclick="payment_update_modal(<?= $row_expense['payment_id'] ?>)"
-                                title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+                                title="Update Details" id="updater_btn-<?= $row_expense['payment_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
                             <button class="<?= $delete_flag ?> btn btn-danger btn-sm"
                                 onclick="p_delete_entry(<?= $row_expense['payment_id'] ?>)" title="Delete Entry"><i
                                     class="fa fa-trash"></i></button>
@@ -146,10 +146,14 @@ $('#tbl_payment_expense1').dataTable({
 });
 
 function payment_update_modal(payment_id) {
+    $('#updater_btn-'+payment_id).prop('disabled',true);
+    $('#updater_btn-'+payment_id).button('loading');
     $.post('payment/payment_update_modal.php', {
         payment_id: payment_id
     }, function(data) {
         $('#div_payment_update_content').html(data);
+        $('#updater_btn-'+payment_id).prop('disabled',false);
+        $('#updater_btn-'+payment_id).button('reset');
     });
 }
 </script>

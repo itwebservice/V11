@@ -29,14 +29,10 @@ if (isset($_POST['request_id'])) {
     <legend>Hotel Details</legend>
     <div class="row mg_bt_20">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn btn-info btn-sm ico_left"
-                onClick="addRow('tbl_vendor_quotation_dmc_entries',1)"><i
-                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-            <?php if ($request_id == "") { ?>
-            <button type="button" class="btn btn-danger btn-sm ico_left"
-                onClick="deleteRow('tbl_vendor_quotation_dmc_entries')"><i
-                    class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
-            <?php } ?>
+                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_vendor_quotation_dmc_entries',1)"><i class="fa fa-plus"></i></button>
+                <?php if ($request_id == "") { ?>
+                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_vendor_quotation_dmc_entries')"><i class="fa fa-trash"></i></button>
+                <?php } ?>
         </div>
     </div>
     <div class="row">

@@ -8,8 +8,8 @@
 					<thead>
 						<tr class="table-heading-row">
 							<th>S_No.</th>
-							<th>hotel_cost</th>
-							<th>total_cost</th>
+							<th>hotel_AMOUNT</th>
+							<th>total_AMOUNT</th>
 							<th>currency</th>
 						</tr>
 					</thead>

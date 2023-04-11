@@ -6,8 +6,8 @@ $popular_activities = ($query['popular_activities'] != '' && $query['popular_act
 <form id="section_activities">
     <legend>Define Top Tour Activities</legend>
     <div class="row">
-        <div class="col-md-8"> <label class="alert-danger">For saving activity keep checkbox selected!</label> </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-excel btn-sm" title="Note : For saving activity keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
             <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_activities')" title="Add Row"><i
                     class="fa fa-plus"></i></button>
             <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_activities');"

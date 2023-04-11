@@ -581,6 +581,17 @@ function get_financial_year_dropdown($all=true){
     <?php
   }
 }
+//Financial year dropdown
+function get_financial_year_dropdown_filter($financial_year_id){
+
+  $sq_finacial_year = mysqlQuery("select * from financial_year where active_flag!='Inactive' and financial_year_id!='$financial_year_id' order by financial_year_id desc");
+  while($row_financial_year = mysqli_fetch_assoc($sq_finacial_year)){
+  $financial_year = get_date_user($row_financial_year['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($row_financial_year['to_date']);
+  ?>
+  <option value="<?= $row_financial_year['financial_year_id'] ?>"><?= $financial_year  ?></option>
+  <?php
+  }
+}
 
 //Airport Name dropdown
 function get_airport_name_dropdown(){
@@ -756,6 +767,19 @@ function get_train_class_dropdown()
 <?php
 
 }
+//Get Train Class dropdown
+function get_flight_class_dropdown()
+{ ?>
+
+<option value="">Class</option>
+<option value="First Class">First Class</option>
+<option value="Economy">Economy</option>
+<option value="Premium Economy">Premium Economy</option>
+<option value="Business">Business</option>
+<option value="Other">Other</option>
+
+<?php
+} 
 
 //Get app settings Tax Name
 

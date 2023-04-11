@@ -23,33 +23,30 @@ function save_modal()
 		$('#div_modal').html(data);
 	});
 }
-// function list_reflect()
-// {
-// 	$.post('airlines/list_reflect.php', {}, function(data){
-// 		$('#div_list').html(data);
-// 	});
-// }
-// list_reflect();
 var columns = [
-          { title: "S_NO" },
-          { title: "Airline_Name" },
-          { title: "Code" },
-		  { title: "Status" },
-          { title: "Actions" }
-      ];
+		{ title: "S_NO" },
+		{ title: "Airline_Name" },
+		{ title: "Code" },
+		{ title: "Status" },
+		{ title: "Actions" }
+	];
 function list_reflect(){
 	$('#div_list').append('<div class="loader"></div>');
-  $.post('airlines/list_reflect.php', {}, function(data){
-	setTimeout(() => {
-    	pagination_load(data,columns,true, false,20, 'airline_table');
-		$('.loader').remove();
-    }, 1000);
-  });
+	$.post('airlines/list_reflect.php', {}, function(data){
+		setTimeout(() => {
+			pagination_load(data,columns,true, false,20, 'airline_table');
+			$('.loader').remove();
+		}, 1000);
+	});
 }list_reflect();
 function update_modal(airline_id)
 {
+	$('#airline_update-'+airline_id).button('loading');
+	$('#airline_update-'+airline_id).prop('disabled',true);
 	$.post('airlines/update_modal.php', { airline_id : airline_id }, function(data){
 		$('#div_modal').html(data);
+		$('#airline_update-'+airline_id).button('reset');
+		$('#airline_update-'+airline_id).prop('disabled',false);
 	});
 }
 </script>

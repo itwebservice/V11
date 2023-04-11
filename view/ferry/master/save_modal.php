@@ -41,9 +41,7 @@ include '../../../model/model.php';
                                 <ul id="files"></ul>
                                 <input type="hidden" id="image_upload_url" name="image_upload_url" required>
                             </div>&nbsp;(Upload Maximum 3 images)
-                        </div>
-                        <div class="col-sm-12">
-                            <span class="note">Note : Upload Image size below 100KB, resolution : 450X225.</span>
+					        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 100KB, resolution : 450X225."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="ferry_image_urls" id="ferry_image_urls">

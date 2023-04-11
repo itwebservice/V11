@@ -1,13 +1,13 @@
 <?php
 include "../../../model/model.php";
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $login_id = $_SESSION['login_id'];
 $emp_id = $_SESSION['emp_id'];
 $array_s = array();
 $temp_arr = array();
+$financial_year_id = $_POST['financial_year_id'];
 $enquiry_type = $_POST['enquiry_type'];
 $enquiry = $_POST['enquiry'];
 $enquiry_status_filter = $_POST['enquiry_status'];
@@ -194,15 +194,13 @@ while($row = mysqli_fetch_assoc($sq_enquiries)){
 		}
 	}
 	
-	$temp_arr1 = '<button style="display:inline-block" data-toggle="tooltip" class="btn btn-info btn-sm" onclick="followup_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="followup_modal_add'.$row['enquiry_id'].'" title="Add New Followup Details"><i class="fa fa-reply-all"></i></button>';
+	$temp_arr1 = '<button style="display:inline-block" data-toggle="tooltip" class="btn btn-info btn-sm" onclick="followup_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="followup_modal_add-'.$row['enquiry_id'].'" title="Add New Followup Details"><i class="fa fa-reply-all"></i></button>';
 	$actions_string .= $temp_arr1;
 
-	// if($role=='Admin' || $role=='Branch Admin'){
-		array_push($temp_arr['data'],$allocated_to);
-	// }
+	array_push($temp_arr['data'],$allocated_to);
 	$temp_arr2=array(
-		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="update_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="enq_modal_update'.$row['enquiry_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>',   //////////////LEFT HERE
-		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal('.$row['enquiry_id'] .');btnDisableEnable(this.id)" id="enq_modal_view'.$row['enquiry_id'].'" title="View Details"><i class="fa fa-eye"></i></button>'
+		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="update_modal('.$row['enquiry_id'].');btnDisableEnable(this.id)" id="enq_modal_update-'.$row['enquiry_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>',
+		'<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal('.$row['enquiry_id'] .');btnDisableEnable(this.id)" id="enq_modal_view-'.$row['enquiry_id'].'" title="View Details"><i class="fa fa-eye"></i></button>'
 	);
 	foreach($temp_arr2 as $vals) $actions_string .= $vals;
 	if($role=="Admin" || $role=='Branch Admin'){

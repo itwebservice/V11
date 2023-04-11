@@ -22,7 +22,7 @@ if($city_id!=""){
 			<th>Occupation</th>
 			<th>Mobile</th>
 			<th>Contact_Person</th>
-			<th>Action</th>
+			<th>Actions</th>
 			
 		</tr>
 	</thead>
@@ -42,11 +42,10 @@ if($city_id!=""){
 				<td><?= $row_vendors['profession'] ?></td>
 				<td><?= $mobile_no ?></td>
 				<td><?= $row_vendors['contact_person_name'] ?></td>
-				<!-- <td><?= $row_vendors['address'] ?></td> -->
 				<td>
-					<button class="btn btn-info btn-sm" onclick="view_modal(<?= $row_vendors['vendor_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_vendors['vendor_id'] ?>)" id="update_btn-<?= $row_vendors['vendor_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="view_modal(<?= $row_vendors['vendor_id'] ?>)" id="view_btn-<?= $row_vendors['vendor_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
 				
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_vendors['vendor_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

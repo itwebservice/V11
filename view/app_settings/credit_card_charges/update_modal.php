@@ -165,6 +165,7 @@ $(function(){
     rules:{},
     submitHandler:function(form){
 
+        $('#btn_update').prop('disabled',true);
         var base_url = $('#base_url').val();
 
         var entry_id = $('#entry_id').val();
@@ -186,13 +187,19 @@ $(function(){
           var status = $('#status'+d).val();
           
           if(identifier_count=='' || parseInt(identifier_count) > 9){
-            error_msg_alert('Enter valid identifier count(should not greater than 9)'); return false;
+            error_msg_alert('Enter valid identifier count(should not greater than 9)');
+            $('#btn_update').prop('disabled',false);
+            return false;
           }
           
           if(status !== "Inactive" && membership_no !== undefined){
             for(var i=1; i<=parseInt(identifier_count);i++){
               let id_no = $('#identifier'+d+i).val();
-              if(id_no === undefined || id_no == ''){ error_msg_alert('Enter identifier no'+i+' of ME No'+(d+1)); return false;}
+              if(id_no === undefined || id_no == ''){
+                error_msg_alert('Enter identifier no'+i+' of ME No'+(d+1));
+                $('#btn_update').prop('disabled',false);
+                return false;
+              }
               identifier_no_arr1.push(parseInt(id_no));
             }
             membership_details_arr.push({
@@ -205,6 +212,7 @@ $(function(){
         }
         if(membership_details_arr.length === 0){
           error_msg_alert("Atleast one Membership Establishment No is required!");
+          $('#btn_update').prop('disabled',false);
           return false;
         }
         $('#btn_update').button('loading');
@@ -216,8 +224,11 @@ $(function(){
             var msg = data.split('--');
             if(msg[0]=="error"){
               error_msg_alert(msg[1]);
+              $('#btn_update').prop('disabled',false);
+              return false;
             }else{
               msg_alert(data);
+              $('#btn_update').prop('disabled',false);
               update_cache();
               $('#update_modal').modal('hide');  
               $('#update_modal').on('hidden.bs.modal', function(){

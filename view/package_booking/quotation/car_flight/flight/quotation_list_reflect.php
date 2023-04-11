@@ -9,14 +9,17 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 if($status != ''){
 
-	$query = "select * from flight_quotation_master where financial_year_id='$financial_year_id' and status='$status'";
+	$query = "select * from flight_quotation_master where status='$status'";
 }else{
 
-	$query = "select * from flight_quotation_master where financial_year_id='$financial_year_id' and status='1' ";
+	$query = "select * from flight_quotation_master where status='1' ";
+}
+if($financial_year_id!=""){
+	$query .=" and financial_year_id='$financial_year_id'";
 }
 if($from_date!='' && $to_date!=""){
 
@@ -98,7 +101,7 @@ $array_s = array();
 			$emp_name,
 			$pdf_show.$whatsapp_show.' 
 
-			<button class="btn btn-info btn-sm" onclick="update_modal('.$row_quotation['quotation_id'].')" title="Edit Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
+			<button class="btn btn-info btn-sm" onclick="update_modal('.$row_quotation['quotation_id'].')" id="update_btn'.$row_quotation['quotation_id'].'" title="Update Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>
 			
 			<a href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>'
 		), "bg" =>$bg);

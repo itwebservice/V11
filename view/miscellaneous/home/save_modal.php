@@ -35,10 +35,10 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div id="cust_details">
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" class="form-control" readonly>
+									<input type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" class="form-control" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-									<input type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" class="form-control" readonly>
+									<input type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" class="form-control" readonly>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12">
 									<input type="text" id="company_name" class="hidden form-control" name="company_name" title="Company Name" placeholder="Company Name" class="form-control" title="Company Name" readonly>
@@ -79,8 +79,8 @@ $branch_status = $sq['branch_status'];
 
 						<div class="row mg_bt_10">
 							<div class="col-xs-12 text-right text_center_xs">
-								<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_miscellaneous')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-								<button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_miscellaneous')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_miscellaneous')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_miscellaneous');"><i class="fa fa-trash"></i></button>
 							</div>
 						</div>
 
@@ -104,7 +104,7 @@ $branch_status = $sq['branch_status'];
 						<div class="row mg_bt_10">
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 								<small id="basic_show" style="color:red">&nbsp;</small>
-								<input class="form-control" type="text" id="visa_issue_amount" name="visa_issue_amount" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','service_charge');">
+								<input class="form-control" type="text" id="visa_issue_amount" name="visa_issue_amount" placeholder="*Basic Amount" title="Basic Amount" onchange="validate_balance(this.id);get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','service_charge');">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small id="service_show" style="color:red">&nbsp;</small>
@@ -131,7 +131,7 @@ $branch_status = $sq['branch_status'];
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small id="markup_show" style="color:red">&nbsp;</small>
-								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost" onchange="get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','markup');">
+								<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('balance_date','visa_issue_amount','payment_mode','service_charge','markup','save','true','markup');">
 							</div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>
@@ -177,7 +177,7 @@ $branch_status = $sq['branch_status'];
 								</select>
 							</div>
 							<div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
-								<input class="form-control" type="text" id="payment_amount" name="payment_amount" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','bank_name','transaction_id','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
+								<input class="form-control" type="text" id="payment_amount" name="payment_amount" placeholder="*Payment Amount" title="Payment Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','bank_name','transaction_id','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
 							</div>
 						</div>
 						<div class="row mg_bt_10">

@@ -40,14 +40,12 @@ include "../../../model/model.php";
             </div>
           </div>
           <div class="col-xs-3 text-right text_center_xs">
-              <button type="button" class="btn btn-excel btn-sm" title="Add row" onClick="addRow('default_program_list')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('default_program_list')"><i class="fa fa-plus"></i></button>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12">  
-            <span style="color: red;" class="note" data-original-title="" title="">Note : Character limit for Special attraction is 85 characters, for Day-wise program is 2000 characters and for Overnight stay is 30 characters.</span>
-          </div>
-          <div class="col-sm-12 mg_tp_10"> 
+          <div class="col-sm-12"> 
+		        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Character limit for Special attraction is 85 characters, for Day-wise program is 2000 characters and for Overnight stay is 30 characters."><i class="fa fa-question-circle"></i></button> 
           <span style="color: red;" class="note" data-original-title="" title="">For saving daywise program keep checkbox selected!</span>
           </div>
         </div>

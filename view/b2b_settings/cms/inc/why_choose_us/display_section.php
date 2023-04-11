@@ -22,8 +22,8 @@ if($sq_settings != 0){
                 ?>
                 <div class="row mg_bt_20">
                     <div class="col-md-2">
-                        <input class="btn btn-sm <?= $button_class?>" style="padding-left: 10px !important;" type="button" value="<?= $button_text?>" id="select_image" onclick="get_why_choose_images('imagel<?=$i?>');" data-toggle="tooltip"/>
-                        <input type="hidden" value="<?= $newUrl ?>" id="imagel<?=$i?>"/>
+                        <input class="btn btn-sm <?= $button_class?>" style="padding-left: 10px !important;" type="button" value="<?= $button_text?>" id="image_btn-<?=$i?>" onclick="get_why_choose_images('imagel-<?=$i?>');" data-toggle="tooltip"/>
+                        <input type="hidden" value="<?= $newUrl ?>" id="imagel-<?=$i?>"/>
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <input type="text" id="titlel<?=$i?>" placeholder="Enter Title" title="Enter Title" data-toggle="tooltip" class="form-control" onchange="validate_char_size(this.id,40);" value="<?php echo $images[$i]->title; ?>"/>

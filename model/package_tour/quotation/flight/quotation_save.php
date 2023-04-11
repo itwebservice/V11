@@ -9,6 +9,7 @@ public function quotation_master_save()
 	$customer_name = $_POST['customer_name'];
     $email_id = $_POST['email_id'];
     $mobile_no = $_POST['mobile_no'];
+	$country_code = $_POST['country_code'];
 	$quotation_date =  $_POST['quotation_date'];
 	$subtotal =  $_POST['subtotal'];
 	$markup_cost =  $_POST['markup_cost'];
@@ -50,14 +51,15 @@ public function quotation_master_save()
 	$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(quotation_id) as max from flight_quotation_master"));
 	$quotation_id = $sq_max['max']+1;
 	$bsmValues = json_encode($bsmValues);
-	$sq_quotation = mysqlQuery("INSERT INTO flight_quotation_master ( quotation_id, enquiry_id, login_id, branch_admin_id,financial_year_id, emp_id,customer_name,  email_id, mobile_no,subtotal,markup_cost,markup_cost_subtotal,service_tax,service_charge,quotation_cost,quotation_date,bsm_values,roundoff,created_at,status) VALUES ('$quotation_id','$enquiry_id','$login_id', '$branch_admin_id','$financial_year_id', '$emp_id', '$customer_name','$email_id','$mobile_no','$subtotal','$markup_cost','$markup_cost_subtotal','$service_tax','$service_charge','$total_tour_cost','$quotation_date','$bsmValues','$roundoff','$created_at','1')");
+	$whatsapp_no = $country_code.$mobile_no;
+	$sq_quotation = mysqlQuery("INSERT INTO flight_quotation_master ( quotation_id, enquiry_id, login_id, branch_admin_id,financial_year_id, emp_id,customer_name,  email_id, mobile_no,country_code,whatsapp_no,subtotal,markup_cost,markup_cost_subtotal,service_tax,service_charge,quotation_cost,quotation_date,bsm_values,roundoff,created_at,status) VALUES ('$quotation_id','$enquiry_id','$login_id', '$branch_admin_id','$financial_year_id', '$emp_id', '$customer_name','$email_id','$whatsapp_no','$country_code','$mobile_no','$subtotal','$markup_cost','$markup_cost_subtotal','$service_tax','$service_charge','$total_tour_cost','$quotation_date','$bsmValues','$roundoff','$created_at','1')");
 
 	if($sq_quotation){
 		////////////Enquiry Save///////////
 		if($enquiry_id == 0){
 			$sq_max_id = mysqli_fetch_assoc(mysqlQuery("select max(enquiry_id) as max from enquiry_master"));
 			$enquiry_id1 = $sq_max_id['max']+1;
-			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Flight Ticket','Strong', '$customer_name', '$mobile_no', '$mobile_no', '$email_id','', '$emp_id','', '$quotation_date', '$quotation_date', '', '$enquiry_content')");
+			$sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content,country_code ) values ('$enquiry_id1', '$login_id', '$branch_admin_id','$financial_year_id', 'Flight Ticket','Strong', '$customer_name', '$mobile_no', '$mobile_no', '$email_id','', '$emp_id','', '$quotation_date', '$quotation_date', '', '$enquiry_content','$country_code')");
 			if($sq_enquiry){
 				$sq_quot_update = mysqlQuery("update flight_quotation_master set enquiry_id='$enquiry_id1' where quotation_id='$quotation_id'");
 			}

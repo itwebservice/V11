@@ -140,7 +140,7 @@ $exc_name = ($sq_exc['excursion_name']);
 							<div class="row mg_bt_10">
 								<h5 style='border-bottom: 1px solid #e5e5e5;'>Basic Costing</h5>
 								<div class="row text-right mg_bt_10">
-									<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                	<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i></button>
 								</div>
 								<div class="row">
 								<div class="col-md-12">
@@ -170,7 +170,7 @@ $exc_name = ($sq_exc['excursion_name']);
 													<option value=''>Amount In</option>
 													<option value='Flat'>Flat</option>
 													<option value='Percentage'>Percentage</option></select></td>
-												<td><input type='number' id="amount" name="amount" placeholder="*Markup Amount" class="form-control" title="Markup Amount" style="width: 147px;" onchange="validate_balance(this.id);"/></td>
+												<td><input type='number' id="amount" name="amount" placeholder="Markup Amount" class="form-control" title="Markup Amount" style="width: 147px;" onchange="validate_balance(this.id);"/></td>
 												<td><input type="hidden" id="entry_id" name="entry_id" /></td>
 											</tr>
 										<?php }
@@ -200,7 +200,7 @@ $exc_name = ($sq_exc['excursion_name']);
 															<option value=''>Amount In</option>
 															<option value='Flat'>Flat</option>
 															<option value='Percentage'>Percentage</option></select></td>
-														<td><input type='number' id="amount-u" name="amount" placeholder="*Markup Amount" value='<?= $row_basic['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 165px;" onchange="validate_balance(this.id);"/></td>
+														<td><input type='number' id="amount-u" name="amount" placeholder="Markup Amount" value='<?= $row_basic['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 165px;" onchange="validate_balance(this.id);"/></td>
 														<td><input type="hidden" id="entry_id" name="entry_id" value='<?= $row_basic['entry_id'] ?>' /></td>
 													</tr>
 													<script>
@@ -218,7 +218,7 @@ $exc_name = ($sq_exc['excursion_name']);
 							<div class="row mg_bt_10">
 								<h5 style='border-bottom: 1px solid #e5e5e5;'>Offers/Coupons</h5>
 									<div class="row text-right mg_bt_10">
-										<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i></button>
 									</div>
 									<div class="row">
 									<div class="col-md-12">
@@ -319,11 +319,7 @@ $exc_name = ($sq_exc['excursion_name']);
 					<ul id="files" ></ul>
 					<input type="hidden" id="photo_upload_url_i1" name="photo_upload_url_i1" value="<?= $images_url ?>">
 				</div>(Upload Maximum 3 images)
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6">  
-				<span style="color: red;" class="note">Note : Image size should be less than 100KB, resolution : 900X450.</span>
+				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image size should be less than 100KB,resolution : 900X450."><i class="fa fa-question-circle"></i></button>
 			</div>
 		</div>
 		<div class="row mg_tp_20 mg_bt_20" id="images_list"></div>
@@ -524,14 +520,6 @@ $(function(){
 				}
 				if(child_cost=='' && row.cells[0].childNodes[0].checked){
 					error_msg_alert('Enter Child Ticket Cost in Row-'+(i+1));
-					return false;
-				}
-				if(markup_in=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Select Markup In in Row-'+(i+1));
-					return false;
-				}
-				if(markup_cost=='' && row.cells[0].childNodes[0].checked){
-					error_msg_alert('Enter Markup Cost in Row-'+(i+1));
 					return false;
 				}
 				transfer_option_array.push(transfer_option);

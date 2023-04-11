@@ -16,14 +16,22 @@ function master_list_reflect () {
 master_list_reflect();
 
 function edit_modal (entry_id) {
+    $('#update_btn-'+entry_id).button('loading');
+	$('#update_btn-'+entry_id).prop('disabled',true);
 	$.post('master/edit_modal.php', { entry_id: entry_id }, function (data) {
 		$('#div_edit_modal').html(data);
+		$('#update_btn-'+entry_id).button('reset');
+		$('#update_btn-'+entry_id).prop('disabled',false);
 	});
 }
 
 function service_time_modal () {
+    $('#service_time_btn').button('loading');
+	$('#service_time_btn').prop('disabled',true);
 	$.post('master/service_time_add.php', {}, function (data) {
 		$('#div_view_modal').html(data);
+		$('#service_time_btn').button('reset');
+		$('#service_time_btn').prop('disabled',false);
 	});
 }
 

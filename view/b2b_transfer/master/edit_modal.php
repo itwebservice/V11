@@ -78,9 +78,7 @@ $vehicle_data = json_decode($sq_location['vehicle_data']);
                                 <input type="hidden" id="image_upload_url1" name="image_upload_url1"
                                     value="<?= $sq_location['image_url'] ?>" required>
                             </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <span class="note">Note : Upload Image size below 100KB, resolution : 900X450.</span>
+		                    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 100KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row text-center mg_tp_30">

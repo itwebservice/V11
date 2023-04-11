@@ -104,7 +104,7 @@ if($sale_type == 'Visa'){
 		number_format($total_sale,2),
 		($vendor_type !='')?$vendor_type:'NA',
 		($vendor_name !='')?$vendor_name:'NA',
-		'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Visa Booking'.'\','.$row_visa['visa_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+		'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Visa Booking'.'\','.$row_visa['visa_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_visa['visa_id'].'"><i class="fa fa-eye"></i></button>',
 		'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 		$emp
 		), "bg" =>$bg);
@@ -194,7 +194,7 @@ if($sale_type == 'Excursion'){
 			number_format($total_sale,2),
 			($vendor_type !='')?$vendor_type:'NA',
 			($vendor_name !='')?$vendor_name:'NA',
-			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Excursion Booking'.'\','.$row_passport['exc_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Excursion Booking'.'\','.$row_passport['exc_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['exc_id'].'"><i class="fa fa-eye"></i></button>',
 			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 			$emp), "bg" =>$bg);
 		array_push($array_s,$temp_arr);
@@ -285,7 +285,7 @@ if($sale_type == 'Bus'){
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
-				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Bus Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Bus Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['booking_id'].'"><i class="fa fa-eye"></i></button>',
 				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 				$emp				
 				), "bg" =>$bg);
@@ -376,7 +376,7 @@ if($sale_type == 'Hotel'){
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='') ? $vendor_name : 'NA',
-				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Hotel Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Hotel Booking'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['booking_id'].'"><i class="fa fa-eye"></i></button>',
 				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 				$emp
 			), "bg" =>$bg);
@@ -465,7 +465,7 @@ if($sale_type == 'Car Rental'){
 			number_format($total_sale,2),
 			($vendor_type !='')?$vendor_type:'NA',
 			($vendor_name !='')?$vendor_name:'NA',
-			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Car Rental'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Car Rental'.'\','.$row_passport['booking_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['booking_id'].'"><i class="fa fa-eye"></i></button>',
 			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 			$emp
 			), "bg" =>$bg);
@@ -569,7 +569,7 @@ if($sale_type == 'Flight Ticket'){
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
-				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Ticket Booking'.'\','.$row_passport['ticket_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Ticket Booking'.'\','.$row_passport['ticket_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['ticket_id'].'"><i class="fa fa-eye"></i></button>',
 				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 				$emp
 				), "bg" =>$bg);
@@ -653,7 +653,7 @@ if($sale_type == 'Train Ticket'){
 				number_format($total_sale,2),
 				($vendor_type !='')?$vendor_type:'NA',
 				($vendor_name !='')?$vendor_name:'NA',
-				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Train Ticket Booking'.'\','.$row_passport['train_ticket_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+				'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Train Ticket Booking'.'\','.$row_passport['train_ticket_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_passport['train_ticket_id'].'"><i class="fa fa-eye"></i></button>',
 				'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 				$emp				
 				), "bg" =>$bg);
@@ -743,7 +743,7 @@ if($sale_type == 'Miscellaneous'){
 			number_format($total_sale,2),
 			($vendor_type !='')?$vendor_type:'NA',
 			($vendor_name !='') ? $vendor_name : 'NA',
-			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Miscellaneous Booking'.'\','.$row_visa['misc_id'].')" title="" data-original-title="View Details"><i class="fa fa-eye"></i></button>',
+			'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="purchases_display_modal(\''.'Miscellaneous Booking'.'\','.$row_visa['misc_id'].')" title="" data-original-title="View Details" id="supplierv_btn-'.$row_visa['misc_id'].'"><i class="fa fa-eye"></i></button>',
 			'<b>'.number_format($profit_amount,2).'</b>'.' ('.$profit_loss_per.'% '.$var.')',
 			$emp
 		), "bg" =>$bg);

@@ -777,7 +777,7 @@ $incentive_total = 0; $paid_amount = 0; $balance_amount = 0;
 				$booking_id = $other_data_arr['booking_id'];
 				$incentive_count = mysqli_num_rows(mysqlQuery("select * from booker_sales_incentive where booking_id='$booking_id' and emp_id='$emp_id'  and service_type='$other_data_arr[tour_type]'"));
 				if($other_data_arr['tour_type']!="Group Tour" && $incentive_count==0 && ($role== 'Admin' || $role=='Branch Admin' || $role=='Accountant')){
-					$edit='<a href="javascript:void(0)" onclick="incentive_edit_modal(\''.$other_data_arr['booking_id'] .'\',\''. $other_data_arr['emp_id'] .'\',\''.$other_data_arr['tour_type'].'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit this Incentive"><i class="fa fa-pencil-square-o"></i></a>';
+					$edit='<a href="javascript:void(0)" id="update_btn-'.$other_data_arr['booking_id'].'" onclick="incentive_edit_modal(\''.$other_data_arr['booking_id'] .'\',\''. $other_data_arr['emp_id'] .'\',\''.$other_data_arr['tour_type'].'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></a>';
 					
 				}else{
 					$edit = 'NA';

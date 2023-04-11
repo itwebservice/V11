@@ -60,10 +60,10 @@ else if($reflections[0]->tax_apply_on == '3') {
 							</select>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-							<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" readonly>
+							<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile No" title="Mobile No" readonly>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-							<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile No" title="Mobile No" readonly>
+							<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" readonly>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 							<input type="text" id="company_name1" class="hidden" name="company_name1" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
@@ -91,7 +91,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 
 						<div class="row mg_bt_10">
 							<div class="col-xs-12 text-right text_center_xs">
-								<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_miscellaneous_update')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_miscellaneous_update')"><i class="fa fa-plus"></i></button>
 							</div>
 						</div>
 
@@ -117,7 +117,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 												$count++;
 										?>
 												<tr class="<?= $bg ?>">
-													<td><input class="css-checkbox" id="chk_visa<?= $offset . $count ?>_d" type="checkbox" checked disabled><label class="css-label" for="chk_visa<?= $offset ?>"> <label></td>
+													<td><input class="css-checkbox" id="chk_visa<?= $offset . $count ?>_d" type="checkbox" checked><label class="css-label" for="chk_visa<?= $offset ?>"> <label></td>
 													<td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
 													<td><input type="text" id="first_name<?= $offset . $count ?>_d" onchange="fname_validate(this.id)" name="first_name<?= $offset . $count ?>_d" placeholder="First Name" title="First Name" value="<?= $row_entry['first_name'] ?>" /></td>
 													<td><input type="text" id="middle_name<?= $offset . $count ?>_d" name="middle_name<?= $offset . $count ?>_d" onchange="fname_validate(this.id)" placeholder="Middle Name" title="Middle Name" value="<?= $row_entry['middle_name'] ?>" /></td>
@@ -202,7 +202,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 							<div class="row">
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="basic_show1" style="color:red"><?= ($inclusive_b == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_b ?></span></small>
-									<input type="text" id="visa_issue_amount1" name="visa_issue_amount1" placeholder="Amount" title="Amount" value="<?= $visa_issue_amount ?>" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','basic')">
+									<input type="text" id="visa_issue_amount1" name="visa_issue_amount1" placeholder="Basic Amount" title="Basic Amount" value="<?= $visa_issue_amount ?>" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','basic')">
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="service_show1" style="color:red"><?= ($inclusive_s == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_s ?></span></small>
@@ -213,7 +213,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 									<small id="markup_show1" style="color:red"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_m ?></span></small>
-									<input type="text" id="markup1" name="markup1" value="<?= $markup ?>" placeholder="Markup" title="Markup" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','markup');">
+									<input type="text" id="markup1" name="markup1" value="<?= $markup ?>" placeholder="Markup Amount" title="Markup Amount" onchange="validate_balance(this.id);get_auto_values('balance_date1','visa_issue_amount1','payment_mode','service_charge1','markup1','update','true','markup');">
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 									<input type="text" id="service_tax_markup1" name="service_tax_markup1" value="<?= $sq_visa_info['service_tax_markup'] ?>" placeholder="Markup Tax" title="Markup Tax" readonly>
@@ -373,6 +373,11 @@ else if($reflections[0]->tax_apply_on == '3') {
 				var narration = $('#narration1').val();
 				var service = $('#service1').val();
 
+				if (service == '') {
+					error_msg_alert("Enter Services in Service details!");
+					$('#misc_update').prop('disabled', false);
+					return false;
+				}
 				var first_name_arr = new Array();
 				var middle_name_arr = new Array();
 				var last_name_arr = new Array();
@@ -382,20 +387,26 @@ else if($reflections[0]->tax_apply_on == '3') {
 				var issue_date_arr = new Array();
 				var expiry_date_arr = new Array();
 				var entry_id_arr = new Array();
+				var e_checkbox_arr = [];
 
 				var table = document.getElementById("tbl_dynamic_miscellaneous_update");
 				var rowCount = table.rows.length;
 
-				if (service == '') {
-					error_msg_alert("Enter Services in Service details!");
+				var checked_count = 0;
+				for (var i = 0; i < rowCount; i++) {
+					var row = table.rows[i];
+					if (row.cells[0].childNodes[0].checked) {
+						checked_count++;
+					}
+				}
+				if (checked_count == 0) {
+					error_msg_alert("Atleast one passenger details is required!");
 					$('#misc_update').prop('disabled', false);
 					return false;
 				}
 
 				for (var i = 0; i < rowCount; i++) {
 					var row = table.rows[i];
-
-					if (row.cells[0].childNodes[0].checked) {
 
 						var first_name = row.cells[2].childNodes[0].value;
 						var middle_name = row.cells[3].childNodes[0].value;
@@ -414,17 +425,19 @@ else if($reflections[0]->tax_apply_on == '3') {
 
 						var msg = "";
 
-						if (first_name == "") {
-							msg += "First name is required in row:" + (i + 1) + "<br>";
-						}
-						if (passport_id != "") {
-							if (issue_date == "") {
-								msg += "Issue Date is required in row:" + (i + 1) + "<br>";
+						if (row.cells[0].childNodes[0].checked) {
+							if (first_name == "") {
+								msg += "First name is required in row:" + (i + 1) + "<br>";
 							}
-							if (expiry_date == "") {
-								msg += "Expiry Date is required in row:" + (i + 1) + "<br>";
-							}
+							if (passport_id != "") {
+								if (issue_date == "") {
+									msg += "Issue Date is required in row:" + (i + 1) + "<br>";
+								}
+								if (expiry_date == "") {
+									msg += "Expiry Date is required in row:" + (i + 1) + "<br>";
+								}
 
+							}
 						}
 
 
@@ -443,8 +456,8 @@ else if($reflections[0]->tax_apply_on == '3') {
 						issue_date_arr.push(issue_date);
 						expiry_date_arr.push(expiry_date);
 						entry_id_arr.push(entry_id);
+                		e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
 
-					}
 				}
 				var misc_sc = $('#misc_sc').val();
 				var misc_markup = $('#misc_markup').val();
@@ -502,7 +515,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 								passport_id_arr: passport_id_arr,
 								issue_date_arr: issue_date_arr,
 								expiry_date_arr: expiry_date_arr,
-								entry_id_arr: entry_id_arr,
+								entry_id_arr: entry_id_arr,e_checkbox_arr:e_checkbox_arr,
 								due_date1: due_date1,
 								balance_date1: balance_date1,
 								service: service,

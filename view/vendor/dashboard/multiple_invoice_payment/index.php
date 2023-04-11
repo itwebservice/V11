@@ -32,7 +32,7 @@ $branch_status = $_POST['branch_status'];
           <select name="estimate_type2" id="estimate_type2" title="Purchase Type" onchange="payment_for_data_load(this.value, 'div_payment_for_content_i', '2')">
             <option value="">Purchase Type</option>
             <?php 
-            $sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+            $sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
             while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
               ?>
               <option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>
@@ -99,8 +99,12 @@ function payment_list_reflect()
 }
 payment_list_reflect();
 function payment_update_modal(payment_id){
+    $('#updatep1_btn-'+payment_id).button('loading');
+    $('#updatep1_btn-'+payment_id).prop('disabled',true);
 	$.post('payment/payment_update_modal.php', { payment_id : payment_id }, function(data){
 		$('#div_payment_update_content').html(data);
+		$('#updatep1_btn-'+payment_id).button('reset');
+		$('#updatep1_btn-'+payment_id).prop('disabled',false);
 		payment_list_reflect();
 	});
 }

@@ -81,8 +81,12 @@ function hotel_name_list_load(id){
     });
 }
 function view_modal(pricing_id){
+    $('#viewt_btn-'+pricing_id).button('loading');
+    $('#viewt_btn-'+pricing_id).prop('disabled',true);
     $.post('b2b_tarrif/view/index.php', {pricing_id : pricing_id}, function(data){
         $('#div_view_modal').html(data);
+        $('#viewt_btn-'+pricing_id).button('reset');
+        $('#viewt_btn-'+pricing_id).prop('disabled',false);
     });
 }
 </script>

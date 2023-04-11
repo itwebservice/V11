@@ -80,13 +80,13 @@ $sq_tariff = mysqli_fetch_assoc(mysqlQuery("select * from ferry_tariff where ent
                           </select></td>
                           <td><input type="text" id="adult_cost<?= $count ?>-u" name="adult_cost" placeholder="*Adult Cost" title="Adult Cost" onchange="validate_balance(this.id)" style="width: 110px;" value="<?= $row_tariffentries['adult_cost'] ?>"/></td>
                           <td><input type="text" id="child_cost<?= $count ?>-u" name="child_cost" placeholder="*Child Cost" title="Child Cost" onchange="validate_balance(this.id)" style="width: 110px;" value="<?= $row_tariffentries['child_cost'] ?>"/></td>
-                          <td><input type="text" id="infant_cost<?= $count ?>-u" name="infant_cost" placeholder="*Infant Cost" title="Infant Cost" onchange="validate_balance(this.id)" style="width: 110px;" value="<?= $row_tariffentries['infant_cost'] ?>"/></td>
+                          <td><input type="text" id="infant_cost<?= $count ?>-u" name="infant_cost" placeholder="Infant Cost" title="Infant Cost" onchange="validate_balance(this.id)" style="width: 110px;" value="<?= $row_tariffentries['infant_cost'] ?>"/></td>
                           <td><select name="markup_in" id="markup_in<?= $count ?>-u" style="width: 125px" class="form-control app_select2" title="Markup In">
                             <option value="<?= $row_tariffentries['markup_in'] ?>"><?= $row_tariffentries['markup_in'] ?></option>
                             <option value=''>Markup In</option>
                             <option value='Flat'>Flat</option>
                             <option value='Percentage'>Percentage</option></select></td>
-                          <td><input type='number' id="amount<?= $count ?>-u" name="amount" placeholder="*Markup Amount" value='<?= $row_tariffentries['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 147px;"/></td>
+                          <td><input type='number' id="amount<?= $count ?>-u" name="amount" placeholder="Markup Amount" value='<?= $row_tariffentries['markup_cost'] ?>' class="form-control" title="Markup Amount" style="width: 147px;"/></td>
                           <td><select name="ucurrency_code" id="ucurrency_code<?= $count ?>-u" title="Currency" style="width:130px" class="form-control app_select2">
                                 <option value="<?= $sq_currency1['id'] ?>"><?= $sq_currency1['currency_code'] ?></option>
                                 <option value=''>*Select Currency</option>
@@ -229,21 +229,6 @@ $(function(){
             }
             if(child==''){
               error_msg_alert('Enter child cost in Row-'+(i+1));
-              $('#tariff_update').prop('disabled',false);
-              return false;
-            }
-            if(infant==''){
-              error_msg_alert('Enter infant cost in Row-'+(i+1));
-              $('#tariff_update').prop('disabled',false);
-              return false;
-            }
-            if(markup_in==''){
-              error_msg_alert('Select markup-in in Row-'+(i+1));
-              $('#tariff_update').prop('disabled',false);
-              return false;
-            }
-            if(markup_cost==''){
-              error_msg_alert('Enter markup cost in Row-'+(i+1));
               $('#tariff_update').prop('disabled',false);
               return false;
             }

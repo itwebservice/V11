@@ -38,7 +38,7 @@ $branch_status = $_POST['branch_status'];
                 <input type="text" id="f_name" name="f_name" onchange="fname_validate(this.id)" placeholder="Favouring Name" class="form-control" title="Favouring Name" >
               </div>
               <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
-                <input type="text" id="ins_no" name="ins_no" placeholder="*Instrument Number" onchange="validate_spaces(this.id); validate_specialChar(this.id);" title="Instrument Number" class="form-control" >
+                <input type="text" id="ins_no" name="ins_no" placeholder="Instrument Number" onchange="validate_spaces(this.id); validate_specialChar(this.id);" title="Instrument Number" class="form-control" >
               </div>
             </div>
             <div class="row">
@@ -90,7 +90,6 @@ $('#frm_save').validate({
           trans_type : { required: true },
           payment_amount : { required: true, number: true },
           payment_date : { required: true },
-          ins_no : { required: true },
           ins_date : { required: true },
   },
   submitHandler:function(form){

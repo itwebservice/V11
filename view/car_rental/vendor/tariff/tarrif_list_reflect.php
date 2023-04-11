@@ -44,12 +44,8 @@ if ($vehicle_name != "") {
                         <td><?= $row_venndor['tour_type'] ?></td>
 
                         <td>
-                            <button class="btn btn-info btn-sm"
-                                onclick="vendor_view_modal(<?= $row_venndor['entry_id'] ?>)" title="View Details"><i
-                                    class="fa fa-eye"></i></button>
-                            <button class="btn btn-info btn-sm"
-                                onclick="vendor_update_modal(<?= $row_venndor['entry_id'] ?>)" title="Edit Details"><i
-                                    class="fa fa-pencil-square-o"></i> </button>
+                            <button class="btn btn-info btn-sm" onclick="vendor_update_modal(<?= $row_venndor['entry_id'] ?>)" title="Update Details" id="updatet_btn-<?= $row_venndor['entry_id'] ?>"><i class="fa fa-pencil-square-o"></i> </button>
+                            <button class="btn btn-info btn-sm" onclick="vendor_view_modal(<?= $row_venndor['entry_id'] ?>)" title="View Details" id="viewt_btn-<?= $row_venndor['entry_id'] ?>"><i class="fa fa-eye"></i></button>
                         </td>
                     </tr>
                     <?php

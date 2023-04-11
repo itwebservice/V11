@@ -38,8 +38,8 @@
 <div class="row mg_tp_20">
 	<div class="col-md-2">
 		<small id="markup_show">&nbsp;</small>
-		<small>Markup Cost</small>
-		<input type="text" id="markup_cost" name="markup_cost" placeholder="Markup Cost" title="Markup Cost" onchange="flight_quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_charge');" value="0.00">  
+		<small>Markup Amount</small>
+		<input type="text" id="markup_cost" name="markup_cost" placeholder="Markup Amount" title="Markup Amount" onchange="flight_quotation_cost_calculate();validate_balance(this.id);get_auto_values('quotation_date','subtotal','payment_mode','service_charge','markup_cost','save','false','service_charge');" value="0.00">  
 	</div>
 	<div class="col-md-3">
 		<small>Select Markup Tax</small>
@@ -108,6 +108,7 @@ $('#frm_tab3').validate({
 		var email_id = $('#email_id').val();
 
 		var mobile_no = $('#mobile_no').val();
+		var country_code = $('#country_code').val();
 
 		var quotation_date = $('#quotation_date').val();
 
@@ -272,7 +273,7 @@ $('#frm_tab3').validate({
 
 			url: base_url+'controller/package_tour/quotation/flight/quotation_save.php',
 
-			data:{ enquiry_id : enquiry_id , login_id : login_id, emp_id : emp_id, customer_name : customer_name, email_id : email_id, mobile_no : mobile_no , quotation_date : quotation_date, subtotal : subtotal,markup_cost:markup_cost,markup_cost_subtotal : markup_cost_subtotal, service_tax : service_tax ,service_charge : service_charge ,total_tour_cost : total_tour_cost, from_sector_arr : from_sector_arr, to_sector_arr : to_sector_arr,airline_name_arr : airline_name_arr , plane_class_arr : plane_class_arr, arraval_arr : arraval_arr, dapart_arr : dapart_arr, from_city_id_arr : from_city_id_arr , to_city_id_arr : to_city_id_arr, branch_admin_id : branch_admin_id,financial_year_id :financial_year_id, bsmValues : bsmValues, roundoff : roundoff, enquiry_content : enquiry_content, total_adult_arr : total_adult_arr, total_child_arr : total_child_arr, total_infant_arr : total_infant_arr},
+			data:{ enquiry_id : enquiry_id , login_id : login_id, emp_id : emp_id, customer_name : customer_name, email_id : email_id, mobile_no : mobile_no ,country_code:country_code, quotation_date : quotation_date, subtotal : subtotal,markup_cost:markup_cost,markup_cost_subtotal : markup_cost_subtotal, service_tax : service_tax ,service_charge : service_charge ,total_tour_cost : total_tour_cost, from_sector_arr : from_sector_arr, to_sector_arr : to_sector_arr,airline_name_arr : airline_name_arr , plane_class_arr : plane_class_arr, arraval_arr : arraval_arr, dapart_arr : dapart_arr, from_city_id_arr : from_city_id_arr , to_city_id_arr : to_city_id_arr, branch_admin_id : branch_admin_id,financial_year_id :financial_year_id, bsmValues : bsmValues, roundoff : roundoff, enquiry_content : enquiry_content, total_adult_arr : total_adult_arr, total_child_arr : total_child_arr, total_infant_arr : total_infant_arr},
 
 			success: function(message){
 

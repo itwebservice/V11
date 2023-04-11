@@ -22,20 +22,17 @@ function getTodaysItenaryByPackage($id, $selectedDate)
     $first = 0;
     global $i;
     $usedId = 0;
-    //date('Y-m-d', strtotime($Date. ' + 1 days'));
     while ($data = mysqli_fetch_assoc($res)) {
 
         if (!empty($selectedDate)) {
             if ($first == 0) {
                 $date = new DateTime($data['tour_from_date']);
-                // $date = $date->format('Y-m-d');
             }
 
             if ($date >= new DateTime($data['tour_from_date'])  &&  $date <= new DateTime($data['tour_to_date'])) {
                 if ($date->format('Y-m-d') == $selectedDate) {
 
                     if ($usedId != $data['booking_id']) {
-                        //return $data[$field];
                         $getPassenger = getPassengers($data['booking_id']);
                         $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$data[customer_id]'"));
                         if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
@@ -55,11 +52,6 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                             substr($data['day_wise_program'], 0, 100),
                             $data['stay'],
                             $data['meal_plan']
-
-
-                            // '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
-
-
                         ), "bg" => '');
                         $usedId = $data['booking_id'];
                     }
@@ -91,7 +83,6 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                         $yr = explode("-", $date);
                         $year =$yr[0];
                         $bookedId =  get_package_booking_id($data['booking_id'],$year);
-                        //return $data[$field];
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -100,10 +91,6 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                             substr($data['day_wise_program'], 0, 100),
                             $data['stay'],
                             $data['meal_plan']
-
-
-                            // '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
-
 
                         ), "bg" => '');
                         $usedId = $data['booking_id'];
@@ -132,14 +119,12 @@ function getTodaysItenary($id, $selectedDate)
         if (!empty($selectedDate)) {
             if ($first == 0) {
                 $date = new DateTime($data['tour_from_date']);
-                // $date = $date->format('Y-m-d');
             }
 
             if ($date >= new DateTime($data['tour_from_date'])  &&  $date <= new DateTime($data['tour_to_date'])) {
                 if ($date->format('Y-m-d') == $selectedDate) {
 
                     if ($usedId != $data['booking_id']) {
-                        //return $data[$field];
                         $getPassenger = getPassengers($data['booking_id']);
                         $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$data[customer_id]'"));
                         if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
@@ -161,11 +146,6 @@ function getTodaysItenary($id, $selectedDate)
                             substr($data['day_wise_program'], 0, 100),
                             $data['stay'],
                             $data['meal_plan']
-
-
-                            // '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
-
-
                         ), "bg" => '');
                         $usedId = $data['booking_id'];
                     }
@@ -184,7 +164,6 @@ function getTodaysItenary($id, $selectedDate)
                 if ($date->format('Y-m-d') == date('Y-m-d')) {
 
                     if ($usedId != $data['booking_id']) {
-                        //return $data[$field];
                         $getPassenger = getPassengers($data['booking_id']);
                         $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$data[customer_id]'"));
                         if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
@@ -204,10 +183,6 @@ function getTodaysItenary($id, $selectedDate)
                             substr($data['day_wise_program'], 0, 100),
                             $data['stay'],
                             $data['meal_plan']
-
-
-                            // '<button class="btn btn-info btn-sm" onclick="view_desti_wise_modal(' . $data['dest_id'] . ')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
-
 
                         ), "bg" => '');
                         $usedId = $data['booking_id'];

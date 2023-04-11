@@ -209,6 +209,14 @@ $quotation_cost = currency_conversion($currency, $currency, $sq_quotation['quota
           </div>
         </div>
       </div>
+      <?php
+      if($quot_note!=''){?>
+        <div class="row mg_tp_10">
+          <div class="col-md-12">
+            <?php echo $quot_note; ?>
+          </div>
+        </div>
+      <?php } ?>
       </div>
     </section>
   </section>

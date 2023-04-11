@@ -18,7 +18,7 @@ while($row_ferry = mysqli_fetch_assoc($sq_ferry))
 		$row_ferry['ferry_type'],
 		$row_ferry['ferry_name'],
 		$row_ferry['seating_capacity'],
-		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="edit_modal('.$row_ferry['entry_id'] .')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>'),"bg" => $bg
+		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="edit_modal('.$row_ferry['entry_id'] .')" title="Update Details" id="updatef_btn-'.$row_ferry['entry_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'),"bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 
 }

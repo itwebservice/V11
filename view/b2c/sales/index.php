@@ -122,10 +122,14 @@ if ($b2c_flag == '1') { ?>
 		}
 
 		function package_view_modal(booking_id) {
+			$('#view_btn-'+booking_id).prop('disabled',true);
+			$('#view_btn-'+booking_id).button('loading');
 			$.post('view/index.php', {
 				booking_id: booking_id
 			}, function(data) {
 				$('#div_package_content_display').html(data);
+				$('#view_btn-'+booking_id).prop('disabled',false);
+				$('#view_btn-'+booking_id).button('reset');
 			});
 		}
 

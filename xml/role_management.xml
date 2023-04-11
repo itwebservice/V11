@@ -847,7 +847,7 @@
 	</menu_desc>	
 
 	<menu_desc>
-		<name>Expenses</name>
+		<name>Other Expenses</name>
 		<link>other_expense/index.php</link>
 		<rank>12</rank>
 		<priority>2</priority>
@@ -864,7 +864,7 @@
 		<menu_icon>fa fa-star</menu_icon>
 	</menu_desc>
 	<menu_desc>
-		<name>SAC Code</name>
+		<name>HSN/SAC Code</name>
 		<link>finance_master/sac_master/index.php</link>
 		<rank>12</rank>
 		<priority>2</priority>
@@ -1028,6 +1028,15 @@
 	</menu_desc>
 
 	<menu_desc>
+		<name>Tickets</name>
+		<link>ticket_system/index.php</link>
+		<rank>16</rank>
+		<priority>2</priority>
+		<description>Tickets</description>
+		<menu_icon>fa fa-laptop</menu_icon>
+	</menu_desc>
+	
+	<menu_desc>
 		<name>Beginners Guide</name>
 		<link target="My New Window">beginners_guide.php</link>
 		<rank>16</rank>
@@ -1063,14 +1072,6 @@
 		<menu_icon>fa fa-download</menu_icon>
 	</menu_desc>
 
-	<menu_desc>
-		<name>Tickets</name>
-		<link>ticket_system/index.php</link>
-		<rank>16</rank>
-		<priority>2</priority>
-		<description>Tickets</description>
-		<menu_icon>fa fa-laptop</menu_icon>
-	</menu_desc>
 	
 	<menu_desc>
 		<name>Library</name>
@@ -1090,7 +1091,7 @@
 		<menu_icon>fa fa-camera-retro</menu_icon>
 	</menu_desc>
 	<menu_desc>
-		<name>Awesome Snapshot</name>
+		<name>Awesome Screenshot</name>
 		<link target="My New Window">https://chrome.google.com/webstore/detail/awesome-screenshot-and-sc/nlipoenfbbikpbjkfpfillcgkoblgpmj</link>
 		<rank>17</rank>
 		<priority>2</priority>

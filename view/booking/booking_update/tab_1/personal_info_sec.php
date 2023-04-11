@@ -23,16 +23,16 @@ $sq_traveler_personal_info = mysqli_fetch_assoc(mysqlQuery("select * from travel
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                        <input class="form-control" type="text" id="txt_m_mobile_no1" name="txt_m_mobile_no"
+                            onchange="mobile_validate(this.id);" placeholder="Mobile No." title="Mobile No."
+                            maxlength="15" value="<?= $sq_traveler_personal_info['mobile_no'] ?>" readonly />
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                         <input class="form-control" type="text" id="txt_m_email_id1" name="txt_m_email_id"
                             placeholder="Email Id" title="Email Id" maxlength="50"
                             value="<?= $sq_traveler_personal_info['email_id'] ?>" readonly />
                     </div>
 
-                    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                        <input class="form-control" type="text" id="txt_m_mobile_no1" name="txt_m_mobile_no"
-                            onchange="mobile_validate(this.id);" placeholder="Mobile No." title="Mobile No."
-                            maxlength="15" value="<?= $sq_traveler_personal_info['mobile_no'] ?>" readonly />
-                    </div>
 
                     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                         <input class="form-control" type="text" id="txt_m_address1" name="txt_m_address"

@@ -113,7 +113,7 @@ if (!$update_form) {
 
 <tr>
 
-    <td><input class="css-checkbox" id="chk_booking<?= $count ?>_u" type="checkbox" checked disabled><label
+    <td><input class="css-checkbox" id="chk_booking<?= $count ?>_u" type="checkbox" checked><label
             class="css-label" for="chk_booking<?= $count ?>_u"> <label></td>
 
     <td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No."
@@ -185,11 +185,11 @@ if (!$update_form) {
 
     <td><input type="text" id="reporting_time<?= $count ?>_u" name="reporting_time" placeholder="Reporting Time"
             title="Reporting Time" class="app_timepicker" value="<?= $row_entry['reporting_time'] ?>"
-            style="width:110px" /></td>
+            style="width:135px" /></td>
 
     <td><input type="text" id="boarding_point_access<?= $count ?>_u" name="boarding_point_access"
             placeholder="Boarding Point Access" title="Boarding Point Access"
-            value="<?= $row_entry['boarding_point_access'] ?>" style="width: 170px;" /></td>
+            value="<?= $row_entry['boarding_point_access'] ?>" style="width: 180px;" /></td>
 
     <td class="hidden"><input type="text" value="<?= $row_entry['entry_id'] ?>"></td>
 

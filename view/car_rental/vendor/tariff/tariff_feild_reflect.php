@@ -7,9 +7,8 @@ if($tour_type=="Local"){
 <div class="panel panel-default panel-body app_panel_style">
     <div class="row mg_bt_10">
         <div class="col-md-12 text-right text_center_xs">
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_car_rental_vehicle_local','1')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_car_rental_vehicle_local','1')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
-        </div>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_car_rental_vehicle_local','1')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_car_rental_vehicle_local','1')"><i class="fa fa-trash"></i></button>
     </div>    
 
     <div class="row"><div class="col-md-12"><div class="table-responsive">
@@ -31,7 +30,7 @@ if($tour_type=="Local"){
             <td><input type="text" id="total_km" name="total_km" data-toggle="tooltip" placeholder="Total KM" title="Total KM" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
             <td><input type="text" id="extra_hrs_rate" name="extra_hrs_rate" data-toggle="tooltip" placeholder="Extra hrs Rate" title="Extra Hrs Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
             <td><input type="text" id="extra_km" name="extra_km" data-toggle="tooltip" placeholder="Extra KM Rate" title="Extra KM Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
-            <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Cost" title="Cost" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
+            <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Amount" title="Amount" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
         </tr>                                
     </table>
     </div>
@@ -45,8 +44,8 @@ else{?>
 <div class="panel panel-default panel-body app_panel_style">
     <div class="row mg_bt_10">
         <div class="col-md-12 text-right text_center_xs">
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_car_rental_vehicle_out','1')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_car_rental_vehicle_out','1')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_car_rental_vehicle_out','1')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_car_rental_vehicle_out','1')"><i class="fa fa-trash"></i></button>
         </div>
     </div>
     <div class="row"><div class="col-md-12"><div class="table-responsive">
@@ -67,7 +66,7 @@ else{?>
                 <td><input type="text" id="route" name="route" placeholder="Route" data-toggle="tooltip" title="Route" class="form-control" style="width:150px;" /></td>
                 <td><input type="text" id="total_days" name="total_days" placeholder="Total Days" data-toggle="tooltip" title="Total Days" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="total_km" name="total_km" data-toggle="tooltip" placeholder="Total KM" title="Total KM" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
-                <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Cost" title="Cost" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
+                <td><input type="text" id="rate" name="rate" data-toggle="tooltip" placeholder="*Amount" title="Amount" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="extra_hrs_rate" name="extra_hrs_rate" data-toggle="tooltip" placeholder="Extra Hrs Rate" title="Extra hrs Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="extra_km" name="extra_km" data-toggle="tooltip" placeholder="Extra KM Rate" title="Extra KM Rate" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
                 <td><input type="text" id="driver_allowance" name="driver_allowance" data-toggle="tooltip" placeholder="Driver Allowance per day" title="Driver Allowance per day" class="form-control" onchange="validate_balance(this.id)" style="width:150px;"/></td>
@@ -83,3 +82,4 @@ else{?>
 <script>
 $("#state,#vehicle_name1").select2();
 </script>
+<script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>

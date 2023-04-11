@@ -8,6 +8,7 @@ public function quotation_master_update()
 	$customer_name = $_POST['customer_name'];
     $email_id = $_POST['email_id'];
     $mobile_no = $_POST['mobile_no'];
+	$country_code = $_POST['country_code'];
 	$quotation_date =  $_POST['quotation_date'];
 	$subtotal =  $_POST['subtotal'];
 	$markup_cost =  $_POST['markup_cost'];
@@ -44,7 +45,8 @@ public function quotation_master_update()
 
 	$quotation_date = get_date_db($quotation_date);
 	$bsmValues = json_encode($bsmValues);
-	$query = "UPDATE flight_quotation_master SET enquiry_id ='$enquiry_id', customer_name='$customer_name', email_id='$email_id', mobile_no='$mobile_no', subtotal = '$subtotal',markup_cost='$markup_cost',markup_cost_subtotal='$markup_cost_subtotal', service_tax = '$service_tax', service_charge = '$service_charge', quotation_cost = '$total_tour_cost', quotation_date='$quotation_date', roundoff = '$roundoff',bsm_values='$bsmValues',status='$active_flag'  WHERE quotation_id = '$quotation_id'";
+	$whatsapp_no = $country_code.$mobile_no;
+	$query = "UPDATE flight_quotation_master SET enquiry_id ='$enquiry_id', customer_name='$customer_name', email_id='$email_id', mobile_no='$whatsapp_no',country_code='$country_code',whatsapp_no='$mobile_no', subtotal = '$subtotal',markup_cost='$markup_cost',markup_cost_subtotal='$markup_cost_subtotal', service_tax = '$service_tax', service_charge = '$service_charge', quotation_cost = '$total_tour_cost', quotation_date='$quotation_date', roundoff = '$roundoff',bsm_values='$bsmValues',status='$active_flag'  WHERE quotation_id = '$quotation_id'";
 	$sq_quotation = mysqlQuery($query);
 
 	if($sq_quotation){

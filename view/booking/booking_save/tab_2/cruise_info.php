@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-sm-10 col-xs-12 col-sm-push-2 text-right">
-        <button type="button" class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onClick="addRow('tbl_dynamic_cruise_package_booking')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-        <button type="button" class="btn btn-danger btn-sm ico_left mg_bt_10_sm_xs" onClick="deleteRow('tbl_dynamic_cruise_package_booking'); calculate_cruise_expense('tbl_dynamic_cruise_package_booking')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>  
-
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_cruise_package_booking')"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_cruise_package_booking'); calculate_cruise_expense('tbl_dynamic_cruise_package_booking')"><i class="fa fa-trash"></i></button>
         <!-- Code to upload button -->
         <div class="div-upload mg_bt_10_sm_xs" id="div_upload_button">
             <div id="cruise_upload" class="upload-button"><span>Ticket</span></div><span id="cruise_status" ></span>

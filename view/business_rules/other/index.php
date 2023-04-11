@@ -64,9 +64,12 @@ function save_modal(){
 }
 
 function update_modal(rule_id){
+	$('#updateo_rule-'+rule_id).button('loading');
+	$('#updateo_rule-'+rule_id).prop('disabled',true);
 	$.post('other/update_modal.php', {rule_id : rule_id}, function(data){
 		$('#div_modal_content').html(data);
-		console.log(data)
+        $('#updateo_rule-'+rule_id).button('reset');
+        $('#updateo_rule-'+rule_id).prop('disabled',false);
 	});
 }
 

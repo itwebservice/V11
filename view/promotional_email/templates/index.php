@@ -41,10 +41,10 @@ $branch_status = $_POST['branch_status'];
 <script>
 
 var columns = [
-	{ title : "S_No." },
+	{ title : "S_No" },
 	{ title : "Template_Type" },
 	{ title : "Created_at" },
-	{ title : "View", className:"text-center" }
+	{ title : "Actions", className:"text-center" }
 ]
 function list_reflect(){
 
@@ -59,8 +59,12 @@ function list_reflect(){
 list_reflect();
 function view_modal(id)
 {
+    $('#view_btn-'+id).button('loading');
+    $('#view_btn-'+id).prop('disabled',true);
     $.post('templates/view_modal.php', { id:id }, function(data){
     	$('#div_view_modal').html(data);
+		$('#view_btn-'+id).button('reset');
+		$('#view_btn-'+id).prop('disabled',false);
     });
 }
 

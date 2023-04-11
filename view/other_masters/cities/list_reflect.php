@@ -17,7 +17,7 @@ while($row=mysqli_fetch_assoc($sq)){
       (int)($city_id),
       $city_name,
       $status,
-      '<a href="javascript:void(0)" data-toggle="tooltip" onclick="city_master_update_modal(\''.$city_id.'\')" class="btn btn-info btn-sm" title="Edit Details"><i class="fa fa-pencil-square-o"></i></a>'), "bg" => $bg
+      '<a href="javascript:void(0)" data-toggle="tooltip" onclick="city_master_update_modal(\''.$city_id.'\')" class="btn btn-info btn-sm" title="Update Details" id="update_city-\''.$d.'\'"><i class="fa fa-pencil-square-o"></i></a>'), "bg" => $bg
   );
   array_push($array_s,$temp_arr); 
 }

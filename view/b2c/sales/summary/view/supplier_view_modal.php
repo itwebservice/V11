@@ -28,11 +28,11 @@ $exc_id = $_POST['exc_id'];
                      <tbody>
                        <?php 
                        $count = 0;
-                       $sq_query = mysqlQuery("SELECT * FROM vendor_estimate WHERE status!='Cancel' and estimate_type LIKE  'Excursion Booking' AND estimate_type_id = '$exc_id' and delete_status='0'");
+                       $sq_query = mysqlQuery("SELECT * FROM vendor_estimate WHERE status!='Cancel' and estimate_type = 'Excursion Booking' and estimate_type_id = '$exc_id' and delete_status='0'");
 
                        while($row_entry = mysqli_fetch_assoc($sq_query))
                        {
-                         $Supplier_name = get_vendor_name_report($row_entry['vendor_type'] ,$row_entry['vendor_type_id']);
+                          $Supplier_name = get_vendor_name_report($row_entry['vendor_type'] ,$row_entry['vendor_type_id']);
                           $bg = ($row_entry['status']=="Cancel") ? "danger" : "";
 
                            $count++;

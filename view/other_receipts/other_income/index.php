@@ -1,5 +1,6 @@
 <?php
 include "../../../model/model.php";
+$financial_year_id = $_SESSION['financial_year_id'];
 ?>
 
 <div class="row text-right mg_bt_20">
@@ -35,10 +36,14 @@ include "../../../model/model.php";
             <input type="text" name="to_date_filter" id="to_date_filter" placeholder="To Date" title="To Date"
                 class="form-control" onchange="validate_validDate('from_date_filter','to_date_filter');">
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10 hidden">
-            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Financial Year"
-                class="form-control">
-                <?php get_financial_year_dropdown(); ?>
+        <div class="col-md-3 col-sm-6 mg_bt_10">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year" class="form-control">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
             </select>
         </div>
         <div class="col-md-3 col-xs-12">
@@ -131,10 +136,15 @@ $(document).ready(function() {
 });
 
 function update_income_modal(payment_id) {
+
+    $('#updateo_btn-'+payment_id).prop('disabled',true);
+    $('#updateo_btn-'+payment_id).button('loading');
     $.post('other_income/update_modal.php', {
         payment_id: payment_id
     }, function(data) {
         $('#div_crud_content').html(data);
+        $('#updateo_btn-'+payment_id).prop('disabled',false);
+        $('#updateo_btn-'+payment_id).button('reset');
     });
 }
 
@@ -149,11 +159,15 @@ function excel_report() {
 }
 
 function entry_display_modal(entry_id) {
+    $('#viewo_btn-'+entry_id).prop('disabled',true);
+    $('#viewo_btn-'+entry_id).button('loading');
     var base_url = $('#base_url').val();
     $.post('other_income/income_details.php', {
         income_type_id: entry_id
     }, function(data) {
         $('#div_crud_content').html(data);
+        $('#viewo_btn-'+entry_id).prop('disabled',false);
+        $('#viewo_btn-'+entry_id).button('reset');
     });
 }
 

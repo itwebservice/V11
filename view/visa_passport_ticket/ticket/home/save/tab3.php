@@ -35,18 +35,18 @@
 
 							</div>	
 							<div class="col-sm-4 col-xs-12 mg_bt_10">
-								<span data-original-title="" title="">Adult Cost</span>
+								<span data-original-title="" title="">Adult Amount</span>
 								<input type="text" id="adult_fair" name="adult_fair" placeholder="*Adult Fare" title="Adult Fare" onchange="calculate_total_amount(this.id);validate_balance(this.id)">
 
 							</div>	
 							<div class="col-sm-4 col-xs-12 mg_bt_10">
-								<span data-original-title="" title="">Child Cost</span>
+								<span data-original-title="" title="">Child Amount</span>
 								<input type="text" id="children_fair" name="children_fair" placeholder="*Children Fare" title="Children Fare" onchange="calculate_total_amount(this.id);validate_balance(this.id)">
 
 							</div>				
 
 							<div class="col-sm-4 col-xs-12">
-								<span data-original-title="" title="">Infant Cost</span>
+								<span data-original-title="" title="">Infant Amount</span>
 								<input type="text" id="infant_fair" name="infant_fair" placeholder="*Infant Fare" title="Infant Fare" onchange="calculate_total_amount(this.id);validate_balance(this.id)">
 
 							</div>
@@ -122,7 +122,7 @@
 							</div>		
 							<div class="col-sm-3 col-xs-12 mg_bt_10">
 								<small id="markup_show">&nbsp;</small>
-								<input type="text" id="markup" name="markup" placeholder="Markup" title="Markup" onchange="get_auto_values('booking_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id);">
+								<input type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('booking_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount');validate_balance(this.id);">
 							</div>
 							<div class="col-sm-3 col-xs-12 mg_bt_10">
 								<small>&nbsp;</small>

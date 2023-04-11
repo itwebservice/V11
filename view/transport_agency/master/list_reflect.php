@@ -56,8 +56,8 @@ if($city_id!=""){
 				<td><?= $mobile_no ?></td>
 				<td><?= $row_transport_agency['contact_person_name'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="view_modal(<?= $row_transport_agency['transport_agency_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_transport_agency['transport_agency_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_transport_agency['transport_agency_id'] ?>)" title="Update Details" id="update_btn-<?= $row_transport_agency['transport_agency_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="view_modal(<?= $row_transport_agency['transport_agency_id'] ?>)" title="View Details" id="view_btn-<?= $row_transport_agency['transport_agency_id'] ?>"><i class="fa fa-eye"></i></button>
 				</td>
 			</tr>
 			<?php

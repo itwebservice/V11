@@ -70,7 +70,7 @@ var column = [
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Activity"},
 	{ title : "booking_date"},
@@ -156,10 +156,14 @@ function dynamic_customer_load(cust_type, company_name)
 
 function exc_view_modal(exc_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/excursion/payment_status/view/index.php', { exc_id : exc_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#packagev_btn-'+exc_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+exc_id).button('loading');
+	$.post(base_url+'view/excursion/payment_status/view/index.php', { exc_id : exc_id }, function(data){
+		$('#div_exc_content_display').html(data);
+		$('#packagev_btn-'+exc_id).prop('disabled',false);
+		$('#packagev_btn-'+exc_id).button('reset');
+	});
 }
 function exc_id_dropdown_load(customer_id_filter, exc_id_filter)
 {
@@ -172,16 +176,24 @@ function exc_id_dropdown_load(customer_id_filter, exc_id_filter)
 }
 function supplier_view_modal(exc_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/excursion/payment_status/view/supplier_view_modal.php', { exc_id : exc_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#supplierv_btn-'+exc_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+exc_id).button('loading');
+	$.post(base_url+'view/excursion/payment_status/view/supplier_view_modal.php', { exc_id : exc_id }, function(data){
+		$('#div_exc_content_display').html(data);
+		$('#supplierv_btn-'+exc_id).prop('disabled',false);
+    	$('#supplierv_btn-'+exc_id).button('reset');
+	});
 }
 function payment_view_modal(exc_id)
 {
+	$('#paymentv_btn-'+exc_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+exc_id).button('loading');
 	$.post(base_url+'view/excursion/payment_status/view/payment_view_modal.php', { exc_id : exc_id }, function(data){	
-	  $('#div_exc_content_display').html(data);
+		$('#div_exc_content_display').html(data);
+		$('#paymentv_btn-'+exc_id).prop('disabled',false);
+    	$('#paymentv_btn-'+exc_id).button('reset');
 	});
 }
 </script>

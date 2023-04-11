@@ -31,9 +31,8 @@ while($row_taxes = mysqli_fetch_assoc($sq_taxes)){
 		$sq_ledger['ledger_name'],
 		$validity,
 		$row_taxes['travel_type'],
-		'<button class="btn btn-warning btn-sm" onclick="copy_rule('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" data-toggle="tooltip" title="Copy Other Rule"><i class="fa fa-files-o"></i></button>
-		<button class="btn btn-info btn-sm" onclick="update_modal('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" id="update_modal_other_rules_edit'.$row_taxes['rule_id'] .'" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
-		'), "bg" => $bg
+		'<button class="btn btn-info btn-sm" onclick="update_modal('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" id="updateo_rule-'.$row_taxes['rule_id'] .'" data-toggle="tooltip" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+		<button class="btn btn-warning btn-sm" onclick="copy_rule('.$row_taxes['rule_id'] .');btnDisableEnable(this.id)" data-toggle="tooltip" title="Copy Other Rule"><i class="fa fa-files-o"></i></button>'), "bg" => $bg
 	);
 	array_push($array_s,$temp_arr); 
 }

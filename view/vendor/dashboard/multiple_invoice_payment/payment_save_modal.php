@@ -32,8 +32,13 @@ $branch_status = $_POST['branch_status'];
                       $date = $row_estimate['purchase_date'];
                       $yr = explode("-", $date);
                       $year = $yr[0];
+                      if($row_estimate['purchase_return'] == '1' || $row_estimate['purchase_return'] == '2'){
+                        $status = '(Cancelled)';
+                      }else{
+                        $status = '';
+                      }
                     ?>
-                      <option value="<?= $row_estimate['estimate_id'] ?>"><?= get_vendor_estimate_id($row_estimate['estimate_id'],$year)." : ".$vendor_type_val."(".$row_estimate['vendor_type'].") : ".$estimate_type_val ?></option>
+                      <option value="<?= $row_estimate['estimate_id'] ?>"><?= get_vendor_estimate_id($row_estimate['estimate_id'],$year)." : ".$vendor_type_val."(".$row_estimate['vendor_type'].") : ".$estimate_type_val.' '.$status ?></option>
                       <?php
                       }
                       ?>
@@ -41,6 +46,7 @@ $branch_status = $_POST['branch_status'];
               </div>
               <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                 <input type="text" class="form-control" id="outstanding" name="outstanding" title="Outstanding" placeholder="Outstanding" readonly/>
+                <input type="hidden" id="canc_status" name="canc_status" class="form-control"/>
               </div>
             </div>
             </div>
@@ -178,6 +184,7 @@ $(function(){
         var branch_admin_id = $('#branch_admin_id1').val();
         var emp_id = $('#emp_id').val();
         var outstanding = $('#outstanding').val();
+        var canc_status = $('#canc_status').val();
         
         var advance_amount = $('#advance_amount').val();
         var advance_nullify = $('#advance_nullify').val();
@@ -264,7 +271,7 @@ $(function(){
             $.ajax({
               type: 'post',
               url: base_url+'controller/vendor/dashboard/multiple_invoice_payment/payment_save.php',
-              data:{ payment_amount : payment_amount, payment_date : payment_date, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id, payment_evidence_url :payment_evidence_url, branch_admin_id : branch_admin_id , emp_id : emp_id,advance_nullify : advance_nullify,total_payment_amount:total_payment_amount,estimate_id:estimate_id},
+              data:{ payment_amount : payment_amount, payment_date : payment_date, payment_mode : payment_mode, bank_name : bank_name, transaction_id : transaction_id, bank_id : bank_id, payment_evidence_url :payment_evidence_url, branch_admin_id : branch_admin_id , emp_id : emp_id,advance_nullify : advance_nullify,total_payment_amount:total_payment_amount,estimate_id:estimate_id,canc_status:canc_status },
               success: function(result){
               $('#payment_save').button('reset');
               $('#payment_save').prop('disabled',false);

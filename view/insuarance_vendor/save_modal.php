@@ -25,12 +25,12 @@ include "../../model/model.php";
             <input type="text" class="form-control" onchange="mobile_validate(this.id);" id="landline_no" name="landline_no" placeholder="Landline Number" title="Landline Number">
           </div>
           <div class="col-md-3 col-sm-6 mg_bt_10">
-    			 <input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
+    			  <input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID">
     		  </div> 
     		</div>
     		<div class="row">
     			<div class="col-md-3 col-sm-6 mg_bt_10">
-    				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Concern Person" title="Concern Person">
+    				<input type="text" id="concern_person_name" name="concern_person_name" placeholder="Contact Person Name" title="Contact Person Name">
     			</div>
     			<div class="col-md-3 col-sm-6 mg_bt_10">
             <input type="text" id="immergency_contact_no" name="immergency_contact_no" onchange="mobile_validate(this.id);" placeholder="Emergency Contact No" title="Emergency Contact No">

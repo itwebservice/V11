@@ -59,10 +59,8 @@ if($city_id!=""){
 				<td><?= $mobile_no ?></td>
 				<td><?= $row_cruise['contact_person_name'] ?></td>
 				<td>
-
-					<button class="btn btn-info btn-sm" onclick="cruise_view_modal(<?= $row_cruise['cruise_id'] ?>)" title="View Details"><i class="fa fa-eye"></i></button>
-					<button class="btn btn-info btn-sm" onclick="cruise_update_modal(<?= $row_cruise['cruise_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
-
+					<button class="btn btn-info btn-sm" onclick="cruise_update_modal(<?= $row_cruise['cruise_id'] ?>)" title="Update Details" id="update_btn-<?= $row_cruise['cruise_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="cruise_view_modal(<?= $row_cruise['cruise_id'] ?>)" title="View Details" id="view_btn-<?= $row_cruise['cruise_id'] ?>"><i class="fa fa-eye"></i></button>
 				</td>
 
 			</tr>
@@ -95,18 +93,26 @@ $('#tbl_cruise_list').dataTable({
 
 function cruise_update_modal(cruise_id){
 
+    $('#update_btn-'+cruise_id).button('loading');
+    $('#update_btn-'+cruise_id).prop('disabled',true);
 	$.post('cruise_update_modal.php', { cruise_id : cruise_id }, function(data){
 
 		$('#div_cruise_update').html(data);
+		$('#update_btn-'+cruise_id).button('reset');
+		$('#update_btn-'+cruise_id).prop('disabled',false);
 
 	});
 }
 
 function cruise_view_modal(cruise_id){
 
+    $('#view_btn-'+cruise_id).button('loading');
+    $('#view_btn-'+cruise_id).prop('disabled',true);
 	$.post('view_modal.php', { cruise_id : cruise_id }, function(data){
 
 		$('#div_cruise_view').html(data);
+		$('#view_btn-'+cruise_id).button('reset');
+		$('#view_btn-'+cruise_id).prop('disabled',false);
 
 	});
 

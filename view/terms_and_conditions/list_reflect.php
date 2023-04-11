@@ -20,7 +20,7 @@ if($branch_status=='yes' && $role=='Branch Admin'){
 			<th>S_No.</th>
 			<th>Type</th>
 			<th>Destination</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,7 +38,7 @@ if($branch_status=='yes' && $role=='Branch Admin'){
 				<td><?= $row_terms['type'] ?></td>
 				<td><?= ($row_terms['dest_id']!='0')?$sq_dest['dest_name']:'All' ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_terms['terms_and_conditions_id'] ?>);btnDisableEnable(this.id)" id="update_modal_terms_edit_btn<?= $row_terms['terms_and_conditions_id'] ?>" title="Edit"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_terms['terms_and_conditions_id'] ?>);btnDisableEnable(this.id)" id="update_btn-<?= $row_terms['terms_and_conditions_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

@@ -11,7 +11,7 @@ $branch_status = $sq['branch_status'];
 <?= begin_panel('Log Register',93) ?>
  <div class="col-sm-12 text-right text_left_sm_xs">
  	<?php if($role=='Admin' || $role=='Branch Admin' || $role=='Hr'){ ?>
-      <button class="btn btn-excel btn-sm mg_bt_10" onclick="view_logged_in_users()" data-toggle="tooltip" title="View Current Logged In Users"><i class="fa fa-eye"></i></button>&nbsp;&nbsp;
+      <button class="btn btn-excel btn-sm mg_bt_10" onclick="view_logged_in_users()" data-toggle="tooltip" title="View Current Logged In Users" id="view_log_btn"><i class="fa fa-eye"></i></button>&nbsp;&nbsp;
       <button class="btn btn-excel btn-sm mg_bt_10" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>&nbsp;&nbsp;
     <?php } ?>
   </div>
@@ -98,8 +98,13 @@ function excel_report()
     window.location = 'excel_report.php?login_id='+login_id+'&from_date='+from_date+'&to_date='+to_date+'&branch_status='+branch_status;
 }
 function view_logged_in_users(){
+
+    $('#view_log_btn').button('loading');
+    $('#view_log_btn').prop('disabled',true);
 	$.post('display_current_log.php', {}, function(data){
     	$('#div_content1').html(data);
+		$('#view_log_btn').button('reset');
+		$('#view_log_btn').prop('disabled',false);
     });
 }
 </script>

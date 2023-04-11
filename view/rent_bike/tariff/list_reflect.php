@@ -26,8 +26,8 @@ while($row_req = mysqli_fetch_assoc($sq_query)){
 		$sq_veh['bike_name'].'('.$sq_type['bike_type'].')',
 		$sq_currency['currency_code'],
 
-		'<button style="display:inline-block" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="Edit Details"></i></button>
-		<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['entry_id'].'\',\''.$row_req['bike_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
+		'<button style="display:inline-block" data-toggle=tooltip" id="biket_update-'.$row_req['entry_id'] .'" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['entry_id'].'\')" data-toggle="tooltip" title="Update Details"></i></button>
+		<button style="display:inline-block" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['entry_id'].'\',\''.$row_req['bike_id'].'\')" id="biket_view-'.$row_req['entry_id'] .'" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
 		
 		'), "bg" => '');
 	array_push($array_s,$temp_arr); 

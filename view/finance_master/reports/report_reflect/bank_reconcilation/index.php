@@ -9,7 +9,7 @@ $branch_status = $sq['branch_status'];
 <div class="row text-right mg_bt_10">
 	<div class="col-md-4 col-md-offset-8">
             <button class="btn btn-excel btn-sm" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>&nbsp;&nbsp;
-            <button class="btn btn-info btn-sm ico_left" id="btn_save_modal" onclick="save_modal()" title="Add New"><i class="fa fa-plus"></i>&nbsp;&nbsp;Reconciliation</button>
+            <button class="btn btn-info btn-sm ico_left" id="save_bank" onclick="save_modal()" title="Add New"><i class="fa fa-plus"></i>&nbsp;&nbsp;Reconciliation</button>
 	</div>
 </div>
 
@@ -43,13 +43,15 @@ $('#bank_id1').select2();
 $('#from_date_filter1').datetimepicker({ timepicker:false, format:'d-m-Y' }); 
 function save_modal()
 { 
+	$('#save_bank').prop('disabled',true);
 	var base_url = $('#base_url').val();
   	var branch_admin_id = $('#branch_admin_id1').val();
-	$('#btn_save').button('loading');
+	$('#save_bank').button('loading');
 
 	$.post(base_url+'view/finance_master/reports/report_reflect/bank_reconcilation/save_modal.php', {branch_admin_id : branch_admin_id }, function(data){
-		$('#btn_save').button('reset');
+		$('#save_bank').button('reset');
 		$('#div_modal').html(data);
+		$('#save_bank').prop('disabled',false);
 	});
 }
 var column = [	
@@ -82,8 +84,12 @@ report_reflect();
 
 function display_modal(id)
 {
+	$('#adminv-'+id).prop('disabled',true);
+	$('#adminv-'+id).button('loading');
     $.post('report_reflect/bank_reconcilation/view/index.php', {id : id}, function(data){
         $('#display_modal1').html(data);
+		$('#adminv-'+id).prop('disabled',false);
+		$('#adminv-'+id).button('reset');
     });
 }
 function excel_report()

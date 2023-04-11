@@ -9,7 +9,7 @@ include "../../../model/model.php";
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Branch</h4>
+                    <h4 class="modal-title" id="myModalLabel">New Branch</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -185,6 +185,7 @@ $(function() {
             }
         },
         submitHandler: function(form) {
+            $('#branch_save').prop('disabled',true);
             var base_url = $('#base_url').val();
             $('#branch_save').button('loading');
             $.ajax({
@@ -193,6 +194,7 @@ $(function() {
                 data: $('#frm_branch_save').serialize(),
                 success: function(result) {
                     var msg = result.split('--');
+                    $('#branch_save').prop('disabled',false);
                     if (msg[0] == 'error') {
                         error_msg_alert(msg[1]);
                         $('#branch_save').button('reset');

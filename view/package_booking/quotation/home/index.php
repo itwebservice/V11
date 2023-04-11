@@ -90,6 +90,16 @@ $financial_year_id = $_SESSION['financial_year_id'];
                             </select>
                         </div>
                     <?php } ?>
+                    <div class="col-md-3 col-sm-6 mg_bt_10_xs">
+                        <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                            <?php
+                            $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                            $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                            ?>
+                            <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                            <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                        </select>
+                    </div>
                     <div class="col-md-3 col-sm-6 col-xs-12 mg_tp_10">
                         <button class="btn btn-sm btn-info ico_right" onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
                     </div>
@@ -163,32 +173,43 @@ $financial_year_id = $_SESSION['financial_year_id'];
         });
     }
 
-    function quotation_list_reflect() {
-        $('#div_quotation_list_reflect').append('<div class="loader"></div>');
-        var from_date = $('#from_date_filter').val();
-        var to_date = $('#to_date_filter').val();
-        var booking_type = $('#booking_type_filter').val();
-        var package_id = $('#tour_name_filter').val();
-        var quotation_id = $('#quotation_id').val();
-        var branch_status = $('#branch_status').val();
-        var branch_id = $('#branch_id_filter1').val();
-        var status = $('#status').val();
+function view_request(quot_id){
+	$('#view_req'+quot_id).prop('disabled',true);
+	$('#view_req'+quot_id).button('loading');
+	$.post('hotel_availability/index.php', {quot_id : quot_id }, function(data){
+		$('#view_request').html(data);
+		$('#view_req'+quot_id).button('reset');
+        $('#view_req'+quot_id).prop('disabled',false);
+	});
+}
+function quotation_list_reflect() {
+    $('#div_quotation_list_reflect').append('<div class="loader"></div>');
+    var from_date = $('#from_date_filter').val();
+    var to_date = $('#to_date_filter').val();
+    var booking_type = $('#booking_type_filter').val();
+    var package_id = $('#tour_name_filter').val();
+    var quotation_id = $('#quotation_id').val();
+    var branch_status = $('#branch_status').val();
+    var branch_id = $('#branch_id_filter1').val();
+    var status = $('#status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
-        $.post('quotation_list_reflect.php', {
-            from_date: from_date,
-            to_date: to_date,
-            booking_type: booking_type,
-            package_id: package_id,
-            quotation_id: quotation_id,
-            branch_status: branch_status,
-            branch_id: branch_id,
-            status: status
-        }, function(data) {
-            pagination_load(data, column, true, false, 20, 'package_table');
-            $('.loader').remove();
-        })
-    }
-    quotation_list_reflect();
+    $.post('quotation_list_reflect.php', {
+        from_date: from_date,
+        to_date: to_date,
+        booking_type: booking_type,
+        package_id: package_id,
+        quotation_id: quotation_id,
+        branch_status: branch_status,
+        branch_id: branch_id,
+        status: status,
+        financial_year_id:financial_year_id_filter
+    }, function(data) {
+        pagination_load(data, column, true, false, 20, 'package_table');
+        $('.loader').remove();
+    })
+}
+quotation_list_reflect();
 
     function quotation_clone(quotation_id) {
         var base_url = $('#base_url').val();
@@ -236,33 +257,29 @@ $financial_year_id = $_SESSION['financial_year_id'];
     }
     get_tour_typewise_packages('booking_type_filter');
 
-    function quotation_email_send_backoffice_modal(quotation_id) {
-        // $('#quot_save').button('loading');
-        $.post('backoffice_mail.php', {
-            quotation_id: quotation_id
-        }, function(data) {
-            $('#backoffice_mail').html(data);
-            // $('#quot_save').button('reset');
-        });
-    }
+function quotation_email_send_backoffice_modal(quotation_id) {
+    
+	$('#email_backoffice_btn-'+quotation_id).prop('disabled',true);
+	$('#email_backoffice_btn-'+quotation_id).button('loading');
+    $.post('backoffice_mail.php', {
+        quotation_id: quotation_id
+    }, function(data) {
+        $('#backoffice_mail').html(data);
+        $('#email_backoffice_btn-'+quotation_id).prop('disabled',false);
+        $('#email_backoffice_btn-'+quotation_id).button('reset');
+    });
+}
 
-    function save_modal() {
-        var branch_status = $('#branch_status').val();
-        $('#quot_save').button('loading');
-        $.post('save/index.php', {
-            branch_status: branch_status
-        }, function(data) {
-            $('#div_quotation_save').html(data);
-            $('#quot_save').button('reset');
-        });
-    }
-    // function update_modal(quotation_id,package_id){
-    // 	alert(quotation_id);
-    // 	var branch_status = $('#branch_status').val();
-    // 	$.post('update/index.php', { quotation_id : quotation_id,package_id : package_id , branch_status : branch_status}, function(data){
-    // 		$('#div_quotation_update').html(data);
-    // 	});
-    // }
+function save_modal() {
+    var branch_status = $('#branch_status').val();
+    $('#quot_save').button('loading');
+    $.post('save/index.php', {
+        branch_status: branch_status
+    }, function(data) {
+        $('#div_quotation_save').html(data);
+        $('#quot_save').button('reset');
+    });
+}
 </script>
 <style>
     .action_width {

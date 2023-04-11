@@ -283,7 +283,7 @@ $count = 1;
         get_source_enq_cold($db['reference_id'],$type),
         get_enq_etr_budget($db['reference_id'],$type),
         get_enq_etr_convert($db['reference_id'],$type), 
-        '<button class="btn btn-info btn-sm" onclick="view_source_modal('. $db['reference_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+        '<button class="btn btn-info btn-sm" onclick="view_source_modal('. $db['reference_id'] .')" data-toggle="tooltip" title="View Details" id="view_btn-'. $db['reference_id'] .'"><i class="fa fa-eye"></i></button>'
 
 
         ),"bg" =>$bg );

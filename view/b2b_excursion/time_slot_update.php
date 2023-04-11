@@ -16,7 +16,7 @@ $timing_slots = json_decode($sq_exc['timing_slots']);
 		<input type="hidden" name="exc_entry_id" id="exc_entry_id" value='<?= $entry_id ?>'>	
 		<div class="row mg_bt_10">
 			<div class="col-md-12 text-right">
-				<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_exc_time_slot')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_time_slot')"><i class="fa fa-plus"></i></button>
 			</div>
 		</div>
 		<div class="row">

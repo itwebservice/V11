@@ -54,6 +54,7 @@ public function ticket_master_update(){
 	$ticket_number_arr = $_POST['ticket_number_arr'];
 
 	$entry_id_arr = $_POST['entry_id_arr'];
+	$e_checkbox_arr = $_POST['e_checkbox_arr'];
 
 
 
@@ -115,48 +116,60 @@ public function ticket_master_update(){
 
 
 
-		if($entry_id_arr[$i]==""){
+		if($e_checkbox_arr[$i] == 'true'){
+			if($entry_id_arr[$i]==""){
 
 
 
-			$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from train_ticket_master_entries"));
+				$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from train_ticket_master_entries"));
 
-			$entry_id = $sq_max['max'] + 1;
+				$entry_id = $sq_max['max'] + 1;
 
 
 
-			$sq_entry = mysqlQuery("INSERT INTO train_ticket_master_entries (entry_id, train_ticket_id, honorific, first_name, middle_name, last_name, birth_date, adolescence, coach_number, seat_number, ticket_number) VALUES ('$entry_id', '$train_ticket_id', '$honorific_arr[$i]', '$first_name_arr[$i]', '$middle_name_arr[$i]', '$last_name_arr[$i]', '$birth_date_arr[$i]', '$adolescence_arr[$i]', '$coach_number_arr[$i]', '$seat_number_arr[$i]', '$ticket_number_arr[$i]')");
+				$sq_entry = mysqlQuery("INSERT INTO train_ticket_master_entries (entry_id, train_ticket_id, honorific, first_name, middle_name, last_name, birth_date, adolescence, coach_number, seat_number, ticket_number) VALUES ('$entry_id', '$train_ticket_id', '$honorific_arr[$i]', '$first_name_arr[$i]', '$middle_name_arr[$i]', '$last_name_arr[$i]', '$birth_date_arr[$i]', '$adolescence_arr[$i]', '$coach_number_arr[$i]', '$seat_number_arr[$i]', '$ticket_number_arr[$i]')");
+				if(!$sq_entry){
+
+					$GLOBALS['flag'] = false;
+
+					echo "error--Some entries not saved!";
+
+				}
+
+
+
+			}
+
+			else{
+
+
+
+				$sq_entry = mysqlQuery("UPDATE train_ticket_master_entries SET  honorific='$honorific_arr[$i]', first_name='$first_name_arr[$i]', middle_name='$middle_name_arr[$i]', last_name='$last_name_arr[$i]', birth_date='$birth_date_arr[$i]', adolescence='$adolescence_arr[$i]', coach_number='$coach_number_arr[$i]', seat_number='$seat_number_arr[$i]', ticket_number='$ticket_number_arr[$i]' WHERE entry_id='$entry_id_arr[$i]' ");
+
+				if(!$sq_entry){
+
+					$GLOBALS['flag'] = false;
+
+					echo "error--Some entries not updated!";
+
+				}
+
+
+
+			}
+			if($adolescence_arr[$i] != "Infant"){
+				$pax++;
+			}
+		}else{
+			
+			$sq_entry = mysqlQuery("delete from train_ticket_master_entries where entry_id='$entry_id_arr[$i]'");
 			if(!$sq_entry){
 
 				$GLOBALS['flag'] = false;
 
-				echo "error--Some entries not saved!";
+				echo "error--Some entries not deleted!";
 
 			}
-
-
-
-		}
-
-		else{
-
-
-
-			$sq_entry = mysqlQuery("UPDATE train_ticket_master_entries SET  honorific='$honorific_arr[$i]', first_name='$first_name_arr[$i]', middle_name='$middle_name_arr[$i]', last_name='$last_name_arr[$i]', birth_date='$birth_date_arr[$i]', adolescence='$adolescence_arr[$i]', coach_number='$coach_number_arr[$i]', seat_number='$seat_number_arr[$i]', ticket_number='$ticket_number_arr[$i]' WHERE entry_id='$entry_id_arr[$i]' ");
-
-			if(!$sq_entry){
-
-				$GLOBALS['flag'] = false;
-
-				echo "error--Some entries not updated!";
-
-			}
-
-
-
-		}
-		if($adolescence_arr[$i] != "Infant"){
-			$pax++;
 		}
 
 		
@@ -223,8 +236,10 @@ public function ticket_master_update(){
 
 	}
 
+	$sq_train = mysqli_fetch_assoc(mysqlQuery("select * from train_ticket_master_trip_entries where train_ticket_id='$train_ticket_id'"));
+	$sq_train_master = mysqli_fetch_assoc(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id='$train_ticket_id'"));
 	//Get Particular
-	$particular = $this->get_particular($customer_id,$pax,$sector,$train_no_arr[0],$ticket_number_arr[0],$class_arr[0],$train_ticket_id);
+	$particular = $this->get_particular($customer_id,$pax,$sector,$sq_train['train_no'],$sq_train_master['ticket_number'],$sq_train['class'],$train_ticket_id);
 	//Finance update
 	$this->finance_update($sq_ticket_info, $row_spec, $particular);
 

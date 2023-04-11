@@ -475,7 +475,7 @@ $count = 1;
                 get_branch_enq_strong($data['branch_id'],$type),
                 get_branch_enq_hot($data['branch_id'],$type),
                 get_branch_enq_cold($data['branch_id'],$type),
-			    '<button class="btn btn-info btn-sm" onclick="view_branch_modal('. $data['branch_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+			    '<button class="btn btn-info btn-sm" onclick="view_branch_modal('. $data['branch_id'] .')" data-toggle="tooltip" title="View Details" id="view_btn-'. $data['branch_id'] .'"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>getColor($data['branch_id']));

@@ -8,7 +8,7 @@ $branch_status_salary = $sq1['branch_status'];
 <div class="row text-right mg_tp_10 mg_bt_10">
 	<div class="col-md-12">
 		<button class="btn btn-excel btn-sm" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>&nbsp;&nbsp;
-        <button type="button" class="btn btn-info btn-sm ico_left" id="btn_save_modal" title="Add New Salary" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Salary</button>
+        <button type="button" class="btn btn-info btn-sm ico_left" id="btn_salary_save" title="Add New Salary" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Salary</button>
 	</div>
 </div>
 
@@ -82,11 +82,13 @@ $branch_status_salary = $sq1['branch_status'];
 $('#emp_id_filter1,#year_filter1, #month_filter1').select2();
 function save_modal()
 {
+	$('#btn_salary_save').prop('disabled',true);
 	var branch_status = $('#branch_status_salary').val();
 	var base_url = $('#base_url').val();
-	$('#btn_save').button('loading');
+	$('#btn_salary_save').button('loading');
 	$.post(base_url+'view/reports/staff_mgmt/report_reflect/emp_salary/save_modal.php', { branch_status : branch_status}, function(data){
-		$('#btn_save').button('reset');
+		$('#btn_salary_save').button('reset');
+		$('#btn_salary_save').prop('disabled',false);
 		$('#div_modal').html(data);
 	});
 }
@@ -162,10 +164,15 @@ function salary_reflect(offset="")
 }
 function update_modal(salary_id,month)
 {
-  var month1 = ('0' + month).slice(-2);
+	$('#updates_btn-'+salary_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+	var month1 = ('0' + month).slice(-2);
+    $('#updates_btn-'+salary_id).button('loading');
 
     $.post('report_reflect/emp_salary/update_modal.php', { salary_id : salary_id, month1 : month1 }, function(data){
         $('#div_update_modal').html(data);
+		$('#updates_btn-'+salary_id).prop('disabled',false);
+		$('#updates_btn-'+salary_id).button('reset');
     });
 }
 function calculate_total_payable(offset='')

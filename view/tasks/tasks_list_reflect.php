@@ -98,14 +98,14 @@ while($row_tasks = mysqli_fetch_assoc($sq_tasks)){
 			</div>
 			<div class="col-sm-3">
 				<?php if($row_tasks['task_status']=='Created'||$row_tasks['task_status']=='Incomplete') : ?>
-					<a href="javascript:void(0)" title="Mark Status" onclick="task_status_update(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-thumb-tack"></i></a>&nbsp;&nbsp;
+					<a href="javascript:void(0)" title="Mark Status" id="mark_btn-<?= $row_tasks['task_id'] ?>" onclick="task_status_update(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-thumb-tack"></i></a>&nbsp;&nbsp;
 				<?php endif; 
 				if($role=='Admin' || $role=='Branch Admin'){ ?>
-					<a href="javascript:void(0)" title="Edit" onclick="task_update_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
+					<a href="javascript:void(0)" title="Update Details" id="update_btn-<?= $row_tasks['task_id'] ?>" onclick="task_update_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
 				<?php  } if($row_tasks['task_status']!='Created') : ?>
-					<a href="javascript:void(0)" title="View Details" onclick="task_extra_note_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-eye"></i></a>
+					<a href="javascript:void(0)" title="View Details" id="view_btn-<?= $row_tasks['task_id'] ?>" onclick="task_extra_note_modal(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-eye"></i></a>
 				<?php endif; if($role=='Admin' || $role=='Branch Admin'){ ?>
-					<a href="javascript:void(0)"  title="Delete" onclick="task_status_disable(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-trash icon-danger-r"></i></a>&nbsp;&nbsp;
+					<a href="javascript:void(0)"  title="Delete" id="delete_btn-<?= $row_tasks['task_id'] ?>" onclick="task_status_disable(<?= $row_tasks['task_id'] ?>)"><i class="fa fa-trash icon-danger-r"></i></a>&nbsp;&nbsp;
 				<?php } ?>
 			</div>
 		</div>
@@ -113,22 +113,36 @@ while($row_tasks = mysqli_fetch_assoc($sq_tasks)){
 	<?php } ?>
 <script>
 function task_update_modal(task_id){
+    $('#update_btn-'+task_id).button('loading');
+    $('#update_btn-'+task_id).prop('disabled',true);
 	var branch_status = $('#branch_status').val();
 	$.post('task_update_modal.php', { task_id : task_id , branch_status : branch_status}, function(data){
 		$('#div_task_update_modal').html(data);
+		$('#update_btn-'+task_id).button('reset');
+		$('#update_btn-'+task_id).prop('disabled',false);
 	});
 }
 function task_status_update(task_id){
+    $('#mark_btn-'+task_id).button('loading');
+    $('#mark_btn-'+task_id).prop('disabled',true);
 	$.post('task_status_modal.php', { task_id : task_id }, function(data){
 		$('#div_task_status_modal').html(data);
+		$('#mark_btn-'+task_id).button('reset');
+		$('#mark_btn-'+task_id).prop('disabled',false);
 	});
 }
 function task_extra_note_modal(task_id){
+    $('#view_btn-'+task_id).button('loading');
+    $('#view_btn-'+task_id).prop('disabled',true);
 	$.post('task_extra_note_modal.php', { task_id : task_id }, function(data){
 		$('#div_task_extra_note_modal').html(data);
+		$('#view_btn-'+task_id).button('reset');
+		$('#view_btn-'+task_id).prop('disabled',false);
 	});
 }
 function task_status_disable(task_id){
+    $('#delete_btn-'+task_id).button('loading');
+    $('#delete_btn-'+task_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
 	$('#vi_confirm_box').vi_confirm_box({
 		callback: function(data1){
@@ -136,7 +150,12 @@ function task_status_disable(task_id){
 				$.post(base_url+'controller/tasks/task_status_disable.php', { task_id : task_id }, function(data){
 					msg_alert(data);
 					tasks_list_reflect();
+					$('#delete_btn-'+task_id).button('reset');
+					$('#delete_btn-'+task_id).prop('disabled',false);
 				})
+			}else{
+				$('#delete_btn-'+task_id).button('reset');
+				$('#delete_btn-'+task_id).prop('disabled',false);
 			}
 		}
 	});

@@ -67,12 +67,8 @@ $branch_status = $_POST['branch_status'];
                         <div class="row mg_bt_10">
                             <div class="col-xs-12 text-right">
 
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_dynamic_bus_booking')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                <button type="button" class="btn btn-danger btn-sm ico_left"
-                                    onClick="deleteRow('tbl_dynamic_bus_booking')"><i
-                                        class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_bus_booking')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_bus_booking');"><i class="fa fa-trash"></i></button>
 
                             </div>
                         </div>
@@ -96,8 +92,8 @@ $branch_status = $_POST['branch_status'];
 
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="basic_show" style="color:#000000">&nbsp;</small>
-                                <input type="text" id="basic_cost" name="basic_cost" placeholder="*Amount"
-                                    title="Amount" onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','basic','discount',false);validate_balance(this.id)">
+                                <input type="text" id="basic_cost" name="basic_cost" placeholder="*Basic Amount"
+                                    title="Basic Amount" onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','basic','discount',false);validate_balance(this.id)">
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="service_show" style="color:#000000">&nbsp;</small>
@@ -128,7 +124,7 @@ $branch_status = $_POST['branch_status'];
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="markup_show" style="color:#000000">&nbsp;</small>
-                                <input type="text" id="markup" name="markup" placeholder="Markup " title="Markup"
+                                <input type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount"
                                     onchange="calculate_total_amount();get_auto_values('balance_date','basic_cost','payment_mode','service_charge','markup','save','true','markup','discount',false);validate_balance(this.id)">
                             </div>
 							<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">

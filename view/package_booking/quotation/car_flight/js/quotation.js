@@ -88,7 +88,9 @@ function get_enquiry_details(offset = '') {
 				let trav_date = result.traveling_date.split(' ');
 				$('#customer_name' + offset).val(result.name);
 				$('#email_id' + offset).val(result.email_id);
-				$('#mobile_no' + offset).val(result.country_code+result.landline_no);
+				$('#mobile_no' + offset).val(result.landline_no);
+				$('#country_code' + offset).val(result.country_code);
+				$('#country_code'+ offset).trigger('change');
 				$('#total_pax' + offset).val(result.total_pax);
 				$('#days_of_traveling' + offset).val(result.days_of_traveling);
 				$('#from_date' + offset).val(trav_date[0]);
@@ -96,9 +98,7 @@ function get_enquiry_details(offset = '') {
 				$('#traveling_date' + offset).val(result.traveling_date);
 				$('#vehicle_name' + offset).val(result.vehicle_type);
 				$('#travel_type' + offset).val(result.travel_type);
-				
 				$('#local_places_to_visit' + offset).html(result.places_to_visit);
-				// $('#travel_type' + offset).select2().trigger("change");
 			}
 			else {
 				$('#customer_name' + offset).val('');
@@ -106,8 +106,6 @@ function get_enquiry_details(offset = '') {
 				$('#mobile_no' + offset).val('');
 				$('#total_pax' + offset).val('');
 				$('#days_of_traveling' + offset).val('');
-				$('#from_date' + offset).val('');
-				$('#to_date' + offset).val('');
 				$('#traveling_date' + offset).val('');
 				$('#vehicle_name' + offset).val('');
 				$('#travel_type' + offset).val('');
@@ -116,6 +114,21 @@ function get_enquiry_details(offset = '') {
 				$('#total_hr' + offset).val('');
 				$('#total_km' + offset).val('');
 				
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth() + 1; //January is 0!
+			
+				var yyyy = today.getFullYear();
+				if (dd < 10) {
+					dd = "0" + dd;
+				}
+				if (mm < 10) {
+					mm = "0" + mm;
+				}
+				var today = dd + "-" + mm + "-" + yyyy;
+				$('#from_date' + offset).val(today);
+				$('#to_date' + offset).val(today);
+
 				if(offset!=''){
 					$('#travel_type1').prop('disabled', false);
 				}
@@ -218,7 +231,9 @@ function get_flight_enquiry_details(offset = '') {
 			success: function (result) {
 				$('#customer_name' + offset).val(result.name);
 				$('#email_id' + offset).val(result.email_id);
-				$('#mobile_no' + offset).val(result.country_code+result.landline_no);
+				$('#mobile_no' + offset).val(result.landline_no);
+				$('#country_code' + offset).val(result.country_code);
+				$('#country_code'+ offset).trigger('change');
 				var enquiry_content = JSON.parse(result.enquiry_content);
 				var count_td = 1;
 				var table = document.getElementById('tbl_flight_quotation_dynamic_plane');
@@ -273,8 +288,8 @@ function get_flight_enquiry_details(offset = '') {
 		row.cells[6].childNodes[0].value = '';
 		row.cells[7].childNodes[0].value = '';
 		row.cells[8].childNodes[0].value = '';
-		row.cells[9].childNodes[0].value = '';
-		row.cells[10].childNodes[0].value = '';
+		// row.cells[9].childNodes[0].value = '';
+		// row.cells[10].childNodes[0].value = '';
 	}
 }
 

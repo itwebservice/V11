@@ -7,8 +7,8 @@ for($i=1;$i<=$ideas_count;$i++){
     ?>
     <div class="row mg_bt_20">
         <div class="col-md-2">
-            <input class="btn btn-sm btn-danger" style="padding-left: 10px !important;" type="button" value="Select Icon" id="select_image" onclick="get_icons('imagel<?=($i)?>');"/>
-            <input type="hidden" id="imagel<?=($i)?>" title="Upload Icon"/>
+            <input class="btn btn-sm btn-danger" style="padding-left: 10px !important;" type="button" value="Select Icon"  id="image_btnd-<?=$i?>" onclick="get_icons('imagel-<?=($i)?>');"/>
+            <input type="hidden" id="imagel-<?=($i)?>" title="Upload Icon"/>
         </div>
         <div class="col-md-3 col-sm-4">
             <input type="text" id="titlel<?=($i)?>" placeholder="Enter title" title="Enter title" data-toggle="tooltip" class="form-control" onchange="validate_char_size(this.id,20);" value="<?php echo $amazing_dest_ideas[0]->title; ?>"/>

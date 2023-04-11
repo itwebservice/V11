@@ -48,7 +48,7 @@
 				</span> 	 	
 				<span class="main_block">
 					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
-					<?php echo "<label>Markup<em>:</em></label> ".$sq_booking['markup_cost'];?> 
+					<?php echo "<label>Markup Amount<em>:</em></label> ".$sq_booking['markup_cost'];?> 
 				</span> 
 				<span class="main_block">
 					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>

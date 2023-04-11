@@ -62,13 +62,8 @@
                                                                     <?php get_airline_name_dropdown(); ?>
                                                                 </select></td>
                                                             <td><select name="plane_class" id="plane_class1"
-                                                                    title="Class" style="width: 120px;">
-                                                                    <option value="">Class</option>
-                                                                    <option value="Economy">Economy</option>
-                                                                    <option value="Premium Economy">Premium Economy
-                                                                    </option>
-                                                                    <option value="Business">Business</option>
-                                                                    <option value="First Class">First Class</option>
+                                                                    title="Class" style="width: 170px !important;">
+                            	                                        <?php get_flight_class_dropdown(); ?>
                                                                 </select></td>
                                                             <td><input type="text" id="txt_dapart1" name="txt_dapart"
                                                                     class="app_datetimepicker"
@@ -323,10 +318,7 @@
                                                         name="tbl_package_tour_quotation_dynamic_transport"
                                                         class="table mg_bt_0 table-bordered mg_bt_10">
                                                         <tr>
-                                                            <td><input class="css-checkbox" id="chk_transport-"
-                                                                    type="checkbox" onchange="get_transport_cost();"
-                                                                    checked readonly><label class="css-label"
-                                                                    for="chk_transport1"> </label></td>
+                                                            <td><input class="css-checkbox" id="chk_transport-" type="checkbox" onchange="get_transport_cost();" readonly><label class="css-label" for="chk_transport1"> </label></td>
                                                             <td><input maxlength="15" value="1" type="text"
                                                                     name="username" placeholder="Sr. No."
                                                                     class="form-control" disabled /></td>

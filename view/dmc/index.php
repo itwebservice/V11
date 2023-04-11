@@ -135,8 +135,11 @@ function dmc_list_reflect()
 dmc_list_reflect();
 function save_modal()
 {
+    $('#btn_save_modal').prop('disabled',true);
+    $('#btn_save_modal').button('loading');
     $.post('save_modal.php', {}, function(data){
-        $('#btn_save_modal').button('reset');
+      $('#btn_save_modal').prop('disabled',false);
+      $('#btn_save_modal').button('reset');
         $('#div_modal_content').html(data);
     });
 }
@@ -154,20 +157,28 @@ function excel_report()
 }
 function dmc_update_modal(dmc_id){
 
+  $('#update_btn-'+dmc_id).button('loading');
+    $('#update_btn-'+dmc_id).prop('disabled',true);
 $.post('dmc_update_modal.php', { dmc_id : dmc_id }, function(data){
 
   $('#div_dmc_update').html(data);
+  $('#update_btn-'+dmc_id).button('reset');
+  $('#update_btn-'+dmc_id).prop('disabled',false);
 
 });
 }
 
 function dmc_view_modal(dmc_id){
 
-$.post('view_modal.php', { dmc_id : dmc_id }, function(data){
+  $('#view_btn-'+dmc_id).button('loading');
+  $('#view_btn-'+dmc_id).prop('disabled',true);
+  $.post('view_modal.php', { dmc_id : dmc_id }, function(data){
 
-  $('#div_dmc_view').html(data);
+    $('#div_dmc_view').html(data);
+    $('#view_btn-'+dmc_id).button('reset');
+    $('#view_btn-'+dmc_id).prop('disabled',false);
 
-});
+  });
 
 }
 

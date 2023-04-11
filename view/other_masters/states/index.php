@@ -2,7 +2,7 @@
 include "../../../model/model.php";
 ?>
 <div class="row text-right mg_tp_20"> <div class="col-md-12">
-   <button class="btn btn-info btn-sm ico_left" onclick="state_save()" id="btn_city_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;State/Country</button>
+   <button class="btn btn-info btn-sm ico_left" onclick="state_save()" id="state_save_modal_btn"><i class="fa fa-plus"></i>&nbsp;&nbsp;State/Country</button>
 </div> </div>
 
 <div id="div_list_content" class="loader_parent">
@@ -31,14 +31,20 @@ function list_reflect(){
 
 function state_master_update_modal(id)
 {
+	$('#state_update-'+id).button('loading');
+  $('#state_update-'+id).prop('disabled',true);
   $('#div_state_list_update_modal').load('states/update_modal.php', { id : id }).hide().fadeIn(500);
+	$('#state_update-'+id).button('reset');
+  $('#state_update-'+id).prop('disabled',false);
 }
 
 function state_save() {
-	 $('#state_save_modal').button('loading');
+	$('#state_save_modal_btn').button('loading');
+  $('#state_save_modal_btn').prop('disabled',true);
 	$.post('states/save_modal.php', {}, function(data){
-		$('#state_save_modal').button('reset');
 		$('#div_state_list_update_modal').html(data);
+    $('#state_save_modal_btn').button('reset');
+    $('#state_save_modal_btn').prop('disabled',false);
 	});
 }
 </script>

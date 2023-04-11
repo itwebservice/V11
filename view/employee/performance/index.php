@@ -9,7 +9,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 <?= begin_panel('Performance Rating','') ?> <span style="font-size: 15px;font-weight: 400;color: #006d6d;margin-left: 15px;" id="span_report_name"></span>
 <div class="row text-right mg_bt_10">
 	<div class="col-md-12">
-		<button class="btn btn-info btn-sm ico_left" id="btn_save_modal" onclick="save_modal()" title="Add user performance"><i class="fa fa-plus"></i>&nbsp;&nbsp;Performance</button>
+		<button class="btn btn-info btn-sm ico_left" id="btn_save" onclick="save_modal()" title="Add user performance"><i class="fa fa-plus"></i>&nbsp;&nbsp;Performance</button>
 	</div>
 </div>
 <input type='hidden' id="branch_status" name='branch_status' avlue="<?= $branch_status ?>"/>
@@ -77,6 +77,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 $('#emp_id_filterpr1,#year_filterp').select2();
 function save_modal()
 {
+	$('#btn_save').prop('disabled',true);
 	var branch_status = $('#branch_status').val();
 	var base_url = $('#base_url').val();
 	$('#btn_save').button('loading');
@@ -84,9 +85,8 @@ function save_modal()
 	$.post('save_modal.php', { branch_status : branch_status}, function(data){
 
 		$('#btn_save').button('reset');
-
+		$('#btn_save').prop('disabled',false);
 		$('#div_modal').html(data);
-
 	});
 }
 
@@ -116,7 +116,7 @@ function rating_reflect()
 }
 var column = [
 
-{ title:"SR_NO"},
+{ title:"S_NO"},
 { title:"User_ID"},
 { title : "User_Name"},
 { title : "Year"},

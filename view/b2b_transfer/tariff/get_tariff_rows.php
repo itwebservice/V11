@@ -52,7 +52,7 @@
                     <td><input type="text" id="to_date" class="form-control" name="to_date" placeholder="*Valid To "
                             title="Valid To" onchange="validate_issueDate('from_date' ,'to_date')"
                             value="<?= date('d-m-Y') ?>" style="width: 120px;" /></td>
-                    <td><input type="text" id="luggage" name="luggage" placeholder="*Luggage Capacity"
+                    <td><input type="text" id="luggage" name="luggage" placeholder="Luggage Capacity"
                             title="Luggage Capacity" style="width: 165px;" onkeypress="return blockSpecialChar(event)" /></td>
                     <td><input type="text" id="total_cost" name="total_cost" placeholder="*Total Cost"
                             title="Total Cost" onchange="validate_balance(this.id)" style="width: 120px;" /></td>

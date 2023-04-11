@@ -34,12 +34,12 @@ $branch_status = $_POST['branch_status'];
 
                     <div class="row">
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <select id="booking_id" style="width: 100%" name="booking_id" title="Booking ID"
                                 onchange="get_outstanding('package',this.id);">
 
-                                <option value="">*Select Booking</option>
+                                <option value="">*Select Booking ID</option>
                                 <?php
                                 $query = "select * from package_tour_booking_master where 1 and delete_status='0' ";
                                 include "../../../model/app_settings/branchwise_filteration.php";
@@ -82,7 +82,7 @@ $branch_status = $_POST['branch_status'];
 
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <input type="text" id="txt_payment_date" name="txt_payment_date" placeholder="*Date"
                                 title="Date" required value="<?= date('d-m-Y') ?>"
@@ -90,7 +90,7 @@ $branch_status = $_POST['branch_status'];
 
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <select id="cmb_payment_mode" required
                                 onchange="payment_installment_enable_disable_fields();get_identifier_block('identifier','cmb_payment_mode','credit_card_details','credit_charges');get_credit_card_charges('identifier','cmb_payment_mode','txt_amount','credit_card_details','credit_charges')"
@@ -102,21 +102,39 @@ $branch_status = $_POST['branch_status'];
 
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <input type="text" id="txt_amount" name="txt_amount" placeholder="*Amount" title="Amount"
                                 onchange="validate_balance(this.id);payment_amount_validate(this.id,'cmb_payment_mode','txt_transaction_id','txt_bank_name','bank_id');get_credit_card_charges('identifier','cmb_payment_mode','txt_amount','credit_card_details','credit_charges');" />
 
                         </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                            <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges"
+                                title="Credit card charges" disabled>
+                        </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                            <select class="hidden" id="identifier"
+                                onchange="get_credit_card_data('identifier','cmb_payment_mode','credit_card_details')"
+                                title="Identifier(4 digit)" required>
+                                <option value=''>Select Identifier</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                            <input class="hidden form-control" type="text" id="credit_card_details"
+                                name="credit_card_details" title="Credit card details" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <input class="form-control bank_suggest" type="text" id="txt_bank_name" name="txt_bank_name"
                                 placeholder="Bank Name" title="Bank Name" disabled />
 
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <input type="number" id="txt_transaction_id" onchange="validate_specialChar(this.id);"
                                 name="txt_transaction_id" placeholder="Cheque No / ID" title="Cheque No / ID"
@@ -124,7 +142,7 @@ $branch_status = $_POST['branch_status'];
 
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 
                             <select name="bank_id" id="bank_id" title="Creditor Bank" disabled>
 
@@ -133,27 +151,11 @@ $branch_status = $_POST['branch_status'];
                             </select>
 
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges"
-                                title="Credit card charges" disabled>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <select class="hidden" id="identifier"
-                                onchange="get_credit_card_data('identifier','cmb_payment_mode','credit_card_details')"
-                                title="Identifier(4 digit)" required>
-                                <option value=''>Select Identifier</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <input class="hidden form-control" type="text" id="credit_card_details"
-                                name="credit_card_details" title="Credit card details" disabled>
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-sm-3">
+                        <div class="col-md-3 col-sm-3">
                             <input type="text" id="outstanding" name="outstanding" class="form-control"
                                 placeholder="Outstanding" title="Outstanding" readonly />
                             <input type="hidden" id="canc_status" name="canc_status" class="form-control" />

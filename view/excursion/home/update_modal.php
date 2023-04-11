@@ -59,11 +59,11 @@ else if($reflections[0]->tax_apply_on == '3') {
 							</select>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-						<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" readonly>
-						</div>	
-						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 						<input type="text" id="mobile_no1" name="mobile_no1" placeholder="Mobile No" title="Mobile No" readonly>
 						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
+						<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" readonly>
+						</div>	
 						<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 						<input type="text" id="company_name1" class="hidden" name="company_name1" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
 	                </div>       		        		        	
@@ -79,7 +79,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 				
 				<div class="row mg_bt_10">
 	                <div class="col-xs-12 text-right text_center_xs">
-	                    <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_exc_booking_update')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+						<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_exc_booking_update');"><i class="fa fa-plus"></i></button>
 	                </div>
 	            </div>    
 	            
@@ -138,12 +138,12 @@ else if($reflections[0]->tax_apply_on == '3') {
 										<td><input type="text" id="total_adult-<?= $offset.$count ?>" name="total_adult-<?= $offset.$count ?>" placeholder="*Total Adult" title="Total Adult" value="<?php echo $row_entry['total_adult'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);get_auto_values('balance_date1','exc_issue_amount1','payment_mode','service_charge1','markup1','update','true','service_charge');" style="width:110px"></td>
 										<td><input type="text" id="total_children-<?= $offset.$count ?>" name="total_children-<?= $offset.$count ?>" placeholder="*Total Child" title="Total Child" value="<?php echo $row_entry['total_child'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);get_auto_values('balance_date1','exc_issue_amount1','payment_mode','service_charge1','markup1','update','true','service_charge');" style="width:110px"></td>
 										<td><input class="form-control" type="text" id="total_infant-<?= $offset.$count ?>" name="total_infant-<?= $offset.$count ?>" value="<?php echo $row_entry['total_infant'] ?>" placeholder="Total Infant" title="Total Infant" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id);get_auto_values('balance_date1','exc_issue_amount1','payment_mode','service_charge1','markup1','update','true','service_charge');" style="width:110px"></td>
-										<td><input type="text" id="adult_cost-<?= $offset.$count ?>" name="adult_cost-<?= $offset.$count ?>" placeholder="Adult Ticket Cost" title="Adult Ticket Cost" value="<?php echo $row_entry['adult_cost'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);" style="width:150px"></td>
-										<td><input type="text" id="child_cost-<?= $offset.$count ?>" name="child_cost-<?= $offset.$count ?>" placeholder="Child Ticket Cost" title="Child Ticket Cost" value="<?php echo $row_entry['child_cost'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);" style="width:150px"> </td>
-										<td><input class="form-control" type="text" id="infant_cost-<?= $offset.$count ?>" name="infant_cost-<?= $offset.$count ?>" value="<?php echo $row_entry['infant_cost'] ?>" placeholder="Infant Ticket Cost" title="Infant Ticket Cost" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id)" style="width:145px"></td>
+										<td><input type="text" id="adult_cost-<?= $offset.$count ?>" name="adult_cost-<?= $offset.$count ?>" placeholder="Adult Ticket Amount" title="Adult Ticket Amount" value="<?php echo $row_entry['adult_cost'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);" style="width:150px"></td>
+										<td><input type="text" id="child_cost-<?= $offset.$count ?>" name="child_cost-<?= $offset.$count ?>" placeholder="Child Ticket Amount" title="Child Ticket Amount" value="<?php echo $row_entry['child_cost'] ?>" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1'); validate_balance(this.id);" style="width:150px"> </td>
+										<td><input class="form-control" type="text" id="infant_cost-<?= $offset.$count ?>" name="infant_cost-<?= $offset.$count ?>" value="<?php echo $row_entry['infant_cost'] ?>" placeholder="Infant Ticket Amount" title="Infant Ticket Amount" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id)" style="width:145px"></td>
 										<td><input class="form-control" type="text" id="total_vehicle-<?= $offset.$count ?>" name="total_vehicle-<?= $offset.$count ?>" placeholder="Total Vehicle" title="Total Vehicle" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id)" style="width:125px" value="<?php echo $row_entry['total_vehicles'] ?>"></td>
-										<td><input class="form-control" type="text" id="transfer_cost-<?= $offset.$count ?>" name="transfer_cost-<?= $offset.$count ?>" placeholder="Transfer Cost" title="Transfer Cost" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id)" style="width:125px" value="<?php echo $row_entry['transfer_cost'] ?>"></td>
-										<td><input type="text" id="total_amount-<?= $offset.$count ?>" name="total_amount-<?= $offset.$count ?>" placeholder="Activity Cost" title="Activity Cost" value="<?php echo $row_entry['total_cost'] ?>" onchange="validate_balance(this.id);excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');" style="width:120px"></td>
+										<td><input class="form-control" type="text" id="transfer_cost-<?= $offset.$count ?>" name="transfer_cost-<?= $offset.$count ?>" placeholder="Transfer Amount" title="Transfer Amount" onchange="excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');validate_balance(this.id)" style="width:125px" value="<?php echo $row_entry['transfer_cost'] ?>"></td>
+										<td><input type="text" id="total_amount-<?= $offset.$count ?>" name="total_amount-<?= $offset.$count ?>" placeholder="Activity Amount" title="Activity Amount" value="<?php echo $row_entry['total_cost'] ?>" onchange="validate_balance(this.id);excursion_amount_calculate(this.id,'1');calculate_exc_expense('tbl_dynamic_exc_booking_update','1');" style="width:120px"></td>
 										<td><input type="hidden" value="<?= $row_entry['entry_id'] ?>"></td>
 									</tr>  
 									<script>
@@ -207,7 +207,7 @@ foreach($bsmValues[0] as $key => $value){
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 		<small id="markup_show1" style="color:red"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_m ?></span></small>
-			<input type="text" id="markup1" name="markup1" placeholder="Markup Cost" title="Markup Cost" onchange="get_auto_values('balance_date1','exc_issue_amount1','payment_mode','service_charge1','markup1','update','false','markup');" value="<?= $markup ?>">
+			<input type="text" id="markup1" name="markup1" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('balance_date1','exc_issue_amount1','payment_mode','service_charge1','markup1','update','false','markup');" value="<?= $markup ?>">
 		</div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="service_tax_markup1" name="service_tax_markup1" placeholder="Tax on Markup" title="Tax on Markup" value="<?= $sq_exc_info['service_tax_markup'] ?>" readonly>

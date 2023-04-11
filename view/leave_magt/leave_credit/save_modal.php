@@ -1,6 +1,5 @@
 <?php 
 include "../../../model/model.php";
- 
 ?>
 
 <div class="modal fade" id="save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
@@ -61,19 +60,19 @@ include "../../../model/model.php";
           <div class="row mg_bt_10">
               <div class="col-md-4"><label for="maternity">Maternity Leave</label></div> 
                   <div class="col-md-6">
-                    <input type="text" id="maternity" name="maternity" onchange="validate_balance(this.id);" placeholder="*Maternity" title="Maternity">
+                    <input type="text" id="maternity" name="maternity" onchange="validate_balance(this.id);" placeholder="Maternity" title="Maternity">
                   </div> 
           </div> 
           <div class="row mg_bt_10">
               <div class="col-md-4"><label for="paternity">Paternity Leave</label></div>    
                   <div class="col-sm-6 col-xs-12">
-                    <input type="text" id="paternity" name="paternity" onchange="validate_balance(this.id);"  placeholder="*Paternity" title="Paternity">
+                    <input type="text" id="paternity" name="paternity" onchange="validate_balance(this.id);"  placeholder="Paternity" title="Paternity">
                   </div>
             </div>
           <div class="row mg_bt_10">
               <div class="col-md-4"><label for="leave_without_pay">Leave without Pay</label></div>                 
                   <div class="col-sm-6 col-xs-12">
-                    <input type="text" id="leave_without_pay" onchange="validate_balance(this.id);" name="leave_without_pay" placeholder="*Leave without Pay" title="Leave without Pay">
+                    <input type="text" id="leave_without_pay" onchange="validate_balance(this.id);" name="leave_without_pay" placeholder="Leave without Pay" title="Leave without Pay">
                   </div>
               </div> 
 
@@ -102,9 +101,6 @@ $('#frm_save').validate({
       casual : { required : true },
       paid : { required : true },
       medical : { required : true }, 
-      maternity : { required : true }, 
-      paternity : { required : true }, 
-      leave_without_pay : { required : true },
   },
   submitHandler:function(form){
 

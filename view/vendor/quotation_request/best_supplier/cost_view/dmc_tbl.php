@@ -8,11 +8,11 @@
 					<thead>
 						<tr class="table-heading-row">
 							<th>S_No.</th>
-							<th>transport_cost</th>
-							<th>activity_cost</th>
-							<th>visa_cost</th>
-							<th>hotel_cost</th>
-							<th>total_cost</th>
+							<th>transport_AMOUNT</th>
+							<th>activity_AMOUNT</th>
+							<th>visa_AMOUNT</th>
+							<th>hotel_AMOUNT</th>
+							<th>total_AMOUNT</th>
 							<th>currency</th>
 						</tr>
 					</thead>

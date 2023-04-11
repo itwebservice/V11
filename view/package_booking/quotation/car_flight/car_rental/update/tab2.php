@@ -62,7 +62,7 @@
 	</div>
 	<div class="col-md-2">
 		<small id="markup_show1"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_m ?></span></small>
-		<input type="text" id="markup_cost1" name="markup_cost1" class="form-control" placeholder="Markup Cost" title="Markup Cost" onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','markup');  " value="<?= $markup ?>">  
+		<input type="text" id="markup_cost1" name="markup_cost1" class="form-control" placeholder="Markup Amount" title="Markup Amount" onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','markup');  " value="<?= $markup ?>">  
 	</div>
 		<div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10">
 		<small>&nbsp;</small>
@@ -182,6 +182,7 @@ $('#frm_tab41_c').validate({
 		var customer_name = $('#customer_name1').val();
 		var email_id = $('#email_id1').val();
 		var mobile_no = $('#mobile_no1').val();
+		var country_code = $('#country_code1').val();
 		var total_pax = $("#total_pax1").val();
 		var days_of_traveling = $('#days_of_traveling1').val();
 		var traveling_date = $('#traveling_date1').val();
@@ -242,7 +243,7 @@ $('#frm_tab41_c').validate({
 
 			url: base_url+'controller/package_tour/quotation/car_rental/quotation_update.php',
 
-			data:{quotation_id : quotation_id, enquiry_id : enquiry_id , total_pax : total_pax, days_of_traveling : days_of_traveling,traveling_date : traveling_date, travel_type : travel_type,vehicle_name : vehicle_name, from_date : from_date, to_date : to_date, route : route,extra_km_cost : extra_km_cost , extra_hr_cost : extra_hr_cost, subtotal : subtotal,markup_cost : markup_cost,markup_cost_subtotal : markup_cost_subtotal, taxation_id : taxation_id, service_charge : service_charge , service_tax_subtotal : service_tax_subtotal, permit : permit, toll_parking : toll_parking, driver_allowance : driver_allowance , total_tour_cost : total_tour_cost, customer_name : customer_name,quotation_date : quotation_date,email_id : email_id, mobile_no : mobile_no,other_charges:other_charges,state_entry:state_entry,capacity:capacity,total_hrs:total_hrs,total_km:total_km,rate:rate,total_max_km:total_max_km,local_places_to_visit:local_places_to_visit, roundoff : roundoff, bsmValues : bsmValues,active_flag:active_flag},
+			data:{quotation_id : quotation_id, enquiry_id : enquiry_id , total_pax : total_pax, days_of_traveling : days_of_traveling,traveling_date : traveling_date, travel_type : travel_type,vehicle_name : vehicle_name, from_date : from_date, to_date : to_date, route : route,extra_km_cost : extra_km_cost , extra_hr_cost : extra_hr_cost, subtotal : subtotal,markup_cost : markup_cost,markup_cost_subtotal : markup_cost_subtotal, taxation_id : taxation_id, service_charge : service_charge , service_tax_subtotal : service_tax_subtotal, permit : permit, toll_parking : toll_parking, driver_allowance : driver_allowance , total_tour_cost : total_tour_cost, customer_name : customer_name,quotation_date : quotation_date,email_id : email_id, mobile_no : mobile_no,country_code:country_code,other_charges:other_charges,state_entry:state_entry,capacity:capacity,total_hrs:total_hrs,total_km:total_km,rate:rate,total_max_km:total_max_km,local_places_to_visit:local_places_to_visit, roundoff : roundoff, bsmValues : bsmValues,active_flag:active_flag},
 			success: function(message){			
                 	$('#btn_quotation_update').button('reset');
                 	var msg = message.split('--');

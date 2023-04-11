@@ -183,8 +183,16 @@ $('#frm_tab2').validate({
 function copy_values(){
 	var count = $('#div_dynamic_ticket_info').attr('data-counter');
 	var currentdate = new Date(); 
-	var datetime = currentdate.getDate() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
+	var day = currentdate.getDate();
+	var month = currentdate.getMonth() + 1;
+	if (day < 10) {
+		day = '0' + day;
+	}
+	if (month < 10) {
+		month = '0' + month;
+	}
+	var datetime = day + "-"
+                + month + "-" 
                 + currentdate.getFullYear() + " "  
                 + currentdate.getHours() + ":"  
                 + currentdate.getMinutes();

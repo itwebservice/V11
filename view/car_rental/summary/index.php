@@ -68,9 +68,9 @@ var column = [
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
-	{ title : "Total_guest"},
+	{ title : "Total_pax"},
 	{ title : "Travel_type"},
 	{ title : "booking_date"},
 	{ title : "View"},
@@ -156,23 +156,35 @@ list_reflect();
 	}
 function car_view_modal(booking_id)
 {
+	$('#packagev_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/car_rental/summary/view/index.php', { booking_id : booking_id }, function(data){
-	  $('#div_car_content_display').html(data);
+		$('#div_car_content_display').html(data);
+		$('#packagev_btn-'+booking_id).prop('disabled',false);
+    	$('#packagev_btn-'+booking_id).button('reset');
 	});
 }
 function supplier_view_modal(booking_id)
 {
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/car_rental/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
-	  $('#div_car_content_display').html(data);
+		$('#div_car_content_display').html(data);
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
 	});
 }
 function payment_view_modal(booking_id)
 {
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/car_rental/summary/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 		$('#div_car_content_display').html(data);
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 function customer_booking_load(from, to)

@@ -28,24 +28,16 @@ $branch_status = $sq['branch_status'];
                     </div>
                 </div>
 
-
-
-
                 <div class="app_panel_content Filter-panel">
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <input type="text" id="from_date_filter" name="from_date_filter" placeholder="From Date"
-                                title="From Date"
-                                onchange="get_to_date('from_date_filter', 'to_date_filter');quotation_list_reflect()">
+                            <input type="text" id="from_date_filter" name="from_date_filter" placeholder="From Date" title="From Date" onchange="get_to_date('from_date_filter', 'to_date_filter');">
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date"
-                                title="To Date"
-                                onchange="quotation_list_reflect();validate_validDate('from_date_filter', 'to_date_filter')">
+                            <input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date_filter', 'to_date_filter')">
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-                            <select name="quotation_id" id="quotation_id" title="Select Quotation"
-                                onchange="quotation_list_reflect()" style="width:100%">
+                            <select name="quotation_id" id="quotation_id" title="Select Quotation" style="width:100%">
                                 <option value="">Select Quotation</option>
                                 <?php
 								$query = "select * from flight_quotation_master where 1 and financial_year_id='$financial_year_id' and status='1'";
@@ -74,12 +66,24 @@ $branch_status = $sq['branch_status'];
                             </select>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
-                            <select name="status" id="status" title="Status" style="width:100%"
-                                onchange="quotation_list_reflect()">
+                            <select name="status" id="status" title="Status" style="width:100%">
                                 <option value="">Status</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mg_tp_10">
+                            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                                <?php
+                                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                                ?>
+                                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 mg_tp_10">
+                            <button class="btn btn-sm btn-info ico_right" onclick="quotation_list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -144,13 +148,15 @@ function quotation_list_reflect() {
     var quotation_id = $('#quotation_id').val();
     var branch_status = $('#branch_status').val();
     var status = $('#status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('quotation_list_reflect.php', {
         from_date: from_date,
         to_date: to_date,
         quotation_id: quotation_id,
         branch_status: branch_status,
-        status: status
+        status: status,
+        financial_year_id:financial_year_id_filter
     }, function(data) {
         // $('#div_quotation_list_reflect').html(data);
         pagination_load(data, columns, true, false, 20, 'flight_qtn_table');
@@ -178,12 +184,16 @@ function save_modal() {
 }
 
 function update_modal(quotation_id) {
+	$('#update_btn'+quotation_id).prop('disabled',true);
+	$('#update_btn'+quotation_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('update/index.php', {
         quotation_id: quotation_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_quotation_update').html(data);
+        $('#update_btn'+quotation_id).prop('disabled',false);
+        $('#update_btn'+quotation_id).button('reset');
     });
 }
 

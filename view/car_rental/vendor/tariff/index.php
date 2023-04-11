@@ -54,14 +54,22 @@ function tarrif_list_reflect()
 tarrif_list_reflect();
 function vendor_update_modal(entry_id)
 {
+    $('#updatet_btn-'+entry_id).button('loading');
+    $('#updatet_btn-'+entry_id).prop('disabled',true);
 	$.post('tariff/tariff_update_modal.php', { entry_id : entry_id }, function(data){
 		$('#div_vendors_update').html(data);
+		$('#updatet_btn-'+entry_id).button('reset');
+		$('#updatet_btn-'+entry_id).prop('disabled',false);
 	});
 }
 function vendor_view_modal(entry_id)
 {
+    $('#viewt_btn-'+entry_id).button('loading');
+    $('#viewt_btn-'+entry_id).prop('disabled',true);
 	$.post('tariff/view_modal.php', { entry_id : entry_id}, function(data){
 		$('#div_vendors_view').html(data);
+		$('#viewt_btn-'+entry_id).button('reset');
+		$('#viewt_btn-'+entry_id).prop('disabled',false);
 	});
 }
 function save_modal()

@@ -606,7 +606,7 @@ class ticket_save{
 			$transaction_id = $transaction_id1;
 			$payment_amount = $payment_amount1;
 			$payment_date = $payment_date1;
-			$payment_particular = $particular;
+			$payment_particular = get_sales_paid_particular(get_train_ticket_booking_id($train_ticket_id,$yr1), $payment_date1, $payment_amount1, $customer_id, $payment_mode, get_train_ticket_booking_id($train_ticket_id,$yr1),$bank_id1,$transaction_id1);
 			$ledger_particular = get_ledger_particular('By','Cash/Bank');
 			$gl_id = $pay_gl;
 			$payment_side = "Debit";

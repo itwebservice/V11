@@ -12,16 +12,19 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_id = $_POST['branch_id'];
 $status = $_POST['status'];
 
 if($status != ''){
 
-	$query = "select * from group_tour_quotation_master where financial_year_id='$financial_year_id' and status='$status'";
+	$query = "select * from group_tour_quotation_master where status='$status'";
 }else{
 
-	$query = "select * from group_tour_quotation_master where financial_year_id='$financial_year_id' and status='1' ";
+	$query = "select * from group_tour_quotation_master where status='1' ";
+}
+if($financial_year_id!=""){
+	$query .=" and financial_year_id='$financial_year_id'";
 }
 
 if($from_date!='' && $to_date!=""){
@@ -128,7 +131,7 @@ $query .=" order by quotation_id desc ";
 		$copy_btn = ($row_quotation['status'] == '1') ? '<button class="btn btn-warning btn-sm" data-toggle="tooltip" onclick="quotation_clone('.$row_quotation['quotation_id'].')" title="Create copy of this quotation"><i class="fa fa-files-o"></i></button>': '';
 		$pdf_btn = ($row_quotation['status'] == '1') ? '<a onclick="loadOtherPage(\''.$url1.'\')" data-toggle="tooltip" class="btn btn-info btn-sm" title="Download Quotation PDF"><i class="fa fa-print"></i></a>' : '';
 		$mail_btn = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" id="btn_email_'.$count.'" class="btn btn-info btn-sm" onclick="quotation_email_send(this.id, '.$row_quotation['quotation_id'].')" title="'.$whatsapp_tooltip_change.'"><i class="fa fa-envelope-o"></i></a>' : '';
-		$mail_btn_b = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" title="Email Quotation to Backoffice" id="btn_email1_'.$count.'" class="btn btn-info btn-sm" onclick="quotation_email_send_backoffice_modal('.$row_quotation['quotation_id'].')"><i class="fa fa-paper-plane-o"></i></a>' : '';
+		$mail_btn_b = ($row_quotation['status'] == '1') ? '<a href="javascript:void(0)" title="Email Quotation to Backoffice" id="email_backoffice_btn-'.$row_quotation['quotation_id'].'" class="btn btn-info btn-sm" onclick="quotation_email_send_backoffice_modal('.$row_quotation['quotation_id'].')"><i class="fa fa-paper-plane-o"></i></a>' : '';
 
 		$temp_arr = array( "data" => array(
 			(int)(++$count),
@@ -139,10 +142,7 @@ $query .=" order by quotation_id desc ";
 			number_format($row_quotation['quotation_cost'],2).$currency_amount,
 			$emp_name,
 			$pdf_btn.$mail_btn
-			.$copy_btn.$mail_btn_b.'
-			
-			<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
-
+			.'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal(\''.$row_quotation['quotation_id'].'\',\''.$row_quotation['package_id'].'\')" id="editq-\''.$row_quotation['quotation_id'].'\'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>'.$copy_btn.$mail_btn_b.'
 			<a href="quotation_view.php?quotation_id='.$row_quotation['quotation_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>',
 
 		), "bg" =>$bg);

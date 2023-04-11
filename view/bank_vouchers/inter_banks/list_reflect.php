@@ -10,7 +10,7 @@ $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
 $bank_id = $_POST['bank_id'];
 $dbank_id = $_POST['dbank_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $query = "select * from inter_bank_transfer_master where 1 and delete_status=0 and amount!=0 ";
 if ($from_date != "" && $to_date != "") {
@@ -80,7 +80,7 @@ $query .= " order by entry_id desc";
                         </td>
                         <td class="text-center" style="display:flex;">
                             <button class="btn btn-info btn-sm"
-                                onclick="update_bank_modal(<?= $row_withdraw['entry_id'] ?>)" title="Edit Details" id="iedit-<?= $row_withdraw['entry_id'] ?>"><i
+                                onclick="update_bank_modal(<?= $row_withdraw['entry_id'] ?>)" title="Update Details" id="iedit-<?= $row_withdraw['entry_id'] ?>"><i
                                     class="fa fa-pencil-square-o"></i></button>
                             <button class="<?= $delete_flag ?> btn btn-danger btn-sm"
                                 onclick="inter_delete_entry(<?= $row_withdraw['entry_id'] ?>)" title="Delete Entry"><i

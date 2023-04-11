@@ -20,7 +20,6 @@ $_SESSION['token'] =$tokenUser;
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,500" rel="stylesheet">
-  
   <link rel="stylesheet" href="<?php echo BASE_URL ?>css/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL ?>css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo BASE_URL ?>css/vi.alert.css">

@@ -13,6 +13,7 @@ public function quotation_master_update()
     $customer_name = $_POST['customer_name'];
     $email_id = $_POST['email_id'];
     $mobile_no = $_POST['mobile_no'];
+	$country_code = $_POST['country_code'];
     $total_adult = $_POST['total_adult'];
     $total_infant = $_POST['total_infant'];
     $total_passangers = $_POST['total_passangers'];
@@ -158,8 +159,9 @@ public function quotation_master_update()
 	
 	$from_date = get_date_db($from_date);
 	$to_date = get_date_db($to_date);
+	$whatsapp_no = $country_code.$mobile_no;
 
-	$sq_quotation = mysqlQuery("update package_tour_quotation_master set tour_name = '$tour_name', from_date = '$from_date', to_date = '$to_date', total_days = '$total_days', customer_name = '$customer_name', email_id='$email_id',mobile_no='$mobile_no', total_adult = '$total_adult', total_infant = '$total_infant', total_passangers = '$total_passangers', children_without_bed = '$children_without_bed', children_with_bed = '$children_with_bed', quotation_date='$quotation_date', booking_type = '$booking_type', train_cost = '$train_cost', flight_cost = '$flight_cost',cruise_cost='$cruise_cost', visa_cost = '$visa_cost', guide_cost= '$guide_cost',misc_cost='$misc_cost', price_str_url= '$price_str_url', enquiry_id= '$enquiry_id',inclusions='$inclusions',exclusions='$exclusions',costing_type='$costing_type',currency_code='$currency_code',discount='$discount',status='$active_flag', train_acost='$train_acost',flight_acost='$flight_acost', cruise_acost='$cruise_acost', train_ccost='$train_ccost', flight_ccost='$flight_ccost', cruise_ccost='$cruise_ccost', train_icost='$train_icost', flight_icost='$flight_icost', cruise_icost='$cruise_icost',other_desc='$other_desc' where quotation_id = '$quotation_id'");
+	$sq_quotation = mysqlQuery("update package_tour_quotation_master set tour_name = '$tour_name', from_date = '$from_date', to_date = '$to_date', total_days = '$total_days', customer_name = '$customer_name', email_id='$email_id',mobile_no='$whatsapp_no',whatsapp_no='$mobile_no',country_code='$country_code', total_adult = '$total_adult', total_infant = '$total_infant', total_passangers = '$total_passangers', children_without_bed = '$children_without_bed', children_with_bed = '$children_with_bed', quotation_date='$quotation_date', booking_type = '$booking_type', train_cost = '$train_cost', flight_cost = '$flight_cost',cruise_cost='$cruise_cost', visa_cost = '$visa_cost', guide_cost= '$guide_cost',misc_cost='$misc_cost', price_str_url= '$price_str_url', enquiry_id= '$enquiry_id',inclusions='$inclusions',exclusions='$exclusions',costing_type='$costing_type',currency_code='$currency_code',discount='$discount',status='$active_flag', train_acost='$train_acost',flight_acost='$flight_acost', cruise_acost='$cruise_acost', train_ccost='$train_ccost', flight_ccost='$flight_ccost', cruise_ccost='$cruise_ccost', train_icost='$train_icost', flight_icost='$flight_icost', cruise_icost='$cruise_icost',other_desc='$other_desc' where quotation_id = '$quotation_id'");
 	
 	$sq_info = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id = '$quotation_id'"));
 

@@ -81,7 +81,7 @@ if($quotation_for=="Transport"){
 
 				<?php } ?>
 
-				<option value="">*Vehicle Type</option>
+				<option value="">Vehicle Type</option>
 
 				<option value="AC">AC</option>
 

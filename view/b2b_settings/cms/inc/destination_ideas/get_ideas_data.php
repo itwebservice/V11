@@ -9,8 +9,8 @@ if($sq_settings != 0){
     for($i=0;$i<sizeof($amazing_dest_ideas[0]->icon_list);$i++){ ?>
         <div class="row mg_bt_20">
             <div class="col-md-2">
-                <input class="btn btn-sm btn-warning" style="padding-left: 10px !important;" type="button" value="Icon Uploaded" id="select_image<?=$i?>" onclick="get_icons('image<?=($i)?>');"/>
-                <input type="hidden" title="Icon Uploaded" value="<?= $amazing_dest_ideas[0]->icon_list[$i]->icon ?>" id="image<?=($i)?>"/>
+                <input class="btn btn-sm btn-warning" style="padding-left: 10px !important;" type="button" value="Icon Uploaded" id="image_btnd-<?=$i?>" onclick="get_icons('image-<?=($i)?>');"/>
+                <input type="hidden" title="Icon Uploaded" value="<?= $amazing_dest_ideas[0]->icon_list[$i]->icon ?>" id="image-<?=($i)?>"/>
             </div>
             <div class="col-md-3 col-sm-4">
                 <input type="text" id="title<?=$i?>" placeholder="Enter title" title="Enter title" data-toggle="tooltip" class="form-control" onchange="validate_char_size(this.id,20);" value="<?php echo $amazing_dest_ideas[0]->icon_list[$i]->title; ?>">

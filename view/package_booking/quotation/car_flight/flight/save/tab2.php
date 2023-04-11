@@ -69,12 +69,7 @@
 
                                                     <td><select name="plane_class-1" id="plane_class-1" title="Class"
                                                             style="width: 150px;">
-
-                                                            <option value="">Class Type</option>
-                                                            <option value="Economy">Economy</option>
-                                                            <option value="Business">Business</option>
-                                                            <option value="First Class">First Class</option>
-                                                            <option value="Other">Other</option>
+                                                            <?php get_flight_class_dropdown(); ?>
 
                                                         </select></td>
                                                     <td><input type="text" id="adult-1" name="adult-1"
@@ -91,15 +86,15 @@
                                                             class="app_datetimepicker form-control"
                                                             placeholder="*Departure Date & Time"
                                                             title="Departure Date & Time"
-                                                            onchange="get_to_datetime(this.id,'txt_arrval-1')"
-                                                            value="<?= date('d-m-Y H:i') ?>" style="width: 139px;" />
+                                                            value="<?= date('d-m-Y H:i') ?>" 
+                                                            onchange="get_to_datetime(this.id,'txt_arrval-1')" style="width: 139px;" />
                                                     </td>
 
                                                     <td><input type="text" id="txt_arrval-1" name="txt_arrval-1"
                                                             class="app_datetimepicker form-control"
-                                                            placeholder="*Arrival Date & Time"
+                                                            placeholder="*Arrival Date & Time" value="<?= date('d-m-Y H:i') ?>"
                                                             onchange="validate_validDatetime('txt_dapart-1','txt_arrval-1')"
-                                                            title="Arrival Date & Time" value="<?= date('d-m-Y H:i') ?>"
+                                                            title="Arrival Date & Time"
                                                             style="width: 170px;" /></td>
                                                     <td><input type="hidden" id="from_city-1"></td>
                                                     <td><input type="hidden" id="to_city-1"></td>

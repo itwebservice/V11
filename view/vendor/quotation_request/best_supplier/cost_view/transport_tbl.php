@@ -7,8 +7,8 @@
 					<thead>
 						<tr class="table-heading-row">
 							<th>S_No.</th>
-							<th>transport_cost</th>
-							<th>total_cost</th>
+							<th>transport_AMOUNT</th>
+							<th>total_AMOUNT</th>
 							<th>currency</th>
 						</tr>
 					</thead>

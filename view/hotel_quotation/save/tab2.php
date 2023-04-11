@@ -7,15 +7,13 @@
                     <input type="number" name="nofquotation" id="nofquotation" placeholder="Enter No of Quotation(s)"
                         title="Number of Quotation(s)" onchange="options_dynamic_reflect(this.id)">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9 col-sm-4 col-xs-12 mg_bt_20">
-                    <small class="note">Note - Use this field to generate multiple hotel quotations for eg. If you enter
-                        3 here you can create 3 quotation options.</small>
+                <div class="col-md-4 col-sm-4 col-xs-12 mg_bt_20">
+                    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Use this field to generate multiple hotel quotations for eg. If you enter 3 here you can create 3 quotation options."><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-8 col-xs-12 no-pad" id="options_div"></div>
+                <div class="col-md-12 col-sm-8 col-xs-12 no-pad" id="options_div">
+                </div>
             </div>
         </div>
 

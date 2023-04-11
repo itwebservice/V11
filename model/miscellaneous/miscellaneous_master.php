@@ -746,6 +746,7 @@ class miscellaneous_master
 		$issue_date_arr = $_POST['issue_date_arr'];
 		$expiry_date_arr = $_POST['expiry_date_arr'];
 		$entry_id_arr = $_POST['entry_id_arr'];
+		$e_checkbox_arr = $_POST['e_checkbox_arr'];
 		$serv = $_POST['service'];
 		//$services = implode(', ',$serv);
 		$narration = $_POST['narration'];
@@ -777,7 +778,7 @@ class miscellaneous_master
 
 			rollback_t();
 
-			echo "error--Sorry, Miscellaneous information not update successfully!";
+			echo "error--Sorry, Miscellaneous information not updated successfully!";
 
 			exit;
 		} else {
@@ -791,35 +792,43 @@ class miscellaneous_master
 				$issue_date_arr[$i] = get_date_db($issue_date_arr[$i]);
 				$expiry_date_arr[$i] = get_date_db($expiry_date_arr[$i]);
 
-				if ($entry_id_arr[$i] == "") {
+				if($e_checkbox_arr[$i] == 'true'){
+					if ($entry_id_arr[$i] == "") {
 
-					$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from miscellaneous_master_entries"));
+						$sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from miscellaneous_master_entries"));
 
-					$entry_id = $sq_max['max'] + 1;
+						$entry_id = $sq_max['max'] + 1;
 
-					$sq_entry = mysqlQuery("insert into miscellaneous_master_entries(entry_id, misc_id, first_name, middle_name, last_name, birth_date, adolescence,passport_id, issue_date, expiry_date) values('$entry_id', '$misc_id', '$first_name_arr[$i]', '$middle_name_arr[$i]', '$last_name_arr[$i]', '$birth_date_arr[$i]', '$adolescence_arr[$i]', '$passport_id_arr[$i]', '$issue_date_arr[$i]', '$expiry_date_arr[$i]')");
+						$sq_entry = mysqlQuery("insert into miscellaneous_master_entries(entry_id, misc_id, first_name, middle_name, last_name, birth_date, adolescence,passport_id, issue_date, expiry_date) values('$entry_id', '$misc_id', '$first_name_arr[$i]', '$middle_name_arr[$i]', '$last_name_arr[$i]', '$birth_date_arr[$i]', '$adolescence_arr[$i]', '$passport_id_arr[$i]', '$issue_date_arr[$i]', '$expiry_date_arr[$i]')");
 
-					if (!$sq_entry) {
+						if (!$sq_entry) {
 
-						$GLOBALS['flag'] = false;
+							$GLOBALS['flag'] = false;
 
-						echo "error--Some Miscellaneous entries are not saved!";
+							echo "error--Some Miscellaneous entries are not saved!";
 
-						//exit;
+							//exit;
 
+						}
+					} else {
+
+						$sq_entry = mysqlQuery("update miscellaneous_master_entries set misc_id='$misc_id', first_name='$first_name_arr[$i]', middle_name='$middle_name_arr[$i]', last_name='$last_name_arr[$i]', birth_date='$birth_date_arr[$i]', adolescence='$adolescence_arr[$i]', passport_id='$passport_id_arr[$i]', issue_date='$issue_date_arr[$i]', expiry_date='$expiry_date_arr[$i]' where entry_id='$entry_id_arr[$i]'");
+
+						if (!$sq_entry) {
+
+							$GLOBALS['flag'] = false;
+
+							echo "error--Some Miscellaneous entries are not updated!";
+
+							//exit;
+
+						}
 					}
-				} else {
-
-					$sq_entry = mysqlQuery("update miscellaneous_master_entries set misc_id='$misc_id', first_name='$first_name_arr[$i]', middle_name='$middle_name_arr[$i]', last_name='$last_name_arr[$i]', birth_date='$birth_date_arr[$i]', adolescence='$adolescence_arr[$i]', passport_id='$passport_id_arr[$i]', issue_date='$issue_date_arr[$i]', expiry_date='$expiry_date_arr[$i]' where entry_id='$entry_id_arr[$i]'");
-
-					if (!$sq_entry) {
-
+				}else{
+					$sq_entry = mysqlQuery("delete from miscellaneous_master_entries where entry_id='$entry_id_arr[$i]'");
+					if(!$sq_entry){
 						$GLOBALS['flag'] = false;
-
-						echo "error--Some Miscellaneous entries are not updated!";
-
-						//exit;
-
+						echo "error--Some entries not deleted!";
 					}
 				}
 			}

@@ -3,12 +3,12 @@
 //$role_id = $_SESSION['role_id'];
 // require_once('../layouts/admin_header.php');
 ?>
- <!-- begin_panel('Branch Privilege',6)> -->
- <div class="alert alert-danger hidden" role="alert" id="branch_permission">
- Please upgrade the subscription to add to set branch privileges.
- <button type="button" class="close" onclick="remove_hidden_class()"><span>x</span></button>
+<!-- begin_panel('Branch Privilege',6)> -->
+<div class="alert alert-danger hidden" role="alert" id="branch_permission">
+Please upgrade the subscription to add to set branch privileges.
+<button type="button" class="close" onclick="remove_hidden_class()"><span>x</span></button>
 </div>
- <span class="note">You need to select the permissions to avoid other branches to view them.</span>
+<span class="note">Note: You need to select the permissions to avoid other branches to view them.</span>
 <div class="panel panel-default panel-body mg_tp_20 mg_bt_-1">
 <h4>Branchwise Permissions</h4>
         

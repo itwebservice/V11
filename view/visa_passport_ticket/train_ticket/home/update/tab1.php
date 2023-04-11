@@ -24,7 +24,7 @@
 	      <input type="text" id="email_id" name="email_id" placeholder="Email ID" title="Email ID" readonly>
 	    </div>	  
 	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
-          <input type="text" id="company_name" class="hidden" name="company_name" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
+        <input type="text" id="company_name" class="hidden" name="company_name" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
         </div>    
 	</div>
 	<hr>
@@ -32,7 +32,7 @@
 	<div class="panel panel-default panel-body app_panel_style">
 		<div class="row mg_bt_10">
 			<div class="col-xs-12 text-right text_center_xs">
-				<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_train_ticket_master');" ><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+				<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_train_ticket_master')"><i class="fa fa-plus"></i></button>
 			</div>
 		</div>    
 		
@@ -69,6 +69,17 @@ $('#frm_tab1').validate({
         var msg = "";
         var table = document.getElementById("tbl_dynamic_train_ticket_master");
         var rowCount = table.rows.length;
+		var checked_count = 0;
+		for (var i = 0; i < rowCount; i++) {
+			var row = table.rows[i];
+			if (row.cells[0].childNodes[0].checked) {
+				checked_count++;
+			}
+		}
+		if (checked_count == 0) {
+			error_msg_alert("Atleast one passenger details is required!");
+			return false;
+		}
         
         for(var i=0; i<rowCount; i++)
         {

@@ -242,7 +242,7 @@ for($i=0;$i<=count($main_location)-1;$i++)
                
                 get_total($From_location[$i],$to_location[$i]) + get_group_total($From_location[$i],$to_location[$i]) +  get_package_total($From_location[$i],$to_location[$i]),
                 get_amount($From_location[$i],$to_location[$i]) + get_group_amount($From_location[$i],$to_location[$i]) + get_package_amount($From_location[$i],$to_location[$i]),
-			    '<button class="btn btn-info btn-sm" onclick="view_com_sector_modal(`'.$From_location[$i].'`,`'.$to_location[$i] .'`)" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>' 
+			    '<button class="btn btn-info btn-sm" onclick="view_com_sector_modal(`'.$From_location[$i].'`,`'.$to_location[$i] .'`)" data-toggle="tooltip" title="View Details" id="view_btn-'.$From_location[$i].'`,`'.$to_location[$i] .'"><i class="fa fa-eye"></i></button>' 
         ),"bg" =>$bg );
       
        array_push($array_s, $temparr);

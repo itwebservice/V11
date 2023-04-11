@@ -20,7 +20,7 @@ $sq_bank = mysqli_fetch_assoc(mysqlQuery("select * from bank_master where bank_i
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Payment Update</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Payment</h4>
       </div>
       <div class="modal-body">
         
@@ -60,7 +60,7 @@ $sq_bank = mysqli_fetch_assoc(mysqlQuery("select * from bank_master where bank_i
                 <input type="text" id="payment_date1" name="payment_date1" class="form-control" placeholder="Date" title="Payment Date" value="<?= date('d-m-Y', strtotime($sq_payment['payment_date'])) ?>" readonly>
               </div>  
               <div class="col-md-4">
-                <input type="text" id="payment_amount1" name="payment_amount1" class="form-control" placeholder="Amount" title="Payment Amount" value="<?= $sq_payment['payment_amount'] ?>" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode12','transaction_id1','bank_name1')">
+                <input type="text" id="payment_amount1" name="payment_amount1" class="form-control" placeholder="Payment Amount" title="Payment Amount" value="<?= $sq_payment['payment_amount'] ?>" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode12','transaction_id1','bank_name1')">
               </div>             
               <div class="col-md-4">
                 <select name="payment_mode12" id="payment_mode12" class="form-control" title="Payment Mode" onchange="payment_master_toggles(this.id, 'bank_name1', 'transaction_id1', 'bank_id1')" disabled>

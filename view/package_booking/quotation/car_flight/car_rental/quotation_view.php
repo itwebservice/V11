@@ -59,7 +59,7 @@ else{
 		<?php if(($sq_quotation['travel_type'] == 'Local')) { ?><div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Total Hr</label> : <?= ($sq_quotation['total_hrs']) ?> </div>	 <?php } ?>
 		<div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Extra KM Cost</label> : <?= $sq_quotation['extra_km_cost'] ?> </div>
 		<div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Extra Hr Cost</label> : <?= ($sq_quotation['extra_hr_cost']) ?> </div>	
-		<div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Rate</label> : <?= ($sq_quotation['rate']) ?> </div>	
+		<div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Daily Rate</label> : <?= ($sq_quotation['rate']) ?> </div>	
 	</div>
 	<div class="row">
 		<div class="col-md-3 mg_bt_10" style="border-right: 1px solid #ddd;"> <label>Quotation Date</label> : <?=  get_date_user($sq_quotation['quotation_date']) ?> </div>	

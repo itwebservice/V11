@@ -24,8 +24,8 @@
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="manufacturer" name="manufacturer"
-                                onchange="locationname_validate(this.id);" placeholder="*Manufacturer Name"
-                                title="Manufacturer Name" onkeypress="return blockSpecialChar(event);" required>
+                                onchange="locationname_validate(this.id);" placeholder="Manufacturer Name"
+                                title="Manufacturer Name" onkeypress="return blockSpecialChar(event);">
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="model_name" name="model_name"
@@ -53,7 +53,7 @@
                                 <ul id="files"></ul>
                                 <input type="hidden" id="image_upload_url" name="image_upload_url" required>
                             </div>
-                            <div class="note">Note : Upload Image size below 100KB, resolution : 900X450.</div>
+				            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 100KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row mg_tp_20">

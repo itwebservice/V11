@@ -13,7 +13,7 @@ include "../../../model/model.php";
 		<div class="modal-body">
 				<div class="row mg_bt_10">
 					<div class="col-sm-4 mg_bt_10_xs">
-						<input type="text" id="purchase_date" name="purchase_date" placeholder="*Purchase Date" title="Purchase Date">
+						<input type="text" id="purchase_date" name="purchase_date" placeholder="*Purchase Date" title="Purchase Date" value="<?= date('d-m-Y') ?>">
 					</div>
 					<div class="col-sm-4 mg_bt_10_xs">
 						<select name="city_id" id="city_id" title="Select City" style="width:100%" onchange="load_hotel_list(this.id); ">

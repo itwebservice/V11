@@ -25,8 +25,12 @@ function list_reflect(){
 list_reflect();
 
 function update_modal(entry_id){
+	$('#roe_update-'+entry_id).button('loading');
+	$('#roe_update-'+entry_id).prop('disabled',true);
 	$.post('roe/update_modal.php', { entry_id : entry_id }, function(data){
 		$('#div_modal').html(data);
+		$('#roe_update-'+entry_id).button('reset');
+		$('#roe_update-'+entry_id).prop('disabled',false);
 	});
 }
 </script>

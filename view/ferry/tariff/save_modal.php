@@ -246,21 +246,6 @@ $(function(){
             $('#tariff_save').prop('disabled',false);
             return false;
           }
-          if(infant==''){
-            error_msg_alert('Enter infant cost in Row-'+(i+1));
-            $('#tariff_save').prop('disabled',false);
-            return false;
-          }
-          if(markup_in==''){
-            error_msg_alert('Select markup-in in Row-'+(i+1));
-            $('#tariff_save').prop('disabled',false);
-            return false;
-          }
-          if(markup_cost==''){
-            error_msg_alert('Enter markup cost in Row-'+(i+1));
-            $('#tariff_save').prop('disabled',false);
-            return false;
-          }
           no_seats_array.push(seats); 
           from_date_array.push(from_date); 
           to_date_array.push(to_date); 

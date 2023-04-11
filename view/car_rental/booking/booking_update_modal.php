@@ -65,12 +65,12 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
-                                    placeholder="Email ID" title="Email ID" readonly>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="mobile_no1" name="mobile_no1" title="Mobile Number"
                                     placeholder="Mobile No" title="Mobile No" readonly>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
+                                    placeholder="Email ID" title="Email ID" readonly>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="company_name1" class="hidden" name="company_name1"
@@ -188,7 +188,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="rate1" name="rate1" class="text-right form-control"
-                                    placeholder="Rate" title="Rate" onchange="calculate_total_fees(this.id,'1');get_auto_values('booking_date1','basic_amount1','payment_mode','service_charge1','markup_cost1','update','true','service_charge');"
+                                    placeholder="Daily Rate" title="Daily Rate" onchange="calculate_total_fees(this.id,'1');get_auto_values('booking_date1','basic_amount1','payment_mode','service_charge1','markup_cost1','update','true','service_charge');"
                                     class="form-control" value="<?= $sq_enq_info['rate'] ?>">
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
@@ -337,7 +337,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                                         <small
                                             id="markup_show1"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_m ?></span></small>
                                         <input type="text" id="markup_cost1" name="markup_cost1"
-                                            placeholder="Markup Cost" title="Markup Cost"
+                                            placeholder="Markup Amount" title="Markup Amount"
                                             class="text-right form-control"
                                             onchange="validate_balance(this.id);get_auto_values('booking_date1','basic_amount1','payment_mode','service_charge1','markup_cost1','update','false','markup');"
                                             value="<?= $markup ?>">

@@ -5,7 +5,7 @@ $supplier_type = $_POST['supplier_type'];
 $expense_type = $_POST['expense_type'];
 $branch_status = $_POST['branch_status'];
 $emp_id = $_SESSION['emp_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
@@ -91,7 +91,7 @@ $query .= " order by expense_id desc";
 								<?php } ?>
 							<td class="info text-right"><?= $row_expense['total_fee'] ?></td>
 							<td>
-								<button class="btn btn-info btn-sm" onclick="expense_update_modal(<?= $row_expense['expense_id'] ?>)" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+								<button class="btn btn-info btn-sm" onclick="expense_update_modal(<?= $row_expense['expense_id'] ?>)" title="Update Details" id="update_btn-<?= $row_expense['expense_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 								<button class="<?= $delete_flag ?> btn btn-danger btn-sm" onclick="delete_entry(<?= $row_expense['expense_id'] ?>)" title="Delete Entry"><i class="fa fa-trash"></i></button>
 							</td>			
 						</tr>

@@ -3,6 +3,7 @@ include "../../../../model/model.php";
 $role= $_SESSION['role'];
 $emp_id= $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='bank_vouchers/index.php'"));
 $branch_status = $sq['branch_status'];
 ?>
@@ -27,11 +28,16 @@ $branch_status = $sq['branch_status'];
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" name="to_date_filter" id="to_date_filter" placeholder="To Date" title="To Date" class="form-control" onchange="validate_validDate('from_date_filter','to_date_filter')">
 		</div>
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10 hidden">
-			<select name="financial_year_id_filter" id="financial_year_id_filter" title="Financial Year" class="form-control">
-				<?php get_financial_year_dropdown(); ?>
-			</select>
-		</div>
+        <div class="col-md-3 col-sm-6 mg_bt_10">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year" class="form-control">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
+        </div>
 		<div class="col-xs-3">
 			<button class="btn btn-sm btn-info ico_right" onclick="list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
 		</div>

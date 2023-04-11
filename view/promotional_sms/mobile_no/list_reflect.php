@@ -30,7 +30,7 @@ while($row_mobile_no = mysqli_fetch_assoc($sq_mobile_no)){
 		'<input type="checkbox" id="chk_mobile_no_'.$count.'" name="chk_mobile_no" value="\''. $row_mobile_no['mobile_no_id'] .'\'"> &nbsp;&nbsp;&nbsp;&nbsp;'.(int)($count),
 		$row_mobile_no['mobile_no'] ,
 		trim($group_name, ', '),
-		'<button class="btn btn-info btn-sm" onclick="mobile_no_edit_modal('. $row_mobile_no['mobile_no_id'] .')" data-toggle="tooltip" title="Edit No" id="edit-'. $row_mobile_no['mobile_no_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'	
+		'<button class="btn btn-info btn-sm" onclick="mobile_no_edit_modal('. $row_mobile_no['mobile_no_id'] .')" data-toggle="tooltip" title="Update Details" id="editm-'. $row_mobile_no['mobile_no_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'	
 		), "bg" =>$bg);
 	array_push($array_s,$temp_arr);
 }

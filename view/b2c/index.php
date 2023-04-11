@@ -3,7 +3,7 @@ include "../../model/model.php";
 /*======******Header******=======*/
 require_once('../layouts/admin_header.php');
 ?>
-<?= begin_panel('B2C CMS Settings', '') ?>
+<?= begin_panel('B2C Settings', '') ?>
 <?php
 if ($b2c_flag == '1') { ?>
 

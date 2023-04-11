@@ -53,6 +53,7 @@ $role_id = $_SESSION['role_id'];
 </div></div></div>
 </div>
 <div id="div_exc_content_display"></div>
+<div id="div_exc_content_display1"></div>
 
 <script>
 $('#cust_filter, #booking_id_filter').select2();
@@ -63,7 +64,7 @@ var column = [
 	{ title : "S_No."},
 	{ title : "Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Service"},
 	{ title : "booking_date"},
@@ -78,8 +79,8 @@ var column = [
 	{ title : "Paid", className:"success text-right"},
 	{ title : "View"},
 	{ title : "outstanding_balance", className:"warning text-right"},
-	{ title : "Purchase"},
-	{ title : "Purchased_from"},
+	// { title : "Purchase"},
+	// { title : "Purchased_from"},
 	{ title : "Booked_By"},
 ];
 function list_reflect()
@@ -107,10 +108,15 @@ function excel_report()
 }
 function exc_view_modal(booking_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/b2c/sales/summary/view/index.php', { booking_id : booking_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#packagev_btn-'+booking_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
+	var base_url = $('#base_url').val();
+	$.post(base_url+'view/b2c/sales/summary/view/index.php', { booking_id : booking_id }, function(data){
+		$('#div_exc_content_display').html(data);
+		$('#packagev_btn-'+booking_id).prop('disabled',false);
+    	$('#packagev_btn-'+booking_id).button('reset');
+	});
 }
 function booking_id_dropdown_load(customer_id_filter, booking_id_filter)
 {
@@ -122,16 +128,24 @@ function booking_id_dropdown_load(customer_id_filter, booking_id_filter)
 }
 function supplier_view_modal(booking_id)
 {
-var base_url = $('#base_url').val();
-$.post(base_url+'view/b2c/sales/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
-	$('#div_exc_content_display').html(data);
-});
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
+	$.post(base_url+'view/b2c/sales/summary/view/supplier_view_modal.php', { exc_id : booking_id }, function(data){
+		$('#div_exc_content_display1').html(data);
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
+	});
 }
 function payment_view_modal(booking_id)
 {
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/b2c/sales/summary/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 		$('#div_exc_content_display').html(data);
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 </script>

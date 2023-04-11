@@ -184,7 +184,7 @@ $row_count = 11;
                 ->setCellValue('B'.$row_count, "Sr. No")
                 ->setCellValue('C'.$row_count, "Booking ID")
                 ->setCellValue('D'.$row_count, "Agent Name")
-                ->setCellValue('E'.$row_count, "Contact")
+                ->setCellValue('E'.$row_count, "Mobile")
                 ->setCellValue('F'.$row_count, "EMAIL ID")
                 ->setCellValue('G'.$row_count, "Booking Date")
                 ->setCellValue('H'.$row_count, "Sale")

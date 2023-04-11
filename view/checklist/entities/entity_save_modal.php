@@ -18,15 +18,16 @@ $branch_status = $sq['branch_status'];
           <div class="col-sm-4 mg_bt_30">
             <select name="entity_for" id="entity_for" title="Select Service" data-toggle="tooltip" onchange="reflect_entity();reflect_destination()" class="form-control">
               <option value="">*Select Service</option>
-              <option value="Group Tour">Group Tour</option>
               <option value="Package Tour">Package Tour</option>
-              <option value="Visa Booking">Visa Booking</option>
-              <option value="Flight Booking">Flight Booking</option>
-              <option value="Train Booking">Train Booking</option>
+              <option value="Group Tour">Group Tour</option>
               <option value="Hotel Booking">Hotel Booking</option>
-              <option value="Bus Booking">Bus Booking</option>
+              <option value="Flight Booking">Flight Booking</option>
+              <option value="Visa Booking">Visa Booking</option>
               <option value="Car Rental Booking">Car Rental Booking</option>
               <option value="Excursion Booking">Activity Booking</option>
+              <option value="Train Booking">Train Booking</option>
+              <option value="Bus Booking">Bus Booking</option>
+              <option value="Miscellaneous Booking">Miscellaneous Booking</option>
             </select>
           </div>
           
@@ -39,8 +40,8 @@ $branch_status = $sq['branch_status'];
           <div class="col-md-4 text-right"></div>
           <div class="col-md-4 text-center"><h4>Checklist Entries<h4></div>
           <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_tour_name')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_tour_name')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_tour_name')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_tour_name')"><i class="fa fa-trash"></i></button>
           </div> </div>
 
           <div class="row"> <div class="col-md-12"> 
@@ -131,7 +132,7 @@ $(function(){
       dest_name_s :  { required:true },
     },
     submitHandler:function(form){
-    
+      $('#save_checklist').prop('disabled',true);
       var base_url = $('#base_url').val();
       var entity_for = $('#entity_for').val();
       var dest_name = $('#dest_name_s').val();
@@ -146,6 +147,7 @@ $(function(){
         if(rowCount == 1){
           if(!row.cells[0].childNodes[0].checked){
             error_msg_alert("Atleast one checklist details is required!");
+            $('#save_checklist').prop('disabled',false);
             return false;
           }
         }
@@ -157,6 +159,7 @@ $(function(){
           if(entity_name=="")
           {
             error_msg_alert("Enter Checklist Name in Row "+(i+1));
+            $('#save_checklist').prop('disabled',false);
             return false;
           }  
           entity_name_arr.push(entity_name);          
@@ -164,6 +167,7 @@ $(function(){
       }
       if(!entity_name_arr.length){
         error_msg_alert("Atleast one checklist details is required!");
+        $('#save_checklist').prop('disabled',false);
         return false;
       }
       $('#save_checklist').button('loading');
@@ -175,11 +179,13 @@ $(function(){
           var msg = result.split('--');
           if(msg[0] == 'error'){
             error_msg_alert(msg[1]); 
+            $('#save_checklist').prop('disabled',false);
             $('#save_checklist').button('reset');
             return false;
           }else{
             success_msg_alert(msg[0]);
             $('#save_checklist').button('reset');
+            $('#save_checklist').prop('disabled',false);
             reset_form('frm_entity_save');
             $('#entity_save_modal').modal('hide');
             entities_list_reflect();

@@ -7,7 +7,7 @@ $branch_status = $_POST['branch_status'];
 
   <div class="row mg_bt_20">
     <div class="col-sm-12 text-right text_left_sm_xs">
-    <button class="btn btn-info btn-sm ico_left" id="btn_save_modal" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Status</button>
+    <button class="btn btn-info btn-sm ico_left" id="btn_psave_modal" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Status</button>
     </div>
   </div>
 <div class="app_panel_content Filter-panel">
@@ -55,9 +55,13 @@ $branch_status = $_POST['branch_status'];
 $('#visa_id_filter1').select2();
 function save_modal()
 {
+    $('#btn_psave_modal').prop('disabled',true);
+    $('#btn_psave_modal').button('loading');
   var branch_status = $('#branch_status').val();
   $.post( '../../visa_status/visa/save_modal.php' , {branch_status : branch_status} , function ( data ) {
         $("#save_div").html(data);
+    $('#btn_psave_modal').prop('disabled',false);
+    $('#btn_psave_modal').button('reset');
    });
 }
 function load_passenger(booking_id)

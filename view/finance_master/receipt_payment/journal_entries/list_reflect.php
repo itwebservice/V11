@@ -2,7 +2,7 @@
 include_once("../../../../model/model.php");
 $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 $array_s = array();
 $temp_arr = array();
@@ -41,8 +41,7 @@ while($row_journal = mysqli_fetch_assoc($sq_journal)){
 		$sq_journal_entry['type'],
 		$row_journal['narration'],
 		number_format($sq_journal_debit['amount'],2),
-		'<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="entry_display_modal('.$row_journal['entry_id'].')" title="View Journal" id="view-'.$row_journal['entry_id'].'"><i class="fa fa-eye"></i></button>
-		<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal('.$row_journal['entry_id'] .')" title="Edit Journal" id="edit-'.$row_journal['entry_id'].'"><i class="fa fa-pencil-square-o"></i></button>
+		'<button class="btn btn-info btn-sm" data-toggle="tooltip" onclick="update_modal('.$row_journal['entry_id'] .')" title="Update Details" id="editj-'.$row_journal['entry_id'].'"><i class="fa fa-pencil-square-o"></i></button><button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="entry_display_modal('.$row_journal['entry_id'].')" title="View Details" id="view-'.$row_journal['entry_id'].'"><i class="fa fa-eye"></i></button>
 		<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_journal['entry_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>'
 	);
 	array_push($array_s,$temp_arr); 

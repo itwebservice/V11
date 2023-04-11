@@ -37,9 +37,9 @@ $drop_time = date('H:i', strtotime($sq_bike['drop_time']));
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="manufacturer1" name="manufacturer"
-                                onchange="locationname_validate(this.id);" placeholder="*Manufacturer Name"
+                                onchange="locationname_validate(this.id);" placeholder="Manufacturer Name"
                                 title="Manufacturer Name" value="<?= $sq_bike['manufacturer']; ?>"
-                                onkeypress="return blockSpecialChar(event);" required>
+                                onkeypress="return blockSpecialChar(event);">
                         </div>
                         <div class="col-sm-3">
                             <input type="text" id="model_name1" name="model_name"
@@ -80,7 +80,7 @@ $drop_time = date('H:i', strtotime($sq_bike['drop_time']));
                                 <input type="hidden" id="image_upload_url1" name="image_upload_url"
                                     value="<?= $sq_bike['image_upload_url']; ?>" required>
                             </div>
-                            <div class="note">Note : Upload Image size below 100KB, resolution : 900X450.</div>
+				            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 100KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <div class="row mg_tp_20">

@@ -52,14 +52,22 @@
 	    	<input type="text" id="customer_name1" name="customer_name1" onchange="fname_validate(this.id)" placeholder="Customer Name" title="Customer Name" value="<?php echo $sq_quotation['customer_name'];?>" required>
 
 	    </div>
-
+		<div class="col-md-3 col-sm-6">
+			<div class="col-md-4" style="padding-left:0px;">
+				<input type="hidden" id="cc_value" value="<?= $sq_quotation['country_code'] ?>">
+				<select name="country_code1" id="country_code1" title="Country code">
+					<?= get_country_code(); ?>
+				</select>
+			</div>
+			<div class="col-md-8" style="padding-left:12px;padding-right:0px;">
+				<input type="text" class="form-control" id="mobile_no1" onchange="mobile_validate(this.id);"
+					name="mobile_no1" placeholder="WhatsApp No" title="WhatsApp No"
+					value="<?= $sq_quotation['whatsapp_no'] ?>">
+			</div>
+		</div>  
 	    <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="email_id1" name="email_id1" placeholder="Email ID" title="Email ID" onchange="validate_email(this.id)" value="<?= $sq_quotation['email_id'] ?>">
 		</div>	
-
-		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-			<input type="text" id="mobile_no1" name="mobile_no1" onchange="mobile_validate(this.id)" placeholder="Whatsapp no with country code" title="Whatsapp no with country code" value="<?= $sq_quotation['mobile_no'] ?>">
-		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
@@ -123,7 +131,7 @@
 	      <input type="text" class="form-control" id="extra_hr_cost1" name="extra_hr_cost1" placeholder="Extra Hr Cost" title="Extra Hr Cost" value="<?= $sq_quotation['extra_hr_cost'] ?>" onchange="validate_balance(this.id);get_basic_amount();"> 
 	    </div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-	      <input type="text" id="rate1" name="rate1"  placeholder="*Rate" title="Rate" value="<?= $sq_quotation['rate'] ?>" onchange="get_basic_amount();">
+	      <input type="text" id="rate1" name="rate1"  placeholder="*Daily Rate" title="Daily Rate" value="<?= $sq_quotation['rate'] ?>" onchange="get_basic_amount();">
 	    </div>
 	</div>
 	<div class="row">
@@ -179,6 +187,7 @@ $('#traveling_date1').datetimepicker({ format:'d-m-Y H:i' });
 $('#from_date1,#to_date1,#quotation_date1').datetimepicker({ timepicker: false, format: 'd-m-Y' });
 
 $('input').keyup(function(){	$(this).removeAttr('style');	});
+$('#country_code1').val($('#cc_value').val()).select2();
 
 $('#frm_tab11_c').validate({
 

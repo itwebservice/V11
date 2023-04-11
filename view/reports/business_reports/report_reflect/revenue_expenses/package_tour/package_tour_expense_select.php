@@ -61,16 +61,25 @@ function excel_report_package()
 
 function view_purchase_modal(booking_id)
 {
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
 	var base_url = $('#base_url').val();
 	$.post(base_url+'view/reports/business_reports/report_reflect/revenue_expenses/package_tour/view_purchase_modal.php', { booking_id : booking_id }, function(data){
 		$('#other_package_expnse_display').html(data);
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
 	});
 }
 function package_other_expnse_modal(booking_id)
 {
+	$('#suppliere_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#suppliere_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/reports/business_reports/report_reflect/revenue_expenses/package_tour/other_expnse_modal.php', { booking_id : booking_id }, function(data){
 		$('#other_package_expnse_display').html(data);
+		$('#suppliere_btn-'+booking_id).prop('disabled',false);
+    	$('#suppliere_btn-'+booking_id).button('reset');
 	});
 }
 </script>

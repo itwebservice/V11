@@ -16,7 +16,7 @@ $today_date = date('Y-m-d');
 			<th>valid_from</th>
 			<th>Valid_TO</th>
 			<th>Contract</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -70,7 +70,7 @@ $today_date = date('Y-m-d');
 			<?php }
 			?>
 			<td>
-				<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ser['package_id'] ?>)" title="Edit Contract"><i class="fa fa-pencil-square-o"></i></button>
+				<button class="btn btn-info btn-sm" id="update_btn-<?= $row_ser['package_id'] ?>" onclick="update_modal(<?= $row_ser['package_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 			</td>
 		</tr>
 		<script>

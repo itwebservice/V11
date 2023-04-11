@@ -89,15 +89,23 @@
                         placeholder="Customer Name" title="Customer Name" value="<?= $sq_quotation['customer_name'] ?>">
 
                 </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="col-md-4" style="padding-left:0px;">
+                        <input type="hidden" id="cc_value" value="<?= $sq_quotation['country_code'] ?>">
+                        <select name="country_code1" id="country_code1" title="Country code">
+                            <?= get_country_code(); ?>
+                        </select>
+                    </div>
+                    <div class="col-md-8" style="padding-left:12px;padding-right:0px;">
+                        <input type="text" class="form-control" id="mobile_no12" onchange="mobile_validate(this.id);"
+                            name="mobile_no12" placeholder="WhatsApp No" title="WhatsApp No"
+                            value="<?= $sq_quotation['whatsapp_no'] ?>">
+                    </div>
+                </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <input type="text" id="email_id12" name="email_id12" placeholder="Email ID" title="Email ID"
                         value="<?= $sq_quotation['email_id'] ?>">
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <input type="text" id="mobile_no12" name="mobile_no12" placeholder="WhatsApp No with country code"
-                        onchange="mobile_validate(this.id)" title="WhatsApp No with country code"
-                        value="<?= $sq_quotation['mobile_no'] ?>">
                 </div>
             </div>
             <div class="row mg_tp_10">
@@ -202,10 +210,20 @@
 <?= end_panel() ?>
 
 <script>
-$('#enquiry_id12').select2();
+$('#enquiry_id12,#country_code1').select2();
+$('#country_code1').val($('#cc_value').val()).select2();
 $('#frm_tab_u_1').validate({
     rules: {
 
+        enquiry_id12: {
+            required: true
+        },
+        country_code1: {
+            required: true
+        },
+        customer_name12: {
+            required: true
+        }
     },
     submitHandler: function(form) {
 

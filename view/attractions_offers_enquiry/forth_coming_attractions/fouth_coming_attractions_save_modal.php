@@ -7,7 +7,7 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">New Sightseeing Attraction</h4>
 	      </div>
-	      <div class="modal-body text-center">
+	      <div class="modal-body">
           <div class="row">
             <div class="col-md-6 mg_bt_10">
               <input class="form-control" type="text" id="txt_title" onchange="validate_spaces(this.id);fname_validate(this.id);" name="txt_title" title="Title" placeholder="*Title">	
@@ -20,16 +20,14 @@
             </div>
         </div>
         <div class="row mg_bt_10">  
-          <div class="col-md-3 no-pad"> 
+          <div class="col-md-12"> 
             <div class="div-upload">
               <div id="upload_btn" class="upload-button1"><span>Upload Images</span></div>
               <span id="id_proof_status" ></span>
               <ul id="files" ></ul>
               <input type="hidden" id="upload_url" name="upload_url">
-          </div>
-          </div>
-          <div class="col-md-8 no-pad"> 
-            <div style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)</div>
+            </div>
+					  <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)"><i class="fa fa-question-circle"></i></button>
           </div>
         </div>
         <input type="hidden" name="sight_image_path" id="sight_image_path">

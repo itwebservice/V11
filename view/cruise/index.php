@@ -51,8 +51,11 @@ function cruise_list_reflect()
 cruise_list_reflect();
 function save_modal()
 {
+    $('#btn_save_modal1').button('loading');
+    $('#btn_save_modal1').prop('disabled',true);
     $.post('save_modal.php', {}, function(data){
         $('#btn_save_modal1').button('reset');
+        $('#btn_save_modal1').prop('disabled',false);
         $('#div_modal_content').html(data);
     });
 }

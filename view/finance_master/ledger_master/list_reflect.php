@@ -71,8 +71,7 @@ while($row_gl = mysqli_fetch_assoc($sq_gl)){
 		number_format($row_gl['balance'],2).$balance_side,
 		$sq_sl['subgroup_name'],
 		number_format($balance,2).$side_t1,
-		'<a href="../finance_master/ledger_master/view/index.php?ledger_id='.$row_gl['ledger_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Ledger History"><i class="fa fa-eye"></i></a>
-		<button class="btn btn-info btn-sm" onclick="update_modal('. $row_gl['ledger_id'] .')" title="Edit Details" data-toggle="tooltip"><i class="fa fa-pencil-square-o"></i></button>'),"bg"=>$bg
+		'<button class="btn btn-info btn-sm" onclick="update_modal('. $row_gl['ledger_id'] .')" title="Update Details" data-toggle="tooltip" id="update_btn-'.$row_gl['ledger_id'].'"><i class="fa fa-pencil-square-o"></i></button><a href="../finance_master/ledger_master/view/index.php?ledger_id='.$row_gl['ledger_id'].'" target="_BLANK" class="btn btn-info btn-sm" title="View Details"><i class="fa fa-eye"></i></a>'),"bg"=>$bg
 	);
 	if($chk_balance == 0){
 		if($balance > 0)

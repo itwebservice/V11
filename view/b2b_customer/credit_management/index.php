@@ -10,7 +10,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 <div class="row">
     <div class="col-sm-12 text-right text_left_sm_xs">
         <?php if($role == 'Admin' || $role == 'Branch Admin'){?>
-            <button class="btn btn-info btn-sm mg_bt_20 ico_left" id="btn_save_modal" onclick="save_modal();" title="Add Credit Limit" data-toggle="tooltip"><i class="fa fa-plus"></i>&nbsp;&nbsp;Credit Limit</button>
+            <button class="btn btn-info btn-sm mg_bt_20 ico_left" id="credit_save_btn" onclick="save_modal();" title="Add Credit Limit" data-toggle="tooltip"><i class="fa fa-plus"></i>&nbsp;&nbsp;Credit Limit</button>
         <?php } ?>
     </div>
 </div>
@@ -47,9 +47,13 @@ function customer_list_reflect(){
 customer_list_reflect();
 
 function save_modal(){
+    $('#credit_save_btn').prop('disabled',true);
     var branch_status = $('#branch_status').val();
+    $('#credit_save_btn').button('loading');
     $.post('credit_management/save_modal.php', {}, function(data){
         $('#div_view_modal').html(data);
+        $('#credit_save_btn').prop('disabled',false);
+        $('#credit_save_btn').button('reset');
     });
 }
 function get_approve_status(register_id){

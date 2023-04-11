@@ -25,9 +25,8 @@ include_once("../../../model/model.php");
 
         <div class="row mg_bt_10"> <div class="col-md-12 text-right">
 
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_airport_master');city_lzloading('select[name^=city_id]')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-
-            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_airport_master')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_airport_master');city_lzloading('select[name^=city_id]')"><i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_airport_master')"><i class="fa fa-trash"></i></button>
 
         </div> </div>
 

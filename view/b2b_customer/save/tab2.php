@@ -7,13 +7,13 @@
               <input class="form-control" type="text" id="contact_personf" name="contact_personf" placeholder="*First Name" title="First Name" required> 
           </div>
           <div class="col-md-3 col-sm-6">
-              <input class="form-control" type="text" id="contact_personl" name="contact_personl" placeholder="*Last Name" title="Last Name" required> 
-          </div>
-          <div class="col-md-3 col-sm-6">
-              <input class="form-control" type="text" id="email_id" name="email_id" placeholder="*Email ID"  title="Email ID" onchange="validate_email(this.id)" required >
+              <input class="form-control" type="text" id="contact_personl" name="contact_personl" placeholder="Last Name" title="Last Name"> 
           </div>
           <div class="col-md-3 col-sm-6">
               <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="*Mobile No" title="Mobile No" onchange="mobile_validate(this.id);" required>
+          </div>
+          <div class="col-md-3 col-sm-6">
+              <input class="form-control" type="text" id="email_id" name="email_id" placeholder="*Email ID"  title="Email ID" onchange="validate_email(this.id)" required >
           </div>
       </div>
       <div class="row text-center mg_tp_10">
@@ -33,7 +33,7 @@
             <ul id="files" ></ul>
             <input type="hidden" id="photo_upload_url" name="photo_upload_url">
           </div>
-            <p style="color: red;">Note : Only PDF,JPG, PNG files are allowed.</p>
+          <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload only PDF,JPG, PNG files are allowed."><i class="fa fa-question-circle"></i></button>
         </div>
       </div>
   </div>

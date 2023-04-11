@@ -455,7 +455,7 @@ $count = 1;
                 get_user_enq_strong($data['assigned_emp_id'],$type),
                 get_user_enq_hot($data['assigned_emp_id'],$type),
                 get_user_enq_cold($data['assigned_emp_id'],$type),
-                '<button class="btn btn-info btn-sm" onclick="view_user_modal('. $data['assigned_emp_id'] .')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>'
+                '<button class="btn btn-info btn-sm" onclick="view_user_modal('. $data['assigned_emp_id'] .')" data-toggle="tooltip" title="View Details" id="view_btn-'. $data['assigned_emp_id'] .'"><i class="fa fa-eye"></i></button>'
                 
         
         ),"bg" =>$bg );
@@ -499,8 +499,6 @@ $count = 1;
         'class10' => "text-left success",
         )
     );
-  
-    array_push($array_s, $footer_data);
-    echo json_encode($array_s);
-
+array_push($array_s, $footer_data);
+echo json_encode($array_s);
 ?>

@@ -14,7 +14,7 @@ $sq_info = mysqli_fetch_assoc(mysqlQuery("select * from fourth_coming_attraction
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<h4 class="modal-title" id="myModalLabel">Update Sightseeing Attraction</h4>
 		</div>
-		<div class="modal-body text-center">
+		<div class="modal-body">
 		
 		<div class="row">
 			<div class="col-md-6 mg_bt_10">
@@ -28,17 +28,15 @@ $sq_info = mysqli_fetch_assoc(mysqlQuery("select * from fourth_coming_attraction
 			</div>
 			</div>
 		<div class="row mg_bt_10">
-		<div class="col-md-3 no-pad"> 
-			<div class="div-upload">
-			<div id="hotel_upload_btn" class="upload-button1"><span>Upload Images</span></div>
-			<span id="id_proof_status" ></span>
-			<ul id="files" ></ul>
-			<input type="hidden" id="hotel_upload_url" name="hotel_upload_url">
+			<div class="col-md-12"> 
+				<div class="div-upload">
+					<div id="hotel_upload_btn" class="upload-button1"><span>Upload Images</span></div>
+					<span id="id_proof_status" ></span>
+					<ul id="files" ></ul>
+					<input type="hidden" id="hotel_upload_url" name="hotel_upload_url">
+				</div>
+				<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)"><i class="fa fa-question-circle"></i></button>
 			</div>
-		</div>
-		<div class="col-md-8 no-pad"> 
-			<div style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450. (Upload Maximum 3 images)</div>
-		</div>
 		</div>
 		<div id="images"></div>
 			<div class="row text-center"> 
@@ -173,3 +171,4 @@ $sq_info = mysqli_fetch_assoc(mysqlQuery("select * from fourth_coming_attraction
 	  });
 	});
 </script>
+<script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

@@ -13,8 +13,8 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
           <input type="hidden" title="Employee Id" name= "emp_id" id="emp_id" value="<?php echo $emp_id; ?>"/>
           <div class="row mg_bt_10 text-right">
             <div class="col-md-12">
-              <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_daily_activity')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-              <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_daily_activity')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+              <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_daily_activity')"><i class="fa fa-plus"></i></button>
+              <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_daily_activity');"><i class="fa fa-trash"></i></button>
             </div>
           </div>
 
@@ -25,7 +25,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
                     <tr>
                         <td><input id="chk_tour_group1" type="checkbox" checked></td>
                         <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." disabled  class="form-control" /></td>
-                        <td class="col-md-2 no-pad"><input placeholder="*Select Date" title="Activity Date" id="activity_date" class="form-control app_datepicker"/></td>
+                        <td class="col-md-2 no-pad"><input placeholder="*Select Date" title="Activity Date" id="activity_date" class="form-control app_datepicker" value="<?= date('d-m-Y') ?>"/></td>
                         <td class="col-md-3 no-pad"><input placeholder="*Activity Type" onchange="validate_spaces(this.id);validate_specialChar(this.id)" title="Activity Type" id="activity_type" class="form-control" /></td>
                         <td class="col-md-2 no-pad"><input placeholder="Time Taken" onchange="validate_spaces(this.id);validate_specialChar(this.id)"  title="Time Taken" id="time_taken" class="form-control" />
                         </td>

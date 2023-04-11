@@ -52,34 +52,31 @@ $total_seats = $total_adult + $total_child_b + $total_child_wb + $total_infant;
                                 value="<?php echo $total_seats; ?>" class="text-center" readonly />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                            <label>Adult Cost</label>
-                            <input type="text" id="txt_adult_expense" title="Adult Cost" name="txt_adult_expense"
+                            <label>Adult Amount</label>
+                            <input type="text" id="txt_adult_expense" title="Adult Amount" placeholder="Adult Amount" name="txt_adult_expense"
                                 class="text-right" value="<?php echo $tourwise_details['adult_expense'] ?>"
                                 onchange="calculate_total_discount(); validate_balance(this.id)" />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                            <label>Child With Bed Cost</label>
-                            <input type="text" id="txt_child_bed_expense" title="Child With Bed Cost"
+                            <label>Child With Bed Amount</label>
+                            <input type="text" id="txt_child_bed_expense" title="Child With Bed Amount" placeholder="Child With Bed Amount"
                                 name="txt_child_bed_expense" class="text-right"
                                 value="<?php echo $tourwise_details['child_with_bed'] ?>"
                                 onchange="calculate_total_discount(); validate_balance(this.id)" />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                            <label>Child Without Bed Cost</label>
-                            <input type="text" id="txt_child_wbed_expense" title="Child Without Bed Cost"
-                                name="txt_child_wbed_expense" class="text-right"
-                                value="<?php echo $tourwise_details['child_without_bed'] ?>"
-                                onchange="calculate_total_discount(); validate_balance(this.id)" />
+                            <label>Child Without Bed Amount</label>
+                            <input type="text" id="txt_child_wbed_expense" title="Child Without Bed Amount" placeholder="Child Without Bed Amount" name="txt_child_wbed_expense" class="text-right" value="<?php echo $tourwise_details['child_without_bed'] ?>" onchange="calculate_total_discount(); validate_balance(this.id)" />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
-                            <label>Infant Cost</label>
-                            <input type="text" id="txt_infant_expense" title="Infant Cost" name="txt_infant_expense"
+                            <label>Infant Amount</label>
+                            <input type="text" id="txt_infant_expense" title="Infant Amount" placeholder="Infant Amount" name="txt_infant_expense"
                                 class="text-right" value="<?php echo $tourwise_details['infant_expense'] ?>"
                                 onchange="calculate_total_discount(); validate_balance(this.id)" />
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs text-center">
                             <label>Total Amount</label>
-                            <input type="text" id="txt_total_expense" title="Total Cost" name="txt_total_expense"
+                            <input type="text" id="txt_total_expense" title="Total Amount" name="txt_total_expense"
                                 class="text-right amount_feild_highlight"
                                 value="<?php echo $tourwise_details['tour_fee'] ?>" />
                         </div>

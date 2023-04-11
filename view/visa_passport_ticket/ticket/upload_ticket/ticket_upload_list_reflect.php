@@ -20,6 +20,9 @@ $ticket_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_upload_e
         <ul id="files" ></ul>
         <input type="hidden" id="ticket_upload_url" name="ticket_upload_url">
     </div>
+    <div class="pull-right">
+        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload PDF,JPG,PNG Format."><i class="fa fa-question-circle"></i></button>&nbsp;&nbsp;
+    </div>
 </div>
 
 <?php 
@@ -137,3 +140,4 @@ $('#flight_upload_ticket').dataTable({
        }
 });
 </script>
+<script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

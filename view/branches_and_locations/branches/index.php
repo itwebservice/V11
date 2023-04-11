@@ -23,11 +23,15 @@ include_once('../../../model/model.php');
 $('#location_id_filter').select2();
 function branche_save_modal()
 {
+	$('#branche_save_modal').prop('disabled',true);
   check_package_type('<?= $setup_package ?>','branch');
   var branch_count = $('#branch_count').val();
   if(<?= $setup_package ?> == '1' || <?= $setup_package ?> == '2'){
   		if(branch_count == '0'){
+	      $('#branche_save_modal').button('loading');
   			$.post('branches/branches_save_modal.php', {}, function(data){
+          $('#branche_save_modal').prop('disabled',false);
+          $('#branche_save_modal').button('reset');
 		      $('#div_branch_save_modal').html(data);
 		    });
   		}
@@ -36,8 +40,11 @@ function branche_save_modal()
   		}
   }
   else{
+	  $('#branche_save_modal').button('loading');
   	$.post('branches/branches_save_modal.php', {}, function(data){
       $('#div_branch_save_modal').html(data);
+      $('#branche_save_modal').prop('disabled',false);
+      $('#branche_save_modal').button('reset');
     });
   }
 }

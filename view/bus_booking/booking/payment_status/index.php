@@ -112,9 +112,9 @@ dynamic_customer_load('','');
 
 var column = [
 	{ title : "S_No."},
-	{ title:"Booking_ID"},
+	{ title : "Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Total_bus"},
 	{ title : "Booking_Date"},
@@ -265,35 +265,35 @@ function booking_dropdown_load(customer_id, booking_id)
 
 function bus_view_modal(booking_id)
 {
-    $('#view-'+booking_id).prop('disabled',true);
-    $('#view-'+booking_id).button('loading');
+	$('#packagev_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/bus_booking/booking/payment_status/view/index.php', { booking_id : booking_id }, function(data){
 		$('#div_bus_content_display').html(data);
-        $('#view-'+booking_id).prop('disabled',false);
-        $('#view-'+booking_id).button('reset');
+		$('#packagev_btn-'+booking_id).prop('disabled',false);
+    	$('#packagev_btn-'+booking_id).button('reset');
 	});
 }
 function supplier_view_modal(booking_id)
 {
-    $('#sview-'+booking_id).prop('disabled',true);
-    $('#sview-'+booking_id).button('loading');
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/bus_booking/booking/payment_status/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
 		$('#div_bus_content_display').html(data);
-        $('#sview-'+booking_id).prop('disabled',false);
-        $('#sview-'+booking_id).button('reset');
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
 	});
 }
 function payment_view_modal(booking_id)
 {
-    $('#pview-'+booking_id).prop('disabled',true);
-    $('#pview-'+booking_id).button('loading');
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/bus_booking/booking/payment_status/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 		$('#div_bus_content_display').html(data);
-        $('#pview-'+booking_id).prop('disabled',false);
-        $('#pview-'+booking_id).button('reset');
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 </script>

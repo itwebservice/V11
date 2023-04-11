@@ -12,6 +12,7 @@ public function quotation_master_update()
 	$total_days =  $_POST['total_days'];
 	$customer_name =  $_POST['customer_name'];
 	$mobile_number = $_POST['mobile_number'];
+	$country_code = $_POST['country_code'];
 	$email_id =  $_POST['email_id'];
 	$total_adult = $_POST['total_adult'];
 	$total_children =  $_POST['total_children'];
@@ -79,8 +80,8 @@ public function quotation_master_update()
     $excl = addslashes($excl);
 	$terms = addslashes($terms);
 	$bsmValues = json_encode($bsmValues);
-	$query = "update group_tour_quotation_master set tour_name = '$tour_name', from_date = '$from_date', to_date = '$to_date', total_days = '$total_days', customer_name = '$customer_name', mobile_number = '$mobile_number',email_id='$email_id', total_adult = '$total_adult', total_children = '$total_children', total_infant = '$total_infant', total_passangers = '$total_passangers', children_without_bed = '$children_without_bed', children_with_bed = '$children_with_bed', quotation_date='$quotation_date1', booking_type = '$booking_type', adult_cost = '$adult_cost', children_cost = '$children_cost', infant_cost = '$infant_cost', with_bed_cost = '$with_bed_cost', tour_cost = '$tour_cost',service_charge ='$service_charge', service_tax_subtotal = '$service_tax_subtotal', quotation_cost = '$total_tour_cost', incl= '$incl', excl= '$excl', terms= '$terms', enquiry_id= '$enquiry_id',bsm_values='$bsmValues',currency_code='$currency_code',status='$active_flag' where quotation_id = '$quotation_id'";
-	$sq_quotation = mysqlQuery($query);
+	$whatsapp_no = $country_code.$mobile_number;
+	$sq_quotation = mysqlQuery("update group_tour_quotation_master set tour_name = '$tour_name', from_date = '$from_date', to_date = '$to_date', total_days = '$total_days', customer_name = '$customer_name', mobile_number = '$whatsapp_no',country_code='$country_code',whatsapp_no='$mobile_number',email_id='$email_id', total_adult = '$total_adult', total_children = '$total_children', total_infant = '$total_infant', total_passangers = '$total_passangers', children_without_bed = '$children_without_bed', children_with_bed = '$children_with_bed', quotation_date='$quotation_date1', booking_type = '$booking_type', adult_cost = '$adult_cost', children_cost = '$children_cost', infant_cost = '$infant_cost', with_bed_cost = '$with_bed_cost', tour_cost = '$tour_cost',service_charge ='$service_charge', service_tax_subtotal = '$service_tax_subtotal', quotation_cost = '$total_tour_cost', incl= '$incl', excl= '$excl', terms= '$terms', enquiry_id= '$enquiry_id',bsm_values='$bsmValues',currency_code='$currency_code',status='$active_flag' where quotation_id = '$quotation_id'");
 
 	if($sq_quotation){
 		$this->train_entries_update($quotation_id, $train_from_location_arr, $train_to_location_arr, $train_class_arr, $train_arrival_date_arr, $train_departure_date_arr, $train_id_arr);

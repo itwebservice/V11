@@ -12,8 +12,8 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                     <?php if ($sq_count5 == 0) { ?>
                         <div class="row text-right mg_bt_10">
                             <div class="col-md-12 text-right text_center_xs">
-                                <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_tarrif_offer')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('table_hotel_tarrif_offer')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+								<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif_offer')"><i class="fa fa-plus"></i></button>
+								<button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_tarrif_offer')"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -36,7 +36,7 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                                                     <option value='Percentage'>Percentage</option>
                                                 </select></td>
                                             <td><input type='text' id="coupon_code" name="coupon_code" placeholder="Coupon Code" title="Coupon Code" style="width: 150px;" /></td>
-                                            <td><input type='number' id="amount" name="amount" placeholder="*Amount" class="form-control" title="Amount" style="width: 100px;" /></td>
+                                            <td><input type='number' id="amount" name="amount" placeholder="*Amount" class="form-control" title="Amount" style="width: 125px;" /></td>
                                             <td><select name="agent_type" id="agent_type" style="width: 150px" class="form-control app_select2" data-toggle="tooltip" title="Agent Type" multiple>
                                                     <option value=''>Agent Type</option>
                                                     <option value='Platinum'>Platinum</option>
@@ -58,7 +58,7 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                     <?php } else { ?>
                         <div class="row mg_bt_10">
                             <div class="col-md-12 text-right text_center_xs">
-                                <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_tarrif_offer')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+								<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif_offer')"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -148,6 +148,7 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
 
         },
         submitHandler: function(form) {
+            $('#btn_price_update').prop('disabled',true);
             var base_url = $('#base_url').val();
             //TAB-1
             var pricing_id = $('#pricing_id').val();
@@ -328,28 +329,34 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                 var entry_id = row.cells[9].childNodes[0].value;
                 if (type == '' && row.cells[0].childNodes[0].checked) {
                     error_msg_alert('Select Type in Row-' + (i + 1));
+                    $('#btn_price_update').prop('disabled',false);
                     return false;
                 }
                 if (from_date == '' && row.cells[0].childNodes[0].checked) {
                     error_msg_alert('Select Valid From Date in Row-' + (i + 1));
+                    $('#btn_price_update').prop('disabled',false);
                     return false;
                 }
                 if (to_date == '' && row.cells[0].childNodes[0].checked) {
                     error_msg_alert('Select Valid To Date in Row-' + (i + 1));
+                    $('#btn_price_update').prop('disabled',false);
                     return false;
                 }
                 if (offer_in == '' && row.cells[0].childNodes[0].checked) {
                     error_msg_alert('Select Amount-in in Row-' + (i + 1));
+                    $('#btn_price_update').prop('disabled',false);
                     return false;
                 }
                 if (type == 'Coupon' && row.cells[0].childNodes[0].checked) {
                     if (coupon_code == '') {
                         error_msg_alert('Enter Coupon code in Row-' + (i + 1));
+                        $('#btn_price_update').prop('disabled',false);
                         return false;
                     }
                 }
                 if (offer_amount == '' && row.cells[0].childNodes[0].checked) {
                     error_msg_alert('Select Amount in Row-' + (i + 1));
+                    $('#btn_price_update').prop('disabled',false);
                     return false;
                 }
                 var agent_type = "";
@@ -435,9 +442,12 @@ $sq_count5 = mysqli_num_rows(mysqlQuery("select * from hotel_offers_tarrif where
                 },
                 success: function(result) {
                     $('#btn_price_update').button('reset');
+                    $('#btn_price_update').prop('disabled',false);
                     var msg = result.split('--');
                     if (msg[0] == "error") {
                         error_msg_alert(msg[1]);
+                        $('#btn_price_update').prop('disabled',false);
+                        return false;
                     } else {
                         $('#vi_confirm_box').vi_confirm_box({
                             false_btn: false,

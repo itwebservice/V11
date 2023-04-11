@@ -72,16 +72,16 @@ $branch_status = $_POST['branch_status'];
                 <div class="col-md-6">
                     <textarea id="narration" name="narration" class="form-control" placeholder="*Narration" title="Narration" rows="1" required></textarea>
 						    </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                   <div class="div-upload pull-left" id="div_upload_button">
                       <div id="payment_evidence_upload" class="upload-button1"><span>Payment Evidence</span></div>
                       <span id="payment_evidence_status" ></span>
                       <ul id="files" ></ul>
                       <input type="hidden" id="payment_evidence_url" name="payment_evidence_url">
-                  </div>
+                  </div>&nbsp;&nbsp;
+                  <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload JPG, JPEG, PNG or PDF only."><i class="fa fa-question-circle"></i></button>
                 </div>
                 <div class="col-xs-4"> 
-                  <div style="color: red;">Note : Upload : JPG, JPEG, PNG or PDF.</div>
                 </div>
             </div>
             <div class="row">

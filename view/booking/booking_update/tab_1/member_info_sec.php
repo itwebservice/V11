@@ -5,9 +5,7 @@
                 <legend>Passenger Details</legend>
                 <div class="row text-right mg_bt_10">
                     <div class="col-xs-12">
-                        <button type="button" class="btn btn-info btn-sm ico_left"
-                            onClick="addRow('tbl_member_dynamic_row')"><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_member_dynamic_row')"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 <input type="hidden" id="tour_type_r" name="tour_type_r">
@@ -36,8 +34,7 @@
                                 ?>
                                 <tr class="<?= $bg ?>">
                                     <td><input id="<?php echo "check-btn-member-" . $count_m . 'm' ?>" type="checkbox"
-                                            onchange="payment_details_reflected_data('tbl_member_dynamic_row')" checked
-                                            disabled></td>
+                                            onchange="payment_details_reflected_data('tbl_member_dynamic_row')" checked></td>
 
                                     <td><input maxlength="15" type="text" name="username" value="<?php echo $count_m ?>"
                                             placeholder="ID" disabled /></td>

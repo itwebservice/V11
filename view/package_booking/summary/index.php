@@ -69,9 +69,9 @@ var column = [
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
-	{ title : "Total_Guest"},
+	{ title : "Total_Pax"},
 	{ title : "Booking_Date"},
 	{ title : "View"},
 	{ title : "Tour_name"},
@@ -165,29 +165,35 @@ function customer_booking_dropdown_load()
 }
 function package_view_modal(booking_id)
 {
-	$('#view-'+booking_id).prop('disabled',true);
+	$('#packagev_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/package_booking/summary/view/index.php', { booking_id : booking_id }, function(data){
 		$('#div_package_content_display').html(data);
-		$('#view-'+booking_id).prop('disabled',false);
+		$('#packagev_btn-'+booking_id).prop('disabled',false);
+    	$('#packagev_btn-'+booking_id).button('reset');
 	});
 }
 function supplier_view_modal(booking_id)
 {
-	$('#sview-'+booking_id).prop('disabled',true);
+	$('#supplierv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/package_booking/summary/view/supplier_view_modal.php', { booking_id : booking_id }, function(data){
 		$('#div_package_content_display').html(data);
-		$('#sview-'+booking_id).prop('disabled',false);
+		$('#supplierv_btn-'+booking_id).prop('disabled',false);
+    	$('#supplierv_btn-'+booking_id).button('reset');
 	});
 }
 function payment_view_modal(booking_id)
 {
-	$('#pview-'+booking_id).prop('disabled',true);
+	$('#paymentv_btn-'+booking_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+booking_id).button('loading');
 	$.post(base_url+'view/package_booking/summary/view/payment_view_modal.php', { booking_id : booking_id }, function(data){	
 		$('#div_package_content_display').html(data);
-		$('#pview-'+booking_id).prop('disabled',false);
+		$('#paymentv_btn-'+booking_id).prop('disabled',false);
+    	$('#paymentv_btn-'+booking_id).button('reset');
 	});
 }
 $(function () {

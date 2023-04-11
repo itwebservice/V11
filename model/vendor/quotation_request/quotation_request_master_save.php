@@ -217,7 +217,7 @@ public function quotation_mail($sq_request, $quotation_for, $to, $vendor_name, $
 		$content = '
 		<tr>
 			<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
-				<tr><td style="text-align:left;border: 1px solid #888888; width:50%">Destination Name</td>   <td style="text-align:left;border: 1px solid #888888;">'.$t_place.'</td></tr>
+				<tr><td style="text-align:left;border: 1px solid #888888; width:50%">Interested Tour</td>   <td style="text-align:left;border: 1px solid #888888;">'.$t_place.'</td></tr>
 				<tr><td style="text-align:left;border: 1px solid #888888;">Travel From Date</td>   <td style="text-align:left;border: 1px solid #888888;">'.$t_from .'</td></tr>
 				<tr><td style="text-align:left;border: 1px solid #888888;">Travel To Date</td>   <td style="text-align:left;border: 1px solid #888888;">'.$t_to.'</td></tr>
 				<tr><td style="text-align:left;border: 1px solid #888888;">Airport Pickup</td>   <td style="text-align:left;border: 1px solid #888888;">'.$sq_request1['airport_pickup'].'</td></tr>

@@ -113,7 +113,7 @@ if ($traveler_group_id != '' && $tour_id != '' && $tour_group_id != '') {
                     <tr>
                         <td class="text-left"><strong>Refund Date</strong></td>
                         <td>
-                            <input type="text" id="refund_date" name="refund_date" placeholder="*Date" title="Date"
+                            <input type="text" id="refund_date" name="refund_date" placeholder="*Refund Date" title="Refund Date"
                                 value="<?= date('d-m-Y') ?>">
                         </td>
                     </tr>

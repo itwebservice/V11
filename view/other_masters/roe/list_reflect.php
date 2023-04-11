@@ -6,7 +6,7 @@
 			<th>S_No.</th>
 			<th>Currency_Name</th>
 			<th>Currency_Rate</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,7 +21,7 @@
 				<td><?= $sq_cur['currency_code'] ?></td>
 				<td><?= $row_roe['currency_rate'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_roe['entry_id'] ?>)" title="Edit ROE"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" id="roe_update-<?= $row_roe['entry_id'] ?>" onclick="update_modal(<?= $row_roe['entry_id'] ?>)" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php } ?>

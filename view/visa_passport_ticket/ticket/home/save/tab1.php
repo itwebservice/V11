@@ -77,8 +77,8 @@
                         </div>
                     </div>
                     <span style="color: red;line-height: 35px;" data-original-title="" title="" class="note">Please add multiple seat number of multi trip using '/' in between like S1/D3/NA. And similar for Meal plan field.</span>
-                    <button type="button" class="btn btn-excel btn-sm" onClick="addRow('tbl_dynamic_ticket_master','1')" title="Add row"><i class="fa fa-plus"></i></button>
-                    <button type="button" class="btn btn-pdf btn-sm" onClick="deleteRow('tbl_dynamic_ticket_master')" title="Delete row"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_ticket_master','1')"><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_ticket_master');"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
             <div class="row">

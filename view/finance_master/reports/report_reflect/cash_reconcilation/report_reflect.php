@@ -36,7 +36,7 @@ $temp_arr = array();
 			$row_query['diff_prior'],
 			$row_query['reconcl_amount'],
 			$row_query['diff_reconcl'],
-			'<button class="btn btn-info btn-sm" onclick="display_modal('. $row_query['id'] .')" title="Admin Approval" data-toggle="tooltip"><i class="'. $class.'"></i></button>'
+			'<button class="btn btn-info btn-sm" onclick="display_modal('. $row_query['id'] .')" title="Admin Approval" data-toggle="tooltip" id="admin-'. $row_query['id'] .'"><i class="'. $class.'"></i></button>'
 			), "bg" =>$bg);
 			array_push($array_s, $temp_arr);
 			}echo json_encode($array_s);

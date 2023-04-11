@@ -31,16 +31,16 @@ $tour_name = ($sq_tour['tour_name']=="")? "NA" : $sq_tour['tour_name'];
               ?>
               <option value="<?php echo $sq_checklist['entity_for'];?>"><?php echo $entity_for; ?></option>
               <option value="">Select Service</option>
-              <option value="Group Tour">Group Tour</option>
               <option value="Package Tour">Package Tour</option>
-              <option value="Visa Booking">Visa Booking</option>
-              <option value="Flight Booking">Flight Booking</option>
-              <option value="Train Booking">Train Booking</option>
+              <option value="Group Tour">Group Tour</option>
               <option value="Hotel Booking">Hotel Booking</option>
-              <option value="Bus Booking">Bus Booking</option>
+              <option value="Flight Booking">Flight Booking</option>
+              <option value="Visa Booking">Visa Booking</option>
               <option value="Car Rental Booking">Car Rental Booking</option>
-              <option value="Passport Booking">Passport Booking</option>
               <option value="Excursion Booking">Activity Booking</option>
+              <option value="Train Booking">Train Booking</option>
+              <option value="Bus Booking">Bus Booking</option>
+              <option value="Miscellaneous Booking">Miscellaneous Booking</option>
             </select>
           </div>
           <?php
@@ -91,7 +91,7 @@ $tour_name = ($sq_tour['tour_name']=="")? "NA" : $sq_tour['tour_name'];
         <div class="col-md-4 text-right"></div>
           <div class="col-md-4 text-center"><h4>Checklist Entries<h4></div>
           <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_tour_name_update')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_tour_name_update')"><i class="fa fa-plus"></i></button>
           </div> </div>
 
           <div class="row"> <div class="col-md-12"> 
@@ -143,6 +143,8 @@ $(function(){
       
     },
     submitHandler:function(form){
+      
+      $('#update_button').prop('disabled',true);
       var entity_id = $('#entity_id1').val();
       var base_url =$('#base_url').val();
       var checked_arr = new Array();
@@ -160,7 +162,8 @@ $(function(){
           var entry_id = row.cells[3].childNodes[0].value;
           
           if(row.cells[0].childNodes[0].checked){
-            if(entity_name == ''){ error_msg_alert("Enter Checklist Name in Row "+(i+1)); return false; }
+            if(entity_name == ''){ error_msg_alert("Enter Checklist Name in Row "+(i+1));
+            $('#update_button').prop('disabled',false); return false; }
           }
           entity_name_arr.push(entity_name);
           entry_id_arr.push(entry_id);
@@ -177,11 +180,13 @@ $(function(){
           var msg = result.split('--');
           if(msg[0] == 'error'){
             error_msg_alert(msg[1]); 
+            $('#update_button').prop('disabled',false);
             $('#save_checklist').button('reset');
             return false;
           }else{
             success_msg_alert(msg[0]);
             $('#update_button').button('reset');
+            $('#update_button').prop('disabled',false);
             $('#entity_update_modal').modal('hide');
             entities_list_reflect();
           }

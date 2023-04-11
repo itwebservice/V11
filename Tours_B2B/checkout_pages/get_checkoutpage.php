@@ -63,11 +63,6 @@ for($i=0;$i<sizeof($cart_list_arr);$i++){
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <div class="formField">
-                                <input type="email" class="infoRow_txtbox" placeholder="*Email ID" id="email_id" name="email_id" title="Enter Email ID" data-toggle="tooltip" required/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
                             <div class="c-select2DD">
                             <select class="form-control full-width" id="country_id" name="country_id" onchange="get_country_code(this.id,'country_code');" title="Select Country Name" data-toggle="tooltip" required>
                                 <option value="">Select Country</option>
@@ -79,18 +74,23 @@ for($i=0;$i<sizeof($cart_list_arr);$i++){
                             </select>
                             </div>
                         </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="formField">
+                                <input type="text" class="infoRow_txtbox" id="country_code" title='Country Code' data-toggle="tooltip" placeholder="Country Code" readonly/>
+                            </div>
+                        </div>
                         </div>
                         <div class="row c-infoRow">
-                            <div class="col-md-3 col-sm-6">
-                                <div class="formField">
-                                    <input type="text" class="infoRow_txtbox" id="country_code" title='Country Code' data-toggle="tooltip" placeholder="Country Code" readonly/>
-                                </div>
-                            </div>
                             <div class="col-md-3 col-sm-6">
                                 <div class="formField">
                                     <input type="number" minlength='4' maxlength='12' class="infoRow_txtbox" placeholder="*Contact Number" id="contact_no" name="contact_no" title="Enter Contant Number" data-toggle="tooltip" required />
                                 </div>
                             </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="formField">
+                                <input type="email" class="infoRow_txtbox" placeholder="*Email ID" id="email_id" name="email_id" title="Enter Email ID" data-toggle="tooltip" required/>
+                            </div>
+                        </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="formField">
                                     <textarea class="infoRow_txtbox" placeholder="Special Request" id="sp_request" title="Special Request" data-toggle="tooltip" ></textarea>

@@ -49,27 +49,27 @@ $enquiry_id = base64_decode($enquiry_id1);
 	<input type="hidden" id="enquiry_id" name="enquiry_id" value="<?= $enquiry_id1 ?>" >
 <div class="panel panel-default panel-body app_panel_style feildset-panel" style="margin-bottom: 30px;">
 	<div class="main_block mg_tp_20">
-		<div class="col-md-2 text-right"><label for="app_name">HOTEL COST</label></div>
+		<div class="col-md-2 text-right"><label for="app_name">HOTEL AMOUNT</label></div>
 		<div class="col-md-2 no-pad">
-			<input type="text" class="form-control" id="txt_hotel" name="txt_hotel" placeholder="Hotel Cost" title="Hotel Cost" onchange="total_cost_reflect()">
+			<input type="text" class="form-control" id="txt_hotel" name="txt_hotel" placeholder="Hotel Amount" title="Hotel Amount" onchange="total_cost_reflect()">
 		</div>
-		<div class="col-md-2 text-right"><label for="app_name">TRANSPORT COST</label></div>
+		<div class="col-md-2 text-right"><label for="app_name">TRANSPORT AMOUNT</label></div>
 		<div class="col-md-2 no-pad">
-			<input type="text" class="form-control" id="txt_trans" name="txt_trans" placeholder="Transport Cost" title="Transport Cost" onchange="total_cost_reflect()">
+			<input type="text" class="form-control" id="txt_trans" name="txt_trans" placeholder="Transport Amount" title="Transport Amount" onchange="total_cost_reflect()">
 		</div>
-		<div class="col-md-2 text-right"><label for="app_name">ACTIVITY COST</label></div>
+		<div class="col-md-2 text-right"><label for="app_name">ACTIVITY AMOUNT</label></div>
 		<div class="col-md-2 no-pad">
-			<input type="text" class="form-control" id="txt_exc" name="txt_exc" placeholder="Activity Cost" title="Activity Cost" onchange="total_cost_reflect()">
+			<input type="text" class="form-control" id="txt_exc" name="txt_exc" placeholder="Activity Amount" title="Activity Amount" onchange="total_cost_reflect()">
 		</div>
 	</div>
 	<div class="main_block mg_tp_20">
-		<div class="col-md-2 text-right"><label for="app_name">VISA COST</label></div>
+		<div class="col-md-2 text-right"><label for="app_name">VISA AMOUNT</label></div>
 		<div class="col-md-2 no-pad">
-			<input type="text" class="form-control" id="txt_visa" name="txt_visa" placeholder="Visa Cost" title="Visa Cost" onchange="total_cost_reflect()">
+			<input type="text" class="form-control" id="txt_visa" name="txt_visa" placeholder="Visa Amount" title="Visa Amount" onchange="total_cost_reflect()">
 		</div>
-		<div class="col-md-2 text-right"><label for="app_website">TOTAL COST</label></div>
+		<div class="col-md-2 text-right"><label for="app_website">TOTAL AMOUNT</label></div>
 		<div class="col-md-2 no-pad">
-			<input type="text" class="form-control" id="txt_cost" name="txt_cost" placeholder="*Total Cost" title="Total Cost" readonly>
+			<input type="text" class="form-control" id="txt_cost" name="txt_cost" placeholder="*Total Amount" title="Total Amount" readonly>
 		</div>
 		<div class="col-md-2 text-right"><label for="app_website">CURRENCY</label></div>
 		<div class="col-md-2">

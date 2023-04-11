@@ -19,7 +19,7 @@ $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 
 
@@ -90,7 +90,7 @@ $query .= " order by booking_id desc";
 			}
 			else{
 				$bg="";
-				$update_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="update_modal('.$row_booking['booking_id'].')" id="edit-'.$row_booking['booking_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
+				$update_btn = '<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="update_modal('.$row_booking['booking_id'].')" id="editb-'.$row_booking['booking_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>';
 				$delete_btn = '<button class="'.$delete_flag.' btn btn-danger btn-sm" onclick="delete_entry('.$row_booking['booking_id'].')" title="Delete Entry"><i class="fa fa-trash"></i></button>';
 			}
 
@@ -161,10 +161,7 @@ $query .= " order by booking_id desc";
 				$emp_name,
 				$invoice_date,
 				'<a data-toggle="tooltip" onclick="loadOtherPage(\'' .$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
-				
-				<button data-toggle="tooltip" class="btn btn-info btn-sm" id="view-'.$row_booking['booking_id'].'" onclick="view_modal('.$row_booking['booking_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
-				'.$update_btn.$delete_btn
+				'.$update_btn.'<button data-toggle="tooltip" class="btn btn-info btn-sm" id="viewb-'.$row_booking['booking_id'].'" onclick="view_modal('.$row_booking['booking_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
 				), "bg" =>$bg );
 				array_push($array_s,$temp_arr); 
 			}

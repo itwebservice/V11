@@ -67,8 +67,8 @@
 	</div>
 	<div class="col-md-2">
 		<small id="markup_show1"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>'.$inclusive_m ?></span></small>
-		<small>Markup Cost</small>
-	    <input type="text" id="markup_cost1" name="markup_cost1" placeholder="Markup Cost" title="Markup Cost"  onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','service_charge');" value="<?= $markup ?>">
+		<small>Markup Amount</small>
+	    <input type="text" id="markup_cost1" name="markup_cost1" placeholder="Markup Amount" title="Markup Amount"  onchange="validate_balance(this.id);get_auto_values('quotation_date1','subtotal1','payment_mode','service_charge1','markup_cost1','update','false','service_charge');" value="<?= $markup ?>">
 
 	</div>
 	<div class="col-md-3">
@@ -120,6 +120,7 @@ $('#frm_tab31').validate({
 		var customer_name = $("#customer_name1").val();
 		var email_id = $('#email_id1').val();
 		var mobile_no = $('#mobile_no1').val();
+		var country_code = $('#country_code1').val();
 		var quotation_date = $('#quotation_date1').val();
 		var subtotal = $('#subtotal1').val();
 		var markup_cost = $('#markup_cost1').val();
@@ -206,7 +207,7 @@ $('#frm_tab31').validate({
 		$.ajax({
 			type:'post',
 			url: base_url+'controller/package_tour/quotation/flight/quotation_update.php',
-			data:{ quotation_id : quotation_id, enquiry_id : enquiry_id , customer_name : customer_name, email_id : email_id, mobile_no : mobile_no , quotation_date : quotation_date, subtotal : subtotal,markup_cost:markup_cost,markup_cost_subtotal : markup_cost_subtotal , service_tax : service_tax , service_charge : service_charge, total_tour_cost : total_tour_cost, from_sector_arr : from_sector_arr, to_sector_arr : to_sector_arr,airline_name_arr : airline_name_arr , plane_class_arr : plane_class_arr, arraval_arr : arraval_arr, dapart_arr : dapart_arr,plane_id_arr :plane_id_arr, from_city_id_arr : from_city_id_arr, to_city_id_arr : to_city_id_arr,total_adult_arr : total_adult_arr, total_child_arr : total_child_arr, total_infant_arr : total_infant_arr, bsmValues : bsmValues, roundoff : roundoff,active_flag:active_flag},
+			data:{ quotation_id : quotation_id, enquiry_id : enquiry_id , customer_name : customer_name, email_id : email_id, mobile_no : mobile_no , country_code : country_code ,quotation_date : quotation_date, subtotal : subtotal,markup_cost:markup_cost,markup_cost_subtotal : markup_cost_subtotal , service_tax : service_tax , service_charge : service_charge, total_tour_cost : total_tour_cost, from_sector_arr : from_sector_arr, to_sector_arr : to_sector_arr,airline_name_arr : airline_name_arr , plane_class_arr : plane_class_arr, arraval_arr : arraval_arr, dapart_arr : dapart_arr,plane_id_arr :plane_id_arr, from_city_id_arr : from_city_id_arr, to_city_id_arr : to_city_id_arr,total_adult_arr : total_adult_arr, total_child_arr : total_child_arr, total_infant_arr : total_infant_arr, bsmValues : bsmValues, roundoff : roundoff,active_flag:active_flag},
 			success: function(message){			
                 	$('#btn_quotation_update').button('reset');
                 	var msg = message.split('--');

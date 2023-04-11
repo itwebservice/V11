@@ -73,8 +73,12 @@ function history_modal(purchase_id)
 }
 function update_modal(entry_id)
 {
+	$('#update_modal_inv_update_activity-'+entry_id).prop('disabled',true);
+	$('#update_modal_inv_update_activity-'+entry_id).button('loading');
 	$.post('excursion/update_modal.php', {entry_id:entry_id}, function(data){
 		$('#div_update_modal').html(data);
+		$('#update_modal_inv_update_activity-'+entry_id).prop('disabled',false);
+		$('#update_modal_inv_update_activity-'+entry_id).button('reset');
 	});
 }
 function excel_report(entry_id)

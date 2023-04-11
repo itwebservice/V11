@@ -168,27 +168,9 @@ $objPHPExcel->getActiveSheet()->getStyle('B8:C8')->applyFromArray($borderArray);
 $objPHPExcel->getActiveSheet()->getStyle('B9:C9')->applyFromArray($header_style_Array);
 $objPHPExcel->getActiveSheet()->getStyle('B9:C9')->applyFromArray($borderArray); 
 
-        $query = "select * from visa_master where 1 and delete_status='0' ";
-        if($customer_id!=""){
-            $query .= " and customer_id='$customer_id'";
-        }
-        if($visa_id!=""){
-            $query .= " and visa_id='$visa_id'";
-        }
-        if($from_date!="" && $to_date!=""){
-            $from_date = date('Y-m-d', strtotime($from_date));
-            $to_date = date('Y-m-d', strtotime($to_date));
-            $query .= " and created_at between '$from_date' and '$to_date'";
-        }
-        if($company_name != ""){
-            $query .= " and customer_id in (select customer_id from customer_master where company_name = '$company_name')";
-        }
-        if($cust_type != ""){
-            $query .= " and customer_id in (select customer_id from customer_master where type = '$cust_type')";
-        }
-
         $count = 1;
         $row_count = 11;
+        $vendor_name1 = '';
 
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('B'.$row_count, "Sr. No")
@@ -329,7 +311,7 @@ $objPHPExcel->getActiveSheet()->getStyle('B9:C9')->applyFromArray($borderArray);
             $sq_purchase_count = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Visa Booking' and estimate_type_id='$row_visa[visa_id]' and delete_status='0'"));
             if($sq_purchase_count == 0){  $p_due_date = 'NA'; }
             $sq_purchase = mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Visa Booking' and estimate_type_id='$row_visa[visa_id]' and delete_status='0'");
-            while($row_purchase = mysqli_fetch_assoc($sq_purchase)){     		
+            while($row_purchase = mysqli_fetch_assoc($sq_purchase)){	
                 if($row_purchase['purchase_return'] == 0){
                     $total_purchase += $row_purchase['net_total'];
                 }
@@ -338,11 +320,10 @@ $objPHPExcel->getActiveSheet()->getStyle('B9:C9')->applyFromArray($borderArray);
                     $p_purchase = ($row_purchase['net_total'] - floatval($cancel_estimate[0]->net_total));
                     $total_purchase += $p_purchase;
                 }
+                $vendor_name = get_vendor_name_report($row_purchase['vendor_type'], $row_purchase['vendor_type_id']);
+                if($vendor_name != ''){ $vendor_name1 .= $vendor_name.','; }
             }
-            $sq_purchase1 = mysqli_fetch_assoc(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Visa Booking' and estimate_type_id='$row_visa[visa_id]' and delete_status='0'"));       
-            $vendor_name = get_vendor_name_report($sq_purchase1['vendor_type'], $sq_purchase1['vendor_type_id']);
-            if($vendor_name == ''){ $vendor_name1 = 'NA';  }
-            else{ $vendor_name1 = $vendor_name; }     
+            $vendor_name1 = substr($vendor_name1, 0, -1);
 
             //Service Tax and Markup Tax
             $service_tax_amount = 0;

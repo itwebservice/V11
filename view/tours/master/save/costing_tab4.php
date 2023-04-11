@@ -23,13 +23,13 @@
                 </div>
                 <div class="col-md-3 col-sm-6 mg_bt_10_xs">
                     <input type="text" id="txt_infant_cost" name="txt_infant_cost" onchange="validate_balance(this.id)"
-                        class="form-control" placeholder="*Infant Cost" title="Infant Cost" maxlength="10" />
+                        class="form-control" placeholder="Infant Cost" title="Infant Cost" maxlength="10" />
                 </div>
             </div>
             <div class="row mg_tp_10 text-center">
                 <div class="col-md-3 col-sm-6 mg_bt_10_xs">
                     <input type="text" id="with_bed_cost" onchange="validate_balance(this.id)" name="with_bed_cost"
-                        placeholder="*Extra bed cost" title="Extra bed cost">
+                        placeholder="Extra bed cost" title="Extra bed cost">
                 </div>
             </div>
             <div class="row mg_tp_20">

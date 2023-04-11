@@ -38,12 +38,8 @@
                 <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_20">
                     <div class="row mg_bt_10">
                         <div class="col-md-12 text-right mg_tp_10">
-                            <button type="button" class="btn btn-info btn-sm ico_left"
-                                onClick="addRow('tbl_dynamic_tour_group')"><i
-                                    class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                            <button type="button" class="btn btn-danger btn-sm ico_left"
-                                onClick="deleteRow('tbl_dynamic_tour_group')"><i
-                                    class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                            <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_tour_group')"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_tour_group')"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
 

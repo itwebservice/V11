@@ -58,9 +58,9 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 <select name="customer_id1" id="customer_id1" style="width: 100%"
                                     onchange="customer_info_load('1')" disabled>
                                     <?php
-                  $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
-                  if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
-                  ?>
+                $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
+                if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+                ?>
                                     <option value="<?= $sq_customer['customer_id'] ?>">
                                         <?= $sq_customer['company_name'] ?></option>
                                     <?php } else { ?>
@@ -71,12 +71,12 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
-                                    placeholder="Email ID" title="Email ID" readonly>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="mobile_no1" name="mobile_no1" title="Mobile Number"
                                     placeholder="Mobile No" title="Mobile No" readonly>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+                                <input type="text" id="email_id1" name="email_id1" title="Email Id"
+                                    placeholder="Email ID" title="Email ID" readonly>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="company_name1" class="hidden" name="company_name1"
@@ -113,9 +113,7 @@ else if($reflections[0]->tax_apply_on == '3') {
 
                         <div class="row text-right mg_bt_10">
                             <div class="col-xs-12">
-                                <button type="button" class="btn btn-info btn-sm ico_left"
-                                    onClick="addRow('tbl_hotel_booking_update')"><i
-                                        class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_hotel_booking_update')"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
 
@@ -127,19 +125,19 @@ else if($reflections[0]->tax_apply_on == '3') {
                                         class="table table-bordered table-hover table-striped no-marg pd_bt_51"
                                         style="width: 1685px;">
                                         <?php
-                    $sq_entry_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
-                    if ($sq_entry_count == 0) {
-                      include_once('hotel_booking_dynamic_tbl.php');
-                    } else {
-                      $count = 0;
-                      $sq_entry = mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'");
-                      while ($row_entry = mysqli_fetch_assoc($sq_entry)) {
-                        $bg = ($row_entry['status'] == "Cancel") ? "danger" : "";
-                        $count++;
-                    ?>
+                                        $sq_entry_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'"));
+                                        if ($sq_entry_count == 0) {
+                                        include_once('hotel_booking_dynamic_tbl.php');
+                                        } else {
+                                        $count = 0;
+                                        $sq_entry = mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'");
+                                        while ($row_entry = mysqli_fetch_assoc($sq_entry)) {
+                                            $bg = ($row_entry['status'] == "Cancel") ? "danger" : "";
+                                            $count++;
+                                        ?>
                                         <tr class="<?= $bg ?>">
                                             <td><input id="chk_hotel_<?= $prefix . $count ?>_f" type="checkbox"
-                                                    onchange="total_fun1();" checked disabled></td>
+                                                    onchange="total_fun1();" checked></td>
                                             <td><input maxlength="15" type="text" name="username" value="<?= $count ?>"
                                                     placeholder="Sr. No." disabled /></td>
                                             <td><select id="city_id<?= $prefix . $count ?>_f" style="width:150px"
@@ -147,8 +145,8 @@ else if($reflections[0]->tax_apply_on == '3') {
                                                     title="City" onchange="hotel_name_list_load(this.id)"
                                                     class="app_select2" style="width:100%">
                                                     <?php
-                              $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
-                              ?>
+                                                    $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
+                                                    ?>
                                                     <option value="<?php echo $sq_city['city_id'] ?>">
                                                         <?php echo $sq_city['city_name'] ?></option>
                                                 </select>
@@ -183,10 +181,10 @@ else if($reflections[0]->tax_apply_on == '3') {
                                                     placeholder="*No Of Nights" title="No Of Nights"
                                                     onchange="validate_balance(this.id)"
                                                     value="<?= $row_entry['no_of_nights'] ?>"></td>
-                                            <td><input type="text" style="width:100px;"
+                                            <td><input type="text" style="width:125px;"
                                                     id="rooms<?= $prefix . $count ?>_f"
-                                                    name="rooms<?= $prefix . $count ?>_f" placeholder="*Rooms"
-                                                    title="Rooms" onchange="validate_balance(this.id)"
+                                                    name="rooms<?= $prefix . $count ?>_f" placeholder="*No Of Rooms"
+                                                    title="No Of Rooms" onchange="validate_balance(this.id)"
                                                     value="<?= $row_entry['rooms'] ?>"></td>
                                             <td><select name="room_type<?= $prefix . $count ?>_f" style="width:120px;"
                                                     id="room_type<?= $prefix . $count ?>_f" title="Room Type">
@@ -334,8 +332,8 @@ else if($reflections[0]->tax_apply_on == '3') {
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <small id="markup_show1"
                                     style="color:red"><?= ($inclusive_m == '') ? '&nbsp;' : 'Inclusive Amount : <span>' . $inclusive_m ?></span></small>
-                                <input type="text" id="markup1" name="markup1" placeholder="Markup Cost"
-                                    title="Markup Cost"
+                                <input type="text" id="markup1" name="markup1" placeholder="Markup Amount"
+                                    title="Markup Amount"
                                     onchange="total_fun1();get_auto_values('booking_date1','sub_total1','payment_mode','service_charge1','markup1','update','true','markup','discount1');validate_balance(this.id)"
                                     value="<?= $markup ?>">
                             </div>
@@ -616,6 +614,7 @@ $(function() {
             var meal_plan_arr = new Array();
             var conf_no_arr = new Array();
             var entry_id_arr = new Array();
+			var e_checkbox_arr = [];
 
             var table = document.getElementById("tbl_hotel_booking_update");
             var rowCount = table.rows.length;
@@ -634,8 +633,6 @@ $(function() {
             for (var i = 0; i < rowCount; i++) {
 
                 var row = table.rows[i];
-                if (row.cells[0].childNodes[0].checked) {
-
                     var city_id = row.cells[2].childNodes[0].value;
                     var hotel_id = row.cells[3].childNodes[0].value;
                     var check_in = row.cells[4].childNodes[0].value;
@@ -656,6 +653,8 @@ $(function() {
                     }
 
                     var msg = "";
+                if (row.cells[0].childNodes[0].checked) {
+
                     if (city_id == "") {
                         msg += "City is required in row:" + (i + 1) + '<br>';
                     }
@@ -668,15 +667,13 @@ $(function() {
                     if (check_out == "") {
                         msg += "Check-Out is required in row:" + (i + 1) + '<br>';
                     }
-                    if (extra_beds == "") {
-                        msg += "Extra beds is required in row:" + (i + 1) + '<br>';
-                    }
                     if (rooms == "") {
                         msg += "Rooms is required in row:" + (i + 1) + '<br>';
                     }
                     if (no_of_nights == "") {
                         msg += "No of Nights is required in row:" + (i + 1) + '<br>';
                     }
+                }
 
                     if (msg != "") {
                         error_msg_alert(msg);
@@ -697,8 +694,8 @@ $(function() {
                     meal_plan_arr.push(meal_plan);
                     conf_no_arr.push(conf_no);
                     entry_id_arr.push(entry_id);
+                	e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
                 }
-            }
 
             var hotel_sc = $('#hotel_sc').val();
             var hotel_markup = $('#hotel_markup').val();
@@ -771,7 +768,7 @@ $(function() {
                             extra_beds_arr: extra_beds_arr,
                             meal_plan_arr: meal_plan_arr,
                             conf_no_arr: conf_no_arr,
-                            entry_id_arr: entry_id_arr,
+                            entry_id_arr: entry_id_arr,e_checkbox_arr:e_checkbox_arr,
                             due_date1: due_date1,
                             booking_date1: booking_date1,
                             reflections: reflections,

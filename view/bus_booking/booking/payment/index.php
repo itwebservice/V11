@@ -210,6 +210,8 @@ list_reflect();
 function update_modal(payment_id)
 
 {
+    $('#editp-'+payment_id).prop('disabled',true);
+    $('#editp-'+payment_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('payment/update_modal.php', {
         payment_id: payment_id,
@@ -217,6 +219,8 @@ function update_modal(payment_id)
     }, function(data) {
 
         $('#div_modal').html(data);
+        $('#editp-'+payment_id).prop('disabled',false);
+        $('#editp-'+payment_id).button('reset');
 
     });
 

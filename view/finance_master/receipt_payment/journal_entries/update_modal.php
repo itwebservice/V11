@@ -191,25 +191,32 @@ $('#frm_update').validate({
           }
 
         $('#btn_update').button('loading');
+        $.post(base_url()+'view/load_data/finance_date_validation.php', { check_date: entry_date }, function(data){
+          if(data !== 'valid'){
+            error_msg_alert("The Entry Date does not match between selected Financial year.");
+            $('#btn_update').prop('disabled',false);
+            $('#btn_update').button('reset');
+            return false;
+          }
+          else{
 
-        $.ajax({
-          type:'post',
-          url:base_url()+'controller/finance_master/journal_entry/journal_master_update.php',
-          data:{ entry_id : entry_id, entry_date : entry_date, narration : narration, debit_ledger_id_arr : debit_ledger_id_arr,debit_ledger_amt_arr : debit_ledger_amt_arr,credit_ledger_id_arr : credit_ledger_id_arr,credit_ledger_amt_arr : credit_ledger_amt_arr,debit_old_amt_arr : debit_old_amt_arr,credit_old_amt_arr : credit_old_amt_arr,entry_id_arr1 : entry_id_arr1,entry_id_arr2 : entry_id_arr2  },
-          success:function(result){
-              $('#btn_update').button('reset');
-              $('#btn_update').prop('disabled',false);
-              var msg = result.split('--');
-              msg_alert(result);
-              if(msg[0]!="error"){
-                $('#update_modal').modal('hide');
-                list_reflect();
+            $.ajax({
+              type:'post',
+              url:base_url()+'controller/finance_master/journal_entry/journal_master_update.php',
+              data:{ entry_id : entry_id, entry_date : entry_date, narration : narration, debit_ledger_id_arr : debit_ledger_id_arr,debit_ledger_amt_arr : debit_ledger_amt_arr,credit_ledger_id_arr : credit_ledger_id_arr,credit_ledger_amt_arr : credit_ledger_amt_arr,debit_old_amt_arr : debit_old_amt_arr,credit_old_amt_arr : credit_old_amt_arr,entry_id_arr1 : entry_id_arr1,entry_id_arr2 : entry_id_arr2  },
+              success:function(result){
+                  $('#btn_update').button('reset');
+                  $('#btn_update').prop('disabled',false);
+                  var msg = result.split('--');
+                  msg_alert(result);
+                  if(msg[0]!="error"){
+                    $('#update_modal').modal('hide');
+                    list_reflect();
+                  }
               }
+            });
           }
         });
-
-
-
     }
 });
 </script>

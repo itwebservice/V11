@@ -6,12 +6,8 @@
                 <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_20">
                     <legend>Offers/Coupon</legend>
                     <div class="row text-right mg_bt_10">
-                        <button type="button" class="btn btn-info btn-sm ico_left"
-                            onClick="addRow('table_hotel_tarrif_offer')"><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                        <button type="button" class="btn btn-danger btn-sm ico_left"
-                            onClick="deleteRow('table_hotel_tarrif_offer')"><i
-                                class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif_offer')"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_tarrif_offer')"><i class="fa fa-trash"></i></button>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -48,7 +44,7 @@
                                                 placeholder="Coupon Code" title="Coupon Code" style="width: 150px;" />
                                         </td>
                                         <td><input type='number' id="amount" name="amount" placeholder="*Amount"
-                                                class="form-control" title="Amount" style="width: 100px;" /></td>
+                                                class="form-control" title="Amount" style="width: 125px;" /></td>
                                         <td><select name="agent_type" id="agent_type" title="Agent Type"
                                                 style="width: 150px" class="form-control app_select2" multiple>
                                                 <option value=''>Agent Type</option>
@@ -99,6 +95,7 @@ $('#frm_tab5').validate({
 
     },
     submitHandler: function(form) {
+        $('#btn_price_save').prop('disabled',true);
         var base_url = $('#base_url').val();
         //TAB-1
         var city_id = $('#cmb_city_id1').val();
@@ -260,28 +257,34 @@ $('#frm_tab5').validate({
                 var offer_amount = row.cells[7].childNodes[0].value;
                 if (type == '') {
                     error_msg_alert('Select Type in Row-' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                     return false;
                 }
                 if (from_date == '') {
                     error_msg_alert('Select Valid From Date in Row-' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                     return false;
                 }
                 if (to_date == '') {
                     error_msg_alert('Select Valid To Date in Row-' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                     return false;
                 }
                 if (offer_in == '') {
                     error_msg_alert('Select Amount-in in Row-' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                     return false;
                 }
                 if (type == 'Coupon') {
                     if (coupon_code == '') {
                         error_msg_alert('Enter Coupon code in Row-' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                         return false;
                     }
                 }
                 if (offer_amount == '') {
                     error_msg_alert('Select Amount in Row- ' + (i + 1));
+                    $('#btn_price_save').prop('disabled',false);
                     return false;
                 }
                 var agent_type = "";
@@ -356,6 +359,8 @@ $('#frm_tab5').validate({
                 var msg = result.split('--');
                 if (msg[0] == "error") {
                     error_msg_alert(msg[1]);
+                    $('#btn_price_save').prop('disabled',false);
+                    return false;
                 } else {
                     $('#vi_confirm_box').vi_confirm_box({
                         false_btn: false,

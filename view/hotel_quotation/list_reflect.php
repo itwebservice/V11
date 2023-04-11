@@ -10,14 +10,17 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 
 if($status != ''){
 
-	$query = "select * from hotel_quotation_master where financial_year_id='$financial_year_id' and status='$status'";
+	$query = "select * from hotel_quotation_master where status='$status'";
 }else{
 
-	$query = "select * from hotel_quotation_master where financial_year_id='$financial_year_id' and status='1' ";
+	$query = "select * from hotel_quotation_master where status='1' ";
+}
+if($financial_year_id!=""){
+	$query .=" and financial_year_id='$financial_year_id'";
 }
 
 if($from_date!='' && $to_date!=""){
@@ -109,10 +112,10 @@ $array_s = array();
 			$enq_details['customer_name'],
 			number_format($cost_details['total_amount'],2).$currency_amount,
 			$emp_name,
-			$pdf_btn.$copy_btn.$whatsapp_show.'<form  style="display:inline-block" action="update/index.php" id="frm_booking_'.$count.'" method="POST">
-				<input  style="display:inline-block" type="hidden" id="quotation_id" name="quotation_id" value="'.$row_quotation['quotation_id'].'">
-				<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" id="edit-'.$row_quotation['quotation_id'].'" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
-			</form><form  style="display:inline-block" action="quotation_view.php" target="_blank" id="frm_booking_view_'.$count.'" method="GET">
+			$pdf_btn.'<form  style="display:inline-block" action="update/index.php" id="frm_booking_'.$count.'" method="POST">
+			<input  style="display:inline-block" type="hidden" id="quotation_id" name="quotation_id" value="'.$row_quotation['quotation_id'].'">
+			<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" id="edit-'.$row_quotation['quotation_id'].'" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+			</form>'.$copy_btn.$whatsapp_show.'<form  style="display:inline-block" action="quotation_view.php" target="_blank" id="frm_booking_view_'.$count.'" method="GET">
 				<input style="display:inline-block" type="hidden" id="quotation_id" name="quotation_id" value="'.$row_quotation['quotation_id'].'">
 				<button data-toggle="tooltip"  style="display:inline-block" class="btn btn-info btn-sm" title="View Details" id="view-'.$row_quotation['quotation_id'].'"><i class="fa fa-eye"></i></button>
 			</form>',

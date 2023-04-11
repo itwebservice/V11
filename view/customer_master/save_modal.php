@@ -143,7 +143,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 
                     <div class="row text-center">
                         <div class="col-xs-12">
-                            <button class="btn btn-sm btn-success" id="btn_save"><i
+                            <button class="btn btn-sm btn-success" id="btn_csave"><i
                                     class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
                         </div>
                     </div>
@@ -211,7 +211,7 @@ $(function() {
             }
         },
         submitHandler: function(form, e) {
-            $('#btn_save').prop('disabled', true);
+            $('#btn_csave').prop('disabled', true);
             var first_name = $('#cust_first_name').val();
             var middle_name = $('#cust_middle_name').val();
             var last_name = $('#cust_last_name').val();
@@ -238,7 +238,7 @@ $(function() {
             var branch_admin_id = $('#branch_admin_id').val();
             var cust_source = $('#cust_source').val();
 
-            $('#btn_save').button('loading');
+            $('#btn_csave').button('loading');
             $.ajax({
                 type: 'post',
                 url: base_url + 'controller/customer_master/customer_save.php',
@@ -270,14 +270,15 @@ $(function() {
                 },
                 success: function(result) {
 
+                    $('#btn_csave').prop('disabled', true);
                     var result_arr = result.split('==');
                     var error_arr = result.split('--');
                     var client_modal_type = $('#client_modal_type').val();
-                    $('#btn_save').button('reset');
+                    $('#btn_csave').button('reset');
                     if (client_modal_type == "master") {
                         if (error_arr[0] == 'error') {
                             error_msg_alert(error_arr[1]);
-                            $('#btn_save').prop('disabled', false);
+                            $('#btn_csave').prop('disabled', false);
                             return false;
                         } else {
                             success_msg_alert(result_arr[0]);
@@ -290,7 +291,7 @@ $(function() {
                     } else {
                         if (error_arr[0] == 'error') {
                             error_msg_alert(error_arr[1]);
-                            $('#btn_save').prop('disabled', false);
+                            $('#btn_csave').prop('disabled', false);
                             return false;
                         } else {
                             success_msg_alert(result_arr[0]);

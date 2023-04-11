@@ -64,8 +64,8 @@ $sq_countc = mysqli_num_rows(mysqlQuery("select * from hotel_contracted_tarrif w
                     <?php if ($sq_countc == 0) { ?>
                         <div class="row mg_bt_10">
                             <div class="col-md-12 text-right text_center_xs">
-                                <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_tarrif1','1')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('table_hotel_tarrif1','1')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif1','1')"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_hotel_tarrif1','1')"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -82,7 +82,7 @@ $sq_countc = mysqli_num_rows(mysqlQuery("select * from hotel_contracted_tarrif w
                     <?php } else { ?>
                         <div class="row mg_bt_10">
                             <div class="col-md-12 text-right text_center_xs">
-                                <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('table_hotel_tarrif')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_hotel_tarrif')"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -100,14 +100,14 @@ $sq_countc = mysqli_num_rows(mysqlQuery("select * from hotel_contracted_tarrif w
                                                         <option value='<?= $row_tab2['room_category'] ?>'><?= $row_tab2['room_category'] ?></option>
                                                         <?php get_room_category_dropdown(); ?>
                                                     </select></td>
-                                                <td><input type="text" id="m_occupancy" name="m_occupancy" placeholder="*Max Occupancy" title="Max Occupancy" onchange="validate_balance(this.id)" style="width: 130px;" value='<?= $row_tab2['max_occupancy'] ?>' /></td>
+                                                <td><input type="text" id="m_occupancy" name="m_occupancy" placeholder="*Max Occupancy" title="Max Occupancy" onchange="validate_balance(this.id)" style="width: 140px;" value='<?= $row_tab2['max_occupancy'] ?>' /></td>
                                                 <td><input type="text" id="from_date<?= $count ?>-u" class="form-control" name="from_date<?= $count ?>-u" placeholder="Valid From" title="Valid From" style="width: 120px;" onchange="get_to_date(this.id,'to_date<?= $count ?>-u')" value='<?= get_date_user($row_tab2['from_date']) ?>' /></td>
                                                 <td><input type="text" id="to_date<?= $count ?>-u" class="form-control" name="to_date<?= $count ?>-u" placeholder="Valid To " title="Valid To" onchange="validate_validDate('from_date<?= $count ?>-u' ,'to_date<?= $count ?>-u')" value='<?= get_date_user($row_tab2['to_date']) ?>' style="width: 120px;" /></td>
                                                 <td style='display:none;'><input type="text" id="single_bed" name="single_bed" placeholder="Single Bed" title="Single Bed" onchange="validate_balance(this.id)" /></td>
-                                                <td><input type="text" id="double_bed" name="double_bed" placeholder="Room Cost" title="Room Cost" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab2['double_bed'] ?>' /></td>
+                                                <td><input type="text" id="double_bed" name="double_bed" placeholder="Room Amount" title="Room Amount" onchange="validate_balance(this.id)" style="width: 130px;" value='<?= $row_tab2['double_bed'] ?>' /></td>
                                                 <td style='display:none;'><input type="text" id="triple_bed" name="triple_bed" placeholder="Triple Bed" title="Triple Bed" onchange="validate_balance(this.id)" /></td>
-                                                <td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab2['child_with_bed'] ?>' /></td>
-                                                <td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 137px;" value='<?= $row_tab2['child_without_bed'] ?>' /></td>
+                                                <td><input type="text" id="cwbed" name="cwbed" placeholder="Child With Bed" title="Child With Bed" onchange="validate_balance(this.id)" style="width: 140px;" value='<?= $row_tab2['child_with_bed'] ?>' /></td>
+                                                <td><input type="text" id="cwobed" name="cwobed" placeholder="Child Without Bed" title="Child Without Bed" onchange="validate_balance(this.id)" style="width: 145px;" value='<?= $row_tab2['child_without_bed'] ?>' /></td>
                                                 <td style='display:none;'><input type="text" id="first_child" name="first_child" placeholder="First Child" title="First Child" onchange="validate_balance(this.id)" /></td>
                                                 <td style='display:none;'><input type="text" id="second_child" name="second_child" placeholder="Second Child" title="Second Child" onchange="validate_balance(this.id)" /></td>
                                                 <td><input type="text" id="with_bed" name="with_bed" placeholder="Extra Bed" title="Extra Bed" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab2['extra_bed'] ?>' /></td>
@@ -117,7 +117,7 @@ $sq_countc = mysqli_num_rows(mysqlQuery("select * from hotel_contracted_tarrif w
                                                 <td style='display:none;'><input type="text" id="twin" name="twin" placeholder="Twin Bed" title="Twin Bed" onchange="validate_balance(this.id)" /></td>
                                                 <td><input type="text" id="markup_per" name="markup_per" placeholder="Markup(%)" title="Markup(%)" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab2['markup_per'] ?>' /></td>
                                                 <td><input type="text" id="flat_markup" name="flat_markup" placeholder="Flat Markup" title="Flat Markup" onchange="validate_balance(this.id)" style="width: 120px;" value='<?= $row_tab2['markup'] ?>' /></td>
-                                                <td><select name="meal_plan" id="meal_plan" style="width: 110px" class="form-control app_select2" title="Meal Plan">
+                                                <td><select name="meal_plan" id="meal_plan" style="width: 120px" class="form-control app_select2" title="Meal Plan">
                                                         <?php if ($row_tab2['meal_plan'] != '') { ?> <option value='<?= $row_tab2['meal_plan'] ?>'><?= $row_tab2['meal_plan'] ?></option><?php } ?>
                                                         <?php get_mealplan_dropdown(); ?></td>
                                                 <td><input type="hidden" id="entry_id" name="entry_id" value='<?= $row_tab2['entry_id'] ?>' /></td>

@@ -175,8 +175,12 @@ function list_reflect(){
 
 function update_modal(ledger_id)
 {
+    $('#update_btn-'+ledger_id).prop('disabled',true);
+    $('#update_btn-'+ledger_id).button('loading');
     $.post('../finance_master/ledger_master/update_modal.php', {ledger_id : ledger_id}, function(data){
         $('#div_modal').html(data);
+        $('#update_btn-'+ledger_id).prop('disabled',false);
+        $('#update_btn-'+ledger_id).button('reset');
     });
 }
 function reflect_side(group_id,div_id)

@@ -135,7 +135,7 @@ while($row_supplier = mysqli_fetch_assoc($sq_supplier))
 			(int)($count++),
 			$row_supplier['vendor_type'],
 			$supplier_name,
-			'<button class="btn btn-info btn-sm" onclick="view_modal(\''. implode(',', $booking_id_arr).'\',\''. implode(',', $pending_amt_arr).'\',\''.implode(',', $not_due_arr).'\',\''. implode(',',$total_days_arr).'\',\''. implode(',', $due_date_arr).'\')" data-toggle="tooltip" title="Ageing Information"><i class="fa fa-eye"></i></button>',
+			'<button class="btn btn-info btn-sm" onclick="view_modal(\''. implode(',', $booking_id_arr).'\',\''. implode(',', $pending_amt_arr).'\',\''.implode(',', $not_due_arr).'\',\''. implode(',',$total_days_arr).'\',\''. implode(',', $due_date_arr).'\','.$count.')" id="'.$count.'" data-toggle="tooltip" title="Ageing Information"><i class="fa fa-eye"></i></button>',
 			
 			number_format($total_outstanding,2),
 			number_format($not_due,2) ,

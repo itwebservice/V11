@@ -3,7 +3,7 @@ include "../../model/model.php";
 /*======******Header******=======*/
 require_once('../layouts/admin_header.php');
 ?>
-<?= begin_panel('Group Tour Cancel & Refund',66) ?>
+<?= begin_panel('Group Tour Booking Cancel & Refund',66) ?>
 
 <div class="row text-center text_left_sm_xs mg_bt_10">
     <label for="rd_cgroup_cancel" class="app_dual_button mg_bt_10 active">

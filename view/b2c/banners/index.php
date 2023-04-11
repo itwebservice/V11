@@ -18,7 +18,7 @@ $images = ($query['banner_images'] != '' && $query['banner_images'] != 'null') ?
             </select>
         </div>
         <div class="col-xs-8">
-            <div style="color: red;">Note : Upload Image size below 1MB, resolution : 1800*700, Format : JPEG,JPG.</div>
+            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Upload Image size below 1MB, resolution : 1800*700, Format : JPEG,JPG."><i class="fa fa-question-circle"></i></button>
         </div>
     </div>
     <!-- Banner Images for uploading -->
@@ -177,3 +177,4 @@ function delete_image(image_id) {
     });
 }
 </script>
+<script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>

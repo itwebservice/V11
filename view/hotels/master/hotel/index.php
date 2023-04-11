@@ -147,15 +147,23 @@ function save_modal()
 
 function update_modal(hotel_id)
 {
+    $('#update_btn-'+hotel_id).button('loading');
+    $('#update_btn-'+hotel_id).prop('disabled',true);
 	$.post('hotel/update_modal.php', {hotel_id : hotel_id}, function(data){
 		$('#div_modal_content').html(data);
+        $('#update_btn-'+hotel_id).button('reset');
+        $('#update_btn-'+hotel_id).prop('disabled',false);
 	});
 }
 
 function view_modal(hotel_id)
 {
+    $('#view_btn-'+hotel_id).button('loading');
+    $('#view_btn-'+hotel_id).prop('disabled',true);
     $.post('hotel/view/index.php', {hotel_id : hotel_id}, function(data){
         $('#div_view_modal').html(data);
+        $('#view_btn-'+hotel_id).button('reset');
+        $('#view_btn-'+hotel_id).prop('disabled',false);
     });
 }
 

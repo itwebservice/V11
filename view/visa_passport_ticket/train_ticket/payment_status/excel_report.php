@@ -203,12 +203,13 @@ $query .= " and emp_id='$emp_id'";
 }
 $query .= " order by train_ticket_id desc";
 $row_count = 11;
+$vendor_name1 = '';
 
 $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('B'.$row_count, "Sr. No")
                 ->setCellValue('C'.$row_count, "Booking ID")
                 ->setCellValue('D'.$row_count, "Customer_Name")
-                ->setCellValue('E'.$row_count, "Contact")
+                ->setCellValue('E'.$row_count, "Mobile")
                 ->setCellValue('F'.$row_count, "EMAIL_ID")
                 ->setCellValue('G'.$row_count, "Total_pax")
                 ->setCellValue('H'.$row_count, "Trip_Type")
@@ -333,11 +334,10 @@ $count = 0;
                     $p_purchase = ($row_purchase['net_total'] - floatval($cancel_estimate[0]->net_total));
                     $total_purchase += $p_purchase;
                 }
+                $vendor_name = get_vendor_name_report($row_purchase['vendor_type'], $row_purchase['vendor_type_id']);
+                if($vendor_name != ''){ $vendor_name1 .= $vendor_name.','; }
             }
-            $sq_purchase1 = mysqli_fetch_assoc(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Train Ticket Booking' and estimate_type_id='$row_ticket[train_ticket_id]' and delete_status='0'"));		
-            $vendor_name = get_vendor_name_report($sq_purchase1['vendor_type'], $sq_purchase1['vendor_type_id']);
-            if($vendor_name == ''){ $vendor_name1 = 'NA';  }
-            else{ $vendor_name1 = $vendor_name; }
+            $vendor_name1 = substr($vendor_name1, 0, -1);
         
             // Invoice
             $paid_amount = ($paid_amount == '') ? 0 : $paid_amount;

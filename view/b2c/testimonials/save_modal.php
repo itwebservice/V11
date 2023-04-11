@@ -27,20 +27,16 @@ include_once("../../../model/model.php");
                         </div>
                     </div>
                     <div class="row mg_bt_10">
-                        <div class="col-md-2">          
+                        <div class="col-md-4">          
                             <div class="div-upload">
                                 <div id="id_upload_btn" class="upload-button1"><span>Upload</span></div>
                                 <span id="id_proof_status" ></span>
                                 <ul id="files"></ul>
                                 <input type="hidden" id="image_upload_url_testm" name="image_upload_url_testm">
                             </div>
+                            <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Upload Image size below 200KB, resolution : 900*450, Format : JPEG,JPG,PNG."><i class="fa fa-question-circle"></i></button>
                         </div>
-                        </div>
-                    <div class="row mg_bt_20">
-                        <div class="col-md-10 no-marg">
-                            <div style="color: red;">Note :Upload Image below 200KB, resolution :900X450, Format:JPEG, JPG, PNG</div>
-                        </div>
-                    </div>
+                    </div>                        
                     <div class="row mg_tp_20">
                         <div class="col-xs-12 text-center">
                             <button class="btn btn-sm btn-success" id="btn_save1"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>

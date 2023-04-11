@@ -4,7 +4,7 @@ $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 $customer_id = $_POST['customer_id'];
 $from_date = $_POST['from_date'];
@@ -173,7 +173,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		'
 		<a style="display:inline-block" onclick="loadOtherPage(\''. $url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
 		'.$update_btn.'
-		<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="ticket_display_modal('.$row_ticket['ticket_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
+		<button data-toggle="tooltip" style="display:inline-block" class="btn btn-info btn-sm" onclick="ticket_display_modal('.$row_ticket['ticket_id'] .')" id="display_ticket-'.$row_ticket['ticket_id'] .'" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr);
 	$count++;

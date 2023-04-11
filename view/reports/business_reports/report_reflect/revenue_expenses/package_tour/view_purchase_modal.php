@@ -66,7 +66,9 @@ $sq_pcount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where sta
                     </tbody>
                 </table>
             </div> </div>
-            <?php } if($sq_count!=0){ ?>
+            <?php }else{
+                echo '<h4>No purchase taken for this booking</h4>';
+            } if($sq_count!=0){ ?>
             <div class="row mg_tp_20">
             <div class="col-md-12">
             <h3 class="editor_title">Other Expense</h3>

@@ -154,15 +154,17 @@ employee_list_reflect();
 
 function save_modal()
 { 
-  $('#btn_save_modal').button('loading');
+	$('#btn_save_modal-').prop('disabled',true);
   var branch_status = $('#branch_status').val();
   check_package_type('<?= $setup_package ?>','user');
   var user_count = $('#user_count').val();
   if(<?= $setup_package ?> == '1'){
       if(user_count < '5'){
+        $('#btn_save_modal').button('loading');
         $.post('save/index.php', {branch_status, branch_status}, function(data){
         $('#div_quotation_form').html(data);
         $('#btn_save_modal').button('reset');
+	      $('#btn_save_modal-').prop('disabled',false);
         });
       }
       else {
@@ -171,18 +173,13 @@ function save_modal()
       }
   }
   else{
+    $('#btn_save_modal').button('loading');
     $.post('save/index.php', {branch_status, branch_status}, function(data){
         $('#div_quotation_form').html(data);
         $('#btn_save_modal').button('reset');
+	      $('#btn_save_modal-').prop('disabled',false);
     });
   }
-}
-function update_modal(emp_id)
-{
-  var branch_status = $('#branch_status').val();
-    $.post('update/index.php', {emp_id : emp_id, branch_status : branch_status}, function(data){
-        $('#div_employee_modal').html(data);
-    });
 }
 
 function branch_name_load(offset='')
@@ -202,10 +199,25 @@ function address_reflect(offset='')
   });
 }
 address_reflect();
+function update_modal(emp_id)
+{
+	$('#display_modal_user_edit_btn-'+emp_id).button('loading');
+	$('#display_modal_user_edit_btn-'+emp_id).prop('disabled',true);
+  var branch_status = $('#branch_status').val();
+  $.post('update/index.php', {emp_id : emp_id, branch_status : branch_status}, function(data){
+    $('#div_employee_modal').html(data);
+    $('#display_modal_user_edit_btn-'+emp_id).button('reset');
+    $('#display_modal_user_edit_btn-'+emp_id).prop('disabled',false);
+  });
+}
 function display_modal(emp_id)
 {
+	$('#display_modal_user_view_btn-'+emp_id).button('loading');
+	$('#display_modal_user_view_btn-'+emp_id).prop('disabled',true);
     $.post('view/index.php', {emp_id : emp_id}, function(data){
         $('#div_employee_modal').html(data);
+      $('#display_modal_user_view_btn-'+emp_id).button('reset');
+      $('#display_modal_user_view_btn-'+emp_id).prop('disabled',false);
     });
 }
 function calculate_age_member(id) 

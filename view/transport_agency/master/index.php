@@ -3,7 +3,7 @@ include "../../../model/model.php";
 /*======******Header******=======*/
 require_once('../../layouts/admin_header.php');
 ?>
-<?= begin_panel('Transporter Information',21) ?>
+<?= begin_panel('Transporter Supplier Information',21) ?>
 
 <div class="row text-right mg_bt_20">
     <div class="col-sm-6 text-left">
@@ -129,15 +129,23 @@ function save_modal()
 
 function update_modal(transport_agency_id)
 {
+    $('#update_btn-'+transport_agency_id).button('loading');
+    $('#update_btn-'+transport_agency_id).prop('disabled',true);
 	$.post('update_modal.php', {transport_agency_id : transport_agency_id}, function(data){
 		$('#div_modal_content').html(data);
+        $('#update_btn-'+transport_agency_id).button('reset');
+        $('#update_btn-'+transport_agency_id).prop('disabled',false);
 	});
 }
 
 function view_modal(transport_agency_id)
 {
+    $('#view_btn-'+transport_agency_id).button('loading');
+    $('#view_btn-'+transport_agency_id).prop('disabled',true);
     $.post('view_modal.php', {transport_agency_id : transport_agency_id}, function(data){
         $('#div_view_content').html(data);
+        $('#view_btn-'+transport_agency_id).button('reset');
+        $('#view_btn-'+transport_agency_id).prop('disabled',false);
     });
 }
 function display_format_modal()

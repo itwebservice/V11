@@ -67,7 +67,7 @@ var column = [
 	{ title : "quotation_id"},
 	{ title:"City_Name"},
 	{ title : "Supplier_Name"},
-	{ title : "Total cost"},
+	{ title : "Total AMOUNT"},
 	{ title : "Actions", className : "text-center"}
 ];
 function list_reflect()

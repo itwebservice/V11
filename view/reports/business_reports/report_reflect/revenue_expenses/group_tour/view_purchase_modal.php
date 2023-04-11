@@ -3,7 +3,7 @@ include_once "../../../../../../model/model.php";
 $tour_id = $_POST['tour_id'];
 $tour_group_id = $_POST['tour_group_id'];
 
-$sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and estimate_type='Group Tour' and estimate_type_id ='$tour_group_id' and status!='Cancel' and delete_status='0'"));
+$sq_pount = mysqli_num_rows(mysqlQuery("select * from vendor_estimate where estimate_type='Group Tour' and estimate_type_id ='$tour_group_id' and status!='Cancel' and delete_status='0'"));
 $sq_count = mysqli_num_rows(mysqlQuery("select * from group_tour_estimate_expense where tour_id='$tour_id' and tour_group_id ='$tour_group_id'"));
 ?>
 
@@ -67,7 +67,10 @@ $sq_count = mysqli_num_rows(mysqlQuery("select * from group_tour_estimate_expens
                     </table>
 
                 </div></div></div>
-            <?php } if($sq_count!=0){ ?>
+            <?php }else{
+                echo '<h4>No purchase taken for this booking</h4>';
+            }
+            if($sq_count!=0){ ?>
             <div class="row mg_tp_20">
             <div class="col-md-12">
             <h3 class="editor_title">Other Expense</h3>

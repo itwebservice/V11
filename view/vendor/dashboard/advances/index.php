@@ -88,8 +88,12 @@ function save_modal(){
 }
 
 function payment_update_modal(payment_id){
+    $('#updatea_btn-'+payment_id).button('loading');
+    $('#updatea_btn-'+payment_id).prop('disabled',true);
 	$.post('advances/payment_update_modal.php', { payment_id : payment_id }, function(data){
 		$('#div_payment_update_content').html(data);
+		$('#updatea_btn-'+payment_id).button('reset');
+		$('#updatea_btn-'+payment_id).prop('disabled',false);
 	});
 }
 function excel_report()

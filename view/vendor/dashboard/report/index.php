@@ -26,7 +26,7 @@ $branch_status = $_POST['branch_status'];
 			<select name="estimate_type2" id="estimate_type2" title="Purchase Type" onchange="payment_for_data_load(this.value, 'div_payment_for_content2')">
 				<option value="">Purchase Type</option>
 				<?php 
-				$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+				$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
 				while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
 					?>
 					<option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>

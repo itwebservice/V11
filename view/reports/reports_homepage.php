@@ -9,7 +9,7 @@ $branch_status = $sq['branch_status'];
 
 ?>
 <input type="hidden" id="branch_status" name="branch_status" value="<?= $branch_status ?>" >
-<?= begin_panel('Tour Reports',95) ?> <span style="font-size: 15px;font-weight: 400;color: #006d6d;margin-left: 15px;" id="span_report_name"></span>
+<?= begin_panel('Sales Reports',95) ?> <span style="font-size: 15px;font-weight: 400;color: #006d6d;margin-left: 15px;" id="span_report_name"></span>
 
 <div class="report_menu main_block">
     <div class="row">

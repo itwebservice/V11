@@ -87,6 +87,10 @@ function switch_to_tab3() {
 $('#frm_tour_update').validate({
 
     rules: {
+		txt_tour_cost : { required: true, number:true },
+
+		txt_child_with_cost : { required: true, number:true },
+
 
     },
 

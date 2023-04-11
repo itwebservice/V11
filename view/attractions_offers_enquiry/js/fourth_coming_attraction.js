@@ -17,15 +17,23 @@ function load_tourism_attr()
 //load_tourism_attr();
 function display_image(entry_id)
 {
+  $('#view_btn-'+entry_id).button('loading');
+  $('#view_btn-'+entry_id).prop('disabled',true);
   $('#attractions_view_modal').modal('hide');
   $.post('display_image_modal.php', {entry_id : entry_id}, function(data){
     $('#div_modal').html(data);
+    $('#view_btn-'+entry_id).button('reset');
+    $('#view_btn-'+entry_id).prop('disabled',false);
   });
 }
 function update_modal(entry_id)
 {
+  $('#update_btn-'+entry_id).button('loading');
+  $('#update_btn-'+entry_id).prop('disabled',true);
   $.post('update_modal.php', { entry_id : entry_id }, function(data){
     $('#div_modal1').html(data);
+    $('#update_btn-'+entry_id).button('reset');
+    $('#update_btn-'+entry_id).prop('disabled',false);
   });
 }
 ///////////////////////***Fourth Coming attraction master save start*********//////////////
@@ -91,7 +99,11 @@ function fouth_coming_attractions_disable(id)
 
 function fourth_coming_attractions_update_modal(id)
 {
+  $('#update_btn-'+id).button('loading');
+  $('#update_btn-'+id).prop('disabled',true);
   $.post('fourth_coming_attractions_update_modal.php', { id : id }, function(data){
       $('#div_fourth_coming_attractions_update_modal').html(data);
+      $('#update_btn-'+id).button('reset');
+      $('#update_btn-'+id).prop('disabled',false);
   });
 }

@@ -22,15 +22,15 @@ $branch_status = $sq['branch_status'];
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
 
 				<select name="tour_type" id="tour_type" class="form-control" title="Tour Type" style="width: 100%;" onchange="booking_list_reflect()" title="Tour Type">
-					<option value="Group Tour">Group Tour</option>
 					<option value="Package Tour">Package Tour</option>
+					<option value="Group Tour">Group Tour</option>
+					<option value="Hotel Booking">Hotel Booking</option>   
+					<option value="Ticket Booking">Ticket Booking</option>  
 					<option value="Visa Booking">Visa Booking</option>     
-					<option value="Ticket Booking">Ticket Booking</option>
-					<option value="Train Booking">Train Ticket Booking</option>
-					<option value="Hotel Booking">Hotel Booking</option>     
-					<option value="Bus Booking">Bus Booking</option>
 					<option value="Car Rental Booking">Car Rental Booking</option>
-					<option value="Activity Booking">Excursion  Booking</option>
+					<option value="Activity Booking">Activity Booking</option>
+					<option value="Train Booking">Train Ticket Booking</option>
+					<option value="Bus Booking">Bus Booking</option>
 					<option value="Miscellaneous Booking">Miscellaneous Booking</option>
 				</select>
 			</div>
@@ -155,8 +155,12 @@ $branch_status = $sq['branch_status'];
 	}
 	function incentive_edit_modal(booking_id, emp_id,booking_type)
 	{
+		$('#update_btn-'+booking_id).prop('disabled',true);
+		$('#update_btn-'+booking_id).button('loading');
 		$.post('package_tour_incentive_edit_modal.php', { booking_id : booking_id, emp_id : emp_id,booking_type:booking_type }, function(data){
-			$('#div_incentive_save_popup').html(data);	
+			$('#div_incentive_save_popup').html(data);
+			$('#update_btn-'+booking_id).prop('disabled',false);
+			$('#update_btn-'+booking_id).button('reset');	
 		});
 	}
 	function add_incentive(ele, booking_id,emp_id,purchase,booking_amt){

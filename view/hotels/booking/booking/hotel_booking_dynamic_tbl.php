@@ -51,7 +51,7 @@
             <option value="Quadruple Sharing">Quadruple Sharing</option>
         </select></td>
     <td><input type="text" style="width:105px" data-toggle="tooltip" id="extra_beds<?= $prefix ?>1"
-            name="extra_beds<?= $prefix ?>1" placeholder="*Extra Beds" title="Extra Beds"
+            name="extra_beds<?= $prefix ?>1" placeholder="Extra Beds" title="Extra Beds"
             onchange="validate_balance(this.id)"></td>
     <td><select data-toggle="tooltip" style="width:120px" title="Meal Plan" id="meal_plan<?= $prefix ?>1"
             name="meal_plan<?= $prefix ?>1" title="Meal Plan" Placeholder="Meal Plan">

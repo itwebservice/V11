@@ -10,7 +10,7 @@ while($row=mysqli_fetch_assoc($sq)){
   $status = $row['active_flag'];
   $bg = ($row['active_flag']=="Inactive") ? "danger" : "";
       $temp_arr = array( "data" => array(
-                    (int)($state_id),$state_name,$status,'<a data-toggle="tooltip" href="javascript:void(0)" onclick="state_master_update_modal(\''.$state_id.'\')" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></a>'), "bg" => $bg
+                    (int)($state_id),$state_name,$status,'<a data-toggle="tooltip" href="javascript:void(0)" onclick="state_master_update_modal(\''.$state_id.'\')" id="state_update-'.$state_id.'" class="btn btn-info btn-sm" title="Update Details"><i class="fa fa-pencil-square-o"></i></a>'), "bg" => $bg
                   );
       array_push($array_s,$temp_arr); 
  }

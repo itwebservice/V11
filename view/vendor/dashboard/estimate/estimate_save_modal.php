@@ -41,7 +41,7 @@ $financial_to_date = $sq_finance['to_date'];
 							<select name="estimate_type" id="estimate_type" title="Purchase Type" onchange="get_purchase_flag('0',this.id);payment_for_data_load(this.value, 'div_payment_for_content');brule_for_all();">
 								<option value="">*Purchase Type</option>
 								<?php 
-								$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by estimate_type");
+								$sq_estimate_type = mysqlQuery("select * from estimate_type_master order by id");
 								while($row_estimate = mysqli_fetch_assoc($sq_estimate_type)){
 									?>
 									<option value="<?= $row_estimate['estimate_type'] ?>"><?= $row_estimate['estimate_type'] ?></option>
@@ -342,7 +342,7 @@ $(function(){
 				if(vendor_type==""){ msg +=">Supplier type is required in vendor estimate-"+counter+"<br>"; }
 				if(vendor_type_id==""){ msg +=">"+vendor_type+" is required in vendor estimate-"+counter+"<br>"; }
 				if(estimate_type_id==""){ msg += ">"+estimate_type+" is required"+"<br>"; }
-				if(basic_cost==""){ msg +=">Basic cost is required in vendor estimate-"+counter+"<br>"; }
+				if(basic_cost==""){ msg +=">Basic Amount is required in vendor estimate-"+counter+"<br>"; }
 				if(net_total==""){ msg +=">Net total is required in vendor estimate-"+counter+"<br>"; }
 				if(tax_apply_on==""){ msg +=">Tax apply on is required in vendor estimate-"+counter+"<br>"; }
 				if(tax_value==""){ msg +=">Tax is required in vendor estimate-"+counter+"<br>"; }
@@ -379,7 +379,7 @@ $(function(){
 				reflection_arr.push([{'tax_apply_on':tax_apply_on,
 					'tax_value':tax_value}]);
 
-				if(check > from && check < to){
+				if(check >= from && check <= to){
 					purchase_date_arr.push(purchase_date);
 				}
 				else{

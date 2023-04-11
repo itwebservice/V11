@@ -70,9 +70,9 @@ var column = [
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
-	{ title : "Total_Guest"},
+	{ title : "Total_Pax"},
 	{ title : "Booking_Date"},
 	{ title : "View"},
 	{ title : "Tour_name"},
@@ -165,24 +165,36 @@ function customer_booking_dropdown_load()
 }
 function group_view_modal(id)
   {
+	$('#packagev_btn-'+id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+id).button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url+'view/booking/summary/view/index.php', { id : id }, function(data){
-      $('#div_group_content_display').html(data);
+    	$('#div_group_content_display').html(data);
+		$('#packagev_btn-'+id).prop('disabled',false);
+    	$('#packagev_btn-'+id).button('reset');
     });
   }
 function supplier_view_modal(id)
   {
-  	//alert(id);
-    var base_url = $('#base_url').val();
+	$('#supplierv_btn-'+id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+id).button('loading');
     $.post(base_url+'view/booking/summary/view/supplier_view_modal.php', { id : id }, function(data){
       $('#div_group_content_display').html(data);
+		$('#supplierv_btn-'+id).prop('disabled',false);
+    	$('#supplierv_btn-'+id).button('reset');
     });
   }
 function payment_view_modal(id)
 {
+	$('#paymentv_btn-'+id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+id).button('loading');
 	$.post(base_url+'view/booking/summary/view/payment_view_modal.php', { id : id }, function(data){	
-	  $('#div_group_content_display').html(data);
+		$('#div_group_content_display').html(data);
+		$('#paymentv_btn-'+id).prop('disabled',false);
+		$('#paymentv_btn-'+id).button('reset');
 	});
 }
 </script>

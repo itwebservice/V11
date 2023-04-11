@@ -94,8 +94,7 @@ include "../../model/model.php";
                                                             <input type="hidden" id="timing_tariff_url"
                                                                 name="timing_tariff_url">
                                                         </div>
-                                                        <span style="color: red;" class="note">Note : Upload CSV for
-                                                            Timing Slots.</span>
+					                                    <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload CSV for Timing Slots."><i class="fa fa-question-circle"></i></button>
                                                     </div>
                                                     <input type="hidden" id="timing_slots" />
                                                 </div>
@@ -149,8 +148,7 @@ include "../../model/model.php";
                                         <div class="Normal collapsed main_block" role="button" data-toggle="collapse"
                                             data-parent="#accordion" href="#collapse2" aria-expanded="false"
                                             aria-controls="collapse2" id="collapsed1">
-                                            <div class="col-md-12"><span><em
-                                                        style="margin-left: 15px;"><?php echo "Costing Information"; ?></em></span>
+                                            <div class="col-md-12"><span><em style="margin-left: 15px;"><?php echo "Costing Information"; ?></em></span>
                                             </div>
                                         </div>
                                     </div>
@@ -181,12 +179,8 @@ include "../../model/model.php";
                                                 <div class="row mg_bt_10">
                                                     <h5 style='border-bottom: 1px solid #e5e5e5;'>Basic Costing</h5>
                                                     <div class="row text-right mg_bt_10">
-                                                        <button type="button" class="btn btn-info btn-sm ico_left"
-                                                            onClick="addRow('table_exc_tarrif_basic')"><i
-                                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                                        <button type="button" class="btn btn-danger btn-sm ico_left"
-                                                            onClick="deleteRow('table_exc_tarrif_basic')"><i
-                                                                class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_basic')"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_exc_tarrif_basic')"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -268,14 +262,13 @@ include "../../model/model.php";
                                                                             </select></td>
                                                                         <td><input type='number' id="amount"
                                                                                 name="amount"
-                                                                                placeholder="*Markup Amount"
+                                                                                placeholder="Markup Amount"
                                                                                 class="form-control"
                                                                                 title="Markup Amount"
                                                                                 style="width: 165px;"
                                                                                 onchange="validate_balance(this.id);" />
                                                                         </td>
-                                                                        <td><input type="hidden" id="entry_id"
-                                                                                name="entry_id" /></td>
+                                                                        <td><input type="hidden" id="entry_id" name="entry_id" /></td>
                                                                     </tr>
                                                                 </table>
                                                             </div>
@@ -287,12 +280,8 @@ include "../../model/model.php";
                                                 <div class="row mg_bt_10">
                                                     <h5 style='border-bottom: 1px solid #e5e5e5;'>Offers/Coupons</h5>
                                                     <div class="row text-right mg_bt_10">
-                                                        <button type="button" class="btn btn-info btn-sm ico_left"
-                                                            onClick="addRow('table_exc_tarrif_offer')"><i
-                                                                class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                                                        <button type="button" class="btn btn-danger btn-sm ico_left"
-                                                            onClick="deleteRow('table_exc_tarrif_offer')"><i
-                                                                class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                                                        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('table_exc_tarrif_offer')"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('table_exc_tarrif_offer')"><i class="fa fa-trash"></i></button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -379,12 +368,7 @@ include "../../model/model.php";
                                 <ul id="files"></ul>
                                 <input type="hidden" id="photo_upload_url_i" name="photo_upload_url_i">
                             </div>(Upload Maximum 3 images)
-                        </div>
-                    </div>
-                    <div class="row mg_tp_10">
-                        <div class="col-sm-6">
-                            <span style="color: red;" class="note">Note : Image size should be less than 100KB,
-                                resolution : 900X450.</span>
+					        <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note: Image size should be less than 100KB,resolution : 900X450."><i class="fa fa-question-circle"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="hotel_image_path" id="hotel_image_path">
@@ -625,15 +609,6 @@ $(function() {
                         error_msg_alert('Enter Child Ticket Cost in Row-' + (i + 1));
                         return false;
                     }
-                    if (markup_in == '') {
-                        error_msg_alert('Select Markup In in Row-' + (i + 1));
-                        return false;
-                    }
-                    if (markup_cost == '') {
-                        error_msg_alert('Enter Markup Cost in Row-' + (i + 1));
-                        return false;
-                    }
-
                     transfer_option_array.push(transfer_option);
                     bfrom_date_array.push(from_date);
                     bto_date_array.push(to_date);

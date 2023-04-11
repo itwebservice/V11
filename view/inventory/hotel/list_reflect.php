@@ -31,8 +31,7 @@ include "../../../model/app_settings/branchwise_filteration.php";
                         <th>Category</th>
                         <th>Valid_From</th>
                         <th>Valid_To</th>
-                        <th>Edit</th>
-                        <th>Download</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,10 +77,8 @@ include "../../../model/app_settings/branchwise_filteration.php";
                         <td><?= date("d-m-Y", strtotime($row_ser['valid_from_date'])) ?></td>
                         <td><?= date("d-m-Y", strtotime($row_ser['valid_to_date'])) ?></td>
                         <td>
-                            <button class="btn btn-info btn-sm" id="update_modal_inv_update_hotel<?= $row_ser['entry_id'] ?>" onclick="update_modal(<?= $row_ser['entry_id'] ?>);btnDisableEnable(this.id)"
-                                title="Update"><i class="fa fa-pencil-square-o"></i></button>
-                        </td>
-                        <td>
+                            <button class="btn btn-info btn-sm" id="update_modal_inv_update_hotel-<?= $row_ser['entry_id'] ?>" onclick="update_modal(<?= $row_ser['entry_id'] ?>);btnDisableEnable(this.id)"
+                                title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
                             <button class="btn btn-info btn-sm" onclick="excel_report(<?= $row_ser['entry_id'] ?>)"
                                 title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
                         </td>

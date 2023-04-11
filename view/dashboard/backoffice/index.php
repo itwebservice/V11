@@ -212,10 +212,12 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
                                   else if($row_task['task_type'] == 'Group Tour'){
 
                                     $sq_booking = mysqli_fetch_assoc(mysqlQuery("select form_date,id from tourwise_traveler_details where id='$row_task[task_type_field_id]'"));
+                                    $sq_tour_group = mysqli_fetch_assoc(mysqlQuery("select * from tour_groups where group_id='$row_task[task_type_field_id]'"));
+                                    $sq_tour = mysqli_fetch_assoc(mysqlQuery("select * from tour_master where tour_id='$sq_tour_group[tour_id]'"));
                                     $date = $sq_booking['form_date'];
                                     $yr = explode("-", $date);
-                                    $year =$yr[0];
-                                    $booking_id = 'NA';
+                                    $year = $yr[0];
+                                    $booking_id = $sq_tour['tour_name'].'('.date('d-m-Y', strtotime($sq_tour_group['from_date'])).' to '.date('d-m-Y', strtotime($sq_tour_group['to_date'])).')';
                                   }
                                   else if($row_task['task_type'] == 'Enquiry'){
 

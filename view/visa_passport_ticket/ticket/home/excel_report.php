@@ -184,15 +184,14 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('C'.$row_count, "Booking ID")
         ->setCellValue('D'.$row_count, "Customer Name")
         ->setCellValue('E'.$row_count, "Mobile No")
-        ->setCellValue('F'.$row_count, "Trip Type")
-        ->setCellValue('G'.$row_count, "Booking Amount")
-        ->setCellValue('H'.$row_count, "Cancellation Charges")
-        ->setCellValue('I'.$row_count, "Total Amount")
-        ->setCellValue('J'.$row_count, "Paid Amount")
-        ->setCellValue('K'.$row_count, "Created By")
-        ->setCellValue('L'.$row_count, "Booking Date");
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($header_style_Array);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($borderArray); 
+        ->setCellValue('F'.$row_count, "Booking Amount")
+        ->setCellValue('G'.$row_count, "Cancellation Charges")
+        ->setCellValue('H'.$row_count, "Total Amount")
+        ->setCellValue('I'.$row_count, "Paid Amount")
+        ->setCellValue('J'.$row_count, "Created By")
+        ->setCellValue('K'.$row_count, "Booking Date");
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($header_style_Array);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray); 
 
 $row_count++;
 
@@ -237,15 +236,14 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
         ->setCellValue('C'.$row_count, get_ticket_booking_id($ticket_id,$year))
         ->setCellValue('D'.$row_count, $customer_name)
         ->setCellValue('E'.$row_count, $contact_no)
-        ->setCellValue('F'.$row_count, $row_ticket['type_of_tour'])
-        ->setCellValue('G'.$row_count, number_format($row_ticket['ticket_total_cost']+$credit_card_charges,2))
-        ->setCellValue('H'.$row_count, number_format($cancel_amt,2))
-        ->setCellValue('I'.$row_count, number_format(($row_ticket['ticket_total_cost'] - $cancel_amt+$credit_card_charges), 2))
-        ->setCellValue('J'.$row_count,$paid_amount)
-        ->setCellValue('K'.$row_count,$emp_name)
-        ->setCellValue('L'.$row_count,date('d-m-Y',strtotime($row_ticket['created_at'])));
-    $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($content_style_Array);
-	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($borderArray);  
+        ->setCellValue('F'.$row_count, number_format($row_ticket['ticket_total_cost']+$credit_card_charges,2))
+        ->setCellValue('G'.$row_count, number_format($cancel_amt,2))
+        ->setCellValue('H'.$row_count, number_format(($row_ticket['ticket_total_cost'] - $cancel_amt+$credit_card_charges), 2))
+        ->setCellValue('I'.$row_count,$paid_amount)
+        ->setCellValue('J'.$row_count,$emp_name)
+        ->setCellValue('K'.$row_count,date('d-m-Y',strtotime($row_ticket['created_at'])));
+    $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
+	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);  
 
 
     $row_count++;
@@ -260,11 +258,10 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
     ->setCellValue('H'.$row_count, $total_cancelation_amount)
     ->setCellValue('I'.$row_count, $total_balance)
     ->setCellValue('J'.$row_count,'')
-    ->setCellValue('K'.$row_count,'')
-    ->setCellValue('L'.$row_count,'');
+    ->setCellValue('K'.$row_count,'');
 
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($header_style_Array);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($borderArray);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($header_style_Array);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);
 }
 //////////////////////////****************Content End**************////////////////////////////////
 // Rename worksheet

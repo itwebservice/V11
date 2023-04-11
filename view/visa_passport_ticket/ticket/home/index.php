@@ -3,6 +3,7 @@ include "../../../../model/model.php";
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $emp_id = $_SESSION['emp_id'];
 $branch_status = $_POST['branch_status'];
 ?>
@@ -49,9 +50,14 @@ $branch_status = $_POST['branch_status'];
 					$yr = explode("-", $date);
 					$year = $yr[0];
 					$sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+					if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+						$customer_name = $sq_customer['company_name'];
+					} else {
+						$customer_name = $sq_customer['first_name'] . ' ' . $sq_customer['last_name'];
+					}
 				?>
                 <option value="<?= $row_ticket['ticket_id'] ?>">
-                    <?= get_ticket_booking_id($row_ticket['ticket_id'], $year) . ' : ' . $sq_customer['first_name'] . ' ' . $sq_customer['last_name'] ?>
+                    <?= get_ticket_booking_id($row_ticket['ticket_id'], $year) . ' : ' . $customer_name ?>
                 </option>
                 <?php
 				}
@@ -65,6 +71,16 @@ $branch_status = $_POST['branch_status'];
         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date"
                 onchange="validate_validDate('from_date','to_date')">
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
         </div>
         <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10">
             <button class="btn btn-sm btn-info ico_right" onclick="ticket_customer_list_reflect()">Proceed&nbsp;&nbsp;<i
@@ -265,6 +281,7 @@ function ticket_customer_list_reflect() {
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
     var base_url = $('#base_url').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/ticket_list_reflect.php', {
         customer_id: customer_id,
@@ -273,7 +290,7 @@ function ticket_customer_list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         pagination_load(data, columns, true, true, 20, 'flight_book', true);
         $('.loader').remove();
@@ -326,21 +343,29 @@ function save_modal_airfile() {
 }
 
 function ticket_update_modal(ticket_id) {
+    $('#update_ticket-'+ticket_id).prop('disabled',true);
+    $('#update_ticket-'+ticket_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/update/index.php', {
         ticket_id: ticket_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_ticket_modal').html(data);
+        $('#update_ticket-'+ticket_id).prop('disabled',false);
+        $('#update_ticket-'+ticket_id).button('reset');
     });
 }
 
 function ticket_display_modal(ticket_id) {
+    $('#display_ticket-'+ticket_id).prop('disabled',true);
+    $('#display_ticket-'+ticket_id).button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url + 'view/visa_passport_ticket/ticket/home/view/index.php', {
         ticket_id: ticket_id
     }, function(data) {
         $('#div_ticket_modal').html(data);
+        $('#display_ticket-'+ticket_id).prop('disabled',false);
+        $('#display_ticket-'+ticket_id).button('reset');
     });
 }
 </script>

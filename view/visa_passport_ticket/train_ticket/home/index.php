@@ -3,6 +3,7 @@ include "../../../../model/model.php";
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 $emp_id = $_SESSION['emp_id'];
 $branch_status = $_POST['branch_status'];
 $financial_year_id = $_SESSION['financial_year_id'];
@@ -45,9 +46,14 @@ $financial_year_id = $_SESSION['financial_year_id'];
 					$yr = explode("-", $date);
 					$year = $yr[0];
 					$sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+					if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+						$customer_name = $sq_customer['company_name'];
+					} else {
+						$customer_name = $sq_customer['first_name'] . ' ' . $sq_customer['last_name'];
+					}
 				?>
                 <option value="<?= $row_ticket['train_ticket_id'] ?>">
-                    <?= get_train_ticket_booking_id($row_ticket['train_ticket_id'], $year) . ' : ' . $sq_customer['first_name'] . ' ' . $sq_customer['last_name'] ?>
+                    <?= get_train_ticket_booking_id($row_ticket['train_ticket_id'], $year) . ' : ' . $customer_name ?>
                 </option>
                 <?php
 				}
@@ -61,6 +67,16 @@ $financial_year_id = $_SESSION['financial_year_id'];
         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date"
                 onchange="validate_validDate('from_date','to_date')">
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <button class="btn btn-sm btn-info ico_right"
@@ -137,6 +153,7 @@ function train_ticket_customer_list_reflect() {
     var company_name = $('#company_filter').val();
     var train_ticket_id = $('#train_ticket_id_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
     $.post('home/ticket_list_reflect.php', {
         customer_id: customer_id,
@@ -145,9 +162,8 @@ function train_ticket_customer_list_reflect() {
         cust_type: cust_type,
         company_name: company_name,
         train_ticket_id: train_ticket_id,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
-        // $('#div_train_ticket_customer_list_reflect').html(data);
         pagination_load(data, columns, true, true, 10, 'train_book', true);
 
     });
@@ -155,20 +171,28 @@ function train_ticket_customer_list_reflect() {
 train_ticket_customer_list_reflect();
 
 function train_ticket_update_modal(train_ticket_id) {
+    $('#update_btn-'+train_ticket_id).prop('disabled',true);
+    $('#update_btn-' + train_ticket_id).button('loading');
     var branch_status = $('#branch_status').val();
     $.post('home/update/index.php', {
         train_ticket_id: train_ticket_id,
         branch_status: branch_status
     }, function(data) {
         $('#div_train_ticket_modal').html(data);
+        $('#update_btn-'+train_ticket_id).prop('disabled',false);
+        $('#update_btn-'+train_ticket_id).button('reset');
     });
 }
 
 function train_ticket_view_modal(train_ticket_id) {
+    $('#view_btn-'+train_ticket_id).prop('disabled',true);
+    $('#view_btn-' + train_ticket_id).button('loading');
     $.post('home/view/index.php', {
         train_ticket_id: train_ticket_id
     }, function(data) {
         $('#div_train_ticket_view_modal').html(data);
+        $('#view_btn-'+train_ticket_id).prop('disabled',false);
+        $('#view_btn-' + train_ticket_id).button('reset');
         console.log(data)
     });
 }

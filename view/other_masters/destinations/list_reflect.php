@@ -29,7 +29,7 @@ $status = $_POST['status'];
 				<td><?= $row_airline['dest_id'] ?></td>
 				<td><?= $row_airline['dest_name'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_airline['dest_id'] ?>)" title="Edit Destination"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_airline['dest_id'] ?>)" title="Update Details" id="dest_update-<?= $row_airline['dest_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

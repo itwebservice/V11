@@ -18,12 +18,12 @@ $branch_status = $sq['branch_status'];
 <div class="app_panel_content Filter-panel">
 	<div class="row">
 		<div class="col-md-3 col-sm-6 mg_bt_10_xs">
-			 <input type="text" id="till_date" name="till_date" placeholder="Select Date" onchange="report_reflect()" title="Select Date" value="<?= date('d-m-Y') ?>" >
+			<input type="text" id="till_date" name="till_date" placeholder="Select Date" onchange="report_reflect()" title="Select Date" value="<?= date('d-m-Y') ?>" >
 		</div>
 		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_xs">
-               <select class="form-control" id="party_name" name="party_name" onchange="report_reflect()" title="Select Customer" >
-                  <?php get_customer_dropdown($role,$branch_admin_id,$branch_status); ?>
-              </select>
+			<select class="form-control" id="party_name" name="party_name" onchange="report_reflect()" title="Select Customer" >
+				<?php get_customer_dropdown($role,$branch_admin_id,$branch_status); ?>
+			</select>
         </div>
 	</div>
 </div>
@@ -65,17 +65,18 @@ function report_reflect()
 	var role = $('#role').val();
 
 	$.post('report_reflect/receivables_ageing/get_customer_booking.php',{ till_date : till_date, customer_id : customer_id , branch_status : branch_status , role : role,branch_admin_id : branch_admin_id }, function(data){
-		// console.log(data);
 		pagination_load(data, column, true, true, 20, 'rec_age');
 	});
 }
 report_reflect();
-function view_modal(booking_id_arr,pending_amt_arr,not_due_arr,total_days_arr,due_date_arr)
+function view_modal(booking_id_arr,pending_amt_arr,not_due_arr,total_days_arr,due_date_arr,count_id)
 {
+	$('#'+count_id).prop('disabled',true);
+	$('#'+count_id).button('loading');
 	$.post('report_reflect/receivables_ageing/view_modal.php', {booking_id_arr : booking_id_arr,pending_amt_arr : pending_amt_arr,total_days_arr : total_days_arr,not_due_arr : not_due_arr, due_date_arr:due_date_arr}, function(data){
- 
 		$('#div_modal').html(data);
-
+		$('#'+count_id).prop('disabled',false);
+		$('#'+count_id).button('reset');
 	});
 
 }

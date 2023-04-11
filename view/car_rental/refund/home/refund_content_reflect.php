@@ -163,7 +163,7 @@ $remaining_pay = $refund_amount - $sq_refund_info['sum'];
 				<thead>
 					<tr class="table-heading-row">
 						<th>S_No</th>
-						<th>Date</th>
+						<th>Refund_Date</th>
 						<th class="text-right">Amount</th>
 						<th>Mode</th>
 						<th>Bank_Name</th>

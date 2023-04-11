@@ -36,8 +36,12 @@ list_reflect();
 
 function update_modal(sac_id)
 {
+    $('#update_sac-'+sac_id).prop('disabled',true);
+    $('#update_sac-'+sac_id).button('loading');
     $.post('update_modal.php', {sac_id : sac_id}, function(data){
         $('#div_modal').html(data);
+        $('#update_sac-'+sac_id).prop('disabled',false);
+        $('#update_sac-'+sac_id).button('reset');
     });
 }
 </script>

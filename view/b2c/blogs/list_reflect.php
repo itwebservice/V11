@@ -26,7 +26,7 @@ $query = mysqlQuery("SELECT * FROM `b2c_blogs` where active_flag='0' order by en
 				<td><?= ++$count ?></td>
 				<td><?= $title ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_query['entry_id'] ?>)" title="Edit"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_query['entry_id'] ?>)" title="Update Details" id="updateb_btn-<?= $row_query['entry_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 		<?php

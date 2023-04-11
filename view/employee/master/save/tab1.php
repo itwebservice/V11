@@ -36,7 +36,7 @@
             <div class="col-md-3 col-sm-6 mg_bt_10">
 
                 <input class="form-control" type="text" id="txt_mobile_no1" onchange="mobile_validate(this.id);"
-                name="txt_mobile_no1" placeholder="Alternative No" title="Alternative Mobile No.">
+                name="txt_mobile_no1" placeholder="Alternative Mobile No." title="Alternative Mobile No.">
 
             </div>
 
@@ -128,14 +128,7 @@
 
                 <textarea class="form-control" id="txt_address" onchange="validate_address(this.id)" id="user_address"
                     name="txt_address" placeholder="Address" title="Address"
-                    rows="1"> <?php if ($role == 'Branch Admin') {
-
-                                                                                                                                                                                                $sq_address = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$branch_admin_id' "));
-
-                                                                                                                                                                                                echo  $sq_address['address1'] . ' ' . $sq_address['address2'];
-                                                                                                                                                                                            } else {
-                                                                                                                                                                                                echo "Address";
-                                                                                                                                                                                            } ?></textarea>
+                    rows="1"> <?php if ($role == 'Branch Admin') {                                                                                                                       } ?></textarea>
 
             </div>
 
@@ -282,13 +275,8 @@
 
     </div>
     <div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
-        <legend>Mailing Information</legend>
-        <div class="row mg_tp_10">
-            <div class="col-xs-12">
-                <span class="note">Note : Please add individual Users Webmail SMTP details to send / receive email
-                    from respective email id's.</span>
-            </div>
-        </div>
+        <legend>Mailing Information 
+		<button type="button" data-toggle="tooltip" class="btn btn-excel" title="Please add individual Users Webmail SMTP details to send / receive email from respective email id's."><i class="fa fa-question-circle"></i></button></legend>
         <div class="row mg_tp_10">
             <div class="col-md-3">
                 <select id="app_smtp_status" name="app_smtp_status" title="SMTP Status">

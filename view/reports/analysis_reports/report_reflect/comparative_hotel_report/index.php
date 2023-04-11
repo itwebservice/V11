@@ -92,11 +92,15 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 	report_reflect(false);
 
 
-	function view_com_hotel_modal(hotel_id)
+function view_com_hotel_modal(hotel_id)
 {
+	$('#view_btn-'+hotel_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+hotel_id).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/comparative_hotel_report/view_com_hotel_modal.php', { hotel_id : hotel_id}, function(data){
 		$('#other_hotel_display').html(data);
+		$('#view_btn-'+hotel_id).prop('disabled',false);
+		$('#view_btn-'+hotel_id).button('reset');
 	});
 }
 </script>
@@ -108,8 +112,7 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 		var cityid = document.getElementById('select_city').value;
 		var base_url = $('#base_url').val();
 		$.post(base_url+'view/reports/analysis_reports/report_reflect/comparative_hotel_report/get_hotel_options.php', {cityid : cityid}, function(data){
-			
-			 $('#hoteloptions').html(data);
+			$('#hoteloptions').html(data);
 	});
 	}
 

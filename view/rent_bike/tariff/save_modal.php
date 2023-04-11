@@ -267,16 +267,6 @@ $(function(){
             $('#tariff_save').prop('disabled', false);
             return false;
           }
-          if(markup_in==''){
-            error_msg_alert('Select markup in Row-'+(i+1));
-            $('#tariff_save').prop('disabled', false);
-            return false;
-          }
-          if(markup_amount==''){
-            error_msg_alert('Enter markup cost in Row-'+(i+1));
-            $('#tariff_save').prop('disabled', false);
-            return false;
-          }
           city_array.push(city);
           pickup_location_array.push(pickup_location);
           from_date_array.push(from_dateo);

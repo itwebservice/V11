@@ -36,12 +36,12 @@ $branch_status = $_POST['branch_status'];
                             </div>
                             <div id="cust_details">
                                 <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-                                    <input type="text" id="email_id" name="email_id" class="form-control"
-                                        title="Email Id" placeholder="Email ID" readonly>
-                                </div>
-                                <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
                                     <input type="text" id="mobile_no" name="mobile_no" class="form-control"
                                         title="Mobile Number" placeholder="Mobile No" readonly>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
+                                    <input type="text" id="email_id" name="email_id" class="form-control"
+                                        title="Email Id" placeholder="Email ID" readonly>
                                 </div>
                                 <div class="col-md-3 col-sm-4 col-xs-12">
                                     <input type="text" id="company_name1" class="hidden form-control"
@@ -171,7 +171,7 @@ $branch_status = $_POST['branch_status'];
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="rate" class="text-right form-control" name="rate"
-                                    placeholder="Rate" title="Rate" onchange="calculate_total_fees(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','true','basic');">
+                                    placeholder="Daily Rate" title="Daily Rate" onchange="calculate_total_fees(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','true','basic');">
                             </div>
 
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
@@ -275,8 +275,8 @@ $branch_status = $_POST['branch_status'];
                                     <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
                                         <small id="markup_show">&nbsp;</small>
                                         <input type="text" id="markup_cost" name="markup_cost"
-                                            class="text-right form-control" placeholder="Markup Cost"
-                                            title="Markup Cost"
+                                            class="text-right form-control" placeholder="Markup Amount"
+                                            title="Markup Amount"
                                             onchange="validate_balance(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','false','markup');"
                                             value="0.00">
                                     </div>

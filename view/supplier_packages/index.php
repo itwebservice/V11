@@ -73,8 +73,12 @@ list_reflect();
 
 function update_modal(package_id)
 {
+	$('#update_btn-'+package_id).prop('disabled',true);
+	$('#update_btn-'+package_id).button('loading');
 	$.post('update_modal.php', {package_id : package_id}, function(data){
 		$('#div_modal').html(data);
+		$('#update_btn-'+package_id).prop('disabled',false);
+		$('#update_btn-'+package_id).button('reset');
 	});
 }
 </script>

@@ -5,14 +5,13 @@ $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_status = $_POST['branch_status'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
+$financial_year_id = $_SESSION['financial_year_id'];
 ?>
 <input type="hidden" id="whatsapp_switch" value="<?= $whatsapp_switch ?>">
 <div class="row text-right mg_bt_20">
     <div class="col-xs-12">
-        <button class="btn btn-excel btn-sm mg_bt_10_sm_xs" onclick="excel_report()" data-toggle="tooltip"
-            title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
-        <button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="save_modal()"><i
-                class="fa fa-plus"></i>&nbsp;&nbsp;Miscellaneous</button>
+        <button class="btn btn-excel btn-sm mg_bt_10_sm_xs" onclick="excel_report()" data-toggle="tooltip" title="Generate Excel"><i class="fa fa-file-excel-o"></i></button>
+        <button class="btn btn-info btn-sm ico_left mg_bt_10_sm_xs" onclick="save_modal()" id="misc_save_btn"><i class="fa fa-plus"></i>&nbsp;&nbsp;Miscellaneous</button>
     </div>
 </div>
 
@@ -65,6 +64,16 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
         <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date"
                 onchange="validate_validDate('from_date','to_date')">
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
+                <?php
+                $sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+                $financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+                ?>
+                <option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+                <?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+            </select>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12 form-group">
             <button class="btn btn-sm btn-info ico_right" onclick="visa_customer_list_reflect()">Proceed&nbsp;&nbsp;<i
@@ -146,6 +155,7 @@ function visa_customer_list_reflect() {
     var cust_type = $('#cust_type_filter').val();
     var company_name = $('#company_filter').val();
     var branch_status = $('#branch_status').val();
+    var financial_year_id_filter = $('#financial_year_id_filter').val();
 
 
     $.post('home/visa_list_reflect.php', {
@@ -155,7 +165,7 @@ function visa_customer_list_reflect() {
         to_date: to_date,
         cust_type: cust_type,
         company_name: company_name,
-        branch_status: branch_status
+        branch_status: branch_status,financial_year_id:financial_year_id_filter
     }, function(data) {
         // $('#div_visa_customer_list_reflect').html(data);
         pagination_load(data, columns, true, true, 10, 'misc_book', true);
@@ -164,15 +174,6 @@ function visa_customer_list_reflect() {
 }
 visa_customer_list_reflect();
 
-function visa_update_modal(misc_id) {
-    var branch_status = $('#branch_status').val();
-    $.post('home/update_modal.php', {
-        misc_id: misc_id,
-        branch_status: branch_status
-    }, function(data) {
-        $('#div_visa_update_content').html(data);
-    });
-}
 
 function calculate_total_amount(offset = '') {
 
@@ -337,10 +338,27 @@ function adolescence_reflect(id) {
 
 function visa_display_modal(misc_id) {
 
+    $('#viewm_btn-'+misc_id).prop('disabled',true);
+    $('#viewm_btn-'+misc_id).button('loading');
     $.post('home/view/index.php', {
         misc_id: misc_id
     }, function(data) {
         $('#div_visa_content_display').html(data);
+        $('#viewm_btn-'+misc_id).prop('disabled',false);
+        $('#viewm_btn-'+misc_id).button('reset');
+    });
+}
+function visa_update_modal(misc_id) {
+    $('#updatem_btn-'+misc_id).prop('disabled',true);
+    var branch_status = $('#branch_status').val();
+    $('#updatem_btn-'+misc_id).button('loading');
+    $.post('home/update_modal.php', {
+        misc_id: misc_id,
+        branch_status: branch_status
+    }, function(data) {
+        $('#div_visa_update_content').html(data);
+        $('#updatem_btn-'+misc_id).prop('disabled',false);
+        $('#updatem_btn-'+misc_id).button('reset');
     });
 }
 
@@ -457,9 +475,13 @@ function whatsapp_send(emp_id, customer_id, booking_date, base_url, contact_no, 
 
 function save_modal() {
 
+    $('#misc_save_btn').prop('disabled',true);
+    $('#misc_save_btn').button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url + 'view/miscellaneous/home/save_modal.php', {}, function(data) {
         $('#save_html').html(data);
+        $('#misc_save_btn').prop('disabled',false);
+        $('#misc_save_btn').button('reset');
     });
 }
 

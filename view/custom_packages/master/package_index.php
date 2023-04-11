@@ -6,7 +6,7 @@ include "../../../model/model.php";
 		<form action="package/index.php" class="no-marg pull-right" method="POST">
             &nbsp;&nbsp;<button class="btn btn-info btn-sm ico_left" id="btn_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Package Tour</button>&nbsp;&nbsp;
 		</form>
-    <button class="btn btn-info btn-sm ico_left pull-right" onclick="save_package_modal()" id="btn_city_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Destination</button>
+    <button class="btn btn-info btn-sm ico_left pull-right" onclick="save_package_modal()" id="btn_save_dest"><i class="fa fa-plus"></i>&nbsp;&nbsp;Destination</button>
 	</div>
 </div>
 </div>
@@ -83,9 +83,13 @@ function update_modal(package_id){
 }
 
 function view_modal(package_id){
-  $.post('view/index.php', { package_id: package_id }, function(data){
-    $('#div_view_modal').html(data);
-  });
+    $('#view_btn-'+package_id).button('loading');
+	$('#view_btn-'+package_id).prop('disabled',true);
+    $.post('view/index.php', { package_id: package_id }, function(data){
+        $('#div_view_modal').html(data);
+        $('#view_btn-'+package_id).button('reset');
+        $('#view_btn-'+package_id).prop('disabled',false);
+    });
 }
 
 function total_cost()
@@ -114,10 +118,13 @@ function total_cost()
 
 function save_package_modal()
 {
-    $('#btn_savepackage_btn').button('loading');
+    $('#btn_save_dest').button('loading');
+	$('#btn_save_dest').prop('disabled',true);
     $.post('save_package_modal.php', {}, function(data){
-        $('#btn_savepackage_btn').button('reset');
+        $('#btn_save_dest').button('reset');
         $('#div_modal_content').html(data);
+        $('#btn_save_dest').button('reset');
+        $('#btn_save_dest').prop('disabled',false);
     });
 }
 function package_clone(package_id){

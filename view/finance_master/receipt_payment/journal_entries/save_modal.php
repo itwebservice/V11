@@ -14,8 +14,8 @@ include_once("../../../../model/model.php");
   		<div class="panel panel-default panel-body app_panel_style feildset-panel">
   	     <legend>Account Debited</legend>	           
   	        <div class="row mg_bt_10"> <div class="col-md-12 text-right">
-  	            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_debited')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-  	            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_debited')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_debited')"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_debited');"><i class="fa fa-trash"></i></button>
   	        </div> </div>		 
   	        <div class="row"> <div class="col-md-12"> <div class="table-responsive">
   	          <table id="tbl_debited" name="tbl_debited" class="table table-hover no-marg border_0 pd_bt_51">
@@ -41,8 +41,8 @@ include_once("../../../../model/model.php");
   		<div class="panel panel-default panel-body app_panel_style feildset-panel mg_tp_30">
   	     <legend>Account Credited</legend>	 
   			<div class="row mg_bt_10"> <div class="col-md-12 text-right">
-  	            <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_credited')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-  	            <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_credited')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+                <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_credited')"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_credited');"><i class="fa fa-trash"></i></button>
   	        </div> </div>
 
   	        <div class="row"> <div class="col-md-12"> <div class="table-responsive">

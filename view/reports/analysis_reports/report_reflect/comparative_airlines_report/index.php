@@ -101,9 +101,13 @@ $( "#from_date, #to_date" ).datetimepicker({ timepicker:false, format:'d-m-Y' })
 
 	function view_com_airlines_modal(airline_id)
 {
+	$('#view_btn-'+airline_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+airline_id).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/comparative_airlines_report/view_com_airlines_modal.php', { airline_id : airline_id}, function(data){
 		$('#other_airline_display').html(data);
+		$('#view_btn-'+airline_id).prop('disabled',false);
+		$('#view_btn-'+airline_id).button('reset');
 	});
 }
 </script>

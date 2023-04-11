@@ -56,7 +56,7 @@ if($emp_id != '' || $year != '' || $month !=''){
               ($sq_sal['leave_deduction']!="") ? $sq_sal['leave_deduction'] : number_format(0,2) ,
               ($sq_sal['deduction']!="") ? $sq_sal['deduction'] : number_format(0,2),
               ($sq_sal['net_salary']!="") ? $sq_sal['net_salary'] : number_format(0,2),
-              '<button class="btn btn-info btn-sm" onclick="update_modal('. $sq_sal['salary_id'] .', '.$month .')" data-toggle="tooltip" title="Edit Details"><i class="fa fa-pencil-square-o"></i></button>
+              '<button class="btn btn-info btn-sm" onclick="update_modal('. $sq_sal['salary_id'] .', '.$month .')" data-toggle="tooltip" title="Update Details" id="updates_btn-'. $sq_sal['salary_id'] .'"><i class="fa fa-pencil-square-o"></i></button>
 
               <a onclick="loadOtherPage(\''.$b_url .'\')" class="btn btn-info btn-sm" data-toggle="tooltip" title="Salary Slip"><i class="fa fa-print"></i></a>'
 

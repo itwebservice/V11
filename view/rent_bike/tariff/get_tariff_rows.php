@@ -54,11 +54,11 @@
                                 onchange="validate_balance(this.id)" style="width: 100px;" /></td>
                         <td><select name="markup_in" id="markup_in" style="width:130px;" title="Markup In"
                                 data-toggle="tooltip" class="form-control app_select2">
-                                <option value="">*Markup In</option>
+                                <option value="">Markup In</option>
                                 <option value="Percentage">Percentage</option>
                                 <option value="Flat">Flat</option>
                             </select></td>
-                        <td><input type="text" id="markup_amount" name="markup_amount" placeholder="*Markup Amount"
+                        <td><input type="text" id="markup_amount" name="markup_amount" placeholder="Markup Amount"
                                 title="Markup Amount" onchange="validate_balance(this.id)" style="width: 160px;" /></td>
                     </tr>
                     <script>

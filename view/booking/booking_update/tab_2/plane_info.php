@@ -8,7 +8,7 @@ if($sq_plane_details_count==0)
 <div class="row">
 
     <div class="col-xs-12 text-right">
-        <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_plane_travel_details_dynamic_row');event_airport('tbl_plane_travel_details_dynamic_row',3,4)"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>   
+        <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_plane_travel_details_dynamic_row');event_airport('tbl_plane_travel_details_dynamic_row',3,4)"><i class="fa fa-plus"></i></button>
         <!--  Code to uploadf button -->
         <div class="div-upload" id="div_upload_button">
             <div id="plane_upload" class="upload-button"><span>Ticket</span></div><span id="plane_status" ></span>
@@ -31,7 +31,7 @@ $sq_city2 = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master whe
 ?>
 <tr>
 
-	<td ><input id="<?php echo 'check-btn-plane-'.$count_p.'p' ?>" type="checkbox" onchange="calculate_plane_expense('tbl_plane_travel_details_dynamic_row')" checked disabled ></td>
+	<td ><input id="<?php echo 'check-btn-plane-'.$count_p.'p' ?>" type="checkbox" onchange="calculate_plane_expense('tbl_plane_travel_details_dynamic_row')" checked ></td>
 
 	<td><input maxlength="15" type="text" id="" name="username" value="<?php echo $count_p ?>" placeholder="Sr.No."/></td>
 

@@ -32,13 +32,13 @@ $branch_status = $sq['branch_status'];
 	        				<?php get_new_customer_dropdown($role,$branch_admin_id,$branch_status); ?>
 	        			</select>
 	        		</div>
-	        		<div id="cust_details">	        
+	        		<div id="cust_details">	  
+	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
+	                	<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
+	                </div>        
 	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
 	                	<input class="form-control" type="text" id="email_id" name="email_id" title="Email Id" placeholder="Email ID" title="Email ID" readonly>
 	                </div>		
-	        		<div class="col-md-3 col-sm-4 col-xs-12 mg_bt_10_sm_xs">
-	                	<input class="form-control" type="text" id="mobile_no" name="mobile_no" title="Mobile Number" placeholder="Mobile No" title="Mobile No" readonly>
-	                </div>  
 	                <div class="col-md-3 col-sm-4 col-xs-12">
 	                	<input class="form-control hidden" type="text" id="company_name" name="company_name" title="Company Name" placeholder="Company Name" title="Company Name" readonly>
 	                </div> 
@@ -56,8 +56,8 @@ $branch_status = $sq['branch_status'];
 				
 				<div class="row mg_bt_10">
 	                <div class="col-xs-12 text-right text_center_xs">
-	                    <button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_exc_booking');city_lzloading('.city_name_exc');"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-	                    <button type="button" class="btn btn-danger btn-sm ico_left" onClick="deleteRow('tbl_dynamic_exc_booking');calculate_exc_expense('tbl_dynamic_exc_booking')"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+						<button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_exc_booking');city_lzloading('.city_name_exc');"><i class="fa fa-plus"></i></button>
+						<button type="button" class="btn btn-pdf btn-sm" title="Delete Row" onclick="deleteRow('tbl_dynamic_exc_booking');calculate_exc_expense('tbl_dynamic_exc_booking')"><i class="fa fa-trash"></i></button>
 	                </div>
 	            </div>    	            
 	            <div class="row">
@@ -107,7 +107,7 @@ $branch_status = $sq['branch_status'];
 	        		</div>
 					<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 						<small id="markup_show" style="color:red">&nbsp;</small>
-        				<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Cost" title="Markup Cost" onchange="get_auto_values('balance_date','exc_issue_amount','payment_mode','service_charge','markup','save','true','markup','basic');validate_balance(this.id)">
+        				<input class="form-control" type="text" id="markup" name="markup" placeholder="Markup Amount" title="Markup Amount" onchange="get_auto_values('balance_date','exc_issue_amount','payment_mode','service_charge','markup','save','true','markup','basic');validate_balance(this.id)">
             		</div>
 					<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 						<small>&nbsp;</small>

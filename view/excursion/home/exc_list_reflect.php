@@ -11,7 +11,7 @@ $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
 $role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
-$financial_year_id = $_SESSION['financial_year_id'];
+$financial_year_id = $_POST['financial_year_id'];
 $branch_status = $_POST['branch_status'];
 
 $query = "select * from excursion_master where financial_year_id='$financial_year_id' and delete_status='0' ";
@@ -144,8 +144,8 @@ while($row_exc = mysqli_fetch_assoc($sq_exc)){
 		$emp_name,
 		$invoice_date,
 		'<a onclick="loadOtherPage(\''.$url1 .'\')" class="btn btn-info btn-sm" title="Download Invoice"><i class="fa fa-print"></i></a>
-		'.$voucher_btn.'
-		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="exc_display_modal('. $row_exc['exc_id'] .')" title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$update_btn.$delete_btn
+		'.$voucher_btn.$update_btn.'
+		<button data-toggle="tooltip" class="btn btn-info btn-sm" onclick="exc_display_modal('. $row_exc['exc_id'] .')" title="View Details" id="view_btn-'. $row_exc['exc_id'] .'"><i class="fa fa-eye" aria-hidden="true"></i></button>'.$delete_btn
 		), "bg" =>$bg );
 		array_push($array_s,$temp_arr); 
 }

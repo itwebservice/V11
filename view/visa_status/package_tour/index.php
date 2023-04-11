@@ -7,7 +7,7 @@ $branch_status = $_POST['branch_status'];
 <input type="hidden" id="branch_status" name="branch_status" value="<?= $branch_status ?>" >
   <div class="row mg_bt_20">
     <div class="col-sm-12 text-right text_left_sm_xs">
-    <button class="btn btn-info btn-sm ico_left" id="btn_save_modal" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Status</button>
+    <button class="btn btn-info btn-sm ico_left" id="btn_vsave_modal" onclick="save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Status</button>
     </div>
   </div>
 <div class="app_panel_content Filter-panel">
@@ -57,11 +57,13 @@ $branch_status = $_POST['branch_status'];
 $('#package_id_filter1').select2();
 function save_modal()
 {
-    $('#btn_save_modal').prop('disabled',true);
+    $('#btn_vsave_modal').prop('disabled',true);
+    $('#btn_vsave_modal').button('loading');
     var branch_status = $('#branch_status').val();
     $.post( '../../visa_status/package_tour/save_modal.php' , {branch_status : branch_status} , function ( data ) {
         $("#save_div").html(data);
-        $('#btn_save_modal').prop('disabled',false);
+        $('#btn_vsave_modal').prop('disabled',false);
+        $('#btn_vsave_modal').button('reset');
     });
 }
 

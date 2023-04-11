@@ -26,7 +26,7 @@ while($row_req = mysqli_fetch_assoc($sq_query)){
 		$sq_veh['vehicle_name'],
 		$sq_currency['currency_code'],
 
-		'<button style="display:inline-block" id="edit-'.$row_req['tariff_id'].'" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['tariff_id'].'\')" data-toggle="tooltip" title="Edit Details"></i></button>
+		'<button style="display:inline-block" id="edit-'.$row_req['tariff_id'].'" data-toggle=tooltip" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="tredit_modal(\''.$row_req['tariff_id'].'\')" data-toggle="tooltip" title="Update Details"></i></button>
 		<button style="display:inline-block" id="view-'.$row_req['tariff_id'].'" class="btn btn-info btn-sm" onclick="view_modal(\''.$row_req['tariff_id'].'\')" data-toggle="tooltip" title="View Details"><i class="fa fa-eye"></i></button>
 		
 		'), "bg" => '');

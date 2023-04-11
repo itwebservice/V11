@@ -33,7 +33,7 @@ while($row_email_no = mysqli_fetch_assoc($sq_email_no)){
 				'<input type="checkbox" id="chk_email_id_'.$count.'" name="chk_email_id" value="\''. $row_email_no['email_id_id'] .'\'"> &nbsp;&nbsp;&nbsp;'.(int)($count),
 				$row_email_no['email_id'],
 				trim($group_name, ', '),
-				'<button class="btn btn-info btn-sm" onclick="email_id_edit_modal(\''. $row_email_no['email_id_id'] .'\')" data-toggle="tooltip" title="Edit Email ID"><i class="fa fa-pencil-square-o"></i></button>'	
+				'<button class="btn btn-info btn-sm" onclick="email_id_edit_modal(\''. $row_email_no['email_id_id'] .'\')" data-toggle="tooltip" title="Update Details" id="emaile_btn-'.$row_email_no['email_id_id'] .'"><i class="fa fa-pencil-square-o"></i></button>'	
 				), "bg" =>$bg);
 			array_push($array_s,$temp_arr);
 	

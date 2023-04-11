@@ -67,7 +67,7 @@ $branch_status = $_POST['branch_status'];
 				</div>
 				<div class="col-sm-8 col-xs-12 text-right">
                 <span style="color: red;line-height: 35px;" data-original-title="" title="" class="note">Please add multiple seat number of multi trip using '/' in between like S1/D3/NA. And similar for Meal plan field.</span>
-					<button type="button" class="btn btn-info btn-sm ico_left" onClick="addRow('tbl_dynamic_ticket_master')"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                    <button type="button" class="btn btn-excel" title="Add Row" onclick="addRow('tbl_dynamic_ticket_master')"><i class="fa fa-plus"></i></button>
 				</div>
 			</div>    
 

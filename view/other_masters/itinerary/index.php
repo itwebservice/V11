@@ -43,8 +43,12 @@ function list_reflect()
 list_reflect();
 function update_modal(dest_id)
 {
+	$('#it_update-'+dest_id).button('loading');
+	$('#it_update-'+dest_id).prop('disabled',true);
 	$.post('itinerary/update_modal.php', { dest_id : dest_id }, function(data){
 		$('#div_modal').html(data);
+		$('#it_update-'+dest_id).button('reset');
+		$('#it_update-'+dest_id).prop('disabled',false);
 	});
 }
 </script>

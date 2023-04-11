@@ -96,10 +96,14 @@ function report_reflect()
 	});
 }
 report_reflect();
-function view_modal(booking_id_arr,pending_amt_arr,not_due_arr,total_days_arr,due_date_arr)
+function view_modal(booking_id_arr,pending_amt_arr,not_due_arr,total_days_arr,due_date_arr,count_id)
 {
+	$('#'+count_id).prop('disabled',true);
+	$('#'+count_id).button('loading');
 	$.post('report_reflect/payable_ageing/view_modal.php', {booking_id_arr : booking_id_arr,pending_amt_arr : pending_amt_arr,total_days_arr : total_days_arr,not_due_arr : not_due_arr,due_date_arr : due_date_arr}, function(data){
 		$('#div_modal').html(data);
+		$('#'+count_id).prop('disabled',false);
+		$('#'+count_id).button('reset');
 	});
 
 }

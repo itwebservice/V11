@@ -51,16 +51,15 @@ if ($visa_type != "") {
                         <td><?= number_format($total_amt, 2) ?></td>
                         <td><?= $row_emp['time_taken'] ?></td>
                         <td class="text-center" style="display:flex;">
-                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['entry_id'] ?>)"
-                                data-toggle="tooltip" title="View Visa"><i class="fa fa-eye"></i></button>
-                            <button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['entry_id'] ?>)"
-                                data-toggle="tooltip" title="Edit Visa"><i class="fa fa-pencil-square-o"></i></button>
                             <?php
                                 if ($row_emp['status'] != '0') { ?><button class="btn btn-info btn-sm"
                                 id="send-<?= $row_emp['entry_id'] ?>" data-toggle="tooltip"
-                                onclick="send(<?= $row_emp['entry_id'] ?>)" title="Send via email and whatsapp"><i
-                                    class="fa fa-paper-plane-o"></i></button>
-                            <?php }
+                                onclick="send(<?= $row_emp['entry_id'] ?>)" title="Send via email and whatsapp"><i class="fa fa-paper-plane-o"></i></button>
+                            <?php } ?>
+                            <button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_emp['entry_id'] ?>)"
+                                data-toggle="tooltip" id="updatet_btn-<?= $row_emp['entry_id'] ?>" title="Update Details"><i class="fa fa-pencil-square-o"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="display_modal(<?= $row_emp['entry_id'] ?>)" data-toggle="tooltip" id="viewt_btn-<?= $row_emp['entry_id'] ?>" title="View Details"><i class="fa fa-eye"></i></button>
+                                <?php
                                 $download_url = preg_replace('/(\/+)/', '/', $row_emp['upload_url']);
                                 $download_url2 = BASE_URL . str_replace('../', '', $download_url);
                                 $download_url1 = preg_replace('/(\/+)/', '/', $row_emp['upload_url2']);

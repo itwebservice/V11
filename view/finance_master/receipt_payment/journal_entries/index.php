@@ -1,5 +1,6 @@
 <?php
 include "../../../../model/model.php";
+$financial_year_id = $_SESSION['financial_year_id'];
 /*======******Header******=======*/
 // require_once('../../layouts/admin_header.php');
 ?>
@@ -16,6 +17,16 @@ include "../../../../model/model.php";
 			</div>
 			<div class="col-md-3 col-sm-6 col-xs-12">
 				<input type="text" id="payment_to_date_filter" name="payment_to_date_filter" placeholder="To Date" title="To Date" onchange="validate_validDate('payment_from_date_filter','payment_to_date_filter')" class="form-control">
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year" class="form-control">
+					<?php
+					$sq_fina = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
+					$financial_year = get_date_user($sq_fina['from_date']).'&nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;'.get_date_user($sq_fina['to_date']);
+					?>
+					<option value="<?= $sq_fina['financial_year_id'] ?>"><?= $financial_year  ?></option>
+					<?php echo get_financial_year_dropdown_filter($financial_year_id); ?>
+				</select>
 			</div>
 			<div class="col-md-3 col-sm-6 col-xs-12">
 				<button class="btn btn-sm btn-info ico_right" onclick="list_reflect()">Proceed&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
@@ -52,7 +63,8 @@ function list_reflect()
     $('#div_list_content').append('<div class="loader"></div>');
 	var from_date = $('#payment_from_date_filter').val();
     var to_date = $('#payment_to_date_filter').val();
-	$.post('journal_entries/list_reflect.php', {from_date : from_date, to_date : to_date}, function(data){
+	var financial_year_id = $('#financial_year_id_filter').val();
+	$.post('journal_entries/list_reflect.php', {from_date : from_date, to_date : to_date, financial_year_id : financial_year_id}, function(data){
 		pagination_load(data,columns,false,true,20,'tbl_list');
 		$('.loader').remove();
 	});
@@ -68,12 +80,12 @@ function save_modal()
 }
 function update_modal(entry_id)
 {
-	$('#edit-'+entry_id).button('loading');
-	$('#edit-'+entry_id).prop('disabled',true);
+	$('#editj-'+entry_id).button('loading');
+	$('#editj-'+entry_id).prop('disabled',true);
 	$.post('journal_entries/update_modal.php', { entry_id : entry_id }, function(data){
 		$('#div_modal').html(data);
-		$('#edit-'+entry_id).button('reset');
-		$('#edit-'+entry_id).prop('disabled',false);
+		$('#editj-'+entry_id).button('reset');
+		$('#editj-'+entry_id).prop('disabled',false);
 	});
 }
 

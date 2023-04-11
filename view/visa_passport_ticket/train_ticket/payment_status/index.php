@@ -87,7 +87,7 @@ $branch_status_r = $sq['branch_status'];
 	{ title : "S_No."},
 	{ title:"Booking_ID"},
 	{ title : "Customer_Name"},
-	{ title : "Contact"},
+	{ title : "Mobile"},
 	{ title : "EMAIL_ID"},
 	{ title : "Total_pax"},
 	{ title : "Trip_type"},
@@ -185,23 +185,36 @@ $branch_status_r = $sq['branch_status'];
 
 function ticket_view_modal(ticket_id)
   {
+	$('#packagev_btn-'+ticket_id).prop('disabled',true);
+	var base_url = $('#base_url').val();
+    $('#packagev_btn-'+ticket_id).button('loading');
     var base_url = $('#base_url').val();
     $.post(base_url+'view/visa_passport_ticket/train_ticket/payment_status/view/index.php', { train_ticket_id : ticket_id }, function(data){
       $('#div_ticket_content_display').html(data);
+		$('#packagev_btn-'+ticket_id).prop('disabled',false);
+    	$('#packagev_btn-'+ticket_id).button('reset');
     });
   }
 function supplier_view_modal(ticket_id,year)
 {
+	$('#supplierv_btn-'+ticket_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#supplierv_btn-'+ticket_id).button('loading');
 	$.post(base_url+'view/visa_passport_ticket/train_ticket/payment_status/view/supplier_view_modal.php', { train_ticket_id : ticket_id, year : year}, function(data){
-	  $('#div_ticket_content_display').html(data);
+	  	$('#div_ticket_content_display').html(data);
+		$('#supplierv_btn-'+ticket_id).prop('disabled',false);
+    	$('#supplierv_btn-'+ticket_id).button('reset');
 	});
 }
 function payment_view_modal(ticket_id)
 {	
+	$('#paymentv_btn-'+ticket_id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+    $('#paymentv_btn-'+ticket_id).button('loading');
 	$.post(base_url+'view/visa_passport_ticket/train_ticket/payment_status/view/payment_view_modal.php', { train_ticket_id : ticket_id }, function(data){
       $('#div_ticket_content_display').html(data);
+		$('#paymentv_btn-'+ticket_id).prop('disabled',false);
+    	$('#paymentv_btn-'+ticket_id).button('reset');
     });
 }
 </script>

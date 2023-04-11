@@ -8,7 +8,7 @@ include_once("../../../model/model.php");
 		<tr class="table-heading-row">
 			<th>Reference_Id</th>
 			<th>Reference</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,7 +22,7 @@ include_once("../../../model/model.php");
 				<td><?= $row_ref['reference_id'] ?></td>
 				<td><?= $row_ref['reference_name'] ?></td>
 				<td>
-					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ref['reference_id'] ?>)" title="Edit Reference"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-info btn-sm" onclick="update_modal(<?= $row_ref['reference_id'] ?>)" title="Update Details" id="ref_update-<?= $row_ref['reference_id'] ?>"><i class="fa fa-pencil-square-o"></i></button>
 				</td>
 			</tr>
 			<?php

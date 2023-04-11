@@ -11,7 +11,7 @@ $sq_offer = mysqli_fetch_assoc(mysqlQuery("select * from upcoming_tour_offers_ma
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Upcoming Offer</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Upcoming Offer</h4>
       </div>
       <div class="modal-body text-center">
           

@@ -27,17 +27,9 @@
 			            </select>
 	                </td>
 
-		            <td><select name="plane_class-1" id="plane_class-1" title="Class" style="width: 100px;">
+		            <td><select name="plane_class-1" id="plane_class-1" title="Class" style="width: 200px;">
 
-		            	<option value="">*Class</option>
-
-		            	<option value="Economy">Economy</option>
-
-	                    <option value="Premium Economy">Premium Economy</option>
-
-	                    <option value="Business">Business</option>
-
-	                    <option value="First Class">First Class</option>
+							<?php get_flight_class_dropdown(); ?>
 
 					</select></td>
 					<td><input type="hidden" id="from_city-1"></td>								
@@ -68,13 +60,9 @@
 			                <option value="<?= $sq_airline['airline_id'] ?>"><?= $sq_airline['airline_name'].' ('.$sq_airline['airline_code'].')' ?></option>
 			                      <?php get_airline_name_dropdown(); ?>
 			            </select></td>
-			            <td><select name="plane_class-<?= $offset.$count ?>_d" id="plane_class-<?= $offset.$count ?>_d" title="Class" style="width: 150px !important;">
+			            <td><select name="plane_class-<?= $offset.$count ?>_d" id="plane_class-<?= $offset.$count ?>_d" title="Class" style="width: 200px !important;">
 			            		<option value="<?= $row_q_plane['class'] ?>"><?= $row_q_plane['class'] ?></option>
-				            	<option value="">Class</option>
-				            	<option value="Economy">Economy</option>
-			                    <option value="Premium Economy">Premium Economy</option>
-			                    <option value="Business">Business</option>
-			                    <option value="First Class">First Class</option>
+                            	<?php get_flight_class_dropdown(); ?>
 							</select></td>	
 						<td><input type="hidden" id="from_city-<?= $offset.$count ?>_d" value="<?= $row_q_plane['from_city'] ?>"></td>								
 						<td><input type="hidden" id="to_city-<?= $offset.$count ?>_d" value="<?= $row_q_plane['to_city'] ?>"></td>

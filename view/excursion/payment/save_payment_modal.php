@@ -22,7 +22,7 @@ $branch_status = $_POST['branch_status']
                 <?php
                   $query = "select * from excursion_master where 1 and delete_status='0' ";
                   include "branchwise_filteration.php";
-                  $query .= " and financial_year_id = '".$_SESSION['financial_year_id']."'  order by exc_id desc";
+                  $query .= " order by exc_id desc";
                   $sq_booking = mysqlQuery($query);
 
                   while($row_booking = mysqli_fetch_assoc($sq_booking)){
@@ -68,6 +68,20 @@ $branch_status = $_POST['branch_status']
           <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
             <input type="text" id="payment_amount" name="payment_amount" class="form-control" placeholder="*Amount" title="Amount" onchange="validate_balance(this.id);payment_amount_validate(this.id,'payment_mode','transaction_id','bank_name','bank_id');get_credit_card_charges('identifier','payment_mode','payment_amount','credit_card_details','credit_charges');">
           </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <select class="hidden form-control" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
+              ><option value=''>Select Identifier</option></select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
+              <input class="hidden form-control" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
+            </div>
+          </div>
+          <div class="row">
           <div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10_xs">
             <input type="text" id="bank_name" name="bank_name" class="form-control bank_suggest" placeholder="Bank Name" title="Bank Name" disabled>
           </div>
@@ -79,18 +93,6 @@ $branch_status = $_POST['branch_status']
               <?php get_bank_dropdown(); ?>
             </select>
           </div>
-          </div>
-          <div class="row mg_tp_10">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <input class="hidden form-control" type="text" id="credit_charges" name="credit_charges" title="Credit card charges" disabled>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <select class="hidden form-control" id="identifier" onchange="get_credit_card_data('identifier','payment_mode','credit_card_details')" title="Identifier(4 digit)" required
-              ><option value=''>Select Identifier</option></select>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <input class="hidden form-control" type="text" id="credit_card_details" name="credit_card_details" title="Credit card details" disabled>
-            </div>
           </div>
           <div class="row mg_tp_10">
           <div class="col-md-3 col-sm-3">

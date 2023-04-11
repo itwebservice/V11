@@ -9,7 +9,7 @@ include "../../../model/model.php";
 			<th>Group_Name</th>
 			<th>Group/SubGroup_Name</th>
 			<th>Head_Name</th>
-			<th>Edit</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>

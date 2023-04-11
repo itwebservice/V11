@@ -1,28 +1,40 @@
 
 //Get destination ideas Icons
 function get_icons(image_url){
-    var base_url = $('#base_url').val();
+    var btn_id = image_url.split('-');
+    $('#image_btnd-'+btn_id[1]).prop('disabled',true);
     var cmp_image_url = $('#'+image_url).val();
+    var base_url = $('#base_url').val();
+    $('#image_btnd-'+btn_id[1]).button('loading');
+
     $.ajax({
         type:'post',
         url: base_url + 'view/b2b_settings/cms/inc/destination_ideas/get_icons.php',
         data:{image_url:image_url,cmp_image_url:cmp_image_url},
         success:function(result){
             $('#image_modal').html(result);
+            $('#image_btnd-'+btn_id[1]).prop('disabled',false);
+            $('#image_btnd-'+btn_id[1]).button('reset');
         }
     });
 }
 //Destination Images load
 function get_dest_images(dest_id,image_url){
+    var btn_id = dest_id.substring(9);
+    console.log(btn_id);
+    $('#select_image-'+btn_id).prop('disabled',true);
     var base_url = $('#base_url').val();
     var dest_id = $('#'+dest_id).val();
     var cmp_image_url = $('#'+image_url).val();
+    $('#select_image-'+btn_id).button('loading');
     $.ajax({
         type:'post',
         url: base_url + 'view/b2b_settings/cms/inc/popular_destinations/get_dest_images.php',
         data:{dest_id:dest_id,image_url:image_url,cmp_image_url:cmp_image_url},
         success:function(result){
             $('#image_modal').html(result);
+            $('#select_image-'+btn_id).prop('disabled',false);
+            $('#select_image-'+btn_id).button('reset');
         }
     });
 }

@@ -56,8 +56,12 @@ function tarrif_list_reflect(){
 }
 tarrif_list_reflect();
 function view_modal(package_id){
+    $('#viewt_btn-'+package_id).button('loading');
+	$('#viewt_btn-'+package_id).prop('disabled',true);
     $.post('tariff/view/index.php', {package_id : package_id}, function(data){
         $('#div_view_modal').html(data);
+        $('#viewt_btn-'+package_id).button('reset');
+        $('#viewt_btn-'+package_id).prop('disabled',false);
     });
 }
 </script>

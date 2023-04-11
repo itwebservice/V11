@@ -69,9 +69,13 @@ function report_reflect(data){
 
 	function view_source_modal(id)
 {
+	$('#view_btn-'+id).prop('disabled',true);
 	var base_url = $('#base_url').val();
+	$('#view_btn-'+id).button('loading');
 	$.post(base_url+'view/reports/analysis_reports/report_reflect/sourcewise_report/view_source_modal.php', {id : id}, function(data){
 		$('#other_source_display').html(data);
+		$('#view_btn-'+id).prop('disabled',false);
+		$('#view_btn-'+id).button('reset');
 	});
 }
 	

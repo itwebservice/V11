@@ -15,10 +15,10 @@
         </select>
     </div>
 </div>
-<div class="row mg_bt_10"> <div class="col-md-8 no-pad">
+<div class="row mg_bt_10"> <div class="col-md-8 text-right">
+    <button type="button" class="btn btn-excel btn-sm" title="Note : For saving activities keep checkbox selected!"><i class="fa fa-question-circle"></i></button>
     <button type="button" class="btn btn-excel btn-sm" onclick="addRow('tbl_activities');city_lzloading('.city_excursion');" title="Add Row"><i class="fa fa-plus"></i></button>
     <button type="button" class="btn btn-pdf btn-sm" onclick="deleteRow('tbl_activities');" title="Delete Row"><i class="fa fa-trash"></i></button>
-    <div class="col-md-10 mg_tp_10"><label class="alert-danger">Note: For saving activities keep checkbox selected!</label></div>
 </div> </div>
 
 <div class="row"> <div class="col-md-8">

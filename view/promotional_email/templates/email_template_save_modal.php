@@ -10,26 +10,24 @@
 		<form id="frm_email_group_save">
 
       	<div class="row">
-      		<div class="col-md-4">
-      			<input type="text" id="email_template_type" onchange="validate_specialChar(this.id)" name="email_template_type" placeholder="*Template Type" title="Template Type">
-      		</div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+              <input type="text" id="email_template_type" onchange="validate_specialChar(this.id)" name="email_template_type" placeholder="*Template Type" title="Template Type">
+            </div>
+            <div class="col-md-6">
                 <div class="div-upload">
                     <div id="id_upload_btn" class="upload-button1"><span>Upload Template</span></div>
                     <span id="id_proof_status" ></span>
                     <ul id="files" ></ul>
                     <input type="hidden" id="id_upload_url" name="id_upload_url1">
                 </div> 
-      		</div>
-      		<div class="col-md-4">
-      			<button class="btn btn-sm btn-success" id="save_loading"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
-      		</div>
+                <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Image size should be less than 100KB, resolution : 900X450., Type PNG/JPEG."><i class="fa fa-question-circle"></i></button>
+            </div>
       	</div>
         
         <div class="row mg_tp_30">
-          <div class="col-md-12">
-      			  <p style="color:red">Note : Image size should be less than 100KB, resolution : 900X450., Type PNG/JPEG</p>
-      		</div>
+            <div class="col-md-12 text-center">
+              <button class="btn btn-sm btn-success" id="save_loading"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
+            </div>
       	</div>
       	</form>
         

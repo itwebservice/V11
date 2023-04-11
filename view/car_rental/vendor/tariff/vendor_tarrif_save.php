@@ -2,36 +2,36 @@
 include "../../../../model/model.php";
 ?> 
 <form id="frm_car_rental_vendor_save" class="no-marg">
-<div class="modal fade" id="vendor_save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+  <div class="modal fade" id="vendor_save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Vehicle Tariff</h4>
         </div>
         <div class="modal-body">
-        <div class="row mg_bt_10">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-              <select name="tour_type" class="form-control" id="tour_type" title="Travel Type" onchange="reflect_feilds(this.id)">
-                <option value="">Select Travel Type</option>
-                <option value="Local">Local</option>
-                <option value="outstation">OutStation</option>
-              </select>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    
-        <div id="vendor_tarrif"></div>
+          <div class="row mg_bt_10">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <select name="tour_type" class="form-control" id="tour_type" title="Travel Type" onchange="reflect_feilds(this.id)">
+                  <option value="">Select Travel Type</option>
+                  <option value="Local">Local</option>
+                  <option value="outstation">OutStation</option>
+                </select>
+              </div>
+              <div class="col-md-4"></div>
+          </div>
       
-        <div class="row text-center mg_tp_20">
-        <div class="col-md-12">
-            <button id="btn_vendor_save" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
-        </div>
+          <div id="vendor_tarrif"></div>
+        
+          <div class="row text-center mg_tp_20">
+          <div class="col-md-12">
+              <button id="btn_vendor_tsave" class="btn btn-sm btn-success"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
+          </div>
+          </div>
         </div>
     </div>
   </div>
-</div>
 </form>
 
 <script>
@@ -55,6 +55,7 @@ $(function(){
 
       },
       submitHandler:function(form){
+        $('#btn_vendor_tsave').prop('disabled', true);
         var tour_type = $('#tour_type').val();
         if(tour_type=='Local'){
 
@@ -83,8 +84,10 @@ $(function(){
                   var extra_km_rate = row.cells[7].childNodes[0].value;
                   var rate = row.cells[8].childNodes[0].value;
                   
-                  if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1)); return false; }
-                  if(rate==""){ error_msg_alert("Enter cost in row "+(i+1)); return false; }
+                  if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1));
+                                        $('#btn_vendor_tsave').prop('disabled', false); return false; }
+                  if(rate==""){ error_msg_alert("Enter amount in row "+(i+1));
+                                        $('#btn_vendor_tsave').prop('disabled', false); return false; }
                   vehicle_name_local_arr.push(vehicle_name);
                   seating_capacity_local_arr.push(capacity);
                   total_hrs_arr.push(hrs);
@@ -134,8 +137,10 @@ $(function(){
               var state_entry = row.cells[13].childNodes[0].value;
               var other_charge = row.cells[14].childNodes[0].value;
               
-              if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1)); return false; }
-              if(rate==""){ error_msg_alert("Enter cost in row "+(i+1)); return false; }
+              if(vehicle_name==""){ error_msg_alert("Enter vehicle name in row "+(i+1));
+                                        $('#btn_vendor_tsave').prop('disabled', false); return false; }
+              if(rate==""){ error_msg_alert("Enter amount in row "+(i+1));
+                                        $('#btn_vendor_tsave').prop('disabled', false); return false; }
 
               vehicle_name_arr.push(vehicle_name);
               seating_capacity_arr.push(capacity);
@@ -158,7 +163,7 @@ $(function(){
           return false;
         }
         var base_url = $('#base_url').val();
-        $('#btn_vendor_save').button('loading');
+        $('#btn_vendor_tsave').button('loading');
         $.ajax({
           type:'post',
           url: base_url+'controller/car_rental/vendor/tariff_save.php',
@@ -166,9 +171,10 @@ $(function(){
           success:function(result){
             msg_alert(result);
             $('#vendor_save_modal').modal('hide');
+            $('#btn_vendor_tsave').prop('disabled', false);
             tarrif_list_reflect();
             reset_form('frm_car_rental_vendor_save');
-            $('#btn_vendor_save').button('reset');
+            $('#btn_vendor_tsave').button('reset');
           },
           error:function(result){
             console.log(result.responseText);
