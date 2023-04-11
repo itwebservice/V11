@@ -20,8 +20,7 @@ $financial_year_id = $_SESSION['financial_year_id'];
             <div class="row mg_bt_20">
                 <div class="col-xs-12 text-right">
                     <form action="save/index.php" method="POST">
-                        <button class="btn btn-info btn-sm ico_left" id="quot_save"><i
-                                class="fa fa-plus"></i>&nbsp;&nbsp;Quotation</button>
+                        <button class="btn btn-info btn-sm ico_left" id="quot_save"><i class="fa fa-plus"></i>&nbsp;&nbsp;Quotation</button>
                     </form>
                 </div>
             </div>
@@ -32,42 +31,39 @@ $financial_year_id = $_SESSION['financial_year_id'];
                         <select name="quotation_id" id="quotation_id" title="Select Quotation" style="width:100%">
                             <option value="">Select Quotation</option>
                             <?php
-							$query = "select * from package_tour_quotation_master where 1 and financial_year_id='$financial_year_id' and status='1' ";
-							if ($role == 'B2b' || $role == 'Sales' || $role == 'Backoffice') {
-								$query .= " and emp_id='$emp_id'";
-							}
-							if ($branch_status == 'yes' && $role != 'Admin') {
-								$query .= " and branch_admin_id = '$branch_admin_id'";
-							}
-							if ($branch_status == 'yes' && $role == 'Branch Admin') {
-								$query .= " and branch_admin_id='$branch_admin_id'";
-							}
-							$query .= " order by quotation_id desc";
-							$sq_quotation = mysqlQuery($query);
-							while ($row_quotation = mysqli_fetch_assoc($sq_quotation)) {
+                            $query = "select * from package_tour_quotation_master where 1 and financial_year_id='$financial_year_id' and status='1' ";
+                            if ($role == 'B2b' || $role == 'Sales' || $role == 'Backoffice') {
+                                $query .= " and emp_id='$emp_id'";
+                            }
+                            if ($branch_status == 'yes' && $role != 'Admin') {
+                                $query .= " and branch_admin_id = '$branch_admin_id'";
+                            }
+                            if ($branch_status == 'yes' && $role == 'Branch Admin') {
+                                $query .= " and branch_admin_id='$branch_admin_id'";
+                            }
+                            $query .= " order by quotation_id desc";
+                            $sq_quotation = mysqlQuery($query);
+                            while ($row_quotation = mysqli_fetch_assoc($sq_quotation)) {
 
-								$quotation_date = $row_quotation['quotation_date'];
-								$yr = explode("-", $quotation_date);
-								$year = $yr[0];
-							?>
-                            <option value="<?= $row_quotation['quotation_id'] ?>">
-                                <?= get_quotation_id($row_quotation['quotation_id'], $year) ?></option>
+                                $quotation_date = $row_quotation['quotation_date'];
+                                $yr = explode("-", $quotation_date);
+                                $year = $yr[0];
+                            ?>
+                                <option value="<?= $row_quotation['quotation_id'] ?>">
+                                    <?= get_quotation_id($row_quotation['quotation_id'], $year) ?></option>
                             <?php
-							}
-							?>
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                        <input type="text" id="from_date_filter" name="from_date_filter" placeholder="From Date"
-                            title="From Date" onchange="get_to_date(this.id,'to_date_filter');">
+                        <input type="text" id="from_date_filter" name="from_date_filter" placeholder="From Date" title="From Date" onchange="get_to_date(this.id,'to_date_filter');">
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                        <input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date"
-                            title="To Date" onchange="validate_validDate('from_date_filter' , 'to_date_filter');">
+                        <input type="text" id="to_date_filter" name="to_date_filter" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date_filter' , 'to_date_filter');">
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-12 mg_bt_10_xs">
-                        <select name="booking_type_filter" id="booking_type_filter" title="Tour Type"
-                            onchange="get_tour_typewise_packages(this.id);">
+                        <select name="booking_type_filter" id="booking_type_filter" title="Tour Type" onchange="get_tour_typewise_packages(this.id);">
                             <option value="">Tour Type</option>
                             <option value="Domestic">Domestic</option>
                             <option value="International">International</option>
@@ -88,11 +84,11 @@ $financial_year_id = $_SESSION['financial_year_id'];
                 </div>
                 <div class="row mg_tp_10">
                     <?php if ($role == 'Admin') { ?>
-                    <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10_xs">
-                        <select name="branch_id_filter" id="branch_id_filter1" title="Branch Name" style="width: 100%">
-                            <?php get_branch_dropdown($role, $branch_admin_id, $branch_status) ?>
-                        </select>
-                    </div>
+                        <div class="col-md-2 col-sm-6 col-xs-12 mg_bt_10_xs">
+                            <select name="branch_id_filter" id="branch_id_filter1" title="Branch Name" style="width: 100%">
+                                <?php get_branch_dropdown($role, $branch_admin_id, $branch_status) ?>
+                            </select>
+                        </div>
                     <?php } ?>
                     <div class="col-md-3 col-sm-6 mg_bt_10_xs">
                         <select name="financial_year_id_filter" id="financial_year_id_filter" title="Select Financial Year">
@@ -114,8 +110,7 @@ $financial_year_id = $_SESSION['financial_year_id'];
                 <div class="row mg_tp_20">
                     <div class="col-md-12 no-pad">
                         <div class="table-responsive">
-                            <table id="package_table" class="table table-hover"
-                                style="width:100% !important;margin: 20px 0 !important;">
+                            <table id="package_table" class="table table-hover" style="width:100% !important;margin: 20px 0 !important;">
                             </table>
                         </div>
                     </div>
@@ -132,39 +127,51 @@ $financial_year_id = $_SESSION['financial_year_id'];
 <?= end_panel() ?>
 <script src="<?= BASE_URL ?>js/app/field_validation.js"></script>
 <script>
-$('#quotation_id,#tour_name_filter').select2();
-$('#from_date_filter, #to_date_filter').datetimepicker({
-    timepicker: false,
-    format: 'd-m-Y'
-});
-$('[data-toggle="tooltip"]').tooltip();
+    $('#quotation_id,#tour_name_filter').select2();
+    $('#from_date_filter, #to_date_filter').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y'
+    });
+    $('[data-toggle="tooltip"]').tooltip();
 
-var column = [{
-        title: "S_No."
-    },
-    {
-        title: "QUOTATION_ID"
-    },
-    {
-        title: "Tour_Name"
-    },
-    {
-        title: "Customer"
-    },
-    {
-        title: "Quotation_Date"
-    },
-    {
-        title: "Amount"
-    },
-    {
-        title: "Created_by"
-    },
-    {
-        title: "Actions",
-        className: "text-center action_width"
+    var column = [{
+            title: "S_No."
+        },
+        {
+            title: "QUOTATION_ID"
+        },
+        {
+            title: "Tour_Name"
+        },
+        {
+            title: "Customer"
+        },
+        {
+            title: "Quotation_Date"
+        },
+        {
+            title: "Amount"
+        },
+        {
+            title: "Created_by"
+        },
+        {
+            title: "Actions",
+            className: "text-center action_width"
+        }
+    ];
+
+    function view_request(quot_id) {
+        $('#view_req' + quot_id).prop('disabled', true);
+        $('#view_req' + quot_id).button('loading');
+        $.post('hotel_availability/index.php', {
+            quot_id: quot_id
+        }, function(data) {
+            $('#view_request').html(data);
+            $('#view_req' + quot_id).button('reset');
+            $('#view_req' + quot_id).prop('disabled', false);
+        });
     }
-];
 
 function view_request(quot_id){
 	$('#view_req'+quot_id).prop('disabled',true);
@@ -204,51 +211,51 @@ function quotation_list_reflect() {
 }
 quotation_list_reflect();
 
-function quotation_clone(quotation_id) {
-    var base_url = $('#base_url').val();
-    $('#vi_confirm_box').vi_confirm_box({
-        callback: function(data1) {
-            if (data1 == "yes") {
-                $.ajax({
-                    type: 'post',
-                    url: base_url + 'controller/package_tour/quotation/quotation_clone.php',
-                    data: {
-                        quotation_id: quotation_id
-                    },
-                    success: function(result) {
-                        msg_alert(result);
-                        console.log(result);
-                        quotation_list_reflect();
-                    }
-                });
+    function quotation_clone(quotation_id) {
+        var base_url = $('#base_url').val();
+        $('#vi_confirm_box').vi_confirm_box({
+            callback: function(data1) {
+                if (data1 == "yes") {
+                    $.ajax({
+                        type: 'post',
+                        url: base_url + 'controller/package_tour/quotation/quotation_clone.php',
+                        data: {
+                            quotation_id: quotation_id
+                        },
+                        success: function(result) {
+                            msg_alert(result);
+                            console.log(result);
+                            quotation_list_reflect();
+                        }
+                    });
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-function quotation_email_send(btn_id, quotation_id, email_id, mobile_no) {
-    $('#' + btn_id).button('loading');
-    var base_url = $('#base_url').val();
-    $.post('send_quotation.php', {
-        email_id: email_id,
-        mobile_no: mobile_no
-    }, function(data) {
-        $('#div_quotation_form').html(data);
-        $('#' + btn_id).button('reset');
-    });
+    function quotation_email_send(btn_id, quotation_id, email_id, mobile_no) {
+        $('#' + btn_id).button('loading');
+        var base_url = $('#base_url').val();
+        $.post('send_quotation.php', {
+            email_id: email_id,
+            mobile_no: mobile_no
+        }, function(data) {
+            $('#div_quotation_form').html(data);
+            $('#' + btn_id).button('reset');
+        });
 
-}
+    }
 
-function get_tour_typewise_packages(tour_type) {
+    function get_tour_typewise_packages(tour_type) {
 
-    var tour_type = $('#' + tour_type).val();
-    $.post('get_tour_typewise_packages.php', {
-        tour_type: tour_type
-    }, function(data) {
-        $('#tour_name_filter').html(data);
-    });
-}
-get_tour_typewise_packages('booking_type_filter');
+        var tour_type = $('#' + tour_type).val();
+        $.post('get_tour_typewise_packages.php', {
+            tour_type: tour_type
+        }, function(data) {
+            $('#tour_name_filter').html(data);
+        });
+    }
+    get_tour_typewise_packages('booking_type_filter');
 
 function quotation_email_send_backoffice_modal(quotation_id) {
     
@@ -275,10 +282,18 @@ function save_modal() {
 }
 </script>
 <style>
-.action_width {
-    width: 250px;
-    display: flex;
-}
+    .action_width {
+        width: 250px;
+        display: flex;
+    }
+
+    tr.warning {
+        background-color: #fcf8e3;
+    }
+
+    .table-hover>tbody>tr.warning:hover {
+        background-color: #faf2cc;
+    }
 </style>
 <?php
 /*======******Footer******=======*/
