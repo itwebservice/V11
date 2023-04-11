@@ -147,7 +147,7 @@ $pdf->SetXY(125, 165+$offset);
 
 $pdf->MultiCell(70, 7, 'For '.$app_name, 0, 'C');
 
-$pdf->rect(140, 145+$offset, 40, 20);
+// $pdf->rect(140, 145+$offset, 40, 20);
 if(check_sign())
 {
 $pdf->Image(get_signature(true), 140, 145+$offset, 40, 20);
