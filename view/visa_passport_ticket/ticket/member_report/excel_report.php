@@ -181,6 +181,12 @@ $row_count++;
 
 while($row_ticket =mysqli_fetch_assoc($sq_ticket)){
 
+    $sq_customer_info = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+    if($sq_customer_info['type'] == 'Corporate'||$sq_customer_info['type'] == 'B2B'){
+        $cust_name = $sq_customer_info['company_name'];
+    }else{
+        $cust_name = $sq_customer_info['first_name'].' '.$sq_customer_info['last_name'];
+    }
     $date = $row_ticket['created_at'];
     $yr = explode("-", $date);
     $year = $yr[0];

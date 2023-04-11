@@ -131,7 +131,7 @@
 	      <input type="text" class="form-control" id="extra_hr_cost1" name="extra_hr_cost1" placeholder="Extra Hr Cost" title="Extra Hr Cost" value="<?= $sq_quotation['extra_hr_cost'] ?>" onchange="validate_balance(this.id);get_basic_amount();"> 
 	    </div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-	      <input type="text" id="rate1" name="rate1"  placeholder="*Rate" title="Rate" value="<?= $sq_quotation['rate'] ?>" onchange="get_basic_amount();">
+	      <input type="text" id="rate1" name="rate1"  placeholder="*Daily Rate" title="Daily Rate" value="<?= $sq_quotation['rate'] ?>" onchange="get_basic_amount();">
 	    </div>
 	</div>
 	<div class="row">

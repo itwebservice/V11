@@ -171,7 +171,7 @@ $branch_status = $_POST['branch_status'];
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="rate" class="text-right form-control" name="rate"
-                                    placeholder="Rate" title="Rate" onchange="calculate_total_fees(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','true','basic');">
+                                    placeholder="Daily Rate" title="Daily Rate" onchange="calculate_total_fees(this.id);get_auto_values('balance_date','basic_amount','payment_mode','service_charge','markup_cost','save','true','basic');">
                             </div>
 
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">

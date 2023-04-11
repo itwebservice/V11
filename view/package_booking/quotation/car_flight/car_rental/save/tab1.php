@@ -109,7 +109,7 @@
 	    	<input type="text" class="form-control" id="extra_hr_cost" name="extra_hr_cost" placeholder="Extra Hr Cost" title="Extra Hr Cost" onchange=";validate_balance(this.id)"> 
 	    </div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-	    	<input type="text" id="rate" name="rate"  placeholder="*Rate" title="Rate" onchange="validate_balance(this.id)">
+	    	<input type="text" id="rate" name="rate"  placeholder="*Daily Rate" title="Daily Rate" onchange="validate_balance(this.id)">
 	    </div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
 			<input type="text" id="from_date" name="from_date" placeholder="Travel From Date" title="Travel From Date" value="<?= date('d-m-Y')?>" onchange="get_to_date(this.id,'to_date');total_days_reflect()">
@@ -134,7 +134,7 @@
 	    	<input type="text" id="total_max_km" name="total_max_km" placeholder="Total Max Km" title="Total Max Km" onchange=";validate_balance(this.id)">
 	    </div>
 		<div class="col-md-3 col-sm-6 col-xs-12 mg_bt_10">
-	    	<input type="text" id="traveling_date" name="traveling_date" placeholder="Travelling Date" title="Travelling Date" class="form-control">
+	    	<input type="text" id="traveling_date" name="traveling_date" placeholder="Travelling Date" title="Travelling Date" class="form-control" value="<?= date('d-m-Y H:i') ?>">
 	    </div>
 	</div>
 	<div class="row">

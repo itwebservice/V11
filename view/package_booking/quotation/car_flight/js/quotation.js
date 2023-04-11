@@ -277,8 +277,8 @@ function get_flight_enquiry_details(offset = '') {
 		row.cells[6].childNodes[0].value = '';
 		row.cells[7].childNodes[0].value = '';
 		row.cells[8].childNodes[0].value = '';
-		row.cells[9].childNodes[0].value = '';
-		row.cells[10].childNodes[0].value = '';
+		// row.cells[9].childNodes[0].value = '';
+		// row.cells[10].childNodes[0].value = '';
 	}
 }
 

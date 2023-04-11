@@ -86,15 +86,15 @@
                                                             class="app_datetimepicker form-control"
                                                             placeholder="*Departure Date & Time"
                                                             title="Departure Date & Time"
-                                                            onchange="get_to_datetime(this.id,'txt_arrval-1')"
-                                                            value="<?= date('d-m-Y H:i') ?>" style="width: 139px;" />
+                                                            value="<?= date('d-m-Y H:i') ?>" 
+                                                            onchange="get_to_datetime(this.id,'txt_arrval-1')" style="width: 139px;" />
                                                     </td>
 
                                                     <td><input type="text" id="txt_arrval-1" name="txt_arrval-1"
                                                             class="app_datetimepicker form-control"
-                                                            placeholder="*Arrival Date & Time"
+                                                            placeholder="*Arrival Date & Time" value="<?= date('d-m-Y H:i') ?>"
                                                             onchange="validate_validDatetime('txt_dapart-1','txt_arrval-1')"
-                                                            title="Arrival Date & Time" value="<?= date('d-m-Y H:i') ?>"
+                                                            title="Arrival Date & Time"
                                                             style="width: 170px;" /></td>
                                                     <td><input type="hidden" id="from_city-1"></td>
                                                     <td><input type="hidden" id="to_city-1"></td>

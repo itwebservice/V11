@@ -46,9 +46,14 @@ $financial_year_id = $_SESSION['financial_year_id'];
 					$yr = explode("-", $date);
 					$year = $yr[0];
 					$sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$row_ticket[customer_id]'"));
+					if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+						$customer_name = $sq_customer['company_name'];
+					} else {
+						$customer_name = $sq_customer['first_name'] . ' ' . $sq_customer['last_name'];
+					}
 				?>
                 <option value="<?= $row_ticket['train_ticket_id'] ?>">
-                    <?= get_train_ticket_booking_id($row_ticket['train_ticket_id'], $year) . ' : ' . $sq_customer['first_name'] . ' ' . $sq_customer['last_name'] ?>
+                    <?= get_train_ticket_booking_id($row_ticket['train_ticket_id'], $year) . ' : ' . $customer_name ?>
                 </option>
                 <?php
 				}

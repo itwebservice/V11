@@ -188,7 +188,7 @@ else if($reflections[0]->tax_apply_on == '3') {
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
                                 <input type="text" id="rate1" name="rate1" class="text-right form-control"
-                                    placeholder="Rate" title="Rate" onchange="calculate_total_fees(this.id,'1');get_auto_values('booking_date1','basic_amount1','payment_mode','service_charge1','markup_cost1','update','true','service_charge');"
+                                    placeholder="Daily Rate" title="Daily Rate" onchange="calculate_total_fees(this.id,'1');get_auto_values('booking_date1','basic_amount1','payment_mode','service_charge1','markup_cost1','update','true','service_charge');"
                                     class="form-control" value="<?= $sq_enq_info['rate'] ?>">
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">

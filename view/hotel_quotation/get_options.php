@@ -72,13 +72,13 @@ $nofquotation = $_REQUEST['nofquotation'];
 
                                         <td><input type="text" style="width:150px;" class="app_datepicker"
                                                 id="check_in-<?= $i ?>-1" name="check_in-<?= $i ?>-1"
-                                                placeholder="Check-In Date" title="Check-In Date"
+                                                placeholder="Check-In Date" title="Check-In Date" value="<?= date('d-m-Y') ?>"
                                                 onchange="get_auto_to_date(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');">
                                         </td>
 
                                         <td><input type="text" style="width:150px;" class="app_datepicker"
                                                 id="check_out-<?= $i ?>-1" name="check_out-<?= $i ?>-1"
-                                                placeholder="Check-Out Date" title="Check-Out Date"
+                                                placeholder="Check-Out Date" title="Check-Out Date" value="<?= date('d-m-Y') ?>"
                                                 onchange="calculate_total_nights(this.id);validate_validDates(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');">
                                         </td>
 
