@@ -59,17 +59,12 @@ include_once("../../../model/model.php");
                 <input type="hidden" id="gallary_url" name="gallary_url">
 
           </div>
+		      <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 300KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
 
           
 
         </div>
 
-        </div>
-
-        <div class="row mg_bt_10">
-          <div class="col-xs-12"> 
-            <div style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450.</div>
-          </div>
         </div>
 
         <div class="row mg_bt_10">
@@ -145,37 +140,24 @@ function upload_pic_attch()
       },
 
       onComplete: function(file, response){
-
+        console.log(response);
         if(response==="error"){          
-
           error_msg_alert("File is not uploaded.");           
-
           $(btnUpload).find('span').text('Upload Image');
-
-        }else
-
-        { 
-
-          if(response=="error1")
-
-          {
-
+        }else{
+          if(response=="error1"){
             $(btnUpload).find('span').text('Upload Image');
-
             error_msg_alert('Maximum size exceeds');
-
             return false;
-
-          }else
-
-          {
-
+          }
+          if(response=="error2"){
+            $(btnUpload).find('span').text('Upload Image');
+            error_msg_alert('Incorrect resolution of image');
+            return false;
+          }else{
             $(btnUpload).find('span').text('Uploaded');
             $("#gallary_url").val(response);
-           // upload_pic();
-
           }
-
         }
 
       }

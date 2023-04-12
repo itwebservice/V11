@@ -208,7 +208,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 							<div class="dashboard_widget_icon">
 								<i class="fa fa-tag" aria-hidden="true"></i>
 							</div>
-							<div class="dashboard_widget_title_text" onclick="window.open('<?= BASE_URL ?>view/finance_master/reports/index.php', 'My Window');">
+							<div class="dashboard_widget_title_text" onclick="window.open('<?= BASE_URL ?>view/reports/reports_homepage.php', 'My Window');">
 								<h3> Sale Summary</a></h3>
 							</div>
 						</div>
@@ -259,7 +259,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 							<div class="dashboard_widget_icon">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							</div>
-							<div class="dashboard_widget_title_text" onclick="window.open('<?= BASE_URL ?>view/finance_master/reports/index.php', 'My Window');">
+							<div class="dashboard_widget_title_text" onclick="window.open('<?= BASE_URL ?>view/vendor/dashboard/index.php', 'My Window');">
 								<h3>Purchase Summary</a></h3>
 							</div>
 						</div>
