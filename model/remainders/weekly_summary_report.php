@@ -5,9 +5,10 @@ global $app_email_id, $app_name, $app_contact_no, $admin_logo_url, $app_website;
 global $mail_em_style, $mail_font_family, $mail_strong_style, $mail_color,$theme_color;
 
 $cur_date = date('Y-m-d');
-$day = date("D", strtotime($cur_date));
+// $day = date("D", strtotime($cur_date));
+$time = date("H", strtotime($cur_date));
 
-if($day=='Sat'){
+if($time=='21'){
 
     $email_content = '
         <tr>
@@ -27,7 +28,7 @@ if($day=='Sat'){
     $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'week_sum_remainder' and date='$cur_date' and status='Done'"));
     if($sq_count==0)
     {
-        $subject = 'Weekly Summary report (Date : '.get_date_user($cur_date).' ).';
+        $subject = 'Daily report (Date : '.get_date_user($cur_date).' ).';
         $model->app_email_send('93',"Admin",$app_email_id, $email_content,$subject);
 
         $row=mysqlQuery("SELECT max(id) as max from remainder_status");
