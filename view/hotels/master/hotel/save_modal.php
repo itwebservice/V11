@@ -112,7 +112,7 @@ $client_modal_type = $_POST['client_modal_type'];
                         </div>
                         <div class="row mg_bt_10">
                             <div class="col-sm-2 ">
-                                <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+                                <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
                                 <input type="hidden" id="as_of_date" name="as_of_date" placeholder="*As of Date" title="As of Date" required>
                             </div>
                             <div class="col-sm-2 ">

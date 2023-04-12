@@ -108,7 +108,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_dmc_info['email_id'], $secret_key);
                   <input type="text" name="service_tax_no1" id="service_tax_no1" placeholder="Tax No" title="Tax No"onchange="validate_alphanumeric(this.id);" value="<?= strtoupper($sq_dmc_info['service_tax_no'])?>" style="text-transform: uppercase;">
               </div>
               <div class="col-md-3 col-sm-6 mg_bt_10">
-                <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id);" value="<?= $sq_dmc_info['pan_no']?>" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+                <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id);" value="<?= $sq_dmc_info['pan_no']?>" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
               </div> 
                 <div class="col-md-3 col-sm-6 mg_bt_10">
                   <input type="number" id="opening_balance1" name="opening_balance1" class="form-control" placeholder="*Opening Balance" title="Opening Balance" value="<?= $sq_dmc_info['opening_balance'] ?>" <?= $value ?>  onchange="validate_balance(this.id)">

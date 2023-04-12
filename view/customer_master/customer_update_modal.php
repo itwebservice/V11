@@ -107,7 +107,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_customer['email_id'], $secret_key);
                             <div class="col-sm-4 col-xs-12">
                                 <input type="text" id="cust_pan1" name="cust_pan1"
                                     onchange="validate_alphanumeric(this.id);" value="<?= $sq_customer['pan_no']  ?>"
-                                    placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+                                    placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 <input class="form-control" type="number" id="op_balance1" name="op_balance1"

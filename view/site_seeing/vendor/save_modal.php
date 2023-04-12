@@ -86,7 +86,7 @@ include "../../../model/model.php";
 				<input type="text" name="service_tax_no" id="service_tax_no" onchange="validate_alphanumeric(this.id)" placeholder="Tax No" title="Tax No" style="text-transform: uppercase;">
 			</div>
 			<div class="col-md-3 col-sm-6 mg_bt_10">
-            	<input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id);" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+            	<input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id);" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
 			</div>
 			<div class="col-md-3 col-sm-6 mg_bt_10">
 				<input type="number" class="form-control" id="opening_balance" name="opening_balance" placeholder="*Opening Balance" title="Opening Balance" value="0" >

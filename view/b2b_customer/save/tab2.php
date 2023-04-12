@@ -24,7 +24,7 @@
             <input class="form-control" type="text" id="designation" name="designation" placeholder="Designation" title="Designation">
         </div>
         <div class="col-md-3 col-sm-6">
-            <input class="form-control" type="text"  id="pan_card" name="pan_card" placeholder="PAN/TAN No" title="PAN/TAN No">
+            <input class="form-control" type="text"  id="pan_card" name="pan_card" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)">
         </div>
         <div class="col-md-3 col-sm-6 text-left">
           <div class="div-upload">
