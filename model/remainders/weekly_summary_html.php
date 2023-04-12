@@ -369,7 +369,7 @@ $row_exp = mysqli_fetch_assoc(mysqlQuery("select sum(total_fee) as exp_paid from
         <div class="logo_right_part">
           <h1>
             <i class="fa fa-pencil-square-o"></i> Daily Report<br>
-            <SPAN style="font-size: 15px;color: #000;">(<?php echo date('d-m-Y', strtotime($week_start_date)).' To '.date('d-m-Y', strtotime($cur_date)); ?>)</SPAN>
+            <SPAN style="font-size: 15px;color: #000;">(<?php echo date('d-m-Y', strtotime($cur_date)); ?>)</SPAN>
           </h1>
         </div>
       </div>
