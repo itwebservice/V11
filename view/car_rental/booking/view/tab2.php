@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Sale
 $sale_total_amount=$sq_booking['total_fees'];
 if($sale_total_amount==""){  $sale_total_amount = 0 ;  }

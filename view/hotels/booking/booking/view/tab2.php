@@ -1,6 +1,6 @@
- <?php
- //sale 
- $sale_total_amount=$sq_hotel_info['total_fee'];
+<?php
+//sale 
+$sale_total_amount=$sq_hotel_info['total_fee'];
 if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
 
 //Cancel
@@ -23,7 +23,7 @@ if($pass_count == $cancel_count){
 				$balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
 			}
 		}else{
-		   $balance_amount = 0;
+			$balance_amount = 0;
 		}
 	}
 	else{

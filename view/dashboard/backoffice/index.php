@@ -104,6 +104,7 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
             </div>
     </div>
 
+    <div id="payment_summary_html"></div>
     <div class="row">
       <div class="col-md-12">
       <div id="id_proof2"></div>
@@ -112,8 +113,7 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
           <!-- Nav tabs -->
           <ul class="nav nav-tabs responsive" role="tablist">
             <li role="presentation"  class="active"><a href="#week_fol_tab" aria-controls="week_fol_tab" role="tab" data-toggle="tab">Followups</a></li>
-            <li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Ongoing Tours</a></li>
-            <li role="presentation" class=""><a href="#upcoming_tab" aria-controls="upcoming_tab" role="tab" data-toggle="tab">Upcoming Tours</a></li>
+            <li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
             <li role="presentation"><a href="#week_task_tab" aria-controls="week_task_tab" role="tab" data-toggle="tab">Tasks</a></li>
           </ul>
 
@@ -122,6 +122,15 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
             
             <!-- Ongoing  -->
             <div role="tabpanel" class="tab-pane" id="oncoming_tab">
+              <div class="col-md-2 col-sm-6 mg_bt_10">
+                <input type="text" id="tfrom_date_filter" name="tfrom_date_filter" placeholder="Booking From Date" title="Booking From Date" onchange="get_to_date(this.id,'tto_date_filter')">
+              </div>
+              <div class="col-md-2 col-sm-6 mg_bt_10">
+                <input type="text" id="tto_date_filter" name="tto_date_filter" placeholder="Booking To Date" title="Booking To Date" onchange="validate_validDate('tfrom_date_filter','tto_date_filter')">
+              </div>
+              <div class="col-md-1 text-left col-sm-6 mg_bt_10">
+                <button class="btn btn-excel btn-sm" onclick="ongoing_tours_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+              </div>
               <div id='ongoing_tours_data'></div>
             </div>
             <!-- Ongoing Tours summary End -->
@@ -289,6 +298,7 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
 
 <script type="text/javascript">
   $('#followup_from_date_filter, #followup_to_date_filter').datetimepicker({format:'d-m-Y H:i' });
+	$('#tfrom_date_filter,#tto_date_filter').datetimepicker({ format: 'd-m-Y', timepicker:false });
   function send_sms(id,tour_type,emp_id,contact_no, name){
     var base_url = $('#base_url').val();
     var draft = "Dear "+name+",We hope that you are enjoying your trip. It will be a great source of input from you, if you can share your tour feedback with us, so that we can serve you even better.Thank you."
@@ -346,16 +356,26 @@ function followup_type_reflect(followup_status){
 	}
 ongoing_tours_reflect();
 function ongoing_tours_reflect(){
-	$.post('backoffice/ongoing_tours_reflect.php', { }, function(data){
-		$('#ongoing_tours_data').html(data);
-	});
+		var from_date = $('#tfrom_date_filter').val();
+		var to_date = $('#tto_date_filter').val();
+		$.post('../dashboard/tour_summary.php', {from_date: from_date, to_date: to_date }, function(data) {
+			$('#ongoing_tours_data').html(data);
+		});
 }
-upcoming_tours_reflect();
-function upcoming_tours_reflect(){
-	$.post('backoffice/upcoming_tours_reflect.php', { }, function(data){
-		$('#upcoming_tours_data').html(data);
-	});
-}
+	function view_payment_summary(count, booking_id, tour_type){
+		
+		$('#payment-' + count).prop('disabled',true);
+		$('#payment-' + count).button('loading');
+		$.post('../dashboard//view_payment_smmary.php', {
+			count: count,
+			booking_id: booking_id,
+			tour_type: tour_type
+		}, function(data) {
+			$('#payment-' + count).prop('disabled',false);
+			$('#payment-' + count).button('reset');
+			$('#payment_summary_html').html(data);
+		});
+	}
 </script>
 <script src="<?php echo BASE_URL ?>js/app/field_validation.js"></script>
 <script type="text/javascript">

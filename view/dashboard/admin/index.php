@@ -32,6 +32,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 <!-- Followup History Div -->
 <div id="id_proof1"></div>
 <div id="id_proof2"></div>
+<div id="payment_summary_html"></div>
 <div class="app_panel">
 	<div class="dashboard_panel panel-body">
 
@@ -295,10 +296,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs responsive" role="tablist">
 						<li role="presentation" class="active"><a href="#enquiry_tab" aria-controls="enquiry_tab" role="tab" data-toggle="tab">Followups</a></li>
-						<li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Ongoing Tours</a></li>
-						<li role="presentation"><a href="#upcoming_tab" aria-controls="upcoming_tab" role="tab" data-toggle="tab">Upcoming Tours</a></li>
-						<li role="presentation"><a href="#fit_tab" aria-controls="fit_tab" role="tab" data-toggle="tab">Package Tours</a></li>
-						<li role="presentation"><a href="#git_tab" aria-controls="git_tab" role="tab" data-toggle="tab">Group Tours</a></li>
+						<li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
 					</ul>
 
 					<!-- Tab panes -->
@@ -306,6 +304,15 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 
 						<!-- Ongoing  -->
 						<div role="tabpanel" class="tab-pane" id="oncoming_tab">
+							<div class="col-md-2 col-sm-6 mg_bt_10">
+								<input type="text" id="tfrom_date_filter" name="tfrom_date_filter" placeholder="Booking From Date" title="Booking From Date" onchange="get_to_date(this.id,'tto_date_filter')">
+							</div>
+							<div class="col-md-2 col-sm-6 mg_bt_10">
+								<input type="text" id="tto_date_filter" name="tto_date_filter" placeholder="Booking To Date" title="Booking To Date" onchange="validate_validDate('tfrom_date_filter','tto_date_filter')">
+							</div>
+							<div class="col-md-1 text-left col-sm-6 mg_bt_10">
+								<button class="btn btn-excel btn-sm" onclick="ongoing_tours_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+							</div>
 							<div id='ongoing_tours_data'></div>
 						</div>
 						<!-- Ongoing Tours summary End -->
@@ -424,7 +431,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 										</div>
 									</div>
 									<div class="col-md-2 col-sm-6 mg_bt_10">
-										<input type="text" id="followup_from_date_filter" name="followup_from_date_filter" style="width:160px;" placeholder="Followup From D/T" title="Followup From D/T" onchange="get_to_datetime(this.id,'followup_to_date_filter')">
+										<input type="text" id="followup_from_date_filter" name="followup_from_date_filter" style="width:200px;" placeholder="Followup From D/T" title="Followup From D/T" onchange="get_to_datetime(this.id,'followup_to_date_filter')">
 									</div>
 									<div class="col-md-2 col-sm-6 mg_bt_10">
 										<input type="text" id="followup_to_date_filter" name="followup_to_date_filter" placeholder="Followup To D/T" title="Followup To D/T" onchange="validate_validDatetime('followup_from_date_filter','followup_to_date_filter')">
@@ -448,6 +455,10 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 
 <script type="text/javascript">
 	$('#group_booking_id,#package_booking_id').select2();
+	$('#tfrom_date_filter,#tto_date_filter').datetimepicker({
+		format: 'd-m-Y',
+		timepicker:false
+	});
 	$('#followup_from_date_filter, #followup_to_date_filter').datetimepicker({
 		format: 'd-m-Y H:i'
 	});
@@ -466,15 +477,11 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 	ongoing_tours_reflect();
 
 	function ongoing_tours_reflect() {
-		$.post('admin/ongoing_tours_reflect.php', {}, function(data) {
-			$('#ongoing_tours_data').html(data);
-		});
-	}
-	upcoming_tours_reflect();
 
-	function upcoming_tours_reflect() {
-		$.post('admin/upcoming_tours_reflect.php', {}, function(data) {
-			$('#upcoming_tours_data').html(data);
+		var from_date = $('#tfrom_date_filter').val();
+		var to_date = $('#tto_date_filter').val();
+		$.post('../dashboard/tour_summary.php', {from_date: from_date, to_date: to_date }, function(data) {
+			$('#ongoing_tours_data').html(data);
 		});
 	}
 
@@ -509,7 +516,20 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 		var msg = encodeURI("Dear " + name + ",\nMay this trip turns out to be a wonderful treat for you and may you create beautiful memories throughout this trip to cherish forever. Wish you a very happy and safe journey!!\nThank you.");
 		window.open('https://web.whatsapp.com/send?phone=' + number + '&text=' + msg);
 	}
-
+	function view_payment_summary(count, booking_id, tour_type){
+		
+		$('#payment-' + count).prop('disabled',true);
+		$('#payment-' + count).button('loading');
+		$.post('../dashboard//view_payment_smmary.php', {
+			count: count,
+			booking_id: booking_id,
+			tour_type: tour_type
+		}, function(data) {
+			$('#payment-' + count).prop('disabled',false);
+			$('#payment-' + count).button('reset');
+			$('#payment_summary_html').html(data);
+		});
+	}
 	function checklist_update(count, booking_id, tour_type, aemp_id) {
 		$('#checklist-' + count).button('loading');
 		$.post('admin/update_checklist.php', {
