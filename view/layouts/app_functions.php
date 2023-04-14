@@ -204,229 +204,24 @@ function get_cache_data()
 }
 function topbar_icon_list()
 {
-    global $app_version;
-    $username = $_SESSION['username'];
     $login_id = $_SESSION['login_id'];
     $emp_id = $_SESSION['emp_id'];
-
     $financial_year_id = $_SESSION['financial_year_id'];
 
     $sq_finacial_year = mysqli_fetch_assoc(mysqlQuery("select * from financial_year where financial_year_id='$financial_year_id'"));
-
     $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-
     if ($sq_emp['first_name'] == '') {
         $emp_name = 'Admin';
     } else {
         $emp_name = $sq_emp['first_name'] . ' ' . $sq_emp['last_name'];
     }
-
     if ($sq_emp['photo_upload_url'] != "") {
         $newUrl1 = preg_replace('/(\/+)/', '/', $sq_emp['photo_upload_url']);
         $user_id = BASE_URL . str_replace('../', '', $newUrl1);
     } elseif ($sq_emp['first_name'] == '' or $sq_emp['first_name'] != '') {
         $user_id = BASE_URL . 'images/logo-circle.png';
     }
-    /////////////////////////////////////Notification Start////////////////////////////////////////////
-    $role = $_SESSION['role'];
-    $role_id = $_SESSION['role_id'];
-    $branch_admin_id = $_SESSION['branch_admin_id'];
-    $eq_temp = 0;
-    $sq_enquiry_g = mysqli_fetch_assoc(mysqlQuery("select * from generic_count_master"));
-    if ($role == 'Admin') {
-        ///////////Enquiry///////////
-        $query = "select enquiry_id from enquiry_master where status!='Disabled'";
-        $sq_enquiry1 = mysqlQuery($query);
-        while ($row_enq = mysqli_fetch_assoc($sq_enquiry1)) {
-            $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery("select followup_status from enquiry_master_entries where entry_id=(select max(entry_id) as entry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]')"));
-            if ($sq_enquiry_entry['followup_status'] == "Converted") {
-                $eq_temp = $eq_temp + 1;
-            }
-        }
-        //app_setting e_count
-        $enq_result = $sq_enquiry_g['a_enquiry_count'];
-        $temp_enq = $sq_enquiry_g['a_temp_enq_count'];
-
-        $enq_result = $eq_temp - $temp_enq + $enq_result;
-        $temp_enq = $eq_temp;
-        $sq_log1 = mysqlQuery("update generic_count_master set a_enquiry_count='$enq_result', a_temp_enq_count ='$temp_enq' where id='1'");
-
-        ///////////////Task///////////////////
-        $query = "select * from tasks_master where task_status='Completed'";
-        $sq_task = mysqli_num_rows(mysqlQuery($query));
-        $task_temp = $sq_task;
-        //app_setting e_count
-        $task_result = $sq_enquiry_g['a_task_count'];
-        $temp_task = $sq_enquiry_g['a_temp_task_count'];
-
-        $task_result1 = $task_temp - $temp_task + $task_result;
-        $temp_task = $task_temp;
-        $final_result = $enq_result + $task_result1;
-        if ($final_result < 0) {
-            $final_result = 0;
-        }
-        $sq_log2 = mysqlQuery("update generic_count_master set a_task_count='$task_result1', a_temp_task_count ='$temp_task' where id='1'");
-
-        ///////////////Leave///////////////////
-        $query = "select * from leave_request where status=''";
-        $sq_leave = mysqli_num_rows(mysqlQuery($query));
-        $leave_temp = $sq_leave;
-        //app_setting e_count
-        $leave_result = $sq_enquiry_g['a_leave_count'];
-        $temp_leave = $sq_enquiry_g['a_temp_leave_count'];
-
-        $leave_result1 = $leave_temp - $temp_leave + $leave_result;
-        $temp_leave = $leave_temp;
-        //echo $leave_temp.'-'.$temp_leave.' +'. $leave_result;
-
-        $final_result = $enq_result +  $task_result1 + $leave_result1;
-        if ($final_result < 0) {
-            $final_result = 0;
-        }
-        $sq_log3 = mysqlQuery("update generic_count_master set a_leave_count='$leave_result1', a_temp_leave_count ='$temp_leave' where id='1'");
-    } elseif ($role == 'Branch Admin') {
-        $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='attractions_offers_enquiry/enquiry/index.php'"));
-        $branch_status = $sq['branch_status'];
-        ///////////Enquiry///////////
-        $query = "select * from enquiry_master where 1 and status!='Disabled'";
-        if ($branch_status == 'yes') {
-            $query .= " and branch_admin_id = '$branch_admin_id'";
-        }
-        $sq_enquiry = mysqlQuery($query);
-        while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
-            $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery("select followup_status from enquiry_master_entries where entry_id=(select max(entry_id) as entry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]' )"));
-            if ($sq_enquiry_entry['followup_status'] == "Converted") {
-                $eq_temp = $eq_temp + 1;
-            }
-        }
-        //app_setting e_count
-        $sq_enquiry1 = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $enq_result = $sq_enquiry1['enquiry_count'];
-        $temp_enq = $sq_enquiry1['temp_enq_count'];
-
-        $enq_result = $eq_temp - $temp_enq + $enq_result;
-        $temp_enq = $eq_temp;
-        $sq_log = mysqlQuery("update emp_master set enquiry_count='$enq_result', temp_enq_count ='$temp_enq' where emp_id='$emp_id'");
-
-        // ///////////////Task///////////////////
-        $task_result = 0;
-        $temp_task = 0;
-        $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='tasks/index.php'"));
-        $branch_status1 = $sq['branch_status'];
-        $query = "select * from tasks_master where task_status='Completed'";
-        if ($branch_status1 == 'yes') {
-            $query .= " and branch_admin_id = '$branch_admin_id'";
-        }
-        $sq_task = mysqli_num_rows(mysqlQuery($query));
-        $task_temp = $sq_task;
-        //app_setting e_count
-        $sq_taskc = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $task_result = $sq_taskc['task_count'];
-        $temp_task = $sq_taskc['temp_task_count'];
-
-        $task_result1 = $task_temp - $temp_task + $task_result;
-        $temp_task1 = $task_temp;
-        $final_result = $enq_result + $task_result1;
-        if ($final_result < '0') {
-            $final_result = 0;
-        }
-        $sq_log = mysqlQuery("update emp_master set task_count='$task_result1', temp_task_count ='$temp_task1' where emp_id='$emp_id'");
-
-        /////////Leave////////////////
-        $leave_result = 0;
-        $temp_leave = 0;
-        $q1 = "select x.* from (
-            (select * from leave_request where status='' and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id'))
-            UNION ALL
-            (SELECT * from leave_request where status!='' and emp_id='$emp_id'))x";
-        $sq_leave = mysqli_num_rows(mysqlQuery($q1));
-        $leave_temp = $sq_leave;
-        //app_setting e_count
-        $sq_leavec = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $leave_result = $sq_leavec['leave_count'];
-        $temp_leave = $sq_leavec['temp_leave_count'];
-
-        $leave_result1 = $leave_temp - $temp_leave  + $leave_result;
-        $temp_leave1 = $leave_temp;
-        $final_result = $enq_result + $leave_result1 + $task_result1;
-
-        if ($final_result < 0) {
-            $final_result = 0;
-        }
-        $sq_log = mysqlQuery("update emp_master set leave_count='$leave_result1', temp_leave_count ='$temp_leave1' where emp_id='$emp_id'");
-    } else {
-        /////////////Enquiry//////////
-        $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$emp_id' ");
-
-        while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
-            $eq_temp = $eq_temp + 1;
-        }
-        //app_setting e_count
-        $sq_enquiry2 = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $enq_result = $sq_enquiry2['enquiry_count'];
-        $temp_enq = $sq_enquiry2['temp_enq_count'];
-
-        $enq_result = $eq_temp - $temp_enq + $enq_result;
-        $temp_enq = $eq_temp;
-
-        $sq_log = mysqlQuery("update emp_master set enquiry_count='$enq_result', temp_enq_count ='$temp_enq' where emp_id='$emp_id'");
-
-        /////////////Task////////////
-        $task_result = 0;
-        $temp_task = 0;
-        if ($role_id == 2 || $role_id == 3 || $role_id == 4 || $role_id == 7) {
-            $sq_task = mysqli_num_rows(mysqlQuery("select * from tasks_master where task_status='Created' and emp_id='$emp_id'"));
-        } else {
-            $sq_task = mysqli_num_rows(mysqlQuery("select * from tasks_master where task_status='Created'"));
-        }
-        $task_temp = $sq_task;
-        //app_setting e_count
-        $sq_taskc = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $task_result = $sq_taskc['task_count'];
-        $temp_task = $sq_taskc['temp_task_count'];
-
-        $task_result1 = $task_temp - $temp_task + $task_result;
-        $temp_task1 = $task_temp;
-        $final_result = ($role_id == 6 || $role_id == 7) ? ($task_result1) : ($enq_result + $task_result1);
-        if ($final_result < '0') {
-            $final_result = 0;
-        }
-        $sq_log = mysqlQuery("update emp_master set task_count='$task_result1', temp_task_count ='$temp_task1' where emp_id='$emp_id'");
-
-        /////////Leave////////////////
-        $leave_result = 0;
-        $temp_leave = 0;
-        $query = "select * from leave_request where 1 ";
-        if ($role_id == 2 || $role_id == 3 || $role_id == 4 || $role_id == 7) {
-            $query .= " and status!='' and emp_id='$emp_id'";
-        } else {
-            if ($role_id == 6) {
-                $query .= " and status = '' ";
-                $query .= " or request_id in(select request_id from leave_request where emp_id='$emp_id' and status!='')";
-                if ($branch_status1 == 'yes') {
-                    $query .= " and branch_admin_id='$branch_admin_id'";
-                }
-            } else {
-                $query .= " and status !='' and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id')";
-            }
-        }
-        $sq_leave = mysqli_num_rows(mysqlQuery($query));
-        $leave_temp = $sq_leave;
-        //app_setting e_count
-        $sq_leavee = mysqlQuery("select * from leave_request where status!='' and emp_id='$emp_id'");
-        $sq_leavec = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
-        $leave_result = $sq_leavec['leave_count'];
-        $temp_leave = $sq_leavec['temp_leave_count'];
-
-        $leave_result1 = $leave_temp - $temp_leave  + $leave_result;
-        $temp_leave1 = $leave_temp;
-        $final_result = ($role_id == 6 || $role_id == 7) ? ($leave_result1 + $task_result1) : ($enq_result + $leave_result1 + $task_result1);
-        if ($final_result < 0) {
-            $final_result = 0;
-        }
-        $sq_log = mysqlQuery("update emp_master set leave_count='$leave_result1', temp_leave_count ='$temp_leave1' where emp_id='$emp_id'");
-    }
-?>
+    ?>
     <input type="hidden" id="emp_id" name="emp_id" value="<?= $emp_id ?>">
     <li class="notifications_body">
         <a class="btn app_btn_out" data-toggle="tooltip" title="Dashboard" data-placement="bottom" href="<?php echo BASE_URL ?>view/dashboard/dashboard_main.php"><i class="fa fa-tachometer"></i>
@@ -443,12 +238,13 @@ function topbar_icon_list()
             <?php include_once("display_image_modal1.php")  ?>
         </div>
     </li>
-    <?php if ($role_id < 9) { ?>
+    <?php if ($role_id < 9) {
+        ?>
         <li class="notifications_body">
-            <a class="btn app_btn_out" data-toggle="tooltip" title="Notifications" data-placement="bottom" onclick="enquiry_count_update('enquiry');display_notification();removenotify();"><i class="fa fa-bell-o"></i>
+            <a class="btn app_btn_out" data-toggle="tooltip" title="Notifications" data-placement="bottom" onclick="display_notification();enquiry_count_update();"><i class="fa fa-bell-o"></i>
                 <pre class="xs_show">Notification</pre>
             </a>
-            <mark class="notify"></mark>
+            <span id="notify_count"></span>
         </li>
     <?php } ?>
     <li class="financial_yr">
@@ -467,7 +263,7 @@ function topbar_icon_list()
 function fullwidth_header_scripts()
 {
     global $circle_logo_url;
-?>
+ ?>
     <link rel="icon" href="<?= $circle_logo_url ?>" type="image/gif" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -554,16 +350,10 @@ function fullwidth_header_scripts()
         $("#notification_block_body_id").slideToggle();
     }
 
-    function enquiry_count_update(task) {
+    function enquiry_count_update() {
         var base_url = $('#base_url').val();
-        $.post(base_url + 'controller/login/notification/enquiry_count_update.php', {
-            type: task
-        }, function(data) {
-            $('#enquiry_count11').html(data);
+        $.post(base_url + 'controller/login/notification/enquiry_count_update.php', {     }, function(data) {
+            document.getElementsByClassName('notify')[0].style.display = 'none';
         });
-    }
-
-    function removenotify() {
-        document.getElementsByClassName('notify')[0].style.display = 'none';
     }
 </script>

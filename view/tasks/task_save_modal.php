@@ -230,6 +230,7 @@ $(function(){
               data:{ task_name : task_name, due_date : due_date, assign_to : assign_to, remind : remind, remind_by : remind_by, task_type : task_type, task_type_field_id : task_type_field_id , branch_admin_id : branch_admin_id},
               success:function(result){
                 msg_alert(result);
+                notification_count_update();
                 $('#tasks_save_modal').modal('hide');
                 reset_form('frm_task_save');
                 $('#task_save').button('reset');

@@ -177,7 +177,7 @@ text-transform: uppercase;
 font-weight: 400;
 }
 .table_verflow {
-max-height: 226px;
+<!-- max-height: 226px; -->
 overflow-y: scroll;
 }
 .table_verflow.table_verflow_two{

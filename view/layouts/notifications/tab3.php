@@ -3,24 +3,24 @@
 		<?php
 			$sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='leave_magt/leave_request/index.php'"));
 			$branch_status1 = $sq['branch_status'];
-		 if($role=='Admin' || $role=='Branch Admin' || $role=="Hr"){
-			 if($role=="Hr"){
-				$query = "SELECT x.* FROM 
-				(
-						(SELECT emp_id,type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_nblank WHERE status_nblank.status != '' and status_nblank.emp_id='$emp_id'";
-						
-						$query .= " order by status_nblank.request_id desc limit 5)";
-						
-						$query .= "UNION ALL
-						
-						(SELECT emp_id, type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_blank WHERE status_blank.status = '' ";
-						
-						$query .= " order by status_blank.request_id desc limit 5)
-						 order by request_id desc limit 5
-				)x ";
-				$sq_leave = mysqlQuery($query);
-			 }
-			 else{
+			if($role=='Admin' || $role=='Branch Admin' || $role=="Hr"){
+				if($role=="Hr"){
+					$query = "SELECT x.* FROM 
+					(
+							(SELECT emp_id,type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_nblank WHERE status_nblank.status != '' and status_nblank.emp_id='$emp_id'";
+							
+							$query .= " order by status_nblank.request_id desc limit 5)";
+							
+							$query .= "UNION ALL
+							
+							(SELECT emp_id, type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_blank WHERE status_blank.status = '' ";
+							
+							$query .= " order by status_blank.request_id desc limit 5)
+							order by request_id desc limit 5
+					)x ";
+					$sq_leave = mysqlQuery($query);
+				}
+				else{
 				if($role=="Branch Admin"){
 					$query = "SELECT x.* FROM 
 					(
@@ -38,10 +38,7 @@
 					$sq_leave = mysqlQuery($query);
 				}
 				else{
-					$query = "select * from leave_request where 1 ";
-					$query .=" and status=''";
-					$query .=" order by request_id desc limit 5";
-					$sq_leave = mysqlQuery($query);
+					$sq_leave = mysqlQuery("select * from leave_request where 1 and status='' order by request_id desc limit 5");
 				}
 			}
 			while($row_leave = mysqli_fetch_assoc($sq_leave)){
@@ -56,10 +53,7 @@
 			<?php }
 		}
 		else{
-			$query = "select * from leave_request where 1 ";
-				$query .= " and status!='' and emp_id='$emp_id'";
-			$query .=" order by request_id desc limit 5";
-			$sq_leave = mysqlQuery($query);
+			$sq_leave = mysqlQuery("select * from leave_request where 1 and status!='' and emp_id='$emp_id' order by request_id desc limit 5");
 			while($row_leave = mysqli_fetch_assoc($sq_leave)){
 			$sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$row_leave[emp_id]'"));
 			$d_date = '('.get_date_user($row_leave['from_date']).' To '.get_date_user($row_leave['to_date']).')';

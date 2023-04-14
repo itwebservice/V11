@@ -49,22 +49,20 @@ position:relative;
 
 }
 
-.notify{
-border-radius: 20px;
-border: 2px solid #FFF;
-width: 15px;
-height: 15px;
-background-color: #FF6B6B;
-position: absolute;
-top: -12px;
-left: 24px;
-font-size: 10px;
-line-height: 20px;
-font-family: 'Roboto', sans-serif;
-font-weight: 400;
-color: #FFF;
-font-weight: 700;
-z-index: 999;
+.notify{border-radius: 20px;
+    border: 2px solid #FFF;
+    width: 25px;
+    height: 25px;
+    background-color: #FF6B6B;
+    position: absolute;
+    top: -12px;
+    left: 22px;
+    font-size: 13px;
+    line-height: 17px;
+    font-family: 'Roboto', sans-serif;
+    color: #FFF;
+    font-weight: 500;
+    z-index: 999;
 }
 
 body .notification_bg {

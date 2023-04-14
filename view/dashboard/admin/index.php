@@ -304,14 +304,17 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 
 						<!-- Ongoing  -->
 						<div role="tabpanel" class="tab-pane" id="oncoming_tab">
-							<div class="col-md-2 col-sm-6 mg_bt_10">
-								<input type="text" id="tfrom_date_filter" name="tfrom_date_filter" placeholder="Booking From Date" title="Booking From Date" onchange="get_to_date(this.id,'tto_date_filter')">
-							</div>
-							<div class="col-md-2 col-sm-6 mg_bt_10">
-								<input type="text" id="tto_date_filter" name="tto_date_filter" placeholder="Booking To Date" title="Booking To Date" onchange="validate_validDate('tfrom_date_filter','tto_date_filter')">
-							</div>
-							<div class="col-md-1 text-left col-sm-6 mg_bt_10">
-								<button class="btn btn-excel btn-sm" onclick="ongoing_tours_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+							<div class="row">
+								<div class="col-md-7 col-sm-6 mg_bt_10"></div>
+								<div class="col-md-2 col-sm-6 mg_bt_10">
+									<input type="text" id="tfrom_date_filter" name="tfrom_date_filter" placeholder="Travel From Date" title="Travel From Date" onchange="get_to_date(this.id,'tto_date_filter')">
+								</div>
+								<div class="col-md-2 col-sm-6 mg_bt_10">
+									<input type="text" id="tto_date_filter" name="tto_date_filter" placeholder="Travel To Date" title="Travel To Date" onchange="validate_validDate('tfrom_date_filter','tto_date_filter')">
+								</div>
+								<div class="col-md-1 text-left col-sm-6 mg_bt_10">
+									<button class="btn btn-excel btn-sm" onclick="ongoing_tours_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+								</div>
 							</div>
 							<div id='ongoing_tours_data'></div>
 						</div>
@@ -421,14 +424,9 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 						<!--  GIT Summary End -->
 						<!-- Enquiry & Followup summary -->
 						<div role="tabpanel" class="tab-pane active" id="enquiry_tab">
-							<div class="dashboard_table dashboard_table_panel main_block">
+							<!-- <div class="dashboard_table dashboard_table_panel main_block"> -->
 								<div class="row text-right">
-									<div class="col-md-6 text-left">
-										<div class="dashboard_table_heading main_block">
-											<div class="col-md-10 no-pad">
-												<h3>Followup Reminders</h3>
-											</div>
-										</div>
+									<div class="col-md-7 text-left">
 									</div>
 									<div class="col-md-2 col-sm-6 mg_bt_10">
 										<input type="text" id="followup_from_date_filter" name="followup_from_date_filter" style="width:200px;" placeholder="Followup From D/T" title="Followup From D/T" onchange="get_to_datetime(this.id,'followup_to_date_filter')">
@@ -439,9 +437,9 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 									<div class="col-md-1 text-left col-sm-6 mg_bt_10">
 										<button class="btn btn-excel btn-sm" id="followup_reflect1" onclick="followup_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
 									</div>
-									<div id='followup_data'></div>
 								</div>
-							</div>
+									<div id='followup_data'></div>
+							<!-- </div> -->
 						</div>
 					</div>
 					<!-- Enquiry & Followup summary End -->

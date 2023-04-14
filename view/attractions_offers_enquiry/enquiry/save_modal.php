@@ -463,6 +463,7 @@ function actual_enq_save(obj) {
                 msg_alert(data);
                 $('#btn_enq_save').button('reset');
                 enquiry_proceed_reflect();
+                notification_count_update();
                 setTimeout(() => {
                     if ($('#whatsapp_switch').val() == "on")
                         whatsapp_send(obj);

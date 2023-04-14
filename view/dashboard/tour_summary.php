@@ -15,7 +15,7 @@ $today1 = date('Y-m-d H:i');
 <div class="row text-left mg_tp_10">
     <div class="col-md-12">
         <div class="col-md-12 no-pad table_verflow"> 
-            <div class="row mg_tp_20"> <div class="col-md-12 no-pad"> <div class="table-responsive">
+            <div class="row mg_tp_20"> <div class="col-md-12"> <div class="table-responsive">
             <table class="table table-hover" style="border: 0;" id="tbl_otours_list">
                 <thead>
                     <tr class="table-heading-row">
@@ -27,7 +27,7 @@ $today1 = date('Y-m-d H:i');
                     <th>Mobile</th>
                     <th>Owned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>Checklist_Status</th>
-                    <th>Actions&nbsp;&nbsp;&nbsp;</th>
+                    <th style="display:flex">Actions&nbsp;&nbsp;&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@ $today1 = date('Y-m-d H:i');
                 if($from_date != '' && $to_date!= ''){
                     $from_date = get_date_db($from_date);
                     $to_date = get_date_db($to_date);
-                    $query .= " and date(booking_date) between '$from_date' and '$to_date'";
+                    $query .= " and date(tour_from_date) between '$from_date' and '$to_date'";
                 }else{
                     $query .= " and tour_from_date <= '$today' and tour_to_date >= '$today' ";
                 }
@@ -95,18 +95,13 @@ $today1 = date('Y-m-d H:i');
                     <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                     <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour','<?php echo $row_query['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                     <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $row_query['mobile_no'] ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                    <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button>
                     </td>
                     </tr>
                 <?php } } ?>
                 <!-- //B2C Booking -->
                 <?php
                 $query = "select * from b2c_sale where status!='Cancel' ";
-                if($from_date != '' && $to_date!= ''){
-                    $from_date = get_date_db($from_date);
-                    $to_date = get_date_db($to_date);
-                    $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                }
                 include "../../model/app_settings/branchwise_filteration.php";
                 $sq_query = mysqlQuery($query);
                 $cond = true;
@@ -152,10 +147,13 @@ $today1 = date('Y-m-d H:i');
                     $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id = '$row_query[emp_id]'"));
                     $travel_from = get_date_db($enq_data[0]->travel_from);
                     $travel_to = get_date_db($enq_data[0]->travel_to);
-                    if($from_date != '' && $to_date!= ''){
+                    $from_date1 = get_date_db($from_date);
+                    $to_date1 = get_date_db($to_date);
+
+                    if($from_date == '' && $to_date== ''){
                         $cond = ($travel_from <= $today && $travel_to >= $today) ? true : false;
                     }else{
-                        $cond = true;
+                        $cond = ($travel_from <= $to_date1 && $travel_from >= $from_date1) ? true : false;
                     }
                     if($cond){
                     ?>
@@ -170,7 +168,7 @@ $today1 = date('Y-m-d H:i');
                     <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                     <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['booking_id']; ?>','<?='B2C-'.$row_query['service']?>','<?php echo $row_query['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                     <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $row_query['phone_no'] ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                    <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','B2C')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                    <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','B2C')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                     </tr>
                 <?php } } ?>
                 <!-- Hotel Booking -->
@@ -179,25 +177,20 @@ $today1 = date('Y-m-d H:i');
                 if($from_date == '' && $to_date == ''){
                     $query1 .= " and DATE(check_in) <= '$today' and DATE(check_out) >= '$today'";
                 }
+                else{
+                    $from_date = get_date_db($from_date);
+                    $to_date = get_date_db($to_date);
+                    $query1 .= " and date(check_in) between '$from_date' and '$to_date'";
+                }
                 $sq_query = mysqlQuery($query1);
                 while($row_query=mysqli_fetch_assoc($sq_query)){
                     
                     $query = "select * from hotel_booking_master where booking_id = '$row_query[booking_id]' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                    }
                     include "../../model/app_settings/branchwise_filteration.php";
 
                     $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                     if($sq_hotel_c != 0){
                         $query = "select * from hotel_booking_master where booking_id = '$row_query[booking_id]' and delete_status='0'";
-                        if($from_date != '' && $to_date!= ''){
-                            $from_date = get_date_db($from_date);
-                            $to_date = get_date_db($to_date);
-                            $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                        }
                         include "../../model/app_settings/branchwise_filteration.php";
                         $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                         $sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id = '$sq_hotel[customer_id]'"));
@@ -249,7 +242,7 @@ $today1 = date('Y-m-d H:i');
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                             <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Hotel Booking','<?php echo $sq_hotel['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                            <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Hotel Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>	
+                            <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Hotel Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>	
                             </tr>
                         <?php }
                     } ?>
@@ -259,25 +252,19 @@ $today1 = date('Y-m-d H:i');
                 $query_train = "select * from ticket_trip_entries where ticket_id in (select ticket_id from ticket_master_entries where status!='Cancel') and status!='Cancel'";
                 if($from_date == '' && $to_date == ''){
                     $query_train .= " and DATE(departure_datetime)<= '$today' and DATE(arrival_datetime)>= '$today'";
+                }else{
+                    $from_date = get_date_db($from_date);
+                    $to_date = get_date_db($to_date);
+                    $query_train .= " and date(departure_datetime) between '$from_date' and '$to_date'";
                 }
                 $sq_query1 = mysqlQuery($query_train);
                 while($row_query1=mysqli_fetch_assoc($sq_query1)){
 
                     $query = "select * from ticket_master where ticket_id = '$row_query1[ticket_id]' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                    }
                     include "../../model/app_settings/branchwise_filteration.php";
                     $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                     if($sq_hotel_c != 0){
                         $query = "select * from ticket_master where ticket_id = '$row_query1[ticket_id]' and delete_status='0'";
-                        if($from_date != '' && $to_date!= ''){
-                            $from_date = get_date_db($from_date);
-                            $to_date = get_date_db($to_date);
-                            $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                        }
                         include "../../model/app_settings/branchwise_filteration.php";
                         $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                         $date = $sq_hotel['created_at'];
@@ -331,7 +318,7 @@ $today1 = date('Y-m-d H:i');
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                             <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['ticket_id']; ?>','Flight Booking','<?php echo $sq_hotel['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                            <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['ticket_id']; ?>','Flight Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['ticket_id']; ?>','Flight Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button>
                             </td>
                             </tr>
                         <?php }
@@ -341,26 +328,20 @@ $today1 = date('Y-m-d H:i');
                     $query_train = "select * from train_ticket_master_trip_entries where train_ticket_id in (select train_ticket_id from train_ticket_master_entries where status!='Cancel') and train_ticket_id in (select train_ticket_id from train_ticket_master where delete_status='0')";
                     if($from_date == '' && $to_date == ''){
                         $query_train .= " and DATE(travel_datetime)<= '$today' and DATE(arriving_datetime) >= '$today'";
+                    }else{
+                        $from_date = get_date_db($from_date);
+                        $to_date = get_date_db($to_date);
+                        $query_train .= " and date(travel_datetime) between '$from_date' and '$to_date'";
                     }
                     $sq_query_train = mysqlQuery($query_train);
                     while($row_query1=mysqli_fetch_assoc($sq_query_train)){
                         
                         $query = "select * from train_ticket_master where train_ticket_id = '$row_query1[train_ticket_id]' and delete_status='0'";
-                        if($from_date != '' && $to_date!= ''){
-                            $from_date = get_date_db($from_date);
-                            $to_date = get_date_db($to_date);
-                            $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                        }
                         include "../../model/app_settings/branchwise_filteration.php";
                         $sq_train_c = mysqli_num_rows(mysqlQuery($query));
                         if($sq_train_c != 0){
 
                             $query = "select * from train_ticket_master where train_ticket_id = '$row_query1[train_ticket_id]' and delete_status='0'";
-                            if($from_date != '' && $to_date!= ''){
-                                $from_date = get_date_db($from_date);
-                                $to_date = get_date_db($to_date);
-                                $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                            }
                             include "../../model/app_settings/branchwise_filteration.php";
                             $sq_train = mysqli_fetch_assoc(mysqlQuery($query));
                             $date = $sq_train['created_at'];
@@ -412,7 +393,7 @@ $today1 = date('Y-m-d H:i');
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                             <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['train_ticket_id']; ?>','Train Booking','<?php echo $sq_train['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                            <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_train['train_ticket_id']; ?>','Train Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                            <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_train['train_ticket_id']; ?>','Train Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                             </tr>
                     <?php } 
                     } ?>
@@ -422,26 +403,20 @@ $today1 = date('Y-m-d H:i');
                     $query_bus = "select * from bus_booking_entries where status!='Cancel' ";
                     if($from_date == '' && $to_date == ''){
                         $query_bus .= " and DATE(date_of_journey) = '$today'";
+                    }else{
+                        $from_date = get_date_db($from_date);
+                        $to_date = get_date_db($to_date);
+                        $query_bus .= " and date(created_at) between '$from_date' and '$to_date'";
                     }
                     $sq_query_bus = mysqlQuery($query_bus);
                     while($row_query1=mysqli_fetch_assoc($sq_query_bus)){
                         
                         $query = "select * from bus_booking_master where booking_id = '$row_query1[booking_id]' and delete_status='0'";
-                        if($from_date != '' && $to_date!= ''){
-                            $from_date = get_date_db($from_date);
-                            $to_date = get_date_db($to_date);
-                            $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                        }
                         include "../../model/app_settings/branchwise_filteration.php";
                         $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                         if($sq_hotel_c!=0){
                             $query = "select * from bus_booking_master where booking_id = '$row_query1[booking_id]' and delete_status='0'";
                             $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
-                            if($from_date != '' && $to_date!= ''){
-                                $from_date = get_date_db($from_date);
-                                $to_date = get_date_db($to_date);
-                                $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                            }
                             include "../../model/app_settings/branchwise_filteration.php";
                             $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                             $date = $sq_hotel['created_at'];
@@ -494,7 +469,7 @@ $today1 = date('Y-m-d H:i');
                         <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                         <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Bus Booking','<?php echo $sq_hotel['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                         <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                        <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['booking_id']; ?>','Bus Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                        <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['booking_id']; ?>','Bus Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                         </tr>
                         <?php }
                     } ?>
@@ -503,25 +478,19 @@ $today1 = date('Y-m-d H:i');
                 $query_exc = "select * from excursion_master_entries where status!='Cancel'";
                 if($from_date == '' && $to_date == ''){
                     $query_exc .= " and DATE(exc_date) ='$today'";
+                }else{
+                    $from_date = get_date_db($from_date);
+                    $to_date = get_date_db($to_date);
+                    $query_exc .= " and date(exc_date) between '$from_date' and '$to_date'";
                 }
                 $sq_query_exc = mysqlQuery($query_exc);
                 while($row_query1=mysqli_fetch_assoc($sq_query_exc)){
                     
                     $query = "select * from excursion_master where exc_id = '$row_query1[exc_id]' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                    }
                     include "../../model/app_settings/branchwise_filteration.php";
                     $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                     if($sq_hotel_c!=0){
                         $query = "select * from excursion_master where exc_id = '$row_query1[exc_id]' and delete_status='0'";
-                        if($from_date != '' && $to_date!= ''){
-                            $from_date = get_date_db($from_date);
-                            $to_date = get_date_db($to_date);
-                            $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                        }
                         include "../../model/app_settings/branchwise_filteration.php";
                         $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                         $date = $sq_hotel['created_at'];
@@ -575,7 +544,7 @@ $today1 = date('Y-m-d H:i');
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                             <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['exc_id']; ?>','Excursion Booking','<?php echo $sq_hotel['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                            <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['exc_id']; ?>','Activity Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                            <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $sq_hotel['exc_id']; ?>','Activity Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                             </tr>
                         <?php }
                 } ?>
@@ -585,7 +554,7 @@ $today1 = date('Y-m-d H:i');
                 if($from_date != '' && $to_date!= ''){
                     $from_date = get_date_db($from_date);
                     $to_date = get_date_db($to_date);
-                    $query .= " and date(created_at) between '$from_date' and '$to_date'";
+                    $query .= " and date(from_date) between '$from_date' and '$to_date'";
                 }else{
                     $query .= " and DATE(from_date)='$today'";
                 }
@@ -643,16 +612,16 @@ $today1 = date('Y-m-d H:i');
                         <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                         <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                         <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                        <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                        <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                         </tr>
                 <?php } ?>
                 <!-- Car Rental Booking -->
                 <?php
-                $query_car = "select * from car_rental_booking where travel_type ='Outstation' and status!='Cancel' and delete_status='0'";
+                $query = "select * from car_rental_booking where travel_type ='Outstation' and status!='Cancel' and delete_status='0'";
                 if($from_date != '' && $to_date!= ''){
                     $from_date = get_date_db($from_date);
                     $to_date = get_date_db($to_date);
-                    $query .= " and date(created_at) between '$from_date' and '$to_date'";
+                    $query .= " and date(traveling_date) between '$from_date' and '$to_date'";
                 }else{
                     $query .= " and DATE(traveling_date)='$today'";
                 }
@@ -709,7 +678,7 @@ $today1 = date('Y-m-d H:i');
                         <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                         <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                         <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                        <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                        <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                         </tr>
                 <?php } ?>
                 <!-- Group Booking -->
@@ -717,16 +686,15 @@ $today1 = date('Y-m-d H:i');
                 $query_grp = "select * from tour_groups where 1";
                 if($from_date == '' && $to_date == ''){
                     $query_grp .= " and from_date<='$today' and to_date>='$today'";
+                }else{
+                    $from_date = get_date_db($from_date);
+                    $to_date = get_date_db($to_date);
+                    $query_grp .= " and date(from_date) between '$from_date' and '$to_date'";
                 }
                 $sq_query_grp = mysqlQuery($query_grp);
                 while($row_query1=mysqli_fetch_assoc($sq_query_grp)){
 
                     $query = "select * from tourwise_traveler_details where tour_id='$row_query1[tour_id]' and tour_group_id='$row_query1[group_id]' and tour_group_status!='Cancel' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(form_date) between '$from_date' and '$to_date'";
-                    }
                     $sq = mysqlQuery($query);
                     while($row_query = mysqli_fetch_assoc($sq)){
                     
@@ -783,7 +751,7 @@ $today1 = date('Y-m-d H:i');
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                             <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                            <button class="btn btn-info btn-sm" style="margin-top: 5px !important;" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['id']; ?>','Group Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
+                            <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['id']; ?>','Group Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                             </tr>
                             <?php
                         }
@@ -793,25 +761,19 @@ $today1 = date('Y-m-d H:i');
                 $query_visa = "select *	from visa_master_entries where status!='Cancel' ";
                 if($from_date == '' && $to_date == ''){
                     $query_visa .= " and appointment_date='$today'";
+                }else{
+                    $from_date = get_date_db($from_date);
+                    $to_date = get_date_db($to_date);
+                    $query_visa .= " and date(appointment_date) between '$from_date' and '$to_date'";
                 }
                 $sq_query_visa = mysqlQuery($query_visa);
                 while($row_query_visa=mysqli_fetch_assoc($sq_query_visa)){
 
                     $query = "select * from visa_master where visa_id = '$row_query_visa[visa_id]' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                    }
                     include "../../model/app_settings/branchwise_filteration.php";
                     $sq_visa_c = mysqli_num_rows(mysqlQuery($query));
                     if($sq_visa_c != 0){
                     $query = "select * from visa_master where visa_id = '$row_query_visa[visa_id]' and delete_status='0'";
-                    if($from_date != '' && $to_date!= ''){
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                    }
                     include "../../model/app_settings/branchwise_filteration.php";
                     $sq_visa = mysqli_fetch_assoc(mysqlQuery($query));
                     $date = $sq_visa['created_at'];
