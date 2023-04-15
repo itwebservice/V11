@@ -6,23 +6,23 @@ include "../../../model/model.php";
 
 <form id="frm_save">
 
-<div class="modal fade" id="save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal fade" id="save_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
 
-  <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
 
-    <div class="modal-content">
+      <div class="modal-content">
 
-      <div class="modal-header">
+        <div class="modal-header">
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-        <h4 class="modal-title" id="myModalLabel">Add Inclusion/Exclusion</h4>
+          <h4 class="modal-title" id="myModalLabel">Add Inclusion/Exclusion</h4>
 
-      </div>
+        </div>
 
-      <div class="modal-body">
+        <div class="modal-body">
 
-        
+
 
           <div class="row mg_bt_10">
 
@@ -30,7 +30,7 @@ include "../../../model/model.php";
 
               <textarea class="feature_editor" id="inclusion" name="inclusion" placeholder="*Description" title="Description"></textarea>
 
-            </div>             
+            </div>
 
           </div>
 
@@ -48,7 +48,7 @@ include "../../../model/model.php";
 
               </select>
 
-            </div>  
+            </div>
 
             <div class="col-sm-4 mg_bt_10">
 
@@ -62,7 +62,7 @@ include "../../../model/model.php";
 
               </select>
 
-            </div>  
+            </div>
 
             <div class="col-sm-4 mg_bt_10">
 
@@ -94,7 +94,7 @@ include "../../../model/model.php";
 
               </select>
 
-            </div>           
+            </div>
 
           </div>
 
@@ -112,91 +112,103 @@ include "../../../model/model.php";
 
 
 
-      </div>      
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
-
 </form>
 
 <script>
+  $('#save_modal').modal('show');
 
-$('#save_modal').modal('show');
+  $('#frm_save').validate({
 
-$('#frm_save').validate({
+    rules: {
 
-    rules:{
+      inclusion: {
+        required: true
+      },
 
-            inclusion : { required : true },
+      // tour_type : { required : true },
 
-            // tour_type : { required : true },
+      active_flag: {
+        required: true
+      },
 
-            active_flag : { required : true },
+      type: {
+        required: true
+      },
 
-            type : { required : true },
-
-            for_value : { required : true },
+      for_value: {
+        required: true
+      },
 
     },
 
-    submitHandler:function(form){
+    submitHandler: function(form) {
 
 
 
-        var inclusion = $('#inclusion').val();
+      var inclusion = $('#inclusion').val();
 
-        var tour_type = $('#tour_type').val();
+      var tour_type = $('#tour_type').val();
 
-        var active_flag = $('#active_flag').val();
+      var active_flag = $('#active_flag').val();
 
-        var type = $('#type').val();
+      var type = $('#type').val();
 
-        var for_value = $('#for_value').val();
+      var for_value = $('#for_value').val();
 
-        if(for_value == 'Group' || for_value == 'Package' || for_value == 'Both'){
-          if(tour_type==''){
-            error_msg_alert('Select tour type!');
-            $('#btn_save').button('reset');
-            return false;
+      if (for_value == 'Group' || for_value == 'Package' || for_value == 'Both') {
+        if (tour_type == '') {
+          error_msg_alert('Select tour type!');
+          $('#btn_save').button('reset');
+          return false;
+        }
+      }
+
+      $('#btn_save').button('loading');
+
+
+
+      $.ajax({
+
+        type: 'post',
+
+        url: base_url() + 'controller/other_masters/inclusions/save_inclusion.php',
+
+        data: {
+          inclusion: inclusion,
+          tour_type: tour_type,
+          active_flag: active_flag,
+          type: type,
+          for_value: for_value
+        },
+
+        success: function(result) {
+
+          $('#btn_save').button('reset');
+
+          var msg = result.split('--');
+
+          msg_alert(result);
+
+          if (msg[0] != "error") {
+
+            $('#save_modal').modal('hide');
+
+            list_reflect();
+
           }
         }
-
-        $('#btn_save').button('loading');
-
-
-
-        $.ajax({
-
-          type:'post',
-
-          url:base_url()+'controller/other_masters/inclusions/save_inclusion.php',
-
-          data:{ inclusion : inclusion, tour_type : tour_type, active_flag : active_flag, type : type, for_value : for_value },
-
-          success:function(result){
-
-              $('#btn_save').button('reset');
-
-              var msg = result.split('--');
-
-              msg_alert(result);
-
-              if(msg[0]!="error"){
-
-                $('#save_modal').modal('hide');
-
-                list_reflect();
-
-              }
-          }
-        });
+      });
     }
 
-});
-
+  });
 </script>
 
 <script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>
