@@ -350,6 +350,54 @@ if ($sq_air > 0) { ?>
   </section>
 <?php } ?>
 <?php
+//Hotel
+$sq_h_count = mysqli_num_rows(mysqlQuery("select * from group_tour_hotel_entries where tour_id='$tour_name1[tour_id]'"));
+if($sq_h_count>0){ ?>
+  <section class="print_sec main_block">
+    <div class="section_heding">
+      <h2>Hotel</h2>
+      <div class="section_heding_img">
+        <img src="<?php echo BASE_URL . 'images/heading_border.png'; ?>" class="img-responsive">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered no-marg" id="tbl_emp_list">
+            <thead>
+              <tr class="table-heading-row">
+                <th>S_No.</th>
+                <th>City Name</th>
+                <th>Hotel Name</th>
+                <th>Hotel Type</th>
+                <th>Total Nights</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $sq_hotel = mysqlQuery("select * from group_tour_hotel_entries where tour_id='$tour_name1[tour_id]'");
+              while ($row_hotel = mysqli_fetch_assoc($sq_hotel)) { ?>
+                    <tr>
+                      <td><?= ++$count ?></td>
+                      <td><?php
+                      $city = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id = ".$row_hotel['city_id']));
+                      echo $city['city_name'] ?></td>
+                      <td><?php
+                      $hotel = mysqli_fetch_assoc(mysqlQuery("select hotel_name from hotel_master where hotel_id = ".$row_hotel['hotel_id']));
+                      echo $hotel['hotel_name'] ?></td>
+                      <td><?= $row_hotel['hotel_type'] ?></td>
+                      <td><?= $row_hotel['total_nights'] ?></td>
+                    </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+<?php } ?>
+
+<?php
 //Cruise
 $sq_cruise = mysqli_num_rows(mysqlQuery("select booking_id from group_cruise_master where booking_id='$tourwise_id'"));
 if ($sq_cruise > 0) { ?>
