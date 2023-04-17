@@ -297,6 +297,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 					<ul class="nav nav-tabs responsive" role="tablist">
 						<li role="presentation" class="active"><a href="#enquiry_tab" aria-controls="enquiry_tab" role="tab" data-toggle="tab">Followups</a></li>
 						<li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
+						<li role="presentation"><a href="#itinerary_tab" aria-controls="itinerary_tab" role="tab" data-toggle="tab">Tour Itinerary</a></li>
 					</ul>
 
 					<!-- Tab panes -->
@@ -320,11 +321,20 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 						</div>
 						<!-- Ongoing Tours summary End -->
 
-						<!-- Upcoming  -->
-						<div role="tabpanel" class="tab-pane" id="upcoming_tab">
-							<div id='upcoming_tours_data'></div>
+						<!-- itinerary tab  -->
+						<div role="tabpanel" class="tab-pane" id="itinerary_tab">
+							<div class="row">
+								<div class="col-md-9 col-sm-6 mg_bt_10"></div>
+								<div class="col-md-2 col-sm-6 mg_bt_10">
+									<input type="text" id="itinerary_from_date_filter" name="itinerary_from_date_filter" class="form-control" placeholder="*Date" title="Date" value="<?= date('d-m-Y') ?>">
+								</div>
+								<div class="col-md-1 text-left col-sm-6 mg_bt_10">
+									<button class="btn btn-excel btn-sm" onclick="itinerary_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+								</div>
+							</div>
+							<div id='itinerary_data'></div>
 						</div>
-						<!-- Upcoming Tours summary End -->
+						<!-- itinerary summary End -->
 
 						<!--  FIT Summary -->
 						<div role="tabpanel" class="tab-pane" id="fit_tab">
@@ -453,7 +463,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 
 <script type="text/javascript">
 	$('#group_booking_id,#package_booking_id').select2();
-	$('#tfrom_date_filter,#tto_date_filter').datetimepicker({
+	$('#tfrom_date_filter,#tto_date_filter,#itinerary_from_date_filter').datetimepicker({
 		format: 'd-m-Y',
 		timepicker:false
 	});
@@ -461,7 +471,6 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 		format: 'd-m-Y H:i'
 	});
 	followup_reflect();
-
 	function followup_reflect() {
 		var from_date = $('#followup_from_date_filter').val();
 		var to_date = $('#followup_to_date_filter').val();
@@ -472,8 +481,14 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 			$('#followup_data').html(data);
 		});
 	}
+	itinerary_reflect();
+	function itinerary_reflect() {
+		var from_date = $('#itinerary_from_date_filter').val();
+		$.post('itinerary/index.php', { date: from_date }, function(data) {
+			$('#itinerary_data').html(data);
+		});
+	}
 	ongoing_tours_reflect();
-
 	function ongoing_tours_reflect() {
 
 		var from_date = $('#tfrom_date_filter').val();

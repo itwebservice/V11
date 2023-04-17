@@ -114,12 +114,27 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
           <ul class="nav nav-tabs responsive" role="tablist">
             <li role="presentation"  class="active"><a href="#week_fol_tab" aria-controls="week_fol_tab" role="tab" data-toggle="tab">Followups</a></li>
             <li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
+            <li role="presentation" ><a href="#itinerary_tab" aria-controls="itinerary_tab" role="tab" data-toggle="tab">Tour Itinerary</a></li>
             <li role="presentation"><a href="#week_task_tab" aria-controls="week_task_tab" role="tab" data-toggle="tab">Tasks</a></li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content responsive main_block">
             
+            <!-- itinerary tab  -->
+            <div role="tabpanel" class="tab-pane" id="itinerary_tab">
+              <div class="row">
+                <div class="col-md-9 col-sm-6 mg_bt_10"></div>
+                <div class="col-md-2 col-sm-6 mg_bt_10">
+                  <input type="text" id="itinerary_from_date_filter" name="itinerary_from_date_filter" class="form-control" placeholder="*Date" title="Date" value="<?= date('d-m-Y') ?>">
+                </div>
+                <div class="col-md-1 text-left col-sm-6 mg_bt_10">
+                  <button class="btn btn-excel btn-sm" onclick="itinerary_reflect()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>
+                </div>
+              </div>
+              <div id='itinerary_data'></div>
+            </div>
+            <!-- itinerary summary End -->
             <!-- Ongoing  -->
             <div role="tabpanel" class="tab-pane" id="oncoming_tab">
 							<div class="row">
@@ -292,7 +307,14 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
 
 <script type="text/javascript">
   $('#followup_from_date_filter, #followup_to_date_filter').datetimepicker({format:'d-m-Y H:i' });
-	$('#tfrom_date_filter,#tto_date_filter').datetimepicker({ format: 'd-m-Y', timepicker:false });
+	$('#tfrom_date_filter,#tto_date_filter,#itinerary_from_date_filter').datetimepicker({ format: 'd-m-Y', timepicker:false });
+	itinerary_reflect();
+	function itinerary_reflect() {
+		var from_date = $('#itinerary_from_date_filter').val();
+		$.post('itinerary/index.php', { date: from_date }, function(data) {
+			$('#itinerary_data').html(data);
+		});
+	}
   function send_sms(id,tour_type,emp_id,contact_no, name){
     var base_url = $('#base_url').val();
     var draft = "Dear "+name+",We hope that you are enjoying your trip. It will be a great source of input from you, if you can share your tour feedback with us, so that we can serve you even better.Thank you."

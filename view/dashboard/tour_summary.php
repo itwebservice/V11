@@ -32,6 +32,8 @@ $today1 = date('Y-m-d H:i');
                 </thead>
                 <tbody>
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query = "select * from package_tour_booking_master where tour_status!='Disabled' and delete_status='0'";
                 if($from_date != '' && $to_date!= ''){
                     $from_date = get_date_db($from_date);
@@ -173,6 +175,8 @@ $today1 = date('Y-m-d H:i');
                 <?php } } ?>
                 <!-- Hotel Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='hotels/booking/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query1 = "select *	from hotel_booking_entries where status!='Cancel'";
                 if($from_date == '' && $to_date == ''){
                     $query1 .= " and DATE(check_in) <= '$today' and DATE(check_out) >= '$today'";
@@ -249,6 +253,8 @@ $today1 = date('Y-m-d H:i');
 
                 <!-- flight Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/ticket/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query_train = "select * from ticket_trip_entries where ticket_id in (select ticket_id from ticket_master_entries where status!='Cancel') and status!='Cancel'";
                 if($from_date == '' && $to_date == ''){
                     $query_train .= " and DATE(departure_datetime)<= '$today' and DATE(arrival_datetime)>= '$today'";
@@ -325,6 +331,8 @@ $today1 = date('Y-m-d H:i');
                     } ?>
                     <!-- Train Booking -->
                     <?php
+                    $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/train_ticket/index.php'"));
+                    $branch_status = $sq_branch['branch_status'];
                     $query_train = "select * from train_ticket_master_trip_entries where train_ticket_id in (select train_ticket_id from train_ticket_master_entries where status!='Cancel') and train_ticket_id in (select train_ticket_id from train_ticket_master where delete_status='0')";
                     if($from_date == '' && $to_date == ''){
                         $query_train .= " and DATE(travel_datetime)<= '$today' and DATE(arriving_datetime) >= '$today'";
@@ -400,6 +408,8 @@ $today1 = date('Y-m-d H:i');
                 
                     <!-- Bus Booking -->
                     <?php
+                    $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='bus_booking/booking/index.php'"));
+                    $branch_status = $sq_branch['branch_status'];
                     $query_bus = "select * from bus_booking_entries where status!='Cancel' ";
                     if($from_date == '' && $to_date == ''){
                         $query_bus .= " and DATE(date_of_journey) = '$today'";
@@ -475,6 +485,8 @@ $today1 = date('Y-m-d H:i');
                     } ?>
                 <!-- Activity Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='excursion/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query_exc = "select * from excursion_master_entries where status!='Cancel'";
                 if($from_date == '' && $to_date == ''){
                     $query_exc .= " and DATE(exc_date) ='$today'";
@@ -550,6 +562,8 @@ $today1 = date('Y-m-d H:i');
                 } ?>
                 <!-- Car Rental Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='car_rental/booking/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query = "select * from car_rental_booking where travel_type ='Local' and status!='Cancel' and delete_status='0'";
                 if($from_date != '' && $to_date!= ''){
                     $from_date = get_date_db($from_date);
@@ -683,6 +697,8 @@ $today1 = date('Y-m-d H:i');
                 <?php } ?>
                 <!-- Group Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query_grp = "select * from tour_groups where 1";
                 if($from_date == '' && $to_date == ''){
                     $query_grp .= " and from_date<='$today' and to_date>='$today'";
@@ -758,6 +774,8 @@ $today1 = date('Y-m-d H:i');
                     } }?>
                 <!-- Visa Booking -->
                 <?php
+                $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/visa/index.php'"));
+                $branch_status = $sq_branch['branch_status'];
                 $query_visa = "select *	from visa_master_entries where status!='Cancel' ";
                 if($from_date == '' && $to_date == ''){
                     $query_visa .= " and appointment_date='$today'";

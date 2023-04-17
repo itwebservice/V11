@@ -47,7 +47,6 @@ $(window).resize(function(){
         
         var base_url = $('#base_url').val();
         $.post(base_url+'view/layouts/notifications/notification_count.php', {    }, function(data) {
-            console.log(data);
             $('#notify_count').html(data);
         });
     }
