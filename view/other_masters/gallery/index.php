@@ -11,7 +11,7 @@ include "../../../model/model.php";
 </div>
 
 
-<span class="note">Note: Please share new images on support@itwebservices.co to upload</span>
+<!-- <span class="note">Note: Please share new images on support@itwebservices.co to upload</span> -->
 
 <div class="app_panel_content Filter-panel">
 

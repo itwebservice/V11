@@ -519,13 +519,8 @@ $newBasic1 = currency_conversion($currency,$sq_quotation['currency_code'],$newBa
       </div>
       <div class="col-md-12 text-center mg_bt_10">
         <div class="icon"><img src="<?= BASE_URL ?>images/quotation/Icon/childIcon.png" class="img-responsive"></div>
-        <h4 class="no-marg"><?= $sq_quotation['children_with_bed'] ?></h4>
-        <p>CWB</p>
-      </div>
-      <div class="col-md-12 text-center mg_bt_10">
-        <div class="icon"><img src="<?= BASE_URL ?>images/quotation/Icon/childIcon.png" class="img-responsive"></div>
-        <h4 class="no-marg"><?= $sq_quotation['children_without_bed'] ?></h4>
-        <p>CWOB</p>
+        <h4 class="no-marg"><?= $sq_quotation['children_with_bed']+$sq_quotation['children_without_bed'] ?></h4>
+        <p>CWB/CWOB</p>
       </div>
       <div class="col-md-12 text-center">
         <div class="icon"><img src="<?= BASE_URL ?>images/quotation/Icon/infantIcon.png" class="img-responsive"></div>

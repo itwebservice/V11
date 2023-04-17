@@ -70,7 +70,7 @@ class gallary_master{
 
 		if($sq_airline){
 
-			echo "Image has been successfully saved.";
+			echo "Description successfully updated.";
 
 			exit;
 

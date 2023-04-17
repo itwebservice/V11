@@ -314,10 +314,9 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         </div>
       </section>
     <?php } ?>
-
     <?php
-      $sq_cr_count = mysqli_num_rows(mysqlQuery("select * from group_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
-      if($sq_cr_count>0){ ?>
+    $sq_cr_count = mysqli_num_rows(mysqlQuery("select * from group_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
+    if($sq_cr_count>0){ ?>
     <!-- Cruise -->
     <section class="transportDetailsPanel transportDetailsLeftPanel transportDetailsLastPanel main_block side_pad">
       <div class="travsportInfoBlock">
@@ -356,7 +355,8 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         </div>
       </div>
     </section>
-        <?php } ?>
+    <?php }
+    ?>
   </section>
 
 
