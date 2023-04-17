@@ -298,10 +298,26 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 						<li role="presentation" class="active"><a href="#enquiry_tab" aria-controls="enquiry_tab" role="tab" data-toggle="tab">Followups</a></li>
 						<li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
 						<li role="presentation"><a href="#itinerary_tab" aria-controls="itinerary_tab" role="tab" data-toggle="tab">Tour Itinerary</a></li>
+						<li role="presentation"><a href="#reminder_tab" aria-controls="reminder_tab" role="tab" data-toggle="tab">Reminders</a></li>
 					</ul>
 
 					<!-- Tab panes -->
 					<div class="tab-content responsive main_block mg_bt_150">
+
+						<!-- reminders tab  -->
+						<div role="tabpanel" class="tab-pane" id="reminder_tab">
+							<div class="row">
+								<div class="col-md-10 col-sm-6 mg_bt_10"></div>
+								<div class="col-md-2 col-sm-6 mg_bt_10">
+									<select id="reminder_option" name="reminder_option" title="Reminder Option" onchange="get_reminders();">
+										<option value="Payment">Payment</option>
+										<option value="Common">Common</option>
+									</select>
+								</div>
+							</div>
+							<div id='reminders_data'></div>
+						</div>
+						<!-- reminders summary End -->
 
 						<!-- Ongoing  -->
 						<div role="tabpanel" class="tab-pane" id="oncoming_tab">
@@ -604,6 +620,19 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 			$('#followup_type').html(data);
 		});
 	}
+	function get_reminders(type){
+
+		var reminder_option = $('#reminder_option').val();
+		if(type == 'Payment'){
+			var url ='payment_index.php';
+		}else{
+			var url ='common.php';
+		}
+		$.post('../dashboard/reminders/'+url, { }, function(data) {
+			$('#reminders_data').html(data);
+		});
+	}
+	get_reminders('Payment');
 </script>
 
 <script type="text/javascript">
