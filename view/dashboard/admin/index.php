@@ -309,7 +309,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 							<div class="row">
 								<div class="col-md-10 col-sm-6 mg_bt_10"></div>
 								<div class="col-md-2 col-sm-6 mg_bt_10">
-									<select id="reminder_option" name="reminder_option" title="Reminder Option" onchange="get_reminders();">
+									<select id="reminder_option" name="reminder_option" title="Reminder Type" onchange="get_reminders();">
 										<option value="Payment">Payment</option>
 										<option value="Common">Common</option>
 									</select>

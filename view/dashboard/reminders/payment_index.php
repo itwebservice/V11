@@ -40,4 +40,9 @@ function get_payment_reminders(){
     });
 }
 get_payment_reminders();
+function whatsapp_reminder(service,cust_name,sale,paid,balance,mobile_no,booking_id){
+
+    var msg = encodeURI("Dear " + cust_name + ",\n\nWe would like to thank you for booking a tour with us. Hereby we request you to release the outstanding payment as per the due date.\n\n*Booking ID* : "+booking_id+"\n*Total Amount* : "+sale+"\n*Paid Amount* : "+paid+"\n*Balance Amount* : "+balance+"");
+	window.open('https://web.whatsapp.com/send?phone=' + mobile_no + '&text=' + msg);
+}
 </script>

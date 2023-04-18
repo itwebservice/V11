@@ -104,7 +104,7 @@ $today1 = date('Y-m-d H:i');
                 <!-- //B2C Booking -->
                 <?php
                 $query = "select * from b2c_sale where status!='Cancel' ";
-                include "../../model/app_settings/branchwise_filteration.php";
+                // include "../../model/app_settings/branchwise_filteration.php";
                 $sq_query = mysqlQuery($query);
                 $cond = true;
                 while($row_query=mysqli_fetch_assoc($sq_query)){
@@ -413,10 +413,6 @@ $today1 = date('Y-m-d H:i');
                     $query_bus = "select * from bus_booking_entries where status!='Cancel' ";
                     if($from_date == '' && $to_date == ''){
                         $query_bus .= " and DATE(date_of_journey) = '$today'";
-                    }else{
-                        $from_date = get_date_db($from_date);
-                        $to_date = get_date_db($to_date);
-                        $query_bus .= " and date(created_at) between '$from_date' and '$to_date'";
                     }
                     $sq_query_bus = mysqlQuery($query_bus);
                     while($row_query1=mysqli_fetch_assoc($sq_query_bus)){
@@ -426,6 +422,11 @@ $today1 = date('Y-m-d H:i');
                         $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                         if($sq_hotel_c!=0){
                             $query = "select * from bus_booking_master where booking_id = '$row_query1[booking_id]' and delete_status='0'";
+                            if($from_date != '' && $to_date != ''){
+                                $from_date = get_date_db($from_date);
+                                $to_date = get_date_db($to_date);
+                                $query .= " and date(created_at) between '$from_date' and '$to_date'";
+                            }
                             $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                             include "../../model/app_settings/branchwise_filteration.php";
                             $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
