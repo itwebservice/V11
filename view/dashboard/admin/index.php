@@ -309,7 +309,7 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 							<div class="row">
 								<div class="col-md-10 col-sm-6 mg_bt_10"></div>
 								<div class="col-md-2 col-sm-6 mg_bt_10">
-									<select id="reminder_option" name="reminder_option" title="Reminder Type" onchange="get_reminders();">
+									<select id="reminder_option" name="reminder_option" title="Reminder Type" onchange="get_reminders(this.value);">
 										<option value="Payment">Payment</option>
 										<option value="Common">Common</option>
 									</select>
@@ -622,11 +622,10 @@ while ($row_enq = mysqli_fetch_assoc($sq_enquiry)) {
 	}
 	function get_reminders(type){
 
-		var reminder_option = $('#reminder_option').val();
 		if(type == 'Payment'){
 			var url ='payment_index.php';
 		}else{
-			var url ='common.php';
+			var url ='common_index.php';
 		}
 		$.post('../dashboard/reminders/'+url, { }, function(data) {
 			$('#reminders_data').html(data);

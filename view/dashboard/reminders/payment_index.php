@@ -7,10 +7,10 @@ include "../../../model/model.php";
         <div class="row mg_tp_10">
 			<div class="col-md-7 col-sm-6 mg_bt_10"></div>
             <div class="col-md-2 col-sm-6 mg_bt_10">
-                <input class="form-control" type="text" id="rfrom_date_filter" name="rfrom_date_filter" placeholder="From Date" title="From Date" value="<?= date('d-m-Y') ?>" onchange="get_to_date(this.id,'rto_date_filter');">
+                <input class="form-control" type="text" id="rfrom_date_filter" name="rfrom_date_filter" placeholder="*From Date" title="From Date" value="<?= date('d-m-Y') ?>" onchange="get_to_date(this.id,'rto_date_filter');">
             </div>
             <div class="col-md-2 col-sm-6 mg_bt_10">
-                <input class="form-control" type="text" id="rto_date_filter" name="rto_date_filter" placeholder="To Date" title="To Date" value="<?= date('d-m-Y') ?>" onchange="validate_validDate('rfrom_date_filter','rto_date_filter');">
+                <input class="form-control" type="text" id="rto_date_filter" name="rto_date_filter" placeholder="*To Date" title="To Date" value="<?= date('d-m-Y') ?>" onchange="validate_validDate('rfrom_date_filter','rto_date_filter');">
             </div>
             <div class="col-md-1 text-left col-sm-6 mg_bt_10">
                 <button class="btn btn-excel btn-sm" onclick="get_payment_reminders()" data-toggle="tooltip" title="" data-original-title="Proceed"><i class="fa fa-arrow-right"></i></button>

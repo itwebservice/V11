@@ -301,9 +301,6 @@ $count = $_POST['count'];
                 $date = $sq_visa_info['created_at'];
                 $yr = explode("-", $date);
                 $year =$yr[0];
-                //Sale
-                $sale_total_amount=$sq_visa_info['ticket_total_cost']+$charge;
-                if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
                 
                 //Cancel
                 $cancel_amount=$sq_visa_info['cancel_amount'];
@@ -311,10 +308,15 @@ $count = $_POST['count'];
                 $cancel_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id='$sq_visa_info[ticket_id]' and status='Cancel'"));
                 
                 //Paid
-                $query = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from ticket_payment_master where ticket_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                $query = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from ticket_payment_master where ticket_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                $charge = $query['sumc'];
                 $paid_amount = $query['sum']+$charge;
                 $paid_amount = ($paid_amount == '')?'0':$paid_amount;
                 
+                //Sale
+                $sale_total_amount=$sq_visa_info['ticket_total_cost']+$charge;
+                if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
+
                 if($sq_visa_info['cancel_type'] == '1'){
                     if($paid_amount > 0){
                         if($cancel_amount >0){
@@ -415,11 +417,6 @@ $count = $_POST['count'];
                 $date = $sq_booking['created_at'];
                 $yr = explode("-", $date);
                 $year =$yr[0];
-                //sale
-                $sale_total_amount = $sq_booking['net_total'] + $charge;
-                if ($sale_total_amount == "") {
-                    $sale_total_amount = 0;
-                }
                 //Cancel
                 $cancel_amount = $sq_booking['cancel_amount'];
                 $pass_count = mysqli_num_rows(mysqlQuery("select * from  train_ticket_master_entries where train_ticket_id='$sq_booking[train_ticket_id]'"));
@@ -430,13 +427,18 @@ $count = $_POST['count'];
                 $paid_amount = $query['sum'] + $query['sumc'];
                 $paid_amount = ($paid_amount == '') ? '0' : $paid_amount;
 
+                //sale
+                $sale_total_amount = $sq_booking['net_total'] + $query['sumc'];
+                if ($sale_total_amount == "") {
+                    $sale_total_amount = 0;
+                }
                 if ($pass_count == $cancel_count) {
                     if ($paid_amount > 0) {
                         if ($cancel_amount > 0) {
                             if ($paid_amount > $cancel_amount) {
                                 $balance_amount = 0;
                             } else {
-                                $balance_amount = $cancel_amount - $paid_amount + $charge;
+                                $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
                             }
                         } else {
                             $balance_amount = 0;
@@ -538,15 +540,15 @@ $count = $_POST['count'];
                 $date = $sq_booking['created_at'];
                 $yr = explode("-", $date);
                 $year =$yr[0];
-                //sale 
-                $sale_total_amount=$sq_booking['net_total'] + $charge;
-                if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
                 
                 //paid
                 $cancel_amount=$sq_booking['cancel_amount'];
                 $query = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from bus_booking_payment_master where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
                 $paid_amount = $query['sum'] + $query['sumc'];
                 $paid_amount = ($paid_amount == '')?'0':$paid_amount;
+                //sale 
+                $sale_total_amount=$sq_booking['net_total'] + $query['sumc'];
+                if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
                 
                 //Cancel
                 $cancel_amount=$sq_booking['cancel_amount'];
@@ -559,7 +561,7 @@ $count = $_POST['count'];
                             if($paid_amount > $cancel_amount){
                                 $balance_amount = 0;
                             }else{
-                                $balance_amount = $cancel_amount - $paid_amount + $charge;
+                                $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
                             }
                         }else{
                             $balance_amount = 0;
@@ -745,7 +747,8 @@ $count = $_POST['count'];
                                         $bg = '';
                                         if($row_exc_payment['clearance_status']=="Pending"){ $bg="warning";}
                                         else if($row_exc_payment['clearance_status']=="Cancelled"){ $bg="danger";} 
-                                        else { $bg = 'success';}
+                                        else if($row_exc_payment['clearance_status']=="Cleared"){ $bg="success";} 
+                                        else { $bg = '';}
                                         ?>
                 
                                         <tr class="<?php echo $bg; ?>">
@@ -841,7 +844,7 @@ $count = $_POST['count'];
                                         $bg = '';
                                         if($row_visa_payment['clearance_status']=="Pending"){ $bg="warning";}
                                         else if($row_visa_payment['clearance_status']=="Cancelled"){ $bg="danger";} 
-                                        else { $bg = 'success';}
+                                        else if($row_visa_payment['clearance_status']=="Cleared"){ $bg="success";} 
                                         ?>
                 
                                         <tr class="<?php echo $bg; ?>">

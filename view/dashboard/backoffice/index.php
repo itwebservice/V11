@@ -116,11 +116,26 @@ $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' 
             <li role="presentation"><a href="#oncoming_tab" aria-controls="oncoming_tab" role="tab" data-toggle="tab">Tour Summary</a></li>
             <li role="presentation" ><a href="#itinerary_tab" aria-controls="itinerary_tab" role="tab" data-toggle="tab">Tour Itinerary</a></li>
             <li role="presentation"><a href="#week_task_tab" aria-controls="week_task_tab" role="tab" data-toggle="tab">Tasks</a></li>
+						<li role="presentation"><a href="#reminder_tab" aria-controls="reminder_tab" role="tab" data-toggle="tab">Reminders</a></li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content responsive main_block">
             
+            <!-- reminders tab  -->
+            <div role="tabpanel" class="tab-pane" id="reminder_tab">
+              <div class="row">
+                <div class="col-md-10 col-sm-6 mg_bt_10"></div>
+                <div class="col-md-2 col-sm-6 mg_bt_10">
+                  <select id="reminder_option" name="reminder_option" title="Reminder Type" onchange="get_reminders(this.value);">
+                    <option value="Payment">Payment</option>
+                    <option value="Common">Common</option>
+                  </select>
+                </div>
+              </div>
+              <div id='reminders_data'></div>
+            </div>
+            <!-- reminders summary End -->
             <!-- itinerary tab  -->
             <div role="tabpanel" class="tab-pane" id="itinerary_tab">
               <div class="row">
@@ -378,20 +393,32 @@ function ongoing_tours_reflect(){
 			$('#ongoing_tours_data').html(data);
 		});
 }
-	function view_payment_summary(count, booking_id, tour_type){
-		
-		$('#payment-' + count).prop('disabled',true);
-		$('#payment-' + count).button('loading');
-		$.post('../dashboard//view_payment_smmary.php', {
-			count: count,
-			booking_id: booking_id,
-			tour_type: tour_type
-		}, function(data) {
-			$('#payment-' + count).prop('disabled',false);
-			$('#payment-' + count).button('reset');
-			$('#payment_summary_html').html(data);
-		});
-	}
+function view_payment_summary(count, booking_id, tour_type){
+  
+  $('#payment-' + count).prop('disabled',true);
+  $('#payment-' + count).button('loading');
+  $.post('../dashboard//view_payment_smmary.php', {
+    count: count,
+    booking_id: booking_id,
+    tour_type: tour_type
+  }, function(data) {
+    $('#payment-' + count).prop('disabled',false);
+    $('#payment-' + count).button('reset');
+    $('#payment_summary_html').html(data);
+  });
+}
+function get_reminders(type){
+
+  if(type == 'Payment'){
+    var url ='payment_index.php';
+  }else{
+    var url ='common_index.php';
+  }
+  $.post('../dashboard/reminders/'+url, { }, function(data) {
+    $('#reminders_data').html(data);
+  });
+}
+get_reminders('Payment');
 </script>
 <script src="<?php echo BASE_URL ?>js/app/field_validation.js"></script>
 <script type="text/javascript">

@@ -1,6 +1,10 @@
 <?php
 include '../../../model/model.php';
 global $encrypt_decrypt,$secret_key;
+$role = $_SESSION['role'];
+$role_id = $_SESSION['role_id'];
+$emp_id = $_SESSION['emp_id'];
+$branch_admin_id = $_SESSION['branch_admin_id'];
 $from_date = get_date_db($_POST['from_date']);
 $to_date = get_date_db($_POST['to_date']);
 $count = 0;
@@ -27,7 +31,11 @@ $today_date = date('Y-m-d');
                     <tbody>
                         <!-- Package Tour -->
                         <?php
-                        $sq_tour_details = mysqlQuery("select * from package_tour_booking_master where due_date between '$from_date' and '$to_date' and tour_status!='cancel' and delete_status='0'");
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from package_tour_booking_master where due_date between '$from_date' and '$to_date' and tour_status!='cancel' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
                         while($row_tour_details= mysqli_fetch_assoc($sq_tour_details)){
 
                             $booking_id = $row_tour_details['booking_id'];
@@ -76,7 +84,11 @@ $today_date = date('Y-m-d');
                         ?>
                         <!-- Group Tour -->
                         <?php
-                        $sq_tour_details = mysqlQuery("select * from tourwise_traveler_details where balance_due_date between '$from_date' and '$to_date' and delete_status='0'");
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from tourwise_traveler_details where balance_due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
                         while($row_tour_details = mysqli_fetch_assoc($sq_tour_details)){
 
                             $booking_id = $row_tour_details['id'];
@@ -150,6 +162,575 @@ $today_date = date('Y-m-d');
                                     <td class="text-right"><?= number_format($paid_amount,2) ?></td>
                                     <td class="text-right"><?= number_format($balance_amount,2) ?></td>
                                     <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('group','<?= $customer_name1 ?>','<?= number_format($total_amount,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $booking_id1 ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Hotel -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='hotels/booking/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from hotel_booking_master where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_hotel= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $booking_id = $row_hotel['booking_id'];
+                            $date = $row_hotel['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $booking_id = get_hotel_booking_id($booking_id,$year);
+
+                            $total_amount = $row_hotel['total_fee'];
+                            $customer_id = $row_hotel['customer_id'];
+                            $cancel_amount = $row_hotel['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from hotel_booking_payment where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $total_amount - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_hotel['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Hotel Booking' ?></td>
+                                    <td><?= $booking_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_hotel['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($total_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('hotel','<?= $customer_name1 ?>','<?= number_format($total_amount,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $booking_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Flight -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/ticket/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from ticket_master where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $air_id = $row_air['ticket_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_ticket_booking_id($air_id,$year);
+                            
+                            $air_total_cost = $row_air['ticket_total_cost'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_amount = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from ticket_payment_master where ticket_id='$air_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id='$air_id'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id='$air_id' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Flight Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('flight','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Train -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/train_ticket/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from train_ticket_master where payment_due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $train_ticket_id = $row_air['train_ticket_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_train_ticket_booking_id($train_ticket_id,$year);
+                            
+                            $air_total_cost = $row_air['net_total'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_amount = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from train_ticket_payment_master where train_ticket_id='$train_ticket_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id='$train_ticket_id'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id='$train_ticket_id' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['payment_due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Train Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['payment_due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('train','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Visa -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/visa/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from visa_master where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $visa_id = $row_air['visa_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_visa_booking_id($visa_id,$year);
+                            
+                            $air_total_cost = $row_air['visa_total_cost'];
+                            $cancel_amount = $row_air['cancel_amount'];
+                            $customer_id = $row_air['customer_id'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from visa_payment_master where visa_id='$visa_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id='$visa_id'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id='$visa_id' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Visa Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('visa','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Car -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='car_rental/booking/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from car_rental_booking where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $booking_id = $row_air['booking_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_car_rental_booking_id($booking_id,$year);
+                            
+                            $air_total_cost = $row_air['total_fees'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_amount = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from v where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            if($row_air['status'] == 'Cancel'){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Car Rental Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('car','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Activity -->
+                        <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='excursion/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
+                        $query = "select * from excursion_master where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $exc_id = $row_air['exc_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_exc_booking_id($exc_id,$year);
+                            
+                            $air_total_cost = $row_air['exc_total_cost'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_amount = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from exc_payment_master where exc_id='$exc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id='$exc_id'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id='$exc_id' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Activity Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('activity','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Misc -->
+                        <?php
+                        $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='vendor/dashboard/index.php'"));
+                        $branch_status = $sq['branch_status'];
+                        $query = "select * from miscellaneous_master where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $misc_id = $row_air['misc_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_misc_booking_id($misc_id,$year);
+                            
+                            $air_total_cost = $row_air['misc_total_cost'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_amount = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from miscellaneous_payment_master where misc_id='$misc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
+                            $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
+                            $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
+                            $paid_amount = $sq_total_paid['sum'];
+                            $pass_count = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id = '$misc_id'"));
+                            $cancel_count = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id='$misc_id' and status='Cancel'"));
+                            if($pass_count == $cancel_count){
+                                if($paid_amount > 0){
+                                    if($cancel_amount >0){
+                                        if($paid_amount > $cancel_amount){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_amount;
+                                }
+                            }
+                            else{
+                                $balance_amount = $air_total_cost - $paid_amount;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= 'Miscellaneous Booking' ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $customer_name1 ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($paid_amount,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('misc','<?= $customer_name1 ?>','<?= number_format($air_total_cost,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $ticket_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- Vendor -->
+                        <?php
+                        $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='vendor/dashboard/index.php'"));
+                        $branch_status = $sq['branch_status'];
+                        $query = "select * from vendor_estimate where due_date between '$from_date' and '$to_date' and delete_status='0'";
+                        include "../../../model/app_settings/branchwise_filteration.php";
+                        $sq_tour_details = mysqlQuery($query);
+                        while($row_air= mysqli_fetch_assoc($sq_tour_details)){
+
+                            $estimate_id = $row_air['estimate_id'];
+                            $date = $row_air['created_at'];
+                            $yr = explode("-", $date);
+                            $year = $yr[0];
+                            $ticket_id = get_vendor_estimate_id($estimate_id,$year);
+                            
+                            $air_total_cost = $row_air['net_total'];
+                            $customer_id = $row_air['customer_id'];
+                            $cancel_est = $row_air['cancel_amount'];
+
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from vendor_payment_master where estimate_id='$estimate_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $total_paid = $sq_total_paid['sum'];
+                            $vendor_type = $row_air['vendor_type'];
+                            $estimate_type = $row_air['estimate_type'];
+                            $vendor_type_id = $row_air['vendor_type_id'];
+                            if($vendor_type=="Hotel Vendor"){
+                                $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select * from hotel_master where hotel_id='$vendor_type_id'"));
+                                $vendor_name = $sq_hotel['hotel_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_hotel['mobile_no'], $secret_key);
+                            }	
+                            if($vendor_type=="Transport Vendor"){
+                                $sq_transport = mysqli_fetch_assoc(mysqlQuery("select * from transport_agency_master where transport_agency_id='$vendor_type_id'"));
+                                $vendor_name = $sq_transport['transport_agency_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_transport['mobile_no'], $secret_key);
+                            }	
+                            if($vendor_type=="Car Rental Vendor"){
+                                $sq_cra_rental_vendor = mysqli_fetch_assoc(mysqlQuery("select * from car_rental_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_cra_rental_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_cra_rental_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="DMC Vendor"){
+                                $sq_dmc_vendor = mysqli_fetch_assoc(mysqlQuery("select * from dmc_master where dmc_id='$vendor_type_id'"));
+                                $vendor_name = $sq_dmc_vendor['company_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_dmc_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Visa Vendor"){
+                                $sq_visa_vendor = mysqli_fetch_assoc(mysqlQuery("select * from visa_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_visa_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_visa_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Ticket Vendor"){
+                                $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from ticket_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Train Ticket Vendor"){
+                                $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from train_ticket_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Itinerary Vendor"){
+                                $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from site_seeing_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Insurance Vendor"){
+                                $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from insuarance_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Other Vendor"){
+                                $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from other_vendors where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            if($vendor_type=="Excursion Vendor"){
+                                  $sq_vendor = mysqli_fetch_assoc(mysqlQuery("select * from site_seeing_vendor where vendor_id='$vendor_type_id'"));
+                                $vendor_name = $sq_vendor['vendor_name'];
+                                $mobile_no = $encrypt_decrypt->fnDecrypt($sq_vendor['mobile_no'], $secret_key);
+                            }
+                            
+                            if($row_air['purchase_return'] == '1'){
+                                $status = 'cancel';
+                                if($total_paid > 0){
+                                    if($cancel_est >0){
+                                        if($total_paid > $cancel_est){
+                                            $balance_amount = 0;
+                                        }else{
+                                            $balance_amount = $cancel_est - $total_paid;
+                                        }
+                                    }else{
+                                        $balance_amount = 0;
+                                    }
+                                }
+                                else{
+                                    $balance_amount = $cancel_est;
+                                }
+                            }else if($row_air['purchase_return'] == '2'){
+                                $status = 'cancel';
+                                $cancel_estimate = json_decode($row_air['cancel_estimate']);
+                                $balance_amount = (($air_total_cost - floatval($cancel_estimate[0]->net_total)) + $cancel_est) - $total_paid;
+                            }
+                            else{
+                                $status = '';
+                                $balance_amount = $air_total_cost - $total_paid;
+                            }
+                            $total_balance_amount += floatval($balance_amount);
+                            $bg = ($today_date > get_date_db($row_air['due_date'])) ? 'danger' : '';
+                            if($balance_amount>0){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td><?= $vendor_type ?></td>
+                                    <td><?= $ticket_id ?></td>
+                                    <td><?= $vendor_name ?></td>
+                                    <td><?= get_date_user($row_air['due_date']) ?></td>
+                                    <td class="text-right"><?= number_format($air_total_cost,2) ?></td>
+                                    <td class="text-right"><?= number_format($total_paid,2) ?></td>
+                                    <td class="text-right"><?= number_format($balance_amount,2) ?></td>
+                                    <td>NA</td>
                                 </tr>
                                 <?php
                             }

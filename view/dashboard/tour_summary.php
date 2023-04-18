@@ -414,6 +414,11 @@ $today1 = date('Y-m-d H:i');
                     if($from_date == '' && $to_date == ''){
                         $query_bus .= " and DATE(date_of_journey) = '$today'";
                     }
+                    if($from_date != '' && $to_date != ''){
+                        $from_date = get_date_db($from_date);
+                        $to_date = get_date_db($to_date);
+                        $query_bus .= " and date(date_of_journey) between '$from_date' and '$to_date'";
+                    }
                     $sq_query_bus = mysqlQuery($query_bus);
                     while($row_query1=mysqli_fetch_assoc($sq_query_bus)){
                         
@@ -422,12 +427,6 @@ $today1 = date('Y-m-d H:i');
                         $sq_hotel_c = mysqli_num_rows(mysqlQuery($query));
                         if($sq_hotel_c!=0){
                             $query = "select * from bus_booking_master where booking_id = '$row_query1[booking_id]' and delete_status='0'";
-                            if($from_date != '' && $to_date != ''){
-                                $from_date = get_date_db($from_date);
-                                $to_date = get_date_db($to_date);
-                                $query .= " and date(created_at) between '$from_date' and '$to_date'";
-                            }
-                            $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                             include "../../model/app_settings/branchwise_filteration.php";
                             $sq_hotel = mysqli_fetch_assoc(mysqlQuery($query));
                             $date = $sq_hotel['created_at'];
@@ -766,7 +765,7 @@ $today1 = date('Y-m-d H:i');
                             <td><?php echo $contact_no; ?></td>
                             <td><?= ($row_query['emp_id']=='0') ? "Admin" : $sq_emp['first_name'].' '.$sq_emp['last_name'] ?></td>
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
-                            <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query1['booking_id']; ?>','Car Rental Booking','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
+                            <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['id']; ?>','Group Tour','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
                             <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['id']; ?>','Group Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                             </tr>
