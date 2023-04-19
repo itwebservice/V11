@@ -27,3 +27,30 @@ function customer_feedback_reminder(type,id,customer_id,contact_no,cust_name,dat
     var msg = encodeURI("Dear " + cust_name + ",\n\nWe would be very grateful to you if you take a couple of minutes to complete our online feedback form..\n"+data+"\n\n*Feedback Link* : "+link);
 	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
 }
+function task_reminder(contact_no,cust_name,data){
+
+    var msg = encodeURI("Dear " + cust_name + ",\n\nThis is an assigned task reminder. Please check it in the system..\n"+data);
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}
+function user_anniversary_reminder(contact_no,cust_name){
+    
+    var msg = encodeURI("Dear " + cust_name + ",\n\nWe wish you a very *Happy Anniversary*!\nWe extend our best wishes to you on your anniversary. We thank you for your enduring loyalty and diligence.");
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}
+function user_followup_reminder(contact_no,cust_name,data){
+    
+    var msg = encodeURI("Dear " + cust_name + ",\n\nPlease note todays leads follow-up reminder!\n\n*Enquiries* : "+data);
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}
+function daily_summary_reminder(contact_no,cust_name,today_date){
+    
+    var base_url = $('#base_url').val();
+    var link = base_url+"model/remainders/weekly_summary_html.php?cur_date="+today_date;
+    var msg = encodeURI("Dear " + cust_name + ",\n\nPlease find the Daily summary report!\n\n*Link* : "+link);
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}
+function tax_pay_reminder(contact_no,cust_name,today_date){
+    
+    var msg = encodeURI("Dear " + cust_name + ",\n\nYour tax pay due date is coming soon!\n\n*Tax Pay Date* : "+today_date);
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}

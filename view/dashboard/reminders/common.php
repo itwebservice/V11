@@ -249,7 +249,245 @@ $today_date = $from_date;
                                 </tr>
                             <?php
                             }
-                        ?>
+                            // Task reminder to user
+                            $cur_time = date('Y-m-d H:i');
+                            $last_time = strtotime($cur_time);
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='tasks/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
+                            $query = "select * from tasks_master where DATE(remind_due_date) = '$today_date' and task_status not in ('Disabled','Completed','Cancelled')";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_task = mysqlQuery($query);
+                            while($row_tasks = mysqli_fetch_assoc($sq_task)){
+                            
+                                $task_name = $row_tasks['task_name'];
+                                $due_date = date('d-m-Y H:i', strtotime($row_tasks['due_date']));
+                                $remind_by = $row_tasks['remind_by'];
+                                $task_type = $row_tasks['task_type'];
+                            
+                                $sq_emp_info = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$row_tasks[emp_id]'"));
+                                $emp_name = $sq_emp_info['first_name'].' '.$sq_emp_info['last_name'];
+                                $email_id = $sq_emp_info['email_id'];
+                                $mobile_no = $sq_emp_info['mobile_no'];
+                                
+                                if($row_tasks['remind'] != 'None'){
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>Task Reminder</td>
+                                    <td><?= 'User' ?></td>
+                                    <td><?= $emp_name ?></td>
+                                    <td><?= $task_name.' ('.$task_type.' task), Due Date/Time :'.$due_date ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="task_reminder('<?= $mobile_no ?>','<?= $emp_name ?>','<?= $task_name.' ('.$task_type.' task), Due Date/Time :'.$due_date ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                                }
+                            }
+                            // User Birthday
+                            $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(dob, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                            while($row_cust=mysqli_fetch_assoc($sq_customer)){
+                                $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
+                                $contact_no = $row_cust['mobile_no']; 
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>Customer Birthday</td>
+                                    <td><?= 'User' ?></td>
+                                    <td><?= $cust_name ?></td>
+                                    <td><?= 'Birth Date : '.get_date_user($row_cust['dob']) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                            // User Anniversary
+                            $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(date_of_join, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                            while($row_cust=mysqli_fetch_assoc($sq_customer)){
+                                $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
+                                $contact_no = $row_cust['mobile_no']; 
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>User Anniversary</td>
+                                    <td><?= 'User' ?></td>
+                                    <td><?= $cust_name ?></td>
+                                    <td><?= 'Joining Date : '.get_date_user($row_cust['date_of_join']) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="user_anniversary_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                                <?php
+                            }
+                            // User Followups
+                            $sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
+                            while($row_emp = mysqli_fetch_assoc($sq_emp)){
+
+                                $enquirty_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'"));
+                                if($enquirty_count > 0){
+                                    $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
+                                    while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
+
+                                        $sq_enquiry_entry = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today_date')"));
+                                        if($sq_enquiry_entry > 0){
+                                            $followup_count++;
+                                        }
+                                    }
+                                }
+                            }
+                            if($followup_count>0){
+
+                                $sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
+                                while($row_emp = mysqli_fetch_assoc($sq_emp)){
+
+                                    $enquiries = '';
+                                    $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
+                                    $contact_no = $row_emp['mobile_no']; 
+                                    $sq_enquiry_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today_date')"));
+                                    if($sq_enquiry_count > 0){
+                                        $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
+                                        while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
+
+                                            $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery("select * from enquiry_master_entries where entry_id=(select max(entry_id) as entry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]')"));
+                                            $enquiry_content = $row_enq['enquiry_content'];
+                                            $enquiry_id = $row_enq['enquiry_id'];
+                                            $date = $row_enq['enquiry_date'];
+                                            $yr = explode("-", $date);
+                                            $year = $yr[0];
+
+                                            $enquiry_content_arr1 = json_decode($enquiry_content, true);
+                                            if($row_enq['enquiry_type'] =="Group Booking" || $row_enq['enquiry_type'] =="Package Booking"){
+                                                foreach($enquiry_content_arr1 as $enquiry_content_arr2){
+                                                    if($enquiry_content_arr2['name']=="tour_name"){
+                                                        $tour_name = $enquiry_content_arr2['value'];
+                                                    }
+                                                }
+                                            }else{
+                                                $tour_name = 'NA';
+                                            }
+                                            if(($sq_enquiry_entry['followup_status']=="Active" || $sq_enquiry_entry['followup_status']=="In-Followup") && date('Y-m-d', strtotime($sq_enquiry_entry['followup_date'])) == $today_date){
+                                                $enquiries .= get_enquiry_id($enquiry_id,$year).' ,';
+                                            }
+                                        }
+                                        ?>
+                                        <tr class="<?= $bg ?>">
+                                            <td><?= ++$count ?></td>
+                                            <td>Enquiry Followup</td>
+                                            <td><?= 'User' ?></td>
+                                            <td><?= $emp_name ?></td>
+                                            <td><?= substr($enquiries, 0, -1); ?></td>
+                                            <td><button class="btn btn-info btn-sm" onclick="user_followup_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= substr($enquiries, 0, -1) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+                            // daily summary report to admin
+                            $sq_emp = mysqlQuery("select * from emp_master where emp_id='1'");
+                            while($row_emp = mysqli_fetch_assoc($sq_emp)){
+
+                                $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
+                                $contact_no = $row_emp['mobile_no']; 
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>Daily Summary Report</td>
+                                    <td><?= 'Admin' ?></td>
+                                    <td><?= $emp_name ?></td>
+                                    <td><?= 'Daily Summary Report Date : '.get_date_user($today_date) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= get_date_user($today_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                            <?php } 
+                            // Tax pay to admin
+                            $row_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='1'"));
+                            $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
+                            $contact_no = $row_emp['mobile_no']; 
+                            $sq_settings = mysqli_fetch_assoc(mysqlQuery("select tax_type,tax_pay_date from app_settings where setting_id='1'"));
+                            $tax_type= $sq_settings['tax_type'];
+                            $tax_pay_date = $sq_settings['tax_pay_date'];
+                            $tax_pay_day = date_parse_from_format('Y-m-d', $tax_pay_date)['day'];
+                            $tax_date = date('Y-m-d', strtotime('+7 days', strtotime($today_date)));
+
+                            $tax_day = date_parse_from_format('Y-m-d', $tax_date)['day'];
+                            $quart_date = date('Y-m-d', strtotime("+3 months", strtotime($tax_pay_date)));
+                            $quart_date1 = date('Y-m-d',strtotime("+6 months", strtotime($tax_pay_date)));
+                            $quart_date2 =  date('Y-m-d',strtotime("+9 months", strtotime($tax_pay_date)));
+                            $year_date  = date("d-m", strtotime($tax_pay_date));
+                            $tax_year_date  = date("d-m", strtotime($tax_date));
+                            if($tax_type=='Monthly' && $tax_pay_day==$tax_day){
+                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                if($sq_count==0){ ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Tax Pay</td>
+                                        <td><?= 'Admin' ?></td>
+                                        <td><?= $emp_name ?></td>
+                                        <td><?= 'Tax Pay Date : '.date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                                
+                            if($tax_type=='Quarterly' && ($tax_date==$tax_pay_date ||  $tax_date==$quart_date || $tax_date==$quart_date1 || $tax_date==$quart_date2)){
+                                
+                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                if($sq_count==0){ ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Tax Pay</td>
+                                        <td><?= 'Admin' ?></td>
+                                        <td><?= $emp_name ?></td>
+                                        <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+
+                            if($tax_type=='Yearly' && $year_date==$tax_year_date){
+                                
+                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                if($sq_count==0){
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Tax Pay</td>
+                                        <td><?= 'Admin' ?></td>
+                                        <td><?= $emp_name ?></td>
+                                        <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }	
+                            }
+                            // tour checklist to admin
+                            $tour_name = '';
+                            $tommorow = date('Y-m-d', strtotime('+1 day', strtotime($today_date)));
+                            $sq_tour_groups = mysqlQuery("select * from tour_groups where from_date='$tommorow' and status='Active'");
+                            while($row_tour_groups = mysqli_fetch_assoc($sq_tour_groups)){
+
+                                $sq_tour = mysqli_fetch_assoc(mysqlQuery("select tour_name from tour_master where tour_id='$row_tour_groups[tour_id]'"));
+                                $tour_name .= $sq_tour['tour_name'].'('.date('d-m-Y', strtotime($row_tour_groups['from_date'])).' to '.date('d-m-Y', strtotime($row_tour_groups['to_date'])).')';
+                                $entity_list = "";
+                    
+                                $sq_tour = mysqlQuery("select * from tourwise_traveler_details where tour_id='$row_tour_groups[tour_id]' and tour_group_id='$row_tour_groups[group_id]' and tour_group_status!='Cancel'");
+                                while($row_tour = mysqli_fetch_assoc($sq_tour)){
+                                    $sq_checklist_count = mysqli_num_rows(mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'"));
+                                    if($sq_checklist_count!=0){
+                                        $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'");
+                                        while($row_checklist = mysqli_fetch_assoc($sq_checklist)){
+                                            $sq_to_do = mysqli_fetch_assoc(mysqlQuery("select * from to_do_entries where id='$row_checklist[entity_id]'"));
+                                            $entity_list .= $sq_to_do['entity_name'].", ";		
+                                        }
+                                    }
+                                }
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>Group Tour Checklist</td>
+                                    <td><?= 'Admin' ?></td>
+                                    <td><?= $emp_name ?></td>
+                                    <td><?= 'Group Tour Checklist : '.$tour_name.' List : '.$entity_list ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                            <?php } 
+                            ?>
                     </tbody>
                 </table>
             </div>

@@ -16,7 +16,7 @@ if($time=='21'){
                 <table style="padding:0 30px; margin:0px auto; margin-top:10px">
                     <tr>
                     <td colspan="2">
-                        <a style="background: '.$theme_color.';color: #fff; border:aliceblue;width:auto;text-decoration: none;  display: block;text-transform: uppercase;padding: 0 10px;font-weight: 600;" href="'.BASE_URL.'model/remainders/weekly_summary_html.php">Click here to view Weekly summary report</a> 
+                        <a style="background: '.$theme_color.';color: #fff; border:aliceblue;width:auto;text-decoration: none;  display: block;text-transform: uppercase;padding: 0 10px;font-weight: 600;" href="'.BASE_URL.'model/remainders/weekly_summary_html.php?cur_date='.$cur_date.'">Click here to view Weekly summary report</a> 
                     </td>
                     </tr>
                 </table>
