@@ -17,7 +17,6 @@ include "../../../model/model.php";
         </div>
     </div>
 </div>
-
 <script>
 $('#cfrom_date_filter').datetimepicker({format: 'd-m-Y',timepicker:false});
 function get_common_reminders(){
@@ -38,3 +37,4 @@ function whatsapp_reminder(service,cust_name,sale,paid,balance,mobile_no,booking
 	window.open('https://web.whatsapp.com/send?phone=' + mobile_no + '&text=' + msg);
 }
 </script>
+<script src="js/common_reminders.js"></script>

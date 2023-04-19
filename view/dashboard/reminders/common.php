@@ -38,7 +38,7 @@ $today_date = $from_date;
                             $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
                             $date = $sq_booking['booking_date'];
                             $yr = explode("-", $date);
-                            $year =$yr[0];
+                            $year = $yr[0];
                                 ?>
                                 <tr class="<?= $bg ?>">
                                     <td><?= ++$count ?></td>
@@ -46,7 +46,7 @@ $today_date = $from_date;
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name.'('.$pass_name.')' ?></td>
                                     <td><?= 'Package Booking ID : '.get_package_booking_id($sq_booking['booking_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
@@ -68,7 +68,7 @@ $today_date = $from_date;
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name.'('.$pass_name.')' ?></td>
                                     <td><?= 'Group Booking ID : '.get_group_booking_id($sq_booking['id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
@@ -90,7 +90,7 @@ $today_date = $from_date;
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name.'('.$pass_name.')' ?></td>
                                     <td><?= 'Flight Booking ID : '.get_ticket_booking_id($sq_booking['ticket_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
@@ -112,12 +112,12 @@ $today_date = $from_date;
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name.'('.$pass_name.')' ?></td>
                                     <td><?= 'Visa Booking ID : '.get_visa_booking_id($sq_booking['visa_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
                             // Customer Birthday
-                            $sq_customer = mysqlQuery("SELECT * from customer_master where (MONTH(birth_date), DAY(birth_date)) = (MONTH(CURDATE()),DAY(CURDATE()))");
+                            $sq_customer = mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no,birth_date from customer_master where DATE_FORMAT(birth_date, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
                             while($row_cust=mysqli_fetch_assoc($sq_customer)){
                                 $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
                                 $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key); 
@@ -127,8 +127,8 @@ $today_date = $from_date;
                                     <td>Customer Birthday</td>
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name ?></td>
-                                    <td><?= 'Birth Date : '.get_date_user($today_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><?= 'Birth Date : '.get_date_user($row_cust['birth_date']) ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
@@ -155,7 +155,7 @@ $today_date = $from_date;
                                         <td><?= 'Customer' ?></td>
                                         <td><?= $cust_name ?></td>
                                         <td><?= 'Group Booking ID : '.get_group_booking_id($row_cus['id'],$year).' ('.$tour_name.')' ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="happy_journey_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= get_group_booking_id($row_cus['id'],$year).' ('.$tour_name.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
                                     <?php
                                 }
@@ -177,9 +177,77 @@ $today_date = $from_date;
                                     <td><?= 'Customer' ?></td>
                                     <td><?= $cust_name ?></td>
                                     <td><?= 'Package Booking ID : '.get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('<?= $contact_no ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="happy_journey_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
+                            }
+                            // Customer feedback mail
+                            $feedback_end_date = date('Y-m-d', strtotime('-5 days', strtotime($today_date)));
+                            $sq_tour_group1 = mysqlQuery("select from_date,to_date,tour_id,group_id from tour_groups where to_date='$feedback_end_date'");
+                            while($row_tour = mysqli_fetch_assoc($sq_tour_group1)){
+                        
+                                $tour_to_date = $row_tour['to_date'];
+                                $tour_id = $row_tour['tour_id'];
+                                $tour_group_id = $row_tour['group_id'];
+                                $row_tour1 =  mysqli_fetch_assoc(mysqlQuery("select tour_name from tour_master where tour_id='$tour_id'"));
+                                $tour_name = $row_tour1['tour_name'];
+                                $journey_date = date('d-m-Y',strtotime($row_tour['from_date'])).' To '.date('d-m-Y',strtotime($row_tour['to_date']));
+                    
+                                $sq_bookings = mysqlQuery("select id,customer_id,form_date from tourwise_traveler_details where tour_id='$tour_id' and tour_group_id='$tour_group_id' and delete_status='0'");
+                                while($row_bookings = mysqli_fetch_assoc($sq_bookings)){
+                    
+                                    $tourwise_traveler_id = $row_bookings['id'];
+                                    $customer_id = $row_bookings['customer_id'];
+                    
+                                    $date = $row_bookings['form_date'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];
+                                    $tourwise_traveler_id1 = get_group_booking_id($tourwise_traveler_id,$year);
+                                    
+                                    $row_cust = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$customer_id'"));
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key);
+                                    $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
+                                        ?>
+                                        <tr class="<?= $bg ?>">
+                                            <td><?= ++$count ?></td>
+                                            <td>GIT Customer Feedback</td>
+                                            <td><?= 'Customer' ?></td>
+                                            <td><?= $cust_name ?></td>
+                                            <td><?= 'Group Booking ID : '.get_group_booking_id($row_bookings['id'],$year).' ('.$tour_name.' From '.$journey_date.')' ?></td>
+                                            <td><button class="btn btn-info btn-sm" onclick="customer_feedback_reminder('group','<?= $tourwise_traveler_id ?>','<?= $customer_id ?>','<?= $contact_no ?>','<?= $cust_name ?>','<?= get_group_booking_id($row_bookings['id'],$year).' ('.$tour_name.' From '.$journey_date.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        </tr>
+                                    <?php
+                                }
+                            }
+                            $feedback_end_date = date('Y-m-d', strtotime('-3 days', strtotime($today_date)));
+                            $sq_booking = mysqlQuery("select * from package_tour_booking_master where tour_to_date='$feedback_end_date' and delete_status='0' and booking_id not in (select booking_id from customer_feedback_master where booking_type='Package Booking')");                    
+                            while($row_booking= mysqli_fetch_assoc($sq_booking)){
+                                $customer_id = $row_booking['customer_id'];
+                                $email_id = $row_booking['email_id'];
+                                $mobile_no = $row_booking['mobile_no'];
+                                $tour_name = $row_booking['tour_name'];
+                                $booking_id = $row_booking['booking_id'];
+                        
+                                $date = $row_booking['booking_date'];
+                                $yr = explode("-", $date);
+                                $year = $yr[0];        
+                                $booking_id1 = get_package_booking_id($booking_id,$year);
+                        
+                                $journey_date = date('d-m-Y',strtotime($row_booking['tour_from_date'])).' To '.date('d-m-Y',strtotime($row_booking['tour_to_date']));
+                        
+                                $row_cust = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$customer_id'"));
+                                $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key);
+                                $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>FIT Customer Feedback</td>
+                                    <td><?= 'Customer' ?></td>
+                                    <td><?= $cust_name ?></td>
+                                    <td><?= 'Package Booking ID : '.get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="customer_feedback_reminder('package','<?= $booking_id ?>','<?= $customer_id ?>','<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                            <?php
                             }
                         ?>
                     </tbody>
