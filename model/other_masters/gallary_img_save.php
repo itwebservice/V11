@@ -95,7 +95,7 @@ class gallary_master{
 
 	    if($sq_delete){
 
-	      echo "Image Deleted";
+	      echo "Image Deleted successfully!";
 
 	    }
 	}

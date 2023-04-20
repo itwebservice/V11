@@ -36,7 +36,6 @@ function getTodaysItenaryByPackage($id, $selectedDate)
     elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
         $query .= " and package_tour_booking_master.emp_id='$emp_id'";
     }
-    // echo $query;
 
     $res = mysqlQuery($query);
     $first = 0;
@@ -294,7 +293,6 @@ elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_i
 }
 
 
-$type = 'display';
 $result = mysqlQuery($query);
 $result2 = mysqlQuery($query2);
 $count = 1;

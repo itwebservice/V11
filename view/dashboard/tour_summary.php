@@ -277,7 +277,11 @@ $today1 = date('Y-m-d H:i');
                         $yr = explode("-", $date);
                         $year =$yr[0];
                         $invoice_no = get_ticket_booking_id($sq_hotel['ticket_id'],$year);
-
+                        $bg = '';
+                        $cancel_type = $sq_hotel['cancel_type'];
+                        if($cancel_type == 2 || $cancel_type == 3){
+                            $bg="warning";
+                        } 
                         $sq_cust = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id = '$sq_hotel[customer_id]'"));
                         if($sq_cust['type']=='Corporate'||$sq_cust['type'] == 'B2B'){
                             $customer_name = $sq_cust['company_name'];
@@ -331,6 +335,7 @@ $today1 = date('Y-m-d H:i');
                     } ?>
                     <!-- Train Booking -->
                     <?php
+                    $bg = '';
                     $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/train_ticket/index.php'"));
                     $branch_status = $sq_branch['branch_status'];
                     $query_train = "select * from train_ticket_master_trip_entries where train_ticket_id in (select train_ticket_id from train_ticket_master_entries where status!='Cancel') and train_ticket_id in (select train_ticket_id from train_ticket_master where delete_status='0')";
@@ -711,6 +716,7 @@ $today1 = date('Y-m-d H:i');
                 while($row_query1=mysqli_fetch_assoc($sq_query_grp)){
 
                     $query = "select * from tourwise_traveler_details where tour_id='$row_query1[tour_id]' and tour_group_id='$row_query1[group_id]' and tour_group_status!='Cancel' and delete_status='0'";
+                    include "../../model/app_settings/branchwise_filteration.php";
                     $sq = mysqlQuery($query);
                     while($row_query = mysqli_fetch_assoc($sq)){
                     

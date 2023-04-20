@@ -279,7 +279,6 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
               <table class="table tableTrnasp no-marg" id="tbl_emp_list">
                 <thead>
                   <tr class="table-heading-row">
-                    <th>S_No.</th>
                     <th>City Name</th>
                     <th>Hotel Name</th>
                     <th>Hotel Type</th>
@@ -294,7 +293,6 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
                   {
                     ?>
                     <tr>
-                      <td><?= ++$count ?></td>
                       <td><?php
                       $city = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id = ".$row_hotel['city_id']));
                       echo $city['city_name'] ?></td>

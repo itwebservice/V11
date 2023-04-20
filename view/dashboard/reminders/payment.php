@@ -43,14 +43,15 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $package_id = get_package_booking_id($booking_id,$year);
-
-                            $total_amount = $row_tour_details['net_total'];
                             $customer_id = $row_tour_details['customer_id'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(amount) as sum from package_payment_master where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(amount) as sum,sum(credit_charges) as sumc from package_payment_master where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount =  $sq_total_paid['sumc'];
+                            $total_amount = $row_tour_details['net_total'] + $credit_card_amount;
+
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
-                            $paid_amount = $sq_total_paid['sum'];
+                            $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
                             $cancel_est = mysqli_fetch_assoc(mysqlQuery("select cancel_amount from package_refund_traveler_estimate where booking_id='$sq_package_info[booking_id]'"));
                             $cancel_amount = $cancel_est['cancel_amount'];
                             if ($cancel_amount != '') {
@@ -96,15 +97,15 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $booking_id1 = get_group_booking_id($booking_id,$year);
-
-                            $total_amount = $row_tour_details['net_total'];
                             $customer_id = $row_tour_details['customer_id'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(amount) as sum from payment_master where tourwise_traveler_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(amount) as sum,sum(credit_charges) as sumc from payment_master where tourwise_traveler_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount =  $sq_total_paid['sumc'];
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
-                            $paid_amount = $sq_total_paid['sum'];
+                            $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
+                            $total_amount = $row_tour_details['net_total'] + $credit_card_amount;
                             $pass_count = mysqli_num_rows(mysqlQuery("select * from travelers_details where traveler_group_id='$row_tour_details[traveler_group_id]'"));
                             $cancelpass_count = mysqli_num_rows(mysqlQuery("select * from travelers_details where traveler_group_id='$row_tour_details[traveler_group_id]' and status='Cancel'"));    
                             
@@ -130,7 +131,7 @@ $today_date = date('Y-m-d');
                             $cancel_amount = ($cancel_amount == '')?'0':$cancel_amount;
                             if($row_tour_details['tour_group_status'] == 'Cancel'){
                                 if($cancel_amount > $paid_amount){
-                                    $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                    $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                 }
                                 else{
                                     $balance_amount = 0;
@@ -138,7 +139,7 @@ $today_date = date('Y-m-d');
                             }else{
                                 if($pass_count == $cancelpass_count){
                                     if($cancel_amount > $paid_amount){
-                                        $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                        $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                     }
                                     else{
                                         $balance_amount = 0;
@@ -180,17 +181,18 @@ $today_date = date('Y-m-d');
                             $date = $row_hotel['created_at'];
                             $yr = explode("-", $date);
                             $year = $yr[0];
-                            $booking_id = get_hotel_booking_id($booking_id,$year);
-
-                            $total_amount = $row_hotel['total_fee'];
+                            $booking_id1 = get_hotel_booking_id($booking_id,$year);
                             $customer_id = $row_hotel['customer_id'];
                             $cancel_amount = $row_hotel['cancel_amount'];
-
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from hotel_booking_payment where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $qq = "SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from hotel_booking_payment where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'";
+                            echo $qq;
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery($qq));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $total_amount = $row_hotel['total_fee'] + $credit_card_amount;
+                            $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
-                            $paid_amount = $sq_total_paid['sum'];
                             $pass_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]'"));
                             $cancel_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]' and status='Cancel'"));
                             if($pass_count == $cancel_count){
@@ -199,7 +201,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -219,13 +221,13 @@ $today_date = date('Y-m-d');
                                 <tr class="<?= $bg ?>">
                                     <td><?= ++$count ?></td>
                                     <td><?= 'Hotel Booking' ?></td>
-                                    <td><?= $booking_id ?></td>
+                                    <td><?= $booking_id1 ?></td>
                                     <td><?= $customer_name1 ?></td>
                                     <td><?= get_date_user($row_hotel['due_date']) ?></td>
                                     <td class="text-right"><?= number_format($total_amount,2) ?></td>
                                     <td class="text-right"><?= number_format($paid_amount,2) ?></td>
                                     <td class="text-right"><?= number_format($balance_amount,2) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('hotel','<?= $customer_name1 ?>','<?= number_format($total_amount,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $booking_id ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="whatsapp_reminder('hotel','<?= $customer_name1 ?>','<?= number_format($total_amount,2) ?>','<?= number_format($paid_amount,2) ?>','<?= number_format($balance_amount,2) ?>','<?= $contact_no ?>','<?= $booking_id1 ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                             }
@@ -245,12 +247,12 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $ticket_id = get_ticket_booking_id($air_id,$year);
-                            
-                            $air_total_cost = $row_air['ticket_total_cost'];
                             $customer_id = $row_air['customer_id'];
                             $cancel_amount = $row_air['cancel_amount'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from ticket_payment_master where ticket_id='$air_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from ticket_payment_master where ticket_id='$air_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $air_total_cost = $row_air['ticket_total_cost'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
@@ -263,7 +265,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -309,12 +311,12 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $ticket_id = get_train_ticket_booking_id($train_ticket_id,$year);
-                            
-                            $air_total_cost = $row_air['net_total'];
                             $customer_id = $row_air['customer_id'];
                             $cancel_amount = $row_air['cancel_amount'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from train_ticket_payment_master where train_ticket_id='$train_ticket_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from train_ticket_payment_master where train_ticket_id='$train_ticket_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $air_total_cost = $row_air['net_total'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
@@ -327,7 +329,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -372,12 +374,12 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $ticket_id = get_visa_booking_id($visa_id,$year);
-                            
-                            $air_total_cost = $row_air['visa_total_cost'];
                             $cancel_amount = $row_air['cancel_amount'];
                             $customer_id = $row_air['customer_id'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from visa_payment_master where visa_id='$visa_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from visa_payment_master where visa_id='$visa_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $air_total_cost = $row_air['visa_total_cost'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
@@ -390,7 +392,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -436,12 +438,12 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $ticket_id = get_car_rental_booking_id($booking_id,$year);
-                            
-                            $air_total_cost = $row_air['total_fees'];
                             $customer_id = $row_air['customer_id'];
                             $cancel_amount = $row_air['cancel_amount'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from v where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from car_rental_payment where booking_id='$booking_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $air_total_cost = $row_air['total_fees'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
@@ -452,7 +454,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -498,12 +500,12 @@ $today_date = date('Y-m-d');
                             $yr = explode("-", $date);
                             $year = $yr[0];
                             $ticket_id = get_exc_booking_id($exc_id,$year);
-                            
-                            $air_total_cost = $row_air['exc_total_cost'];
                             $customer_id = $row_air['customer_id'];
                             $cancel_amount = $row_air['cancel_amount'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from exc_payment_master where exc_id='$exc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from exc_payment_master where exc_id='$exc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $air_total_cost = $row_air['exc_total_cost'] + $credit_card_amount;
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
@@ -516,7 +518,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;
@@ -567,11 +569,12 @@ $today_date = date('Y-m-d');
                             $customer_id = $row_air['customer_id'];
                             $cancel_amount = $row_air['cancel_amount'];
 
-                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from miscellaneous_payment_master where misc_id='$misc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
+                            $sq_total_paid =  mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from miscellaneous_payment_master where misc_id='$misc_id' and clearance_status != 'Pending' and clearance_status != 'Cancelled'"));
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $contact_no = $encrypt_decrypt->fnDecrypt($customer_name['contact_no'], $secret_key);
-                            $paid_amount = $sq_total_paid['sum'];
+                            $credit_card_amount = $sq_total_paid['sumc'];
+                            $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
                             $pass_count = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id = '$misc_id'"));
                             $cancel_count = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id='$misc_id' and status='Cancel'"));
                             if($pass_count == $cancel_count){
@@ -580,7 +583,7 @@ $today_date = date('Y-m-d');
                                         if($paid_amount > $cancel_amount){
                                             $balance_amount = 0;
                                         }else{
-                                            $balance_amount = $cancel_amount - $paid_amount + $query['sumc'];
+                                            $balance_amount = $cancel_amount - $paid_amount + $credit_card_amount;
                                         }
                                     }else{
                                         $balance_amount = 0;

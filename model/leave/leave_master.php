@@ -130,9 +130,7 @@ $max=$value['max']+1;
     // For notification count
     $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$emp_id'"));
     $notification_count = $row_emp['notification_count'] + 1;
-    $q = "update emp_master set notification_count='$notification_count' where emp_id='$emp_id'";
-    echo $q;
-    $sq_emp = mysqlQuery($q);
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$emp_id'");
   if($sq_u)
   {
       commit_t();

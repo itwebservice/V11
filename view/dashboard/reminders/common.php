@@ -487,6 +487,33 @@ $today_date = $from_date;
                                     <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                             <?php } 
+                            // tour checklist to admin
+                            $tour_name = '';
+                            $tommorow = date('Y-m-d', strtotime('+1 day', strtotime($today_date)));
+                            $sq_tour_groups = mysqlQuery("select * from package_tour_booking_master where tour_from_date='$tommorow' and status='Active'");
+                            while($row_booking = mysqli_fetch_assoc($sq_tour_groups)){
+
+                                $tour_name = $row_booking['tour_name'].'('.date('d-m-Y', strtotime($row_booking['tour_from_date'])).' to '.date('d-m-Y', strtotime($row_booking['tour_to_date'])).')';
+                                $entity_list = "";
+                    
+                                $sq_checklist_count = mysqli_num_rows(mysqlQuery("select * from checklist_package_tour where tour_type='Package Tour' and booking_id='$row_booking[booking_id]'"));
+                                if($sq_checklist_count!=0){
+                                    $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Package Tour' and booking_id='$row_booking[booking_id]'");
+                                    while($row_checklist = mysqli_fetch_assoc($sq_checklist)){
+                                        $sq_to_do = mysqli_fetch_assoc(mysqlQuery("select * from to_do_entries where id='$row_checklist[entity_id]'"));
+                                        $entity_list .= $sq_to_do['entity_name'].", ";		
+                                    }
+                                }
+                                ?>
+                                <tr class="<?= $bg ?>">
+                                    <td><?= ++$count ?></td>
+                                    <td>Package Tour Checklist</td>
+                                    <td><?= 'Admin' ?></td>
+                                    <td><?= $emp_name ?></td>
+                                    <td><?= 'Package Tour Checklist : '.$tour_name.' List : '.$entity_list ?></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Package Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                </tr>
+                            <?php } 
                             ?>
                     </tbody>
                 </table>

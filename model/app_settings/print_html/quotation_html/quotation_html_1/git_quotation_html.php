@@ -384,7 +384,6 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
       <table class="table table-bordered">
         <thead>
           <tr class="table-heading-row">
-            <th>S_No.</th>
             <th>City Name</th>
             <th>Hotel Name</th>
             <th>Hotel Type</th>
@@ -399,7 +398,6 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
           {
             ?>
             <tr>
-              <td><?= ++$count ?></td>
               <td><?php
               $city = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id = ".$row_hotel['city_id']));
               echo $city['city_name'] ?></td>

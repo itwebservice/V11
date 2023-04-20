@@ -26,6 +26,9 @@
 					(
 							(SELECT emp_id,type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_nblank WHERE status_nblank.status != '' and status_nblank.emp_id='$emp_id'";
 							
+							if($branch_status1=='yes'){
+								$query .=" and status_nblank.emp_id in(select emp_id from emp_master where branch_admin_id='$branch_admin_id')";
+							}
 							$query .= " order by status_nblank.request_id desc limit 5)";
 							
 							$query .= "UNION ALL
