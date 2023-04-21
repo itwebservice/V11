@@ -1,43 +1,21 @@
 <div class="notification_scroller notification_scroller_task">
 	<ul class="no-pad">
 		<?php
-			$sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='leave_magt/leave_request/index.php'"));
+			$sq = mysqli_fetch_assoc(mysqlQuery("select branch_status from branch_assign where link='leave_magt/index.php'"));
 			$branch_status1 = $sq['branch_status'];
 			if($role=='Admin' || $role=='Branch Admin' || $role=="Hr"){
 				if($role=="Hr"){
-					$query = "SELECT x.* FROM 
-					(
-							(SELECT emp_id,type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_nblank WHERE status_nblank.status != '' and status_nblank.emp_id='$emp_id'";
-							
-							$query .= " order by status_nblank.request_id desc limit 5)";
-							
-							$query .= "UNION ALL
-							
-							(SELECT emp_id, type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_blank WHERE status_blank.status = '' ";
-							
-							$query .= " order by status_blank.request_id desc limit 5)
-							order by request_id desc limit 5
-					)x ";
+					$query = "select * from leave_request where 1 and status='' and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id')";
+					$query .= " order by request_id desc limit 5";
 					$sq_leave = mysqlQuery($query);
 				}
 				else{
 				if($role=="Branch Admin"){
-					$query = "SELECT x.* FROM 
-					(
-							(SELECT emp_id,type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_nblank WHERE status_nblank.status != '' and status_nblank.emp_id='$emp_id'";
-							
-							if($branch_status1=='yes'){
-								$query .=" and status_nblank.emp_id in(select emp_id from emp_master where branch_admin_id='$branch_admin_id')";
-							}
-							$query .= " order by status_nblank.request_id desc limit 5)";
-							
-							$query .= "UNION ALL
-							
-							(SELECT emp_id, type_of_leave,status,request_id,from_date,to_date FROM leave_request as status_blank WHERE status_blank.status = '' ";
-							
-							$query .= " order by status_blank.request_id desc limit 5)
-							order by request_id desc limit 5
-					)x ";
+					$query = "select * from leave_request where 1 and status=''";
+					if($branch_status1=='yes'){
+						$query .=" and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id')";
+					}
+					$query .= " order by request_id desc limit 5";
 					$sq_leave = mysqlQuery($query);
 				}
 				else{

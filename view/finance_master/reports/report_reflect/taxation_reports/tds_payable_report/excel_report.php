@@ -177,7 +177,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 
         ->setCellValue('E'.$row_count, "Supplier_Name")
 
-        ->setCellValue('F'.$row_count, "PAN_Number/TAN_Number")
+        ->setCellValue('F'.$row_count, "PIN_Number")
 
         ->setCellValue('G'.$row_count, "TDS_deducted_on_amount")
 

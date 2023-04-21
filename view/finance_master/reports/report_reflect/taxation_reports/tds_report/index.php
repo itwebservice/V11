@@ -46,7 +46,7 @@ var column = [
 { title : "Booking_ID"},
 { title : "Booking_Date", className:"text-center"},
 { title : "Customer_Name"},
-{ title : "PAN_Number/TAN_Number"},
+{ title : "PIN_Number"},
 { title : "TDS_deducted_on_amount"},
 { title : "TDS_Deducted"}
 ];
