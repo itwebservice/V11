@@ -97,8 +97,7 @@ $today1 = date('Y-m-d H:i');
                     <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
                     <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour','<?php echo $row_query['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                     <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $row_query['mobile_no'] ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
-                    <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button>
-                    </td>
+                    <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['booking_id']; ?>','Package Tour')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                     </tr>
                 <?php } } ?>
                 <!-- //B2C Booking -->
@@ -771,13 +770,14 @@ $today1 = date('Y-m-d H:i');
                             <td><?php echo $contact_no; ?></td>
                             <td><?= ($row_query['emp_id']=='0') ? "Admin" : $sq_emp['first_name'].' '.$sq_emp['last_name'] ?></td>
                             <td class="text-center"><h6 style="width: 90px;height: 30px;border-radius: 20px;font-size: 12px;line-height: 21px;text-align: center;background:<?= $bg_color ?>;padding:5px;color:<?= $text_color?>"><?= $status ?></h6></td>
-                            <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['id']; ?>','Group Tour','<?php echo $row_query1['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
+                            <td><button class="btn btn-info btn-sm" onclick="checklist_update('<?= $count?>','<?php echo $row_query['id']; ?>','Group Tour','<?php echo $row_query['emp_id']; ?>');" data-toggle="tooltip" title="Update Checklist" target="_blank" id="checklist-<?= $count?>"><i class="fa fa-plus"></i></button>
                             <button class="btn btn-info btn-sm" onclick="whatsapp_wishes('<?= $contact_no ?>','<?= $customer_name ?>')" data-toggle="tooltip" title="WhatsApp wishes to customer"><i class="fa fa-whatsapp"></i></button>
                             <button class="btn btn-info btn-sm" onclick="view_payment_summary('<?= $count?>','<?php echo $row_query['id']; ?>','Group Booking')" data-toggle="tooltip" title="View Payment Summary" id="payment-<?= $count?>"><i class="fa fa-eye"></i></button></td>
                             </tr>
                             <?php
                         }
-                    } }?>
+                    } 
+                } ?>
                 <!-- Visa Booking -->
                 <?php
                 $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/visa/index.php'"));
