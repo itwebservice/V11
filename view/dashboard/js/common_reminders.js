@@ -59,3 +59,8 @@ function payment_overdue_reminder(contact_no,cust_name,data){
     var msg = encodeURI("Dear " + cust_name + ",\n\nWe would like to thank you for booking a tour with us. Hereby we request you to release the outstanding payment as per the due date.\n"+data);
 	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
 }
+function tour_checlikst_reminder(contact_no,cust_name,data){
+
+    var msg = encodeURI("Dear " + cust_name + ",\n\nWe would like to thank you for booking a tour with us. Hereby we request you to release the outstanding payment as per the due date.\n"+data);
+	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
+}

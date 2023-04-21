@@ -10,7 +10,7 @@ $followup_count = 0;
 $inf_count = 0;
 
 //************************************Enquiy summary ***********************************************//
-$cur_date = $_GET['cur_date'];
+$cur_date = get_date_db($_GET['cur_date']);
 $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and enquiry_date = '$cur_date'");
 while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
 

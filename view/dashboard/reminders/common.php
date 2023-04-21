@@ -163,19 +163,20 @@ $today_date = $from_date;
                             $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
                             $branch_status = $sq_branch['branch_status'];
                             $query = "SELECT * from tour_groups where from_date='$end_date' and status!='Cancel'";
-                            include "../../../model/app_settings/branchwise_filteration.php";
                             $sq_tour_groups = mysqlQuery($query);
                             while($tour_detail=mysqli_fetch_assoc($sq_tour_groups))
                             {
                                 $sq_tour = mysqli_fetch_assoc(mysqlQuery("SELECT tour_name from tour_master where tour_id='$tour_detail[tour_id]'"));
                                 $tour_name = $sq_tour['tour_name'].'('.date('d-m-Y', strtotime($tour_detail['from_date'])).' to '.date('d-m-Y', strtotime($tour_detail['to_date'])).')';
-                                $sq_cus = mysqlQuery("select * from tourwise_traveler_details where tour_group_id='$tour_detail[group_id]' and tour_group_status != 'Cancel' and delete_status='0'");
+                                $query = "select * from tourwise_traveler_details where tour_group_id='$tour_detail[group_id]' and tour_group_status != 'Cancel' and delete_status='0'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_cus = mysqlQuery($query);
                                 while($row_cus = mysqli_fetch_assoc($sq_cus)){
                                     
                                     $date = $row_cus['form_date'];
                                     $yr = explode("-", $date);
                                     $year = $yr[0];
-                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$row_cus[customer_id]'"));
                                     $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
                                     $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key);
                                     ?>
@@ -333,7 +334,7 @@ $today_date = $from_date;
                                     ?>
                                     <tr class="<?= $bg ?>">
                                         <td><?= ++$count ?></td>
-                                        <td>Customer Birthday</td>
+                                        <td>User Birthday</td>
                                         <td><?= 'User' ?></td>
                                         <td><?= $cust_name ?></td>
                                         <td><?= 'Birth Date : '.get_date_user($row_cust['dob']) ?></td>
@@ -549,7 +550,7 @@ $today_date = $from_date;
                                         <td><?= 'Admin' ?></td>
                                         <td><?= $emp_name ?></td>
                                         <td><?= 'Group Tour Checklist : '.$tour_name.' List : '.$entity_list ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
                                 <?php }
                             }
@@ -588,7 +589,7 @@ $today_date = $from_date;
                                         <td><?= 'Admin' ?></td>
                                         <td><?= $emp_name ?></td>
                                         <td><?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.$entity_list ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
                                 <?php }
                             }
