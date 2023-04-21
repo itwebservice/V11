@@ -25,7 +25,7 @@ $time = date("H", strtotime($cur_date));
     ';
 
     global $model;
-    $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'week_sum_remainder' and date='$cur_date' and status='Done'"));
+    $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from remainder_status where remainder_name = 'week_sum_remainder' and date='$cur_date' and status='Done'"));
     if($sq_count==0)
     {
         $subject = 'Daily report (Date : '.get_date_user($cur_date).' ).';
