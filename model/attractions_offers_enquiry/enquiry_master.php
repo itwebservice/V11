@@ -581,6 +581,10 @@ Email ID : ".$ass_email_id);
                         $sq_followup = mysqlQuery("insert into enquiry_master_entries(entry_id, enquiry_id, followup_reply,  followup_status,  followup_type, followup_date, followup_stage, created_at) values('$entry_id', '$enquiry_id', '', 'Active','', '$followup_date1', '$enquiry', '$enquiry_date1')");
                         
                         $sq_entryicsv = mysqlQuery("update enquiry_master set entry_id='$entry_id' where enquiry_id='$enquiry_id'");
+                        // For notification count
+                        $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assigned_emp_id'"));
+                        $notification_count = $row_emp['notification_count'] + 1;
+                        $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assigned_emp_id'");
 
                         if(!$sq_enquiry){
                           echo "error--Enquiry Information Not Saved.";

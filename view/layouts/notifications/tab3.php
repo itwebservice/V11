@@ -15,7 +15,11 @@
 					if($branch_status1=='yes'){
 						$query .=" and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id')";
 					}
-					$query .= " order by request_id desc limit 5";
+					$query .= " UNION ALL (select * from leave_request where 1 and status!='' and emp_id='$emp_id' ";
+					if($branch_status1=='yes'){
+						$query .=" and emp_id in(select emp_id from emp_master where branch_id='$branch_admin_id')";
+					}
+					$query .= ") order by request_id desc limit 5";
 					$sq_leave = mysqlQuery($query);
 				}
 				else{
@@ -23,20 +27,20 @@
 				}
 			}
 			while($row_leave = mysqli_fetch_assoc($sq_leave)){
-				$sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$row_leave[emp_id]'"));
+				$sq_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_leave[emp_id]'"));
 				$d_date = '('.get_date_user($row_leave['from_date']).' To '.get_date_user($row_leave['to_date']).')';
-				$l_status = ($row_leave['status'] != '') ? '('.$row_leave['status'].')' : $d_date;
+				$l_status = ($row_leave['status'] != '') ? '('.$row_leave['status'].')' : '';
 			?>
 			<li class="single_notification">
-				<h5 class="single_notification_text no-marg"><?= $row_leave['type_of_leave'].$l_status ?></h5>
-				<p class="single_notification_date_time no-marg"><?= $sq_emp['first_name'].' '.$sq_emp['last_name'] ?></p>
+				<h5 class="single_notification_text no-marg"><?= $row_leave['type_of_leave'].$d_date ?></h5>
+				<p class="single_notification_date_time no-marg"><?= $l_status.' '.$sq_emp['first_name'].' '.$sq_emp['last_name'] ?></p>
 			</li>
 			<?php }
 		}
 		else{
 			$sq_leave = mysqlQuery("select * from leave_request where 1 and status!='' and emp_id='$emp_id' order by request_id desc limit 5");
 			while($row_leave = mysqli_fetch_assoc($sq_leave)){
-			$sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$row_leave[emp_id]'"));
+			$sq_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_leave[emp_id]'"));
 			$d_date = '('.get_date_user($row_leave['from_date']).' To '.get_date_user($row_leave['to_date']).')';
 			$l_status = ($row_leave['status'] != '') ? '('.$row_leave['status'].')' : $d_date;
 			?>
