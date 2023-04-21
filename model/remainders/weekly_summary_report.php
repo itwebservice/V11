@@ -8,7 +8,7 @@ $cur_date = date('Y-m-d');
 // $day = date("D", strtotime($cur_date));
 $time = date("H", strtotime($cur_date));
 
-if($time=='21'){
+// if($time=='21'){
 
     $email_content = '
         <tr>
@@ -36,5 +36,5 @@ if($time=='21'){
         $max=$value['max']+1;
         $sq_check_status=mysqlQuery("INSERT INTO `remainder_status`(`id`, `remainder_name`, `date`, `status`) VALUES ('$max','week_sum_remainder','$cur_date','Done')");
     }
-}
+// }
 ?>

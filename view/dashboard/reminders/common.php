@@ -27,114 +27,144 @@ $today_date = $from_date;
                     <tbody>
                         <!-- Customer passport renewal -->
                         <?php
+                        $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                        $branch_status = $sq_branch['branch_status'];
 	                    $exp_date = date('Y-m-d', strtotime('+7 days', strtotime($today_date)));
                         $sq_pass = mysqlQuery("SELECT * from package_travelers_details where passport_expiry_date='$exp_date' and status!='Cancel'");
                         while($row_pass=mysqli_fetch_assoc($sq_pass))
                         {
-                            $sq_booking = mysqli_fetch_assoc(mysqlQuery("SELECT customer_id,booking_date,booking_id from package_tour_booking_master where booking_id='$row_pass[booking_id]'"));
-                            $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
-                            $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
-                            $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
-                            $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
-                            $date = $sq_booking['booking_date'];
-                            $yr = explode("-", $date);
-                            $year = $yr[0];
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer passport renewal</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name.'('.$pass_name.')' ?></td>
-                                    <td><?= 'Package Booking ID : '.get_package_booking_id($sq_booking['booking_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                            $query = "SELECT customer_id,booking_date,booking_id from package_tour_booking_master where booking_id='$row_pass[booking_id]'";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_booking = mysqli_fetch_assoc(mysqlQuery($query));
+                            if($sq_booking['customer_id'] != ''){
+                                $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
+                                $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
+                                $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
+                                $date = $sq_booking['booking_date'];
+                                $yr = explode("-", $date);
+                                $year = $yr[0];
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer passport renewal</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name.'('.$pass_name.')' ?></td>
+                                        <td><?= 'Package Booking ID : '.get_package_booking_id($sq_booking['booking_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
                             }
+                        }
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $sq_pass = mysqlQuery("SELECT * from travelers_details where passport_expiry_date='$exp_date' and status!='Cancel'");
                             while($row_pass=mysqli_fetch_assoc($sq_pass))
                             {
-                                $sq_booking = mysqli_fetch_assoc(mysqlQuery("SELECT id,customer_id,form_date from tourwise_traveler_details where traveler_group_id='$row_pass[traveler_group_id]'"));
-                                $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
-                                $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
-                                $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
-                                $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
-                                $date = $sq_booking['form_date'];
-                                $yr = explode("-", $date);
-                                $year = $yr[0];
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer passport renewal</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name.'('.$pass_name.')' ?></td>
-                                    <td><?= 'Group Booking ID : '.get_group_booking_id($sq_booking['id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                                $query = "SELECT id,customer_id,form_date from tourwise_traveler_details where traveler_group_id='$row_pass[traveler_group_id]'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_booking = mysqli_fetch_assoc(mysqlQuery($query));
+                                if($sq_booking['customer_id'] != ''){
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                    $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
+                                    $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
+                                    $date = $sq_booking['form_date'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer passport renewal</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name.'('.$pass_name.')' ?></td>
+                                        <td><?= 'Group Booking ID : '.get_group_booking_id($sq_booking['id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/ticket/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $sq_pass = mysqlQuery("SELECT * from ticket_master_entries where passport_expiry_date='$exp_date' and status!='Cancel'");
                             while($row_pass=mysqli_fetch_assoc($sq_pass))
                             {
-                                $sq_booking = mysqli_fetch_assoc(mysqlQuery("SELECT created_at,ticket_id,customer_id from ticket_master where ticket_id='$row_pass[ticket_id]'"));
-                                $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
-                                $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
-                                $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
-                                $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
-                                $date = $sq_booking['created_at'];
-                                $yr = explode("-", $date);
-                                $year = $yr[0];
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer passport renewal</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name.'('.$pass_name.')' ?></td>
-                                    <td><?= 'Flight Booking ID : '.get_ticket_booking_id($sq_booking['ticket_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                                $query = "SELECT created_at,ticket_id,customer_id from ticket_master where ticket_id='$row_pass[ticket_id]'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_booking = mysqli_fetch_assoc(mysqlQuery($query));
+                                if($sq_booking['customer_id'] != ''){
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                    $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
+                                    $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
+                                    $date = $sq_booking['created_at'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer passport renewal</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name.'('.$pass_name.')' ?></td>
+                                        <td><?= 'Flight Booking ID : '.get_ticket_booking_id($sq_booking['ticket_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/visa/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $sq_pass = mysqlQuery("SELECT * from visa_master_entries where expiry_date='$exp_date' and status!='Cancel'");
                             while($row_pass=mysqli_fetch_assoc($sq_pass))
                             {
-                                $sq_booking = mysqli_fetch_assoc(mysqlQuery("SELECT created_at,visa_id,customer_id from visa_master where visa_id='$row_pass[visa_id]'"));
-                                $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
-                                $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
-                                $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
-                                $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
-                                $date = $sq_booking['created_at'];
-                                $yr = explode("-", $date);
-                                $year = $yr[0];
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer passport renewal</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name.'('.$pass_name.')' ?></td>
-                                    <td><?= 'Visa Booking ID : '.get_visa_booking_id($sq_booking['visa_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                                $query = "SELECT created_at,visa_id,customer_id from visa_master where visa_id='$row_pass[visa_id]'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_booking = mysqli_fetch_assoc(mysqlQuery($query));
+                                if($sq_booking['customer_id'] != ''){
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                    $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key); 
+                                    $pass_name = $row_pass['first_name'].' '.$row_pass['last_name'];
+                                    $date = $sq_booking['created_at'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer passport renewal</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name.'('.$pass_name.')' ?></td>
+                                        <td><?= 'Visa Booking ID : '.get_visa_booking_id($sq_booking['visa_id'],$year).' Expiry Date : '.get_date_user($exp_date) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="passport_renewal_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= $pass_name ?>','<?= get_date_user($exp_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
-                            // Customer Birthday
-                            $sq_customer = mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no,birth_date from customer_master where DATE_FORMAT(birth_date, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
-                            while($row_cust=mysqli_fetch_assoc($sq_customer)){
-                                $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
-                                $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key); 
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer Birthday</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name ?></td>
-                                    <td><?= 'Birth Date : '.get_date_user($row_cust['birth_date']) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                            if($role == 'Admin'){
+                                // Customer Birthday
+                                $sq_customer = mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no,birth_date from customer_master where DATE_FORMAT(birth_date, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                while($row_cust=mysqli_fetch_assoc($sq_customer)){
+                                    $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key); 
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer Birthday</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name ?></td>
+                                        <td><?= 'Birth Date : '.get_date_user($row_cust['birth_date']) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
                             // Happy Journey
                             $end_date = date('Y-m-d', strtotime('+1 days', strtotime($today_date)));
-                            $sq_tour_groups = mysqlQuery("SELECT * from tour_groups where from_date='$end_date' and status!='Cancel'");
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
+                            $query = "SELECT * from tour_groups where from_date='$end_date' and status!='Cancel'";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_tour_groups = mysqlQuery($query);
                             while($tour_detail=mysqli_fetch_assoc($sq_tour_groups))
                             {
                                 $sq_tour = mysqli_fetch_assoc(mysqlQuery("SELECT tour_name from tour_master where tour_id='$tour_detail[tour_id]'"));
@@ -160,7 +190,11 @@ $today_date = $from_date;
                                     <?php
                                 }
                             }
-                            $sq_tour_groups = mysqlQuery("SELECT * from package_tour_booking_master where tour_from_date='$end_date' ");
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
+                            $query = "SELECT * from package_tour_booking_master where tour_from_date='$end_date'";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_tour_groups = mysqlQuery($query);
                             while($tour_detail=mysqli_fetch_assoc($sq_tour_groups))
                             {
                                 $tour_name = $tour_detail['tour_name'].'('.date('d-m-Y', strtotime($tour_detail['tour_from_date'])).' to '.date('d-m-Y', strtotime($tour_detail['tour_to_date'])).')';
@@ -182,6 +216,8 @@ $today_date = $from_date;
                                 <?php
                             }
                             // Customer feedback mail
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $feedback_end_date = date('Y-m-d', strtotime('-5 days', strtotime($today_date)));
                             $sq_tour_group1 = mysqlQuery("select from_date,to_date,tour_id,group_id from tour_groups where to_date='$feedback_end_date'");
                             while($row_tour = mysqli_fetch_assoc($sq_tour_group1)){
@@ -192,8 +228,10 @@ $today_date = $from_date;
                                 $row_tour1 =  mysqli_fetch_assoc(mysqlQuery("select tour_name from tour_master where tour_id='$tour_id'"));
                                 $tour_name = $row_tour1['tour_name'];
                                 $journey_date = date('d-m-Y',strtotime($row_tour['from_date'])).' To '.date('d-m-Y',strtotime($row_tour['to_date']));
-                    
-                                $sq_bookings = mysqlQuery("select id,customer_id,form_date from tourwise_traveler_details where tour_id='$tour_id' and tour_group_id='$tour_group_id' and delete_status='0'");
+                                
+                                $query = "select id,customer_id,form_date from tourwise_traveler_details where tour_id='$tour_id' and tour_group_id='$tour_group_id' and delete_status='0'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_bookings = mysqlQuery($query);
                                 while($row_bookings = mysqli_fetch_assoc($sq_bookings)){
                     
                                     $tourwise_traveler_id = $row_bookings['id'];
@@ -220,7 +258,11 @@ $today_date = $from_date;
                                 }
                             }
                             $feedback_end_date = date('Y-m-d', strtotime('-3 days', strtotime($today_date)));
-                            $sq_booking = mysqlQuery("select * from package_tour_booking_master where tour_to_date='$feedback_end_date' and delete_status='0' and booking_id not in (select booking_id from customer_feedback_master where booking_type='Package Booking')");                    
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
+                            $query = "select * from package_tour_booking_master where tour_to_date='$feedback_end_date' and delete_status='0' and booking_id not in (select booking_id from customer_feedback_master where booking_type='Package Booking')";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_booking = mysqlQuery($query);                    
                             while($row_booking= mysqli_fetch_assoc($sq_booking)){
                                 $customer_id = $row_booking['customer_id'];
                                 $email_id = $row_booking['email_id'];
@@ -282,66 +324,82 @@ $today_date = $from_date;
                                 <?php
                                 }
                             }
-                            // User Birthday
-                            $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(dob, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
-                            while($row_cust=mysqli_fetch_assoc($sq_customer)){
-                                $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
-                                $contact_no = $row_cust['mobile_no']; 
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Customer Birthday</td>
-                                    <td><?= 'User' ?></td>
-                                    <td><?= $cust_name ?></td>
-                                    <td><?= 'Birth Date : '.get_date_user($row_cust['dob']) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
-                            }
-                            // User Anniversary
-                            $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(date_of_join, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
-                            while($row_cust=mysqli_fetch_assoc($sq_customer)){
-                                $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
-                                $contact_no = $row_cust['mobile_no']; 
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>User Anniversary</td>
-                                    <td><?= 'User' ?></td>
-                                    <td><?= $cust_name ?></td>
-                                    <td><?= 'Joining Date : '.get_date_user($row_cust['date_of_join']) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="user_anniversary_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                            if($role == 'Admin'){
+                                // User Birthday
+                                $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(dob, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                while($row_cust=mysqli_fetch_assoc($sq_customer)){
+                                    $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
+                                    $contact_no = $row_cust['mobile_no']; 
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Customer Birthday</td>
+                                        <td><?= 'User' ?></td>
+                                        <td><?= $cust_name ?></td>
+                                        <td><?= 'Birth Date : '.get_date_user($row_cust['dob']) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="customer_birthday_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
+                                // User Anniversary
+                                $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(date_of_join, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                while($row_cust=mysqli_fetch_assoc($sq_customer)){
+                                    $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
+                                    $contact_no = $row_cust['mobile_no']; 
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>User Anniversary</td>
+                                        <td><?= 'User' ?></td>
+                                        <td><?= $cust_name ?></td>
+                                        <td><?= 'Joining Date : '.get_date_user($row_cust['date_of_join']) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="user_anniversary_reminder('<?= $contact_no ?>','<?= $cust_name ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
                             // User Followups
-                            $sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
-                            while($row_emp = mysqli_fetch_assoc($sq_emp)){
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='attractions_offers_enquiry/enquiry/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
+                            // while($row_emp = mysqli_fetch_assoc($sq_emp)){
 
-                                $enquirty_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'"));
+                                $query = "select * from enquiry_master where status!='Disabled' ";
+                                if($role!='Admin' && $role!='Branch Admin' && $role_id!='7' && $role_id<'7'){
+                                    $query .= " and assigned_emp_id='$emp_id' ";  
+                                }
+                                $enquirty_count = mysqli_num_rows(mysqlQuery($query));
                                 if($enquirty_count > 0){
-                                    $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
+                                    $query = "select * from enquiry_master where status!='Disabled' ";
+                                    if($role!='Admin' && $role!='Branch Admin' && $role_id!='7' && $role_id<'7'){
+                                        $query .= " and assigned_emp_id='$emp_id'";  
+                                    }
+                                    $sq_enquiry = mysqlQuery($query);
                                     while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
 
-                                        $sq_enquiry_entry = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today_date')"));
+                                        $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery(" select enquiry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]' and followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today_date'"));
                                         if($sq_enquiry_entry > 0){
                                             $followup_count++;
                                         }
                                     }
                                 }
-                            }
+                            // }
                             if($followup_count>0){
 
-                                $sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
-                                while($row_emp = mysqli_fetch_assoc($sq_emp)){
+                                // $sq_emp = mysqlQuery("select * from emp_master where active_flag='Active'");
+                                // while($row_emp = mysqli_fetch_assoc($sq_emp)){
 
                                     $enquiries = '';
-                                    $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
-                                    $contact_no = $row_emp['mobile_no']; 
-                                    $sq_enquiry_count = mysqli_num_rows(mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]' and enquiry_id in(select enquiry_id from enquiry_master_entries where followup_status in ('Active','In-Followup') and DATE(followup_date) = '$today_date')"));
-                                    if($sq_enquiry_count > 0){
-                                        $sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and assigned_emp_id='$row_emp[emp_id]'");
+                                        $query = "select * from enquiry_master where status!='Disabled'";
+                                        if($role!='Admin' && $role!='Branch Admin' && $role_id!='7' && $role_id<'7'){
+                                            $query .= " and assigned_emp_id='$emp_id' ";  
+                                        }
+                                        $sq_enquiry = mysqlQuery($query);
+
                                         while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
+
+                                            $row_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id'"));
+                                            $contact_no = $row_emp['mobile_no']; 
+                                            $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
 
                                             $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery("select * from enquiry_master_entries where entry_id=(select max(entry_id) as entry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]')"));
                                             $enquiry_content = $row_enq['enquiry_content'];
@@ -375,88 +433,91 @@ $today_date = $from_date;
                                         </tr>
                                         <?php
                                     }
-                                }
-                            }
-                            // daily summary report to admin
-                            $sq_emp = mysqlQuery("select * from emp_master where emp_id='1'");
-                            while($row_emp = mysqli_fetch_assoc($sq_emp)){
+                            // }
+                            if($role == 'Admin'){
+                                // daily summary report to admin
+                                $sq_emp = mysqlQuery("select * from emp_master where emp_id='1'");
+                                while($row_emp = mysqli_fetch_assoc($sq_emp)){
 
-                                $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
-                                $contact_no = $row_emp['mobile_no']; 
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Daily Summary Report</td>
-                                    <td><?= 'Admin' ?></td>
-                                    <td><?= $emp_name ?></td>
-                                    <td><?= 'Daily Summary Report Date : '.get_date_user($today_date) ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= get_date_user($today_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                            <?php } 
-                            // Tax pay to admin
-                            $row_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='1'"));
-                            $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
-                            $contact_no = $row_emp['mobile_no']; 
-                            $sq_settings = mysqli_fetch_assoc(mysqlQuery("select tax_type,tax_pay_date from app_settings where setting_id='1'"));
-                            $tax_type= $sq_settings['tax_type'];
-                            $tax_pay_date = $sq_settings['tax_pay_date'];
-                            $tax_pay_day = date_parse_from_format('Y-m-d', $tax_pay_date)['day'];
-                            $tax_date = date('Y-m-d', strtotime('+7 days', strtotime($today_date)));
-
-                            $tax_day = date_parse_from_format('Y-m-d', $tax_date)['day'];
-                            $quart_date = date('Y-m-d', strtotime("+3 months", strtotime($tax_pay_date)));
-                            $quart_date1 = date('Y-m-d',strtotime("+6 months", strtotime($tax_pay_date)));
-                            $quart_date2 =  date('Y-m-d',strtotime("+9 months", strtotime($tax_pay_date)));
-                            $year_date  = date("d-m", strtotime($tax_pay_date));
-                            $tax_year_date  = date("d-m", strtotime($tax_date));
-                            if($tax_type=='Monthly' && $tax_pay_day==$tax_day){
-                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
-                                if($sq_count==0){ ?>
-                                    <tr class="<?= $bg ?>">
-                                        <td><?= ++$count ?></td>
-                                        <td>Tax Pay</td>
-                                        <td><?= 'Admin' ?></td>
-                                        <td><?= $emp_name ?></td>
-                                        <td><?= 'Tax Pay Date : '.date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                    </tr>
-                                    <?php
-                                }
-                            }
-                                
-                            if($tax_type=='Quarterly' && ($tax_date==$tax_pay_date ||  $tax_date==$quart_date || $tax_date==$quart_date1 || $tax_date==$quart_date2)){
-                                
-                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
-                                if($sq_count==0){ ?>
-                                    <tr class="<?= $bg ?>">
-                                        <td><?= ++$count ?></td>
-                                        <td>Tax Pay</td>
-                                        <td><?= 'Admin' ?></td>
-                                        <td><?= $emp_name ?></td>
-                                        <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                    </tr>
-                                    <?php
-                                }
-                            }
-
-                            if($tax_type=='Yearly' && $year_date==$tax_year_date){
-                                
-                                $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
-                                if($sq_count==0){
+                                    $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
+                                    $contact_no = $row_emp['mobile_no']; 
                                     ?>
                                     <tr class="<?= $bg ?>">
                                         <td><?= ++$count ?></td>
-                                        <td>Tax Pay</td>
+                                        <td>Daily Summary Report</td>
                                         <td><?= 'Admin' ?></td>
                                         <td><?= $emp_name ?></td>
-                                        <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><?= 'Daily Summary Report Date : '.get_date_user($today_date) ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="daily_summary_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= get_date_user($today_date) ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
-                                    <?php
-                                }	
-                            }
+                                <?php }
+                                // Tax pay to admin
+                                $row_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='1'"));
+                                $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
+                                $contact_no = $row_emp['mobile_no']; 
+                                $sq_settings = mysqli_fetch_assoc(mysqlQuery("select tax_type,tax_pay_date from app_settings where setting_id='1'"));
+                                $tax_type= $sq_settings['tax_type'];
+                                $tax_pay_date = $sq_settings['tax_pay_date'];
+                                $tax_pay_day = date_parse_from_format('Y-m-d', $tax_pay_date)['day'];
+                                $tax_date = date('Y-m-d', strtotime('+7 days', strtotime($today_date)));
+
+                                $tax_day = date_parse_from_format('Y-m-d', $tax_date)['day'];
+                                $quart_date = date('Y-m-d', strtotime("+3 months", strtotime($tax_pay_date)));
+                                $quart_date1 = date('Y-m-d',strtotime("+6 months", strtotime($tax_pay_date)));
+                                $quart_date2 =  date('Y-m-d',strtotime("+9 months", strtotime($tax_pay_date)));
+                                $year_date  = date("d-m", strtotime($tax_pay_date));
+                                $tax_year_date  = date("d-m", strtotime($tax_date));
+                                if($tax_type=='Monthly' && $tax_pay_day==$tax_day){
+                                    $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                    if($sq_count==0){ ?>
+                                        <tr class="<?= $bg ?>">
+                                            <td><?= ++$count ?></td>
+                                            <td>Tax Pay</td>
+                                            <td><?= 'Admin' ?></td>
+                                            <td><?= $emp_name ?></td>
+                                            <td><?= 'Tax Pay Date : '.date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?></td>
+                                            <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_pay_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                                    
+                                if($tax_type=='Quarterly' && ($tax_date==$tax_pay_date ||  $tax_date==$quart_date || $tax_date==$quart_date1 || $tax_date==$quart_date2)){
+                                    
+                                    $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                    if($sq_count==0){ ?>
+                                        <tr class="<?= $bg ?>">
+                                            <td><?= ++$count ?></td>
+                                            <td>Tax Pay</td>
+                                            <td><?= 'Admin' ?></td>
+                                            <td><?= $emp_name ?></td>
+                                            <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
+                                            <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m-Y', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+
+                                if($tax_type=='Yearly' && $year_date==$tax_year_date){
+                                    
+                                    $sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'tax_pay_raminder' and date='$today_date' and status='Done'"));
+                                    if($sq_count==0){
+                                        ?>
+                                        <tr class="<?= $bg ?>">
+                                            <td><?= ++$count ?></td>
+                                            <td>Tax Pay</td>
+                                            <td><?= 'Admin' ?></td>
+                                            <td><?= $emp_name ?></td>
+                                            <td><?= 'Tax Pay Date : '.date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?></td>
+                                            <td><button class="btn btn-info btn-sm" onclick="tax_pay_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= date('d-m', strtotime($tax_date)).' ('.$tax_type.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        </tr>
+                                        <?php
+                                    }	
+                                }
+                            } // Only for Admin
                             // tour checklist to admin
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $tour_name = '';
                             $tommorow = date('Y-m-d', strtotime('+1 day', strtotime($today_date)));
                             $sq_tour_groups = mysqlQuery("select * from tour_groups where from_date='$tommorow' and status='Active'");
@@ -465,10 +526,13 @@ $today_date = $from_date;
                                 $sq_tour = mysqli_fetch_assoc(mysqlQuery("select tour_name from tour_master where tour_id='$row_tour_groups[tour_id]'"));
                                 $tour_name .= $sq_tour['tour_name'].'('.date('d-m-Y', strtotime($row_tour_groups['from_date'])).' to '.date('d-m-Y', strtotime($row_tour_groups['to_date'])).')';
                                 $entity_list = "";
-                    
-                                $sq_tour = mysqlQuery("select * from tourwise_traveler_details where tour_id='$row_tour_groups[tour_id]' and tour_group_id='$row_tour_groups[group_id]' and tour_group_status!='Cancel'");
+                                $query = "select * from tourwise_traveler_details where tour_id='$row_tour_groups[tour_id]' and tour_group_id='$row_tour_groups[group_id]' and tour_group_status!='Cancel'";
+                                include "../../../model/app_settings/branchwise_filteration.php";
+                                $sq_tour = mysqlQuery($query);
                                 while($row_tour = mysqli_fetch_assoc($sq_tour)){
                                     $sq_checklist_count = mysqli_num_rows(mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'"));
+                                    $row_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_booking[emp_id]'"));
+                                    $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
                                     if($sq_checklist_count!=0){
                                         $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'");
                                         while($row_checklist = mysqli_fetch_assoc($sq_checklist)){
@@ -490,13 +554,19 @@ $today_date = $from_date;
                                 <?php }
                             }
                             // tour checklist to admin
+                            $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
+                            $branch_status = $sq_branch['branch_status'];
                             $tour_name = '';
                             $tommorow = date('Y-m-d', strtotime('+1 day', strtotime($today_date)));
-                            $sq_tour_groups = mysqlQuery("select * from package_tour_booking_master where tour_from_date='$tommorow' and tour_status='' and delete_status='0'");
+                            $query = "select * from package_tour_booking_master where tour_from_date='$tommorow' and tour_status='' and delete_status='0' ";
+                            include "../../../model/app_settings/branchwise_filteration.php";
+                            $sq_tour_groups = mysqlQuery($query);
                             while($row_booking = mysqli_fetch_assoc($sq_tour_groups)){
 
                                 $tour_name = $row_booking['tour_name'].'('.date('d-m-Y', strtotime($row_booking['tour_from_date'])).' to '.date('d-m-Y', strtotime($row_booking['tour_to_date'])).')';
                                 $entity_list = "";
+                                $row_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_booking[emp_id]'"));
+                                $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
                     
                                 $sq_checklist_count = mysqli_num_rows(mysqlQuery("select * from checklist_package_tour where tour_type='Package Tour' and booking_id='$row_booking[booking_id]'"));
                                 if($sq_checklist_count!=0){
