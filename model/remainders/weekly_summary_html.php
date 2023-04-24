@@ -3,7 +3,6 @@ include_once('../model.php');
 $theme_color = "#36aae7"; $theme_color_dark = "#239ede"; $theme_color_2 = "#1d4372"; $topbar_color = "#ffffff"; $sidebar_color = "#36aae7"; 
 ?>
 <?php
-$week_start_date = date('Y-m-d', strtotime('-5 days'));
 $converted_count = 0;
 $closed_count = 0;
 $followup_count = 0;

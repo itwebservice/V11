@@ -1,4 +1,3 @@
-
 <?php
 include_once("../../../model/model.php");
 $emp_id = $_SESSION['emp_id'];

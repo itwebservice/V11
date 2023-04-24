@@ -5,7 +5,6 @@ global $app_email_id, $app_name, $app_contact_no, $admin_logo_url, $app_website;
 global $mail_em_style, $mail_font_family, $mail_strong_style, $mail_color,$theme_color;
 
 $cur_date = date('Y-m-d');
-// $day = date("D", strtotime($cur_date));
 $time = date("H", strtotime($cur_date));
 
 // if($time=='21'){
