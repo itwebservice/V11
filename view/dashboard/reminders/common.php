@@ -532,7 +532,7 @@ $today_date = $from_date;
                                 $sq_tour = mysqlQuery($query);
                                 while($row_tour = mysqli_fetch_assoc($sq_tour)){
                                     $sq_checklist_count = mysqli_num_rows(mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'"));
-                                    $row_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_booking[emp_id]'"));
+                                    $row_emp = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from emp_master where emp_id='$row_tour[emp_id]'"));
                                     $emp_name = $row_emp['first_name'].' '.$row_emp['last_name'];
                                     if($sq_checklist_count!=0){
                                         $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'");
