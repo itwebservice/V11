@@ -26,7 +26,7 @@
 					$query .= " and en.branch_admin_id = '$branch_admin_id'";
 				}
 			}
-			$query .=" group by en.enquiry_id order by ef.created_at desc limit 5";
+			$query .=" order by en.enquiry_id desc limit 5";
 			$sq_enquiry = mysqlQuery($query);
 			while($row_enquiry = mysqli_fetch_assoc($sq_enquiry)){
 				$date = $row_enquiry['enquiry_date'];
