@@ -9,76 +9,87 @@ $role_id = $_SESSION['role_id'];
 $login_id = $_SESSION['login_id'];
 $reminder_status = (isset($_SESSION['reminder_status'])) ? "true" : "false";
 $getClient =  mysqli_fetch_array(mysqlQuery("select client_id from app_settings"))['client_id'];
+$modules = json_decode(file_get_contents("modules.json"),true);
 
-
+if(empty($modules))
+{
+    $modules = [];
+}
 ?>
 <!-- tickets -->
 
 <style>
     .center-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100vh;
-	/****** center box
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        /****** center box
 	width: 300px;
 	height: 300px;
 	border: solid 1px #aaa;
 	******/
-}
+    }
 
-.loader-circle-2 {
-	position: relative;
-	width: 70px;
-	height: 70px;
-	display: inline-block;
-}
-.loader-circle-2:before,
-.loader-circle-2:after {
-	content: "";
-	display: block;
-	position: absolute;
-	border-width: 5px;
-	border-style: solid;
-	border-radius: 50%;
-}
-.loader-circle-2:before {
-	width: 70px;
-	height: 70px;
-	border-bottom-color: #009688;
-	border-right-color: #009688;
-	border-top-color: transparent;
-	border-left-color: transparent;
-	animation: loader-circle-2-animation-2 1s linear infinite;
-}
-.loader-circle-2:after {
-	width: 40px;
-	height: 40px;
-	border-bottom-color: #e91e63;
-	border-right-color: #e91e63;
-	border-top-color: transparent;
-	border-left-color: transparent;
-	top: 22%;
-	left: 22%;
-	animation: loader-circle-2-animation 0.85s linear  infinite;
-}
-@keyframes loader-circle-2-animation {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(-360deg);
-	}
-}
-@keyframes loader-circle-2-animation-2 {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
+    .loader-circle-2 {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    .loader-circle-2:before,
+    .loader-circle-2:after {
+        content: "";
+        display: block;
+        position: absolute;
+        border-width: 5px;
+        border-style: solid;
+        border-radius: 50%;
+    }
+
+    .loader-circle-2:before {
+        width: 70px;
+        height: 70px;
+        border-bottom-color: #009688;
+        border-right-color: #009688;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        animation: loader-circle-2-animation-2 1s linear infinite;
+    }
+
+    .loader-circle-2:after {
+        width: 40px;
+        height: 40px;
+        border-bottom-color: #e91e63;
+        border-right-color: #e91e63;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: 22%;
+        left: 22%;
+        animation: loader-circle-2-animation 0.85s linear infinite;
+    }
+
+    @keyframes loader-circle-2-animation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(-360deg);
+        }
+    }
+
+    @keyframes loader-circle-2-animation-2 {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 <div class="dashboard_table dashboard_table_panel main_block mg_bt_25" style="padding: 40px;">
 
@@ -96,7 +107,7 @@ $getClient =  mysqli_fetch_array(mysqlQuery("select client_id from app_settings"
                 <div class="col-md-6 ">
                     <!-- Button trigger modal -->
                     <div class="text-right">
-                       
+
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodal">
                             Add New +
                         </button>
@@ -131,11 +142,22 @@ $getClient =  mysqli_fetch_array(mysqlQuery("select client_id from app_settings"
                                                     </div>
                                                     <div class="col-md-6 mg_tp_10">
                                                         <label for="" class="form-label">Module</label>
-                                                        <input type="text" name="" id="module" title="Module" class=" form-control" placeholder="*Module">
+                                                        <input type="text" name="" id="module" title="Module" class=" form-control" list="module_list" placeholder="*Module" onchange="getSubmodules()"><datalist id="module_list">
+                                                                <?php
+                                                            foreach($modules as $module)
+                                                            {
+                                                                ?>
+                                                                    <option value="<?= $module['name'] ?>" data-moduleid="<?= $module['id'] ?>">
+                                                            <?php }
+                                                        ?>  
+                                                        </datalist>
                                                     </div>
                                                     <div class="col-md-6 mg_tp_10">
                                                         <label for="" class="form-label">Sub Module</label>
-                                                        <input type="text" name="" id="submodule" title="Sub Module" class=" form-control" placeholder="*Sub Module">
+                                                        <input type="text" name="" id="submodule" title="Sub Module" class=" form-control" placeholder="*Sub Module" list="sub_module_list">
+                                                        <datalist id="sub_module_list">
+                                                                    <option value="Sub Module">
+                                                        </datalist>
                                                     </div>
                                                     <div class="col-md-6 mg_tp_10">
                                                         <label for="" class="form-label">Issue Type</label>
@@ -317,7 +339,7 @@ require_once('../layouts/admin_footer.php');
 
     // $(document).ready(function() {
     getData();
-       
+
     // });
 
     function clearForm() {
@@ -327,14 +349,24 @@ require_once('../layouts/admin_footer.php');
         $('#sslink').val('');
         $('#videolink').val('');
     }
-    function getData()
-    {
+
+    function getData() {
         $("#get_tickets_report").html(`<div class="center-body"><div class="loader-circle-2"></div></div>`);
         var clientId = $('#client').val();
-        $.get('get_data.php',{clientId:clientId},function(data){
-                console.log(data);
-                $('#get_tickets_report').html(data);
+        $.get('get_data.php', {
+            clientId: clientId
+        }, function(data) {
+           
+            $('#get_tickets_report').html(data);
         });
     }
-
+    getSubmodules();
+    function getSubmodules() {
+        // var test = $('#module');
+        var module_name = $('#module').val();
+        $.post('get_submodules.php',{module_name:module_name},function(data)
+        {   
+            $('#sub_module_list').html(data);
+        });
+    }
 </script>
