@@ -2,6 +2,7 @@
 include "../../../../model/model.php";
 $role = $_SESSION['role']; 
 $role_id = $_SESSION['role_id'];
+$emp_id = $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/visa/index.php'"));
 $branch_status = $sq['branch_status'];

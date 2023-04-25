@@ -56,7 +56,7 @@ public function entity_save()
 public function entity_update()
 {
 	$entity_id=$_POST['entity_id'];
-	$entity_name_arr = $_POST['entity_name_arr'];
+	$entity_name_arr = (!empty($_POST['entity_name_arr'])) ? $_POST['entity_name_arr'] : [];
 	$entry_id_arr = $_POST['entry_id_arr'];
 	$checked_arr = $_POST['checked_arr'];
 
