@@ -23,7 +23,7 @@ $branch_status = $sq['branch_status'];
 
                 <!-- Single Menu start -->
                 <li class="dropdown">
-                  <a href="#">Tour Summary <span class="caret"></span></a>
+                  <a href="#">Sales Summary <span class="caret"></span></a>
                   <ul class="dropdown_menu no-pad">
                     <li><span onclick="show_report_reflect('Complete Tour Summary')">Complete Tour Summary</span></li>
                   </ul>
@@ -40,8 +40,8 @@ $branch_status = $sq['branch_status'];
                     <li><span onclick="show_report_reflect('Complete Tour Cancel/Refund')">Complete Tour Cancel/Refund</span></li>
                     <li><span onclick="show_report_reflect('Traveller Cancel/Refund')">Traveller Cancel/Refund</span></li>
                     <li><span onclick="show_report_reflect('Itinerary And Gift')">Itinerary And Gift</span></li>
-                    <li><span onclick="show_report_reflect('Repeater Tourist')">Repeater Tourist</span></li>
-                    <li><span onclick="show_report_reflect('Tour Tickets')">Tour Tickets</span></li>
+                    <li><span onclick="show_report_reflect('Group Repeater Customer')">Repeater Customer</span></li>
+                    <li><span onclick="show_report_reflect('Group Travel Tickets')">Travel Tickets</span></li>
                   </ul>
                 </li>
                 <!-- Single Menu end -->
@@ -52,8 +52,8 @@ $branch_status = $sq['branch_status'];
                   <ul class="dropdown_menu no-pad">
                     <li><span onclick="show_report_reflect('Passenger Report')">Passenger Report</span></li>
                     <li><span onclick="show_report_reflect('Tour Refund')">Tour Refund</span></li>
-                    <li><span onclick="show_report_reflect('Package Repeater Tourist')">Repeater Tourist</span></li>
-                    <li><span onclick="show_report_reflect('Travel Tickets')">Travel Tickets</span></li>
+                    <li><span onclick="show_report_reflect('Package Repeater Customer')">Repeater Customer</span></li>
+                    <li><span onclick="show_report_reflect('Package Travel Tickets')">Travel Tickets</span></li>
                   </ul>
                 </li>
                 <!-- Single Menu end -->
@@ -107,14 +107,14 @@ function show_report_reflect(report_name){
     if(report_name=="Complete Tour Cancel/Refund"){ url = 'reports_content/group_tour/refund_tour_cancelation_report/index.php'; }
     if(report_name=="Traveller Cancel/Refund"){ url = 'reports_content/group_tour/refund_cancelled_traveler_report/index.php'; }
     if(report_name=="Itinerary And Gift"){ url = 'reports_content/group_tour/adnary_and_gift_handover_report/index.php'; }
-    if(report_name=="Repeater Tourist"){ url = 'reports_content/group_tour/repeater_tourist_report/index.php'; }
-    if(report_name=="Tour Tickets"){ url = 'reports_content/group_tour/booking_tickets/index.php'; }
+    if(report_name=="Group Repeater Customer"){ url = 'reports_content/group_tour/repeater_tourist_report/index.php'; }
+    if(report_name=="Group Travel Tickets"){ url = 'reports_content/group_tour/booking_tickets/index.php'; }
 
     //FIT Report
     if(report_name=="Passenger Report"){ url = 'reports_content/package_tour/tourwise_report/index.php'; }
     if(report_name=="Tour Refund"){ url = 'reports_content/package_tour/refund_report/index.php'; }
-    if(report_name=="Travel Tickets"){ url = 'reports_content/package_tour/booking_tickets/index.php'; }
-    if(report_name=="Package Repeater Tourist"){ url = 'reports_content/package_tour/repeater_tourist_report/index.php'; }
+    if(report_name=="Package Travel Tickets"){ url = 'reports_content/package_tour/booking_tickets/index.php'; }
+    if(report_name=="Package Repeater Customer"){ url = 'reports_content/package_tour/repeater_tourist_report/index.php'; }
 
     $.post(url,{}, function(data){
         $(".dropdown_menu").addClass('hidden');

@@ -270,7 +270,7 @@ while($row_b2b = mysqli_fetch_assoc($sq_b2b)){
 		}
 		$pass_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]'"));
 		$cancle_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]' and status='Cancel'"));
-		if($pass_count!=$cancle_count && $pending_amt>'0'){
+		if($pending_amt>'0'){
 		?>
 		<tr>
 		    <td class="col-md-2"><?= $count++ ?></td>
@@ -314,7 +314,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 	}
 	$pass_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$row_visa[visa_id]'"));
 	$cancel_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$row_visa[visa_id]' and status='Cancel'"));
-	if($pass_count!=$cancle_count && $bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0' && $sq_entries != $sq_entries_cancel){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -335,8 +335,8 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id ='$row_ticket[ticket_id]' and status='Cancel'"));  
 	$sq_paid_amount = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from ticket_payment_master where ticket_id='$row_ticket[ticket_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
 
-	$paid_amount = $sq_paid_amount['sum']+$sq_paid_amount['sumc'];
-	$sale_amount = $row_ticket['ticket_total_cost']+$sq_paid_amount['sumc'];
+	$paid_amount = $sq_paid_amount['sum'] + $sq_paid_amount['sumc'];
+	$sale_amount = $row_ticket['ticket_total_cost'] + $sq_paid_amount['sumc'];
 	$cancel_est = $row_ticket['cancel_amount'];
 
 	//Consider sale cancel amount
@@ -363,7 +363,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		$bal_amount = $sale_amount - $paid_amount;
 	}
 	
-	if($bal_amount>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amount>'0'){
 	?>
 	<tr>
 		<td class="col-md-2"><?= $count++ ?></td>
@@ -399,7 +399,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 	else{
 		$bal = $sale_amount - $paid_amount;
 	}
-	if($bal>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal>'0'){
 	?>		
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -435,7 +435,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	else{
 		$total_bal = $sale_bal - $paid_amount;
 	}
-	if($total_bal>'0' && $sq_entries != $sq_entries_cancel){
+	if($total_bal>'0'){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -472,7 +472,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	else{
 		$total_bal=$total_purchase-$sq_payment_info['sum']-$sq_payment_info['sumc'];
 	}
-	if($total_bal>'0' && $sq_entries != $sq_entries_cancel){	
+	if($total_bal>'0'){	
 	?>
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -485,7 +485,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	}
 }
 //Car Rental
-$query = "select * from car_rental_booking where 1 and customer_id='$customer_id' and status!='Cancel' and delete_status='0'";
+$query = "select * from car_rental_booking where 1 and customer_id='$customer_id' and delete_status='0'";
 $sq_booking = mysqlQuery($query);
 while($row_booking = mysqli_fetch_assoc($sq_booking))
 {
@@ -580,7 +580,7 @@ while($row1 = mysqli_fetch_assoc($sq1))
 			$balance_amount = $sale_total_amount - $paid_amount;
 		}
 	}
-	if($row1['tour_group_status'] != 'Cancel' && $cancel_esti_count1 == 0 && $balance_amount>'0'){
+	if($balance_amount>'0'){
 	?>
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -624,7 +624,7 @@ while($row_ex= mysqli_fetch_assoc($sq_ex)){
 	else{
     	$bal_amt = $total_ex_amount - $sq_payment_info['sum'];
 	}
-	if($bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0'){
 	?>		
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -666,7 +666,7 @@ while($row_msc = mysqli_fetch_assoc($sq_misc)){
 	else{
 		$bal_amt = $misc_total_amount-$sq_payment_info['sum'] -$sq_payment_info['sumc']; 
 	}
-	if($bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0'){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
