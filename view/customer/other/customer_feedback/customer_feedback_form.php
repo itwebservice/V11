@@ -3,7 +3,6 @@ include "../../../../model/model.php";
 $customer_id = $_GET['customer_id'];
 $booking_id = $_GET['booking_id']; 
 $tour_name = $_GET['tour_name'];
- 
 ?>
 <head>
 

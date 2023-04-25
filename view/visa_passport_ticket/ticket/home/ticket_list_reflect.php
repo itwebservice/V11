@@ -88,14 +88,14 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		
 	$paid_amount = $sq_paid_amount['sum'] + $credit_card_charges;
 	$paid_amount = ($paid_amount == '')?0:$paid_amount;
-	$sale_amount = $row_ticket['ticket_total_cost'] - $row_ticket['cancel_amount'] + $credit_card_charges;
+	$sale_amount = $row_ticket['ticket_total_cost'] + $credit_card_charges;
 
 	$cancel_amt = $row_ticket['cancel_amount'];
 	if($cancel_amt==""){ $cancel_amt = 0;}
 	
 	$total_sale = $total_sale + $row_ticket['ticket_total_cost']+ $credit_card_charges;
 	$total_cancelation_amount = $total_cancelation_amount + $cancel_amt;
-	$total_balance = $total_balance + $sale_amount;
+	$total_balance = $total_balance + $sale_amount - $cancel_amt;
 
 	if($row_ticket['cancel_type'] == '1'){
 		if($paid_amount > 0){
@@ -164,7 +164,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		get_ticket_booking_id($row_ticket['ticket_id'],$year),
 		$customer_name,
 		$contact_no,
-		number_format($row_ticket['ticket_total_cost']+ $credit_card_charges,2),
+		number_format($row_ticket['ticket_total_cost'] + $credit_card_charges,2),
 		$cancel_amt,
 		number_format(($row_ticket['ticket_total_cost'] - $cancel_amt + $credit_card_charges), 2),
 		$emp_name,

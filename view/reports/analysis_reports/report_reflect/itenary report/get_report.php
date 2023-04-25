@@ -209,8 +209,6 @@ function getPassengers($bookingId)
         return $names[0];
     }
 }
-
-// $query =  "SELECT * FROM package_tour_schedule_master inner join package_tour_booking_master on package_tour_schedule_master.booking_id=package_tour_booking_master.booking_id";
 $query =  "SELECT * FROM package_tour_booking_master";
 $query2 =  "SELECT * FROM package_quotation_program inner join package_tour_booking_master on package_quotation_program.quotation_id=package_tour_booking_master.quotation_id";
 
@@ -233,26 +231,11 @@ while ($data = mysqli_fetch_assoc($result)) {
             $temparr2 =  getTodaysItenaryByPackage($data['booking_id'], $selectedDate);
             if (!empty($temparr2)) {
                             array_push($array_s, $temparr2);
-                 }   
+            }   
         }
         array_push($usedId, (int)$data['booking_id']);
     }
 }
-
-
-// while ($data2 = mysqli_fetch_assoc($result2)) {
-//     if (!in_array((int)$data2['booking_id'], $usedId2)) {
-//         $temparr =  getTodaysItenaryByPackage($data2['booking_id'], $selectedDate);
-//         if (!empty($temparr)) {
-//             array_push($array_s, $temparr);
-//         }
-//         array_push($usedId2, (int)$data2['booking_id']);
-//     }
-// }
-
-
-
-
 
 $footer_data = array(
     "footer_data" => array()

@@ -5,7 +5,7 @@ $tour_type = $_POST['tour_type'];
 $count = $_POST['count'];
 ?>
 
-<div class="modal fade profile_box_modal" id="view_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+<div class="modal fade profile_box_modal" id="view_summary_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="text-align:center!important;">
         <div class="modal-header">
@@ -1083,5 +1083,5 @@ $count = $_POST['count'];
 </div>
 <script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>
 <script>
-$('#view_modal').modal('show');
+$('#view_summary_modal').modal('show');
 </script>

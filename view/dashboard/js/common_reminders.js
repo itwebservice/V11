@@ -17,14 +17,13 @@ function customer_feedback_reminder(type,id,customer_id,contact_no,cust_name,dat
     
     var base_url = $('#base_url').val();
     if(type == 'package'){
-        var type = 'Package Booking';
+        var type1 = 'Package Booking';
     }else{
-        var type = 'Group Booking';
+        var type1 = 'Group Booking';
     }
-    var params = encodeURIComponent("customer_id="+customer_id+"&booking_id="+id+"&tour_name="+type);
-    var link = base_url+"view/customer/other/customer_feedback/customer_feedback_form.php?"+params;
-
-    var msg = encodeURI("Dear " + cust_name + ",\n\nWe would be very grateful to you if you take a couple of minutes to complete our online feedback form..\n"+data+"\n\n*Feedback Link* : "+link);
+    var link = base_url+"view/customer/other/customer_feedback/customer_feedback_form.php?"+"customer_id="+customer_id+"%26booking_id="+id+"%26tour_name="+type1;
+    var msg = encodeURI("Dear " + cust_name + ",\n\nWe would be very grateful to you if you take a couple of minutes to complete our online feedback form..\n"+data+"\n\n*Feedback Link* : ");
+    msg +=link;
 	window.open('https://web.whatsapp.com/send?phone=' + contact_no + '&text=' + msg);
 }
 function task_reminder(contact_no,cust_name,data){

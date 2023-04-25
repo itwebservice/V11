@@ -18,25 +18,9 @@ function addDayInDate($date)
 
 function getTodaysItenaryByPackage($id, $selectedDate)
 {
-    $role = $_SESSION['role'];
-    $role_id = $_SESSION['role_id'];
-    $emp_id = $_SESSION['emp_id'];
-    $branch_admin_id = $_SESSION['branch_admin_id'];
-    $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
-    $branch_status = $sq_branch['branch_status'];
+    $temp = array();
     $query =  "SELECT * FROM package_quotation_program inner join package_tour_booking_master on package_quotation_program.quotation_id=package_tour_booking_master.quotation_id where package_tour_booking_master.booking_id='$id'";
-    if($branch_status=='yes'){
-        if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
-            $query .= " and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-        elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-            $query .= " and package_tour_booking_master.emp_id='$emp_id' and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-    }
-    elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-        $query .= " and package_tour_booking_master.emp_id='$emp_id'";
-    }
-
+    
     $res = mysqlQuery($query);
     $first = 0;
     global $i;
@@ -61,9 +45,9 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
-                        return $temparr = array("data" => array(
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
+                        return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
                             $customer_name . ' [' . json_encode($getPassenger) . ']',
@@ -100,8 +84,8 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -126,25 +110,8 @@ function getTodaysItenaryByPackage($id, $selectedDate)
 
 function getTodaysItenary($id, $selectedDate)
 {
-    $role = $_SESSION['role'];
-    $role_id = $_SESSION['role_id'];
-    $emp_id = $_SESSION['emp_id'];
-    $branch_admin_id = $_SESSION['branch_admin_id'];
-    $names = array();
-    $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
-    $branch_status = $sq_branch['branch_status'];
+    $temp = array();
     $query =  "SELECT * FROM package_tour_schedule_master inner join package_tour_booking_master on package_tour_schedule_master.booking_id=package_tour_booking_master.booking_id where package_tour_schedule_master.booking_id='$id'";
-    if($branch_status=='yes'){
-        if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
-            $query .= " and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-        elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-            $query .= " and package_tour_booking_master.emp_id='$emp_id' and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-    }
-    elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-        $query .= " and package_tour_booking_master.emp_id='$emp_id'";
-    }
     $res = mysqlQuery($query);
     $first = 0;
     global $i;
@@ -171,8 +138,8 @@ function getTodaysItenary($id, $selectedDate)
 
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
 
                         return  $temparr = array("data" => array(
                             (int) ($i++),
@@ -209,8 +176,8 @@ function getTodaysItenary($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -234,27 +201,8 @@ function getTodaysItenary($id, $selectedDate)
 
 function getPassengers($bookingId)
 {
-    $role = $_SESSION['role'];
-    $role_id = $_SESSION['role_id'];
-    $emp_id = $_SESSION['emp_id'];
-    $branch_admin_id = $_SESSION['branch_admin_id'];
     $names = array();
-    $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='package_booking/booking/index.php'"));
-    $branch_status = $sq_branch['branch_status'];
-
     $query = "select * from package_travelers_details inner join package_tour_booking_master on package_travelers_details.booking_id=package_tour_booking_master.booking_id where package_tour_booking_master.booking_id='$bookingId'";
-    if($branch_status=='yes'){
-        if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
-            $query .= " and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-        elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-            $query .= " and package_tour_booking_master.emp_id='$emp_id' and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-        }
-    }
-    elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-        $query .= " and package_tour_booking_master.emp_id='$emp_id'";
-    }
-
     $run = mysqlQuery($query);
     if (mysqli_num_rows($run) > 0) {
         while ($data = mysqli_fetch_array($run)) {
@@ -265,56 +213,31 @@ function getPassengers($bookingId)
         return $names[0];
     }
 }
-
-$query =  "SELECT * FROM package_tour_schedule_master inner join package_tour_booking_master on package_tour_schedule_master.booking_id=package_tour_booking_master.booking_id";
-if($branch_status=='yes'){
-    if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
-        $query .= " and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-    }
-    elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-        $query .= " and package_tour_booking_master.emp_id='$emp_id' and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-    }
-}
-elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-    $query .= " and package_tour_booking_master.emp_id='$emp_id'";
-}
-
+$query =  "SELECT * FROM package_tour_booking_master";
 $query2 =  "SELECT * FROM package_quotation_program inner join package_tour_booking_master on package_quotation_program.quotation_id=package_tour_booking_master.quotation_id";
-if($branch_status=='yes'){
-    if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
-        $query2 .= " and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-    }
-    elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-        $query2 .= " and package_tour_booking_master.emp_id='$emp_id' and package_tour_booking_master.branch_admin_id = '$branch_admin_id'";
-    }
-}
-elseif($role!='Admin' && $role!='Branch Admin' && $role!='Accountant' && $role_id!='7' && $role_id<'7'){
-    $query2 .= " and package_tour_booking_master.emp_id='$emp_id'";
-}
 
 
+$type = 'display';
 $result = mysqlQuery($query);
 $result2 = mysqlQuery($query2);
 $count = 1;
 $usedId = array();
 $usedId2 = array();
+
 while ($data = mysqli_fetch_assoc($result)) {
+    
     if (!in_array((int)$data['booking_id'], $usedId)) {
         $temparr =  getTodaysItenary($data['booking_id'], $selectedDate);
         if (!empty($temparr)) {
             array_push($array_s, $temparr);
+        } else {
+            // $temparr2 =  getTodaysItenaryByPackage($data['booking_id'], $selectedDate);
+            $temparr2 =  getTodaysItenaryByPackage($data['booking_id'], $selectedDate);
+            if (!empty($temparr2)) {
+                            array_push($array_s, $temparr2);
+            }   
         }
         array_push($usedId, (int)$data['booking_id']);
-    }
-}
-
-while ($data2 = mysqli_fetch_assoc($result2)) {
-    if (!in_array((int)$data2['booking_id'], $usedId2)) {
-        $temparr =  getTodaysItenaryByPackage($data2['booking_id'], $selectedDate);
-        if (!empty($temparr)) {
-            array_push($array_s, $temparr);
-        }
-        array_push($usedId2, (int)$data2['booking_id']);
     }
 }
 
