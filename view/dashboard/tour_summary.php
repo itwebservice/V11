@@ -18,7 +18,7 @@ $today1 = date('Y-m-d H:i');
                 <div class="row mg_tp_20">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="border: 0;" id="tbl_otours_list">
+                            <table class="table table-hover" style="border: 0;width:100%!important;" id="tbl_otours_list">
                                 <thead>
                                     <tr class="table-heading-row">
                                         <th>S_No.</th>
@@ -29,7 +29,7 @@ $today1 = date('Y-m-d H:i');
                                         <th>Mobile</th>
                                         <th>Owned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th>Checklist_Status</th>
-                                        <th>Actions&nbsp;&nbsp;&nbsp;</th>
+                                        <th style="display:flex;">Actions&nbsp;&nbsp;&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>

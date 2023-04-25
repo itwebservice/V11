@@ -20,7 +20,7 @@ $today_date = date('Y-m-d');
                         <th>S_No.</th>
                         <th>Tour_Type</th>
                         <th>Booking_ID</th>
-                        <th>Customer_Name</th>
+                        <th>Customer/Supplier_Name</th>
                         <th>Due_Date</th>
                         <th>Total_Amount</th>
                         <th>Paid_Amount</th>
@@ -52,7 +52,7 @@ $today_date = date('Y-m-d');
                             $customer_name = mysqli_fetch_assoc(mysqlQuery("select type,first_name,last_name,company_name from customer_master where customer_id='$customer_id'"));
                             $customer_name1 = ($customer_name['type'] == 'Corporate'||$customer_name['type'] == 'B2B') ? $customer_name['company_name'] : $customer_name1 = $customer_name['first_name'].' '.$customer_name['last_name'];
                             $paid_amount = $sq_total_paid['sum'] + $credit_card_amount;
-                            $cancel_est = mysqli_fetch_assoc(mysqlQuery("select cancel_amount from package_refund_traveler_estimate where booking_id='$sq_package_info[booking_id]'"));
+                            $cancel_est = mysqli_fetch_assoc(mysqlQuery("select cancel_amount from package_refund_traveler_estimate where booking_id='$row_tour_details[booking_id]'"));
                             $cancel_amount = $cancel_est['cancel_amount'];
                             if ($cancel_amount != '') {
                                 if ($cancel_amount <= $paid_amount) {
