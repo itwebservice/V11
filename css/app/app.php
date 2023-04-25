@@ -601,6 +601,10 @@ transition: all ease-in-out 0.3s;
 height:40px;
 }
 
+textarea.form-control{
+height:40px;
+}
+
 .form-control::placeholder {
 color: #878a99;
 font-weight: 300;
@@ -1505,7 +1509,8 @@ transition: all 0.5s;
 button.btn-excel i:hover{
 background: <?= $theme_color ?>;
 color: #ffffff;
-margin-top: -8px;
+margin-top: -5px;
+margin-bottom: 5px;
 transition: all 0.5s;
 }
 
