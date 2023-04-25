@@ -198,23 +198,27 @@ $today_date = $from_date;
                             $sq_tour_groups = mysqlQuery($query);
                             while($tour_detail=mysqli_fetch_assoc($sq_tour_groups))
                             {
-                                $tour_name = $tour_detail['tour_name'].'('.date('d-m-Y', strtotime($tour_detail['tour_from_date'])).' to '.date('d-m-Y', strtotime($tour_detail['tour_to_date'])).')';
-                                $date = $tour_detail['booking_date'];
-                                $yr = explode("-", $date);
-                                $year = $yr[0];
-                                $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$tour_detail[customer_id]'"));
-                                $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
-                                $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key);
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>Happy Journey</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name ?></td>
-                                    <td><?= 'Package Booking ID : '.get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="happy_journey_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                                <?php
+                                $pass_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$tour_detail[booking_id]'"));
+                                $cancle_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$tour_detail[booking_id]' and status='Cancel'"));
+                                if($pass_count!=$cancle_count){
+                                    $tour_name = $tour_detail['tour_name'].'('.date('d-m-Y', strtotime($tour_detail['tour_from_date'])).' to '.date('d-m-Y', strtotime($tour_detail['tour_to_date'])).')';
+                                    $date = $tour_detail['booking_date'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$tour_detail[customer_id]'"));
+                                    $cust_name = ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') ? $sq_customer['company_name'] : $sq_customer['first_name'].' '.$sq_customer['last_name'];
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($sq_customer['contact_no'], $secret_key);
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>Happy Journey</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name ?></td>
+                                        <td><?= 'Package Booking ID : '.get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="happy_journey_reminder('<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($tour_detail['booking_id'],$year).' ('.$tour_name.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                    <?php
+                                }
                             }
                             // Customer feedback mail
                             $sq_branch = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='booking/index.php'"));
