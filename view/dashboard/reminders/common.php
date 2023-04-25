@@ -320,7 +320,7 @@ $today_date = $from_date;
                                     <td><?= 'User' ?></td>
                                     <td><?= $emp_name ?></td>
                                     <td><?= $task_name.' ('.$task_type.' task), Due Date/Time :'.$due_date ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="task_reminder('<?= $mobile_no ?>','<?= $emp_name ?>','<?= $task_name.' ('.$task_type.' task), Due Date/Time :'.$due_date ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    <td><button class="btn btn-info btn-sm" onclick="task_reminder('<?= $mobile_no ?>','<?= $emp_name ?>','<?= addslashes($task_name).' ('.$task_type.' task), Due Date/Time :'.$due_date ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                 </tr>
                                 <?php
                                 }
@@ -538,7 +538,7 @@ $today_date = $from_date;
                                         $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Group Tour' and booking_id='$row_tour[id]'");
                                         while($row_checklist = mysqli_fetch_assoc($sq_checklist)){
                                             $sq_to_do = mysqli_fetch_assoc(mysqlQuery("select * from to_do_entries where id='$row_checklist[entity_id]'"));
-                                            $entity_list .= $sq_to_do['entity_name'].", ";		
+                                            $entity_list .= addslashes($sq_to_do['entity_name']).", ";		
                                         }
                                     }
                                 }
@@ -549,8 +549,8 @@ $today_date = $from_date;
                                         <td>Group Tour Checklist</td>
                                         <td><?= 'Admin' ?></td>
                                         <td><?= $emp_name ?></td>
-                                        <td><?= 'Group Tour Checklist : '.$tour_name.' List : '.$entity_list ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><?= 'Group Tour Checklist : '.$tour_name.' List : '.rtrim(stripslashes($entity_list),', ') ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Group Tour Checklist : '.$tour_name.'List : '.rtrim($entity_list,', ') ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
                                 <?php }
                             }
@@ -574,7 +574,7 @@ $today_date = $from_date;
                                     $sq_checklist = mysqlQuery("select * from checklist_package_tour where tour_type='Package Tour' and booking_id='$row_booking[booking_id]'");
                                     while($row_checklist = mysqli_fetch_assoc($sq_checklist)){
                                         $sq_to_do = mysqli_fetch_assoc(mysqlQuery("select * from to_do_entries where id='$row_checklist[entity_id]'"));
-                                        $entity_list .= $sq_to_do['entity_name'].", ";
+                                        $entity_list .= addslashes($sq_to_do['entity_name']).", ";
                                     }
                                 }
                                 $date = $row_booking['booking_date'];
@@ -588,8 +588,9 @@ $today_date = $from_date;
                                         <td>Package Tour Checklist</td>
                                         <td><?= 'Admin' ?></td>
                                         <td><?= $emp_name ?></td>
-                                        <td><?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.$entity_list ?></td>
-                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.$entity_list ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                        <td><?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.rtrim($entity_list,',
+                                        ') ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="tour_checlikst_reminder('<?= $contact_no ?>','<?= $emp_name ?>','<?= 'Package Tour Checklist : '.$invoice_no.'('.$tour_name.' List : '.rtrim($entity_list,', ') ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
                                     </tr>
                                 <?php }
                             }

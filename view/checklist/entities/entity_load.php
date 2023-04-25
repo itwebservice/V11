@@ -11,7 +11,7 @@ $branch_admin_id = $_SESSION['branch_admin_id'];
 $check_list_array = Array();
 
 if($entity_for=="Group Tour"){
-    $check_list_array = ['Visa Document Collect','Visa Document Processing','Visa Approve','Flight/Train Ticket Purchase','Hotels Purchase & Confirmation','Activity Purchase & Confirmation','Transport Purchase & Confirmation','Service Vouchers handover','Travel Ticket Handover','Activity Ticket Handover','Happy Journey Wishes','Driver Assigned'];
+    $check_list_array = ['Visa Document Collect','Visa Document Processing','Visa Approve','Flight/Train Ticket Purchase','Hotels Purchase and Confirmation','Activity Purchase and Confirmation','Transport Purchase and Confirmation','Service Vouchers handover','Travel Ticket Handover','Activity Ticket Handover','Happy Journey Wishes','Driver Assigned'];
 }
 else if($entity_for=="Visa Booking"){
     $check_list_array=['Document Confirm','Document Received','Document Process','Visa Confirm','Visa Handover'];
@@ -23,11 +23,11 @@ else if($entity_for=="Train Booking"){
 }
 
 else if($entity_for=="Hotel Booking"){
-    $check_list_array = ['Hotels Purchase & Confirmation','Service Vouchers handover'];
+    $check_list_array = ['Hotels Purchase and Confirmation','Service Vouchers handover'];
 }
 
 else if($entity_for=="Bus Booking"){
-    $check_list_array = ['Bus Booking & Confirmation','Ticket Handover'];
+    $check_list_array = ['Bus Booking and Confirmation','Ticket Handover'];
 
 }
 else if($entity_for=="Car Rental Booking"){
@@ -37,10 +37,10 @@ else if($entity_for=="Passport Booking"){
     $check_list_array = ['Passport Date shared with customer','Passport Consultancy Done'];
 }
 else if($entity_for=="Excursion Booking"){
-    $check_list_array = ['Activity Purchase & Confirmation','Activity Ticket Handover'];
+    $check_list_array = ['Activity Purchase and Confirmation','Activity Ticket Handover'];
 }
 else{
-    $check_list_array = ['Visa Document Collect','Visa Document Processing','Visa Approve','Flight/Train Ticket Purchase','Hotels Purchase & Confirmation','Activity Purchase & Confirmation','Transport Purchase & Confirmation','Service Vouchers handover','Travel Ticket Handover','Activity Ticket Handover','Happy Journey Wishes','Driver Assigned','Driver Contact Details shared'];
+    $check_list_array = ['Visa Document Collect','Visa Document Processing','Visa Approve','Flight/Train Ticket Purchase','Hotels Purchase and Confirmation','Activity Purchase and Confirmation','Transport Purchase and Confirmation','Service Vouchers handover','Travel Ticket Handover','Activity Ticket Handover','Happy Journey Wishes','Driver Assigned','Driver Contact Details shared'];
 }
 echo json_encode($check_list_array);
 ?>
