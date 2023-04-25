@@ -244,11 +244,11 @@ while($row_cruise = mysqli_fetch_assoc($sq_cruise)){
 }
 
 //Ticket Vendor
-$sq_ticket_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return='0' and vendor_type='Ticket Vendor' and  purchase_date = '$cur_date'"));
+$sq_ticket_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return='0' and vendor_type='Ticket Vendor' and purchase_date = '$cur_date'"));
 $p_ticket = 0;
 $sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return='0' and vendor_type='Ticket Vendor' and purchase_date = '$cur_date'");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
-  if($row_tr['cancel_type']=='0'){
+  if($row_tr['purchase_return']=='0'){
     $p_ticket = $p_ticket + $row_tr['net_total'];
   }
 }

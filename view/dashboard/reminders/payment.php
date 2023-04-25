@@ -14,7 +14,7 @@ $today_date = date('Y-m-d');
 <div class="col-md-12">
     <div class="col-md-12 no-pad table_verflow"> 
         <div class="row"> <div class="col-md-12"> <div class="table-responsive">
-            <table class="table table-hover" style="width: 100% !important;" id="reminder_report">    
+            <table class="table table-hover" style="border: 0;" id="reminder_report">    
                 <thead>
                     <tr class="table-heading-row">
                         <th>S_No.</th>
@@ -25,7 +25,7 @@ $today_date = date('Y-m-d');
                         <th>Total_Amount</th>
                         <th>Paid_Amount</th>
                         <th>Balance_Amount</th>
-                        <th style="display:flex">Actions&nbsp;&nbsp;&nbsp;</th>
+                        <th >Actions&nbsp;&nbsp;&nbsp;</th>
                     </tr>
                 </thead>
                     <tbody>

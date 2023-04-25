@@ -29,8 +29,9 @@ $branch_status = $sq['branch_status'];
                 if($customer_id !=''){
                   $query .= " and customer_id='$customer_id'";
                 }
-                include "../../../model/app_settings/branchwise_filteration.php";
+                include "../../../../model/app_settings/branchwise_filteration.php";
                 $query .= " order by visa_id desc";
+              echo $query;
                 $sq_visa = mysqlQuery($query);
                 while($row_visa = mysqli_fetch_assoc($sq_visa)){
                   $sq_entries = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id ='$row_visa[visa_id]'"));
