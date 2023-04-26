@@ -61,7 +61,7 @@ $today_date = $from_date;
                             $sq_pass = mysqlQuery("SELECT * from travelers_details where passport_expiry_date='$exp_date' and status!='Cancel'");
                             while($row_pass=mysqli_fetch_assoc($sq_pass))
                             {
-                                $query = "SELECT id,customer_id,form_date from tourwise_traveler_details where traveler_group_id='$row_pass[traveler_group_id]' and tour_group_status!='Cancel'";
+                                $query = "SELECT id,customer_id,form_date,traveler_group_id from tourwise_traveler_details where traveler_group_id='$row_pass[traveler_group_id]' and tour_group_status!='Cancel'";
                                 include "../../../model/app_settings/branchwise_filteration.php";
                                 $sq_booking = mysqli_fetch_assoc(mysqlQuery($query));
                                 if($sq_booking['customer_id'] != ''){
@@ -243,7 +243,7 @@ $today_date = $from_date;
                                 $tour_name = $row_tour1['tour_name'];
                                 $journey_date = date('d-m-Y',strtotime($row_tour['from_date'])).' To '.date('d-m-Y',strtotime($row_tour['to_date']));
                                 
-                                $query = "select id,customer_id,form_date from tourwise_traveler_details where tour_id='$tour_id' and tour_group_id='$tour_group_id' and delete_status='0' and tour_group_status!='Cancel'";
+                                $query = "select id,customer_id,form_date,traveler_group_id from tourwise_traveler_details where tour_id='$tour_id' and tour_group_id='$tour_group_id' and delete_status='0' and tour_group_status!='Cancel'";
                                 include "../../../model/app_settings/branchwise_filteration.php";
                                 $sq_bookings = mysqlQuery($query);
                                 while($row_bookings = mysqli_fetch_assoc($sq_bookings)){
