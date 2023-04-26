@@ -128,7 +128,6 @@ $('#payment_date').datetimepicker({ timepicker:false, format:'d-m-Y' });
 $('#ticket_id').select2();
 
 $(function(){
-
 $('#frm_ticket_payment_save').validate({
   rules:{
     ticket_id : { required : true },
