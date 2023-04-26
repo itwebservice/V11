@@ -41,7 +41,7 @@ $query = $conn->query("delete from head_master where head_id >= '14'");
 $query = $conn->query("delete from subgroup_master where subgroup_id >= '114'");
 $query = $conn->query("delete from gallary_master where entry_id >= '1086'");
 $query = $conn->query("delete from sac_master where sac_id >= '13'");
-$query = $conn->query("delete from visa_type_master where entry_id >= '12'");
+$query = $conn->query("delete from visa_type_master where visa_type_id >= '12'");
 $query = $conn->query("delete from b2b_transfer_master where entry_id>'5'");
 
 $query = $conn->query("delete from financial_year where financial_year_id>='2'");
