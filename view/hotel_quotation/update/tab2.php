@@ -5,6 +5,7 @@
                 <h3 class="editor_title main_block">Hotel Details</h3>
                 <div class="row mg_bt_10" style="margin-right:0px">
                     <div class="col-xs-12 text-right text_center_xs mg_tp_10">
+                        <button type="button" class="btn btn-info btn-sm ico_left" title="Add Hotel" onclick="hotel_save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Hotel</button>
                         <button type="button" class="btn btn-excel btn-sm"
                             onClick="addRow('hotel_quotation_update');city_lzloading('.city_master_dropdown')"><i
                                 class="fa fa-plus"></i></button>
