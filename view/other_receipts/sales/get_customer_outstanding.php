@@ -40,7 +40,7 @@ if($sq_ledger_count != '0'){
 
 	$sq_advance = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `corporate_advance_master` WHERE `cust_id`='$customer_id' and `clearance_status`!='Pending' and `clearance_status`!='Cancelled'"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `payment_master` WHERE tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id' and tour_group_status!='Cancel') and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `payment_master` WHERE tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id') and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
 	
 	$sq_cancel_tour = mysqli_fetch_assoc(mysqlQuery("select sum(`cancel_amount`) as sum_c1 from refund_tour_estimate where tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id')"));
