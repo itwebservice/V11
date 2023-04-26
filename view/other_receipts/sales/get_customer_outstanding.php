@@ -40,64 +40,48 @@ if($sq_ledger_count != '0'){
 
 	$sq_advance = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `corporate_advance_master` WHERE `cust_id`='$customer_id' and `clearance_status`!='Pending' and `clearance_status`!='Cancelled'"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `payment_master` WHERE tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id' and tour_group_status!='Cancel') and tourwise_traveler_id not in (select tourwise_traveler_id from refund_traveler_estimate where 1) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `payment_master` WHERE tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id') and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	
-	$sq_cancel_tour = mysqli_fetch_assoc(mysqlQuery("select sum(`cancel_amount`) as sum_c1 from refund_tour_estimate where tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id')"));
-	$sq_cancel_travel = mysqli_fetch_assoc(mysqlQuery("select sum(`cancel_amount`) as sum_c1 from refund_traveler_estimate where tourwise_traveler_id in (select id from tourwise_traveler_details where customer_id='$customer_id')"));
-	
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `package_payment_master` WHERE booking_id in (select booking_id from package_tour_booking_master where customer_id='$customer_id') and booking_id not in (select booking_id from package_refund_traveler_estimate where 1) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
-	$utilized_advance += $sq_payment['sum'];
-	$cancel_est = mysqli_fetch_assoc(mysqlQuery("select sum(`cancel_amount`) as sum_c from package_refund_traveler_estimate where booking_id in (select booking_id from package_tour_booking_master where customer_id='$customer_id')"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `hotel_booking_payment` WHERE booking_id in (select booking_id from hotel_booking_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`amount`) as sum FROM `package_payment_master` WHERE booking_id in (select booking_id from package_tour_booking_master where customer_id='$customer_id') and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel1 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM hotel_booking_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `ticket_payment_master` WHERE ticket_id in (select ticket_id from ticket_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `hotel_booking_payment` WHERE booking_id in (select booking_id from hotel_booking_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel2 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM ticket_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `train_ticket_payment_master` WHERE train_ticket_id in (select train_ticket_id from train_ticket_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `ticket_payment_master` WHERE ticket_id in (select ticket_id from ticket_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$utilized_advance += $sq_payment['sum'];
+
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `train_ticket_payment_master` WHERE train_ticket_id in (select train_ticket_id from train_ticket_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
 	$sq_cancel3 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM train_ticket_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `visa_payment_master` WHERE visa_id in (select visa_id from visa_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `visa_payment_master` WHERE visa_id in (select visa_id from visa_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel4 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM visa_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `bus_booking_payment_master` WHERE booking_id in (select booking_id from bus_booking_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `bus_booking_payment_master` WHERE booking_id in (select booking_id from bus_booking_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel5 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM bus_booking_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `car_rental_payment` WHERE booking_id in (select booking_id from car_rental_booking where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `car_rental_payment` WHERE booking_id in (select booking_id from car_rental_booking where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel6 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM car_rental_booking where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `exc_payment_master` WHERE exc_id in (select exc_id from excursion_master where customer_id='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `exc_payment_master` WHERE exc_id in (select exc_id from excursion_master where customer_id='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel7 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM excursion_master where customer_id='$customer_id' and cancel_flag=1"));
 
-	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `miscellaneous_payment_master` WHERE misc_id in (select misc_id from miscellaneous_master where customer_id ='$customer_id' and cancel_flag=0) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
+	$sq_payment = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`payment_amount`) as sum FROM `miscellaneous_payment_master` WHERE misc_id in (select misc_id from miscellaneous_master where customer_id ='$customer_id' ) and `clearance_status`!='Pending' and `clearance_status`!='Cancelled' and payment_mode='Advance'"));
 	$utilized_advance += $sq_payment['sum'];
-	$sq_cancel8 = mysqli_fetch_assoc(mysqlQuery("SELECT sum(`cancel_amount`) as sum_c FROM miscellaneous_master where customer_id='$customer_id' and cancel_flag=1"));
 ?>
 <div class="panel panel-default panel-body app_panel_style mg_tp_20 feildset-panel">
     <legend>Advance Details</legend>
 	<div class="row mg_tp_20">
 		<div class="col-md-5">
 			<?php
-			$cancel_amount_total = $sq_cancel1['sum_c'] + $sq_cancel2['sum_c'] + $sq_cancel3['sum_c'] + $sq_cancel4['sum_c'] + $sq_cancel5['sum_c'] + $sq_cancel6['sum_c'] + $sq_cancel7['sum_c'] + $sq_cancel8['sum_c'] + $cancel_est['sum_c'] + $sq_cancel_tour['sum_c1'] + $sq_cancel_travel['sum_c1'];
-			$cancel_amount_total = (floatval($cancel_amount_total) < 0) ? 0 : $cancel_amount_total;
-
 			$total_debit = 0;
 			$total_credit = 0;
 			$balance = 0;
 			$balance = $sq_advance['sum'] - floatval($utilized_advance);
 			$balance = (floatval($balance) < 0) ? 0 : $balance;
-			$balance = $balance - $cancel_amount_total;
 			echo $sq_ledger['ledger_name'].' : '.'('.$sq_ledger['dr_cr'].')';
-			$balance = (floatval($balance) < 0) ? 0 : $balance;
 			?>
 		</div>
 		<div class="col-md-2">
