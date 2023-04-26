@@ -184,7 +184,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_vendor['email_id'], $secret_key);
 
 							        					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
 
-							        				    <?php echo "<label>PAN/TAN No <em>:</em></label> " .$sq_vendor['pan_no']; ?>
+							        				    <?php echo "<label>Personal Identification No(PIN) <em>:</em></label> " .strtoupper($sq_vendor['pan_no']); ?>
 
 							        				</span>
 													<span class="main_block">

@@ -43,6 +43,14 @@ $(window).resize(function(){
 	}
 });
 //**Sidebar toggle script end
+    function notification_count_update() {
+        
+        var base_url = $('#base_url').val();
+        $.post(base_url+'view/layouts/notifications/notification_count.php', {    }, function(data) {
+            $('#notify_count').html(data);
+        });
+    }
+    notification_count_update();
 
 </script>
 <script src="<?php echo BASE_URL ?>js/app/footer_scripts.js"></script>

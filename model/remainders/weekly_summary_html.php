@@ -2,17 +2,15 @@
 include_once('../model.php');
 $theme_color = "#36aae7"; $theme_color_dark = "#239ede"; $theme_color_2 = "#1d4372"; $topbar_color = "#ffffff"; $sidebar_color = "#36aae7"; 
 ?>
-<?php 
-$week_start_date = date('Y-m-d', strtotime('-5 days'));
+<?php
 $converted_count = 0;
 $closed_count = 0;
 $followup_count = 0;
 $inf_count = 0;
 
 //************************************Enquiy summary ***********************************************//
-$cur_date = date('Y-m-d');
-$day = date("D", strtotime($cur_date));
-$sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and enquiry_date between '$week_start_date' and '$cur_date'");
+$cur_date = get_date_db($_GET['cur_date']);
+$sq_enquiry = mysqlQuery("select * from enquiry_master where status!='Disabled' and enquiry_date = '$cur_date'");
 while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
 
     $sq_enquiry_entry = mysqli_fetch_assoc(mysqlQuery("select followup_status from enquiry_master_entries where entry_id=(select max(entry_id) as entry_id from enquiry_master_entries where enquiry_id='$row_enq[enquiry_id]')"));
@@ -33,17 +31,17 @@ while($row_enq = mysqli_fetch_assoc($sq_enquiry)){
 }
 
 //************************************Task summary ***********************************************//
-$sq_task =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date between '$week_start_date' and '$cur_date' "));
+$sq_task =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date = '$cur_date' "));
 
-$sq_task_complete =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date between '$week_start_date' and '$cur_date' and task_status='Completed' "));
+$sq_task_complete =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date = '$cur_date' and task_status='Completed' "));
 
-$sq_task_active =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date between '$week_start_date' and '$cur_date' and task_status='Created' "));
+$sq_task_active =mysqli_num_rows(mysqlQuery("select * from tasks_master where remind_due_date = '$cur_date' and task_status='Created' "));
 
 //************************************Sale summary ***********************************************//
 //Group booking
 $sq_group_booking = 0;
 $group_amount = 0;
-$tourwise_details = mysqlQuery("select * from tourwise_traveler_details where DATE(form_date) between '$week_start_date' and '$cur_date' and tour_group_status!='Cancel' and delete_status='0'");
+$tourwise_details = mysqlQuery("select * from tourwise_traveler_details where DATE(form_date) = '$cur_date' and tour_group_status!='Cancel' and delete_status='0'");
 while($row_group = mysqli_fetch_assoc($tourwise_details)){
 
   $pass_count = mysqli_num_rows(mysqlQuery("select * from  travelers_details where traveler_group_id='$row_group[id]'"));
@@ -58,7 +56,7 @@ while($row_group = mysqli_fetch_assoc($tourwise_details)){
 //Package booking
 $sq_package_booking = 0;
 $package_amount = 0;
-$sq_package = mysqlQuery("select * from package_tour_booking_master where booking_date between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_package = mysqlQuery("select * from package_tour_booking_master where booking_date = '$cur_date' and delete_status='0'");
 while($row_package = mysqli_fetch_assoc($sq_package)){
 
   //Tour TOtal
@@ -74,7 +72,7 @@ while($row_package = mysqli_fetch_assoc($sq_package)){
 // Visa booking
 $sq_visa_booking = 0;
 $visa_amount = 0;
-$sq_visa = mysqlQuery("select * from visa_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_visa = mysqlQuery("select * from visa_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_visa = mysqli_fetch_assoc($sq_visa)){
 
   $pass_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$row_visa[visa_id]'"));
@@ -88,7 +86,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 // Miscellaneous booking
 $sq_misc_booking = 0;
 $misc_amount = 0;
-$sq_visa = mysqlQuery("select * from miscellaneous_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_visa = mysqlQuery("select * from miscellaneous_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_visa = mysqli_fetch_assoc($sq_visa)){
 
   $pass_count = mysqli_num_rows(mysqlQuery("select * from  miscellaneous_master_entries where misc_id='$row_visa[misc_id]'"));
@@ -102,7 +100,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 //Passport booking
 $sq_passport_booking = 0;
 $passport_amount = 0;
-$sq_pass = mysqlQuery("select * from passport_master where DATE(created_at) between '$week_start_date' and '$cur_date'");
+$sq_pass = mysqlQuery("select * from passport_master where DATE(created_at) = '$cur_date'");
 while($row_pass = mysqli_fetch_assoc($sq_pass)){
 
 	$pass_count = mysqli_num_rows(mysqlQuery("select * from  passport_master_entries where passport_id='$row_pass[passport_id]'"));
@@ -116,13 +114,15 @@ while($row_pass = mysqli_fetch_assoc($sq_pass)){
 // Air ticket booking
 $sq_air_booking = 0;
 $air_amount = 0;
-$sq_air = mysqlQuery("select * from ticket_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_air = mysqlQuery("select * from ticket_master where DATE(created_at) = '$cur_date' and cancel_type!='1' and delete_status='0'");
 while($row_air = mysqli_fetch_assoc($sq_air)){
 
-    $pass_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id='$row_air[ticket_id]'"));
-    $cancel_count = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id='$row_air[ticket_id]' and status='Cancel'"));
-    if($pass_count!=$cancel_count){
+    if($row_air['cancel_type']=='0'){
       $air_amount = $air_amount + $row_air['ticket_total_cost'];
+      $sq_air_booking++;
+    }else if($row_air['cancel_type']=='2' || $row_air['cancel_type']=='3'){
+      $cancel_estimate = json_decode($row_air['cancel_estimate']);
+      $air_amount = $row_air['ticket_total_cost'] - floatval($cancel_estimate[0]->ticket_total_cost);
       $sq_air_booking++;
     }
 }
@@ -130,7 +130,7 @@ while($row_air = mysqli_fetch_assoc($sq_air)){
 //Train booking
 $sq_train_booking = 0;
 $train_amount = 0;
-$sq_train = mysqlQuery("select * from train_ticket_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_train = mysqlQuery("select * from train_ticket_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_train = mysqli_fetch_assoc($sq_train)){
 	$pass_count = mysqli_num_rows(mysqlQuery("select * from  train_ticket_master_entries where train_ticket_id='$row_train[train_ticket_id]'"));
 	$cancel_count = mysqli_num_rows(mysqlQuery("select * from  train_ticket_master_entries where train_ticket_id='$row_train[train_ticket_id]' and status='Cancel'"));
@@ -143,7 +143,7 @@ while($row_train = mysqli_fetch_assoc($sq_train)){
 //Bus booking
 $sq_bus_booking = 0;
 $bus_amount = 0;
-$sq_bus = mysqlQuery("select * from bus_booking_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_bus = mysqlQuery("select * from bus_booking_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_bus = mysqli_fetch_assoc($sq_bus)){
   $pass_count = mysqli_num_rows(mysqlQuery("select * from bus_booking_entries where booking_id='$row_bus[booking_id]'"));
   $cancel_count = mysqli_num_rows(mysqlQuery("select * from bus_booking_entries where booking_id='$row_bus[booking_id]' and status='Cancel'"));
@@ -156,16 +156,16 @@ while($row_bus = mysqli_fetch_assoc($sq_bus)){
 // Car rental booking
 $sq_car_booking = 0;
 $car_amount = 0;
-$sq_car = mysqlQuery("select * from car_rental_booking where DATE(created_at) between '$week_start_date' and '$cur_date' and status!='Cancel' and delete_status='0'");
+$sq_car = mysqlQuery("select * from car_rental_booking where DATE(created_at) = '$cur_date' and status!='Cancel' and delete_status='0'");
 while($row_car = mysqli_fetch_assoc($sq_car)){
     $car_amount = $car_amount + $row_car['total_fees'];
     $sq_car_booking++;
 }
 
 //forex booking 
-$sq_forex_booking =mysqli_num_rows(mysqlQuery("select * from forex_booking_master where DATE(created_at) between '$week_start_date' and '$cur_date'"));
+$sq_forex_booking =mysqli_num_rows(mysqlQuery("select * from forex_booking_master where DATE(created_at) = '$cur_date'"));
 $forex_amount = 0;
-$sq_forex = mysqlQuery("select * from forex_booking_master where DATE(created_at) between '$week_start_date' and '$cur_date'");
+$sq_forex = mysqlQuery("select * from forex_booking_master where DATE(created_at) = '$cur_date'");
 while($row_forex = mysqli_fetch_assoc($sq_forex)){
     $forex_amount = $forex_amount + $row_forex['net_total'];
 }
@@ -173,7 +173,7 @@ while($row_forex = mysqli_fetch_assoc($sq_forex)){
 // Hotel booking
 $sq_hotel_booking = 0;        
 $hotel_amount = 0;
-$sq_hotel = mysqlQuery("select * from hotel_booking_master where DATE(created_at) between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_hotel = mysqlQuery("select * from hotel_booking_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_hotel = mysqli_fetch_assoc($sq_hotel)){
   $pass_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]'"));
   $cancel_count = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id='$row_hotel[booking_id]' and status='Cancel'"));
@@ -186,7 +186,7 @@ while($row_hotel = mysqli_fetch_assoc($sq_hotel)){
 // Excursion booking
 $sq_exc_booking = 0;        
 $exc_amount = 0;
-$sq_exc = mysqlQuery("select * from excursion_master where DATE(created_at) between '$week_start_date' and '$cur_date and delete_status='0''");
+$sq_exc = mysqlQuery("select * from excursion_master where DATE(created_at) = '$cur_date' and delete_status='0'");
 while($row_exc = mysqli_fetch_assoc($sq_exc)){
   $pass_count = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id='$row_exc[exc_id]'"));
   $cancel_count = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id='$row_exc[exc_id]' and status='Cancel'"));
@@ -201,103 +201,161 @@ $total_sale_amount = $group_amount + $package_amount + $visa_amount + $passport_
 //****************************** Purchase Report ********************************//
 
 //Hotel vendor
-$sq_hotel_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Hotel Vendor' and  purchase_date between '$week_start_date' and '$cur_date' and delete_status='0'"));
+$sq_hotel_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Hotel Vendor' and  purchase_date = '$cur_date' and purchase_return in('0','2')"));
 $p_hotel = 0;
-$sq_hotel = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Hotel Vendor' and purchase_date between '$week_start_date' and '$cur_date' and delete_status='0'");
+$sq_hotel = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Hotel Vendor' and purchase_date = '$cur_date' and purchase_return in('0','2')");
 while($row_hotel = mysqli_fetch_assoc($sq_hotel)){
+  if($row_hotel['purchase_return']=='0'){
     $p_hotel = $p_hotel + $row_hotel['net_total'];
+  }
+  else if($row_hotel['purchase_return']=='2'){
+		$cancel_estimate = json_decode($row_hotel['cancel_estimate']);
+		$p_hotel += $row_hotel['net_total'] - floatval($cancel_estimate[0]->net_total);
+  }
 }
 
 //DMc vendor
-$sq_dmc_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='DMC Vendor' and  purchase_date between '$week_start_date' and '$cur_date' and delete_status='0'"));
+$sq_dmc_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='DMC Vendor' and  purchase_date = '$cur_date' and purchase_return in('0','2')"));
 $p_dmc = 0;
-$sq_dmc = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and delete_status='0' and vendor_type='DMC Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_dmc = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='DMC Vendor' and purchase_date = '$cur_date'");
 while($row_dmc = mysqli_fetch_assoc($sq_dmc)){
-    $p_dmc = $p_dmc + $row_dmc['net_total'];
+    if($row_dmc['purchase_return']=='0'){
+      $p_dmc += $row_dmc['net_total'];
+    }
+    else if($row_dmc['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_dmc['cancel_estimate']);
+      $p_dmc += $row_dmc['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 //Tranport vendor
-$sq_transport_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Transport Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_transport_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Transport Vendor' and  purchase_date = '$cur_date' and purchase_return in('0','2')"));
 $p_transport = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Transport Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Transport Vendor' and purchase_date = '$cur_date' and purchase_return in('0','2')");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
-    $p_transport = $p_transport + $row_tr['net_total'];
+    if($row_tr['purchase_return']=='0'){
+      $p_transport += $row_tr['net_total'];
+    }
+    else if($row_tr['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_tr['cancel_estimate']);
+      $p_transport += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 //Car Rental vendor
-$sq_car_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Car Rental Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_car_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Car Rental Vendor' and  purchase_date = '$cur_date' and purchase_return in('0','2')"));
 $p_car = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Car Rental Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Car Rental Vendor' and purchase_date = '$cur_date' and purchase_return in('0','2')");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
-    $p_car = $p_car + $row_tr['net_total'];
+    if($row_tr['purchase_return']=='0'){
+      $p_car += $row_tr['net_total'];
+    }
+    else if($row_tr['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_tr['cancel_estimate']);
+      $p_car += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 //Visa Vendor
-$sq_visa_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Visa Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_visa_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Visa Vendor' and  purchase_date = '$cur_date'"));
 $p_visa = 0;
-$sq_visa = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Visa Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_visa = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Visa Vendor' and purchase_date = '$cur_date'");
 while($row_visa = mysqli_fetch_assoc($sq_visa)){
-    $p_visa = $p_visa + $row_visa['net_total'];
+    if($row_visa['purchase_return']=='0'){
+      $p_visa += $row_visa['net_total'];
+    }
+    else if($row_visa['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_visa['cancel_estimate']);
+      $p_visa += $row_visa['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 //Cruise Vendor
-$sq_cruise_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Cruise Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_cruise_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Cruise Vendor' and  purchase_date = '$cur_date'"));
 $p_cruise = 0;
-$sq_cruise = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Cruise Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_cruise = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Cruise Vendor' and purchase_date = '$cur_date'");
 while($row_cruise = mysqli_fetch_assoc($sq_cruise)){
-    $p_cruise = $p_cruise + $row_cruise['net_total'];
-}
-
-//Passport Vendor
-$sq_passport_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and vendor_type='Passport Vendor' and  purchase_date between '$week_start_date' and '$cur_date' and delete_status='0'"));
-$p_passport = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Passport Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
-while($row_tr = mysqli_fetch_assoc($sq_trans)){
-    $p_passport = $p_passport + $row_tr['net_total'];
+    if($row_cruise['purchase_return']=='0'){
+      $p_cruise += $row_cruise['net_total'];
+    }
+    else if($row_cruise['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_cruise['cancel_estimate']);
+      $p_cruise += $row_cruise['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 //Ticket Vendor
-$sq_ticket_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Ticket Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_ticket_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Ticket Vendor' and purchase_date = '$cur_date'"));
 $p_ticket = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Ticket Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Ticket Vendor' and purchase_date = '$cur_date'");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
+  if($row_tr['purchase_return']=='0'){
     $p_ticket = $p_ticket + $row_tr['net_total'];
+  }
+  else if($row_tr['purchase_return']=='2'){
+		$cancel_estimate = json_decode($row_tr['cancel_estimate']);
+		$p_ticket += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+  }
 }
 
 //Excursion Vendor
-$sq_exc_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Excursion Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_exc_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Excursion Vendor' and  purchase_date = '$cur_date'"));
 $exc_ticket = 0;
-$sq_exc = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Excursion Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_exc = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Excursion Vendor' and purchase_date = '$cur_date'");
 while($row_exc = mysqli_fetch_assoc($sq_exc)){
-    $exc_ticket = $exc_ticket + $row_exc['net_total'];
+    if($row_exc['purchase_return']=='0'){
+      $exc_ticket += $row_exc['net_total'];
+    }
+    else if($row_exc['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_exc['cancel_estimate']);
+      $exc_ticket += $row_exc['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 //Train Vendor
-$sq_train_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Train Ticket Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_train_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Train Ticket Vendor' and  purchase_date = '$cur_date'"));
 $p_train = 0;
-$sq_train = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Train Ticket Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_train = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Train Ticket Vendor' and purchase_date = '$cur_date'");
 while($row_tr = mysqli_fetch_assoc($sq_train)){
-    $p_train = $p_train + $row_tr['net_total'];
+    if($row_tr['purchase_return']=='0'){
+      $p_train += $row_tr['net_total'];
+    }
+    else if($row_tr['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_tr['cancel_estimate']);
+      $p_train += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 //Insurance Vendor
-$sq_insurance_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Insurance Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_insurance_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Insurance Vendor' and  purchase_date = '$cur_date'"));
 $p_ins = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Insurance Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Insurance Vendor' and purchase_date = '$cur_date'");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
-    $p_ins = $p_ins + $row_tr['net_total'];
+    if($row_tr['purchase_return']=='0'){
+      $p_ins += $row_tr['net_total'];
+    }
+    else if($row_tr['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_tr['cancel_estimate']);
+      $p_ins += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 // Other Vendor
-$sq_other_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Other Vendor' and  purchase_date between '$week_start_date' and '$cur_date'"));
+$sq_other_vendor =mysqli_num_rows(mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Other Vendor' and  purchase_date = '$cur_date'"));
 $p_other = 0;
-$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and vendor_type='Other Vendor' and purchase_date between '$week_start_date' and '$cur_date'");
+$sq_trans = mysqlQuery("select * from vendor_estimate where status!='Cancel' and delete_status='0' and purchase_return in('0','2') and vendor_type='Other Vendor' and purchase_date = '$cur_date'");
 while($row_tr = mysqli_fetch_assoc($sq_trans)){
-    $p_other = $p_other + $row_tr['net_total'];
+    if($row_tr['purchase_return']=='0'){
+      $p_other += $row_tr['net_total'];
+    }
+    else if($row_tr['purchase_return']=='2'){
+      $cancel_estimate = json_decode($row_tr['cancel_estimate']);
+      $p_other += $row_tr['net_total'] - floatval($cancel_estimate[0]->net_total);
+    }
 }
 
 $total_purchase_amount = $p_hotel + $p_transport + $p_train + $p_ticket + $p_ins + $p_car + $p_other + $p_visa+ $p_dmc + $p_passport + $exc_ticket + $p_cruise;
 
 //*************** Office Expense *****************//
-$row_exp = mysqli_fetch_assoc(mysqlQuery("select sum(total_fee) as exp_paid from other_expense_master where expense_date between '$week_start_date' and '$cur_date'"));
+$row_exp = mysqli_fetch_assoc(mysqlQuery("select sum(total_fee) as exp_paid from other_expense_master where expense_date = '$cur_date'"));
 
 ?>
 <!doctype html>
@@ -306,7 +364,7 @@ $row_exp = mysqli_fetch_assoc(mysqlQuery("select sum(total_fee) as exp_paid from
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
+  <title>Daily Report</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
@@ -369,8 +427,8 @@ $row_exp = mysqli_fetch_assoc(mysqlQuery("select sum(total_fee) as exp_paid from
         <a style="width: 40%!important;" class="navbar-brand" href="#"><img src="<?php echo BASE_URL ?>images/Admin-Area-Logo.png" class="img-responsive"></a>
         <div class="logo_right_part">
           <h1>
-            <i class="fa fa-pencil-square-o"></i> Weekly Summary Report<br>
-            <SPAN style="font-size: 15px;color: #000;">(<?php echo date('d-m-Y', strtotime($week_start_date)).' To '.date('d-m-Y', strtotime($cur_date)); ?>)</SPAN>
+            <i class="fa fa-pencil-square-o"></i> Daily Report<br>
+            <SPAN style="font-size: 15px;color: #000;">(<?php echo date('d-m-Y', strtotime($cur_date)); ?>)</SPAN>
           </h1>
         </div>
       </div>

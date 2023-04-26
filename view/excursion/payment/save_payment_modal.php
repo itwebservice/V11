@@ -1,6 +1,7 @@
 <?php
 $emp_id = $_SESSION['emp_id'];
 $role = $_SESSION['role'];
+$role_id = $_SESSION['role_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
 $branch_status = $_POST['branch_status']
 ?>
@@ -21,7 +22,7 @@ $branch_status = $_POST['branch_status']
                 <option value="">*Select Booking ID</option>
                 <?php
                   $query = "select * from excursion_master where 1 and delete_status='0' ";
-                  include "branchwise_filteration.php";
+                  include "../../../model/app_settings/branchwise_filteration.php";
                   $query .= " order by exc_id desc";
                   $sq_booking = mysqlQuery($query);
 

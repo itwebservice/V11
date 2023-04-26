@@ -288,6 +288,7 @@ function actual_enq_save(obj) {
                 msg_alert(data);
                 status.text('');
                 enquiry_proceed_reflect();
+                notification_count_update();
             }
         });
 }

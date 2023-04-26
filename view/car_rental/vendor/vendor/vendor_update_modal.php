@@ -106,7 +106,7 @@ if($role!='Admin' && $role!="Branch Admin"){ $value="readonly"; }
             <input type="text" id="service_tax_no1" name="service_tax_no1"  placeholder="Tax No" title="Tax No" value="<?= strtoupper($sq_vendor['service_tax_no']) ?>" onchange="validate_alphanumeric(this.id)" style="text-transform: uppercase;">
           </div> 
           <div class="col-md-3 col-sm-6 mg_bt_10">
-              <input type="text" id="supp_pan" onchange="validate_alphanumeric(this.id)" name="supp_pan" value="<?= $sq_vendor['pan_no']?>" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+              <input type="text" id="supp_pan" onchange="validate_alphanumeric(this.id)" name="supp_pan" value="<?= $sq_vendor['pan_no']?>" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
           </div>
           <div class="col-sm-3 col-sm-6 mg_bt_10">
             <input type="number" id="opening_balance1" name="opening_balance1" placeholder="*Opening Balance" title="Opening Balance" value="<?= $sq_vendor['opening_balance'] ?>">

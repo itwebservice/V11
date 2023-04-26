@@ -224,6 +224,9 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         </div>
       </section>
     <?php } ?>
+    <?php
+    $sq_train_count = mysqli_num_rows(mysqlQuery("select * from group_tour_quotation_train_entries where quotation_id='$quotation_id'"));
+    if($sq_train_count>0){ ?>
     <!-- Train -->
     <section class="transportDetailsPanel transportDetailsLeftPanel main_block side_pad">
       <div class="travsportInfoBlock">
@@ -261,7 +264,57 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         </div>
       </div>
     </section>
-
+    <?php } ?>
+    <?php
+      $sq_h_count = mysqli_num_rows(mysqlQuery("select * from group_tour_hotel_entries where tour_id='$sq_quotation[tour_group_id]'"));
+      if($sq_h_count>0){ ?>
+      <!-- hotel -->
+      <section class="transportDetailsPanel transportDetailsLeftPanel main_block side_pad">
+        <div class="travsportInfoBlock">
+          <div class="transportIcon">
+            <img src="<?= BASE_URL ?>images/quotation/p4/TI_hotel.png" class="img-responsive">
+          </div>
+          <div class="transportDetails">
+            <div class="table-responsive" style="margin-top:1px;margin-right: 1px;">
+              <table class="table tableTrnasp no-marg" id="tbl_emp_list">
+                <thead>
+                  <tr class="table-heading-row">
+                    <th>City Name</th>
+                    <th>Hotel Name</th>
+                    <th>Hotel Type</th>
+                    <th>Total Nights</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $count = 0;
+                  $sq_hotel = mysqlQuery("select * from group_tour_hotel_entries where tour_id='$sq_quotation[tour_group_id]'");
+                  while($row_hotel = mysqli_fetch_assoc($sq_hotel))
+                  {
+                    ?>
+                    <tr>
+                      <td><?php
+                      $city = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id = ".$row_hotel['city_id']));
+                      echo $city['city_name'] ?></td>
+                      <td><?php
+                      $hotel = mysqli_fetch_assoc(mysqlQuery("select hotel_name from hotel_master where hotel_id = ".$row_hotel['hotel_id']));
+                      echo $hotel['hotel_name'] ?></td>
+                      <td><?= $row_hotel['hotel_type'] ?></td>
+                      <td><?= $row_hotel['total_nights'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    <?php } ?>
+    <?php
+    $sq_cr_count = mysqli_num_rows(mysqlQuery("select * from group_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
+    if($sq_cr_count>0){ ?>
     <!-- Cruise -->
     <section class="transportDetailsPanel transportDetailsLeftPanel transportDetailsLastPanel main_block side_pad">
       <div class="travsportInfoBlock">
@@ -300,6 +353,8 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         </div>
       </div>
     </section>
+    <?php }
+    ?>
   </section>
 
 

@@ -6,12 +6,12 @@ include "../../../model/model.php";
 
 <div class="row text-right mg_tp_20 mg_bt_20">
     <div class="col-md-12">
-        <!-- <button class="btn btn-info btn-sm ico_left" onclick="save_modal()" id="btn_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Image</button> -->
+        <button class="btn btn-info btn-sm ico_left" onclick="save_modal()" id="btn_save_modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Image</button>
     </div>
 </div>
 
 
-<span class="note">Note: Please share new images on support@itwebservices.co to upload</span>
+<!-- <span class="note">Note: Please share new images on support@itwebservices.co to upload</span> -->
 
 <div class="app_panel_content Filter-panel">
 

@@ -53,6 +53,11 @@
       $enquiry_specification = addslashes($enquiry_specification);
       $sq_enquiry = mysqlQuery("insert into enquiry_master (enquiry_id, login_id,branch_admin_id,financial_year_id, enquiry_type,enquiry, name, mobile_no, landline_no, country_code,email_id,location, assigned_emp_id, enquiry_specification, enquiry_date, followup_date, reference_id, enquiry_content,customer_name ) values ('$enquiry_id', '$login_id', '$branch_admin_id','$financial_year_id', '$enquiry_type','$enquiry', '$name', '$mobile_no', '$landline_no', '$country_code','$email_id','$location', '$assigned_emp_id', '$enquiry_specification', '$enquiry_date', '$followup_date', '$reference_id', '$enquiry_content','$customer_name')");
 
+      // For notification count
+      $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assigned_emp_id'"));
+      $notification_count = $row_emp['notification_count'] + 1;
+      $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assigned_emp_id'");
+
       $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from enquiry_master_entries"));
       $entry_id = $sq_max['max'] + 1;
 
@@ -333,6 +338,11 @@ Email ID : ".$ass_email_id);
 
     $sq_enquiry = mysqlQuery("update enquiry_master set name='$name', country_code = '$country_code', mobile_no='$mobile_no',landline_no = '$landline_no',email_id='$email_id',location='$location', enquiry = '$enquiry', enquiry_date='$enquiry_date', followup_date='$followup_date', reference_id='$reference_id', enquiry_content='$enquiry_content', enquiry_specification='$enquiry_specification', assigned_emp_id ='$assigned_emp_id',customer_name='$customer_dropdown' where enquiry_id='$enquiry_id'");
 
+    // For notification count
+    $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assigned_emp_id'"));
+    $notification_count = $row_emp['notification_count'] + 1;
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assigned_emp_id'");
+    
     $sq_enquiry = mysqlQuery("update enquiry_master_entries set followup_date='$followup_date' where enquiry_id='$enquiry_id'");
 
     if(!$sq_enquiry){
@@ -571,6 +581,10 @@ Email ID : ".$ass_email_id);
                         $sq_followup = mysqlQuery("insert into enquiry_master_entries(entry_id, enquiry_id, followup_reply,  followup_status,  followup_type, followup_date, followup_stage, created_at) values('$entry_id', '$enquiry_id', '', 'Active','', '$followup_date1', '$enquiry', '$enquiry_date1')");
                         
                         $sq_entryicsv = mysqlQuery("update enquiry_master set entry_id='$entry_id' where enquiry_id='$enquiry_id'");
+                        // For notification count
+                        $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assigned_emp_id'"));
+                        $notification_count = $row_emp['notification_count'] + 1;
+                        $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assigned_emp_id'");
 
                         if(!$sq_enquiry){
                           echo "error--Enquiry Information Not Saved.";

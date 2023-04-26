@@ -94,7 +94,7 @@ include "../../../../model/model.php";
       </div>
       <div class="row">
          <div class="col-md-3 col-sm-6 mg_bt_10">
-             <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" placeholder="PAN/TAN No" title="PAN/TAN No"  style="text-transform: uppercase;">
+             <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)"  style="text-transform: uppercase;">
           </div> 
           <div class="col-md-3 col-sm-6 mg_bt_10_xs">
             <select name="active_flag" class="form-control hidden" id="active_flag" title="Status" style="width: 100%;">

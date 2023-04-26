@@ -92,6 +92,7 @@ $('#frm_customer_save').validate({
           $('#btn_save').button('reset');
 
           msg_alert(result);
+          notification_count_update();
 
           $('#save_modal').modal('hide');
           list_reflect();

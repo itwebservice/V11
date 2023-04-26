@@ -6,12 +6,11 @@ $emp_id = $_SESSION['emp_id'];
 $from_date = $_POST['from_date'];
 $to_date = $_POST['to_date'];
 ?>
-<div class="col-md-12">
-    <div class="dashboard_table_body main_block">
-    <div class="col-md-12 no-pad table_verflow"> 
-        <div class="table-responsive">
+<div class="dashboard_table dashboard_table_panel main_block">
+    <div class="col-md-12 no-pad table_verflow">
+    <div class="table-responsive">
         <table class="table table-hover" style="margin: 0 !important;border: 0;">
-            <thead>
+        <thead>
             <tr class="table-heading-row">
                 <th>S_No.</th>
                 <th>Enquiry_Id</th>
@@ -114,6 +113,5 @@ $to_date = $_POST['to_date'];
             </tbody>
         </table>
         </div> 
-    </div>
     </div>
 </div>

@@ -4,7 +4,6 @@ $cur_time = date('Y-m-d H:i');
 $cur_time1 = date('Y-m-d H:i');
 $last_time = strtotime($cur_time);
 $sq_task = mysqlQuery("select * from tasks_master where remind_due_date >= '$cur_time' and task_status!='Disabled'");
-
 while($row_tasks = mysqli_fetch_assoc($sq_task)){
 
     $task = $row_tasks['task_name'];

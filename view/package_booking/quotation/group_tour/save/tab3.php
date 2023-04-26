@@ -26,7 +26,7 @@
 										    <table id="tbl_package_tour_quotation_dynamic_train" name="tbl_package_tour_quotation_dynamic_train" class="table table-bordered no-marg pd_bt_51">
 											<input type="hidden" id="train_dept_date_hidde">
 										        <tr>
-									                <td><input class="css-checkbox" id="chk_tour_group1" type="checkbox"><label class="css-label" for="chk_tour_group1"> <label></td>
+									                <td><input class="css-checkbox" id="chk_tour_group1" type="checkbox" checked><label class="css-label" for="chk_tour_group1" checked> <label></td>
 									                <td><input maxlength="15" value="1" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
 									                <td class="col-md-3"><select id="train_from_location1" onchange="validate_location('train_to_location1','train_from_location1')" class="app_select2 form-control train_from" name="train_from_location1" title="From Location" style="width: 100%;">
 											            </select>

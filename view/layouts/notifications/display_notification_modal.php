@@ -13,10 +13,10 @@ $flag = true;
 		<ul class="nav nav-tabs responsive" role="tablist">
 			<?php if($role_id <= 5){
 			$flag=false;
-			?><li role="presentation" class="active"><a href="#enquiry_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name" onclick="enquiry_count_update('enquiry')">Enquiry</a></li><?php }?>
+			?><li role="presentation" class="active"><a href="#enquiry_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name">Enquiry</a></li><?php }?>
 			<?php $active_class = ($flag == false) ? '' : 'active'?>
-			<li role="presentation" class="<?= $active_class?>"><a href="#task_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name" onclick="enquiry_count_update('task')">Task</a></li>
-			<li role="presentation"><a href="#leave_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name" onclick="enquiry_count_update('leave')">Leave</a></li>
+			<li role="presentation" class="<?= $active_class?>"><a href="#task_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name">Task</a></li>
+			<li role="presentation"><a href="#leave_notification" aria-controls="home" role="tab" data-toggle="tab" class="tab_name">Leave</a></li>
 	    </ul>
 	    <hr class="no-marg">
    		<!-- Tab panes1 -->
@@ -42,12 +42,4 @@ $flag = true;
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-function enquiry_count_update(type){
-    var base_url = $('#base_url').val();
-    $.post(base_url+'controller/login/notification/enquiry_count_update.php', { type : type }, function(data){
-        $('#enquiry_count11').html(data);
-    });
-}
-</script>
 <script src="<?= BASE_URL ?>js/app/footer_scripts.js"></script>

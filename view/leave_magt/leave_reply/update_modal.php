@@ -179,6 +179,7 @@ $('#frm_update').validate({
           $('#btn_update').button('reset');
 
           msg_alert(result);
+          notification_count_update();
 
           $('#save_modal').modal('hide');
           list_reflect();

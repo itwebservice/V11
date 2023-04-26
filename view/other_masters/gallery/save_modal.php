@@ -59,17 +59,12 @@ include_once("../../../model/model.php");
                 <input type="hidden" id="gallary_url" name="gallary_url">
 
           </div>
+		      <button type="button" data-toggle="tooltip" class="btn btn-excel" title="Note : Upload Image size below 300KB, resolution : 900X450."><i class="fa fa-question-circle"></i></button>
 
           
 
         </div>
 
-        </div>
-
-        <div class="row mg_bt_10">
-          <div class="col-xs-12"> 
-            <div style="color: red;">Note : Upload Image size below 300KB, resolution : 900X450.</div>
-          </div>
         </div>
 
         <div class="row mg_bt_10">
@@ -82,7 +77,7 @@ include_once("../../../model/model.php");
 
           <div class="col-md-12 text-center">
 
-            <button class="btn btn-sm btn-success" id="btn_save"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
+            <button class="btn btn-sm btn-success" id="btn_gsave"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
 
           </div>
 
@@ -145,37 +140,23 @@ function upload_pic_attch()
       },
 
       onComplete: function(file, response){
-
         if(response==="error"){          
-
           error_msg_alert("File is not uploaded.");           
-
           $(btnUpload).find('span').text('Upload Image');
-
-        }else
-
-        { 
-
-          if(response=="error1")
-
-          {
-
+        }else{
+          if(response=="error1"){
             $(btnUpload).find('span').text('Upload Image');
-
             error_msg_alert('Maximum size exceeds');
-
             return false;
-
-          }else
-
-          {
-
+          }
+          if(response=="error2"){
+            $(btnUpload).find('span').text('Upload Image');
+            error_msg_alert('Incorrect resolution of image');
+            return false;
+          }else{
             $(btnUpload).find('span').text('Uploaded');
             $("#gallary_url").val(response);
-           // upload_pic();
-
           }
-
         }
 
       }
@@ -183,38 +164,6 @@ function upload_pic_attch()
     });
 
 }
-
-/*
-
-function upload_pic()
-
-{
-
-  var base_url = $("#base_url").val();
-
-  var gallary_url = $('#gallary_url').val();
-
-
-
-  $.ajax({
-
-          type:'post',
-
-          url: base_url+'controller/other_masters/gallary/gallary_img_save.php',
-
-          data:{ gallary_url : gallary_url },
-
-          success:function(result)
-
-          {
-
-            msg_alert(result);
-
-          }
-
-  });
-
-}*/
 
 
 
@@ -233,56 +182,42 @@ $('#frm_save').validate({
     submitHandler:function(form){
 
       
+      $('#btn_gsave').prop('disabled',true);
+      var base_url = $("#base_url").val();
 
-       var base_url = $("#base_url").val();
+      var dest_id = $('#dest_name').val();
 
-       var dest_id = $('#dest_name').val();
+      var description = $('#description').val();
 
-       var description = $('#description').val();
+      var gallary_url = $('#gallary_url').val();
 
-       var gallary_url = $('#gallary_url').val();
+      if(gallary_url == '') {
+        error_msg_alert("Select image to Upload"); 
+        $('#btn_gsave').prop('disabled',false);
+        return false;
+      }
 
-       if(gallary_url == '') { error_msg_alert("Select image to Upload");  return false;  }
+      $('#btn_gsave').button('loading');
 
-       $('#btn_save').button('loading');
+      $.ajax({
 
+        type:'post',
 
+        url:base_url+'controller/other_masters/gallary/gallary_img_save.php',
 
-        $.ajax({
+        data:{dest_id : dest_id, description : description, gallary_url : gallary_url },
 
-          type:'post',
+        success:function(result){
 
-          url:base_url+'controller/other_masters/gallary/gallary_img_save.php',
-
-          data:{dest_id : dest_id, description : description, gallary_url : gallary_url },
-
-          success:function(result){
-
-              var msg = result.split('--');
-
-              msg_alert(result);               
-
-                $('#btn_save').button('reset');
-
-                $('#save_modal').modal('hide');
-
-                // list_reflect();
-                update_b2c_cache();
-
-              
-
-          }
-
-        });
-
-
-
-
-
-
-
+          var msg = result.split('--');
+          msg_alert(result);               
+          $('#btn_gsave').button('reset');
+          $('#btn_gsave').prop('disabled',false);
+          $('#save_modal').modal('hide');
+          update_b2c_cache();
+        }
+      });
     }
-
 });
 
 </script>

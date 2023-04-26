@@ -96,13 +96,13 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_vendor['email_id'], $secret_key);
         </div>
         <div class="row"> 
            <div class="col-md-3 col-sm-6 mg_bt_10">
-              <input type="text" name="ifsc_code1" id="ifsc_code1" onchange="validate_IFSC(this.id);" placeholder="IFSC/SWIFT CODE" title="IFSC/SWIFT CODE" value="<?= $sq_vendor['ifsc_code']?>"> 
+              <input type="text" name="ifsc_code1" id="ifsc_code1" onchange="validate_IFSC(this.id);" placeholder="IFSC/SWIFT CODE" title="IFSC/SWIFT CODE" value="<?= $sq_vendor['ifsc_code']?>" style="text-transform: uppercase;"> 
           </div>
           <div class="col-md-3 col-sm-6 mg_bt_10">
-              <input type="text" name="service_tax_no1" id="service_tax_no1" onchange="validate_alphanumeric(this.id)" placeholder="Tax No" title="Tax No" value="<?= strtoupper($sq_vendor['service_tax_no']) ?>">
+              <input type="text" name="service_tax_no1" id="service_tax_no1" onchange="validate_alphanumeric(this.id)" placeholder="Tax No" title="Tax No" value="<?= strtoupper($sq_vendor['service_tax_no']) ?>" style="text-transform: uppercase;">
           </div>  
           <div class="col-md-3 col-sm-6 mg_bt_10">
-            <input type="text" id="supp_pan1" onchange="validate_alphanumeric(this.id);" name="supp_pan1" value="<?= $sq_vendor['pan_no']?>" placeholder="PAN/TAN No" title="PAN/TAN No">
+            <input type="text" id="supp_pan1" onchange="validate_alphanumeric(this.id);" name="supp_pan1" value="<?= strtoupper($sq_vendor['pan_no']) ?>" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
           </div>  
           <div class="col-md-3 col-sm-6 mg_bt_10">
             <input type="number" id="opening_balance1" name="opening_balance1" placeholder="*Opening Balance" title="Opening Balance" value="<?= $sq_vendor['opening_balance'] ?>">

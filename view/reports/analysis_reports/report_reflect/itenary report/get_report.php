@@ -1,6 +1,5 @@
 <?php
 include "../../../../../model/model.php";
-date_default_timezone_set('Asia/Kolkata');
 $selectedDate = !empty($_POST['date']) ? get_date_db($_POST['date']) : null;
 $array_s = array();
 $i = 1;
@@ -15,9 +14,9 @@ function addDayInDate($date)
 
 function getTodaysItenaryByPackage($id, $selectedDate)
 {
-
     $temp = array();
     $query =  "SELECT * FROM package_quotation_program inner join package_tour_booking_master on package_quotation_program.quotation_id=package_tour_booking_master.quotation_id where package_tour_booking_master.booking_id='$id'";
+    
     $res = mysqlQuery($query);
     $first = 0;
     global $i;
@@ -42,8 +41,8 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -81,8 +80,8 @@ function getTodaysItenaryByPackage($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -135,8 +134,8 @@ function getTodaysItenary($id, $selectedDate)
 
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
 
                         return  $temparr = array("data" => array(
                             (int) ($i++),
@@ -173,8 +172,8 @@ function getTodaysItenary($id, $selectedDate)
                         }
                         $date = $data['created_at'];
                         $yr = explode("-", $date);
-                        $year =$yr[0];
-                        $bookedId =  get_package_booking_id($data['booking_id'],$year);
+                        $year = $yr[0];
+                        $bookedId =  get_package_booking_id($data['booking_id'], $year);
                         return  $temparr = array("data" => array(
                             (int) ($i++),
                             $bookedId,
@@ -210,8 +209,7 @@ function getPassengers($bookingId)
         return $names[0];
     }
 }
-
-$query =  "SELECT * FROM package_tour_schedule_master inner join package_tour_booking_master on package_tour_schedule_master.booking_id=package_tour_booking_master.booking_id";
+$query =  "SELECT * FROM package_tour_booking_master";
 $query2 =  "SELECT * FROM package_quotation_program inner join package_tour_booking_master on package_quotation_program.quotation_id=package_tour_booking_master.quotation_id";
 
 
@@ -221,27 +219,23 @@ $result2 = mysqlQuery($query2);
 $count = 1;
 $usedId = array();
 $usedId2 = array();
+
 while ($data = mysqli_fetch_assoc($result)) {
+    
     if (!in_array((int)$data['booking_id'], $usedId)) {
         $temparr =  getTodaysItenary($data['booking_id'], $selectedDate);
         if (!empty($temparr)) {
             array_push($array_s, $temparr);
+        } else {
+            // $temparr2 =  getTodaysItenaryByPackage($data['booking_id'], $selectedDate);
+            $temparr2 =  getTodaysItenaryByPackage($data['booking_id'], $selectedDate);
+            if (!empty($temparr2)) {
+                            array_push($array_s, $temparr2);
+            }   
         }
         array_push($usedId, (int)$data['booking_id']);
     }
 }
-
-while ($data2 = mysqli_fetch_assoc($result2)) {
-    if (!in_array((int)$data2['booking_id'], $usedId2)) {
-        $temparr =  getTodaysItenaryByPackage($data2['booking_id'], $selectedDate);
-        if (!empty($temparr)) {
-            array_push($array_s, $temparr);
-        }
-        array_push($usedId2, (int)$data2['booking_id']);
-    }
-}
-
-
 
 $footer_data = array(
     "footer_data" => array()

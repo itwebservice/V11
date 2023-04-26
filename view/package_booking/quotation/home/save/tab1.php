@@ -177,7 +177,9 @@ $("#customer_name").autocomplete({
     source: JSON.parse($('#cust_data').val()),
     select: function(event, ui) {
         $("#customer_name").val(ui.item.label);
-        $('#mobile_no').val(ui.item.country_id+ui.item.contact_no);
+        $('#mobile_no').val(ui.item.contact_no);
+        $('#country_code').val(ui.item.country_id);
+		$('#country_code').trigger('change');
         $('#email_id').val(ui.item.email_id);
     },
     open: function(event, ui) {

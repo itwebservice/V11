@@ -186,7 +186,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_transport_agency['email_id'], $secre
 
 							        					<i class="fa fa-angle-double-right cost_arrow" aria-hidden="true"></i>
 
-							        				    <?php echo "<label>PAN/TAN No <em>:</em></label> " .$sq_transport_agency['pan_no']; ?>
+							        				    <?php echo "<label>Personal Identification No(PIN) <em>:</em></label> " .$sq_transport_agency['pan_no']; ?>
 
 							        				</span>
 							        				 

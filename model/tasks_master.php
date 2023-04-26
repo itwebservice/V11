@@ -41,14 +41,16 @@ public function tasks_master_save()
     if($remind=="None"){
         $remind_due_date = "";
     }
-            
-            
 
     $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(task_id) as max from tasks_master"));
     $task_id = $sq_max['max'] + 1;
 
     $task_name = addslashes($task_name);
     $sq_task = mysqlQuery("insert into tasks_master ( task_id, emp_id, branch_admin_id, task_name, due_date, remind, remind_due_date, remind_by, task_type, task_type_field_id, task_status, created_at ) values ( '$task_id', '$assign_to', '$branch_admin_id', '$task_name', '$due_date', '$remind', '$remind_due_date', '$remind_by', '$task_type', '$task_type_field_id', '$task_status', '$created_at' )");
+    // For notification count
+    $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assign_to'"));
+    $notification_count = $row_emp['notification_count'] + 1;
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assign_to'");
 
     if($sq_task){
     	echo "Task has been successfully saved.";
@@ -102,6 +104,10 @@ public function tasks_master_update()
 
     $task_name = addslashes($task_name);
     $sq_task = mysqlQuery("update tasks_master set emp_id='$assign_to', task_name='$task_name', due_date='$due_date', remind='$remind', remind_due_date='$remind_due_date', remind_by='$remind_by', task_type='$task_type', task_type_field_id='$task_type_field_id' where task_id='$task_id'");
+    // For notification count
+    $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assign_to'"));
+    $notification_count = $row_emp['notification_count'] + 1;
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assign_to'");
 
     if($sq_task){
     	echo "Task has been successfully updated.";
@@ -123,6 +129,21 @@ public function tasks_status_update()
     $cur_date = date('Y-m-d H:i');
 
 	$sq_task = mysqlQuery("update tasks_master set extra_note='$extra_note', task_status='$task_status', status_date='$cur_date' where task_id='$task_id'");
+    if($task_status == 'Completed'){
+        // For notification count
+        $row_task = mysqli_fetch_assoc(mysqlQuery("select emp_id from tasks_master where task_id='$task_id'"));
+        $sq_emp = mysqli_fetch_assoc(mysqlQuery("select branch_id from emp_master where emp_id='$row_task[emp_id]'"));
+        $sq_emp1 = mysqli_fetch_assoc(mysqlQuery("select emp_id from emp_master where branch_id='$sq_emp[branch_id]' and role_id='5'"));
+
+        // Admin update
+        $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where role_id='1'"));
+        $notification_count = $row_emp['notification_count'] + 1;
+        $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where role_id='1'");
+        // Branchadmin update
+        $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$sq_emp1[emp_id]'"));
+        $notification_count = $row_emp['notification_count'] + 1;
+        $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$sq_emp1[emp_id]'");
+    }
 
 	if($sq_task){
     	echo "Status has been successfully saved.";
@@ -183,8 +204,12 @@ public function tasks_master_clone()
     $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(task_id) as max from tasks_master"));
     $task_id = $sq_max['max'] + 1;
 
-
     $sq_task = mysqlQuery("insert into tasks_master ( task_id, emp_id, task_name, due_date, remind, remind_due_date, remind_by, task_type, task_type_field_id, task_status, reference_task_id, created_at ) values ( '$task_id', '$assign_to', '$task_name', '$due_date', '$remind', '$remind_due_date', '$remind_by', '$task_type', '$task_type_field_id', '$task_status', '$reference_task_id', '$created_at' )");
+
+    // For notification count
+    $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$assign_to'"));
+    $notification_count = $row_emp['notification_count'] + 1;
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$assign_to'");
 
     if($sq_task){
     	echo "Task has been succcessfully saved.";

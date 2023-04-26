@@ -520,9 +520,6 @@ $sq_cust_fit_feedback = mysqli_num_rows(mysqlQuery("select * from remainder_stat
 		}
 
 
-		var day = $('#day').val();
-
-		if(day=='Sat'){
 			function weekly_summary_report()
 			{
 				var base_url = $('#base_url').val();
@@ -530,7 +527,6 @@ $sq_cust_fit_feedback = mysqli_num_rows(mysqlQuery("select * from remainder_stat
 				});
 			}
 			weekly_summary_report();
-	    } 
 
 		function tour_visit_vendor_remainder()
 		{

@@ -1,4 +1,4 @@
-<?php 
+<?php
 // sale
 $sale_total_amount=$sq_exc_info['exc_total_cost'];
 if($sale_total_amount==""){  $sale_total_amount = 0 ;  }

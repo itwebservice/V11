@@ -45,7 +45,7 @@ var column = [
 { title : "Purchase/Expense_ID"},
 { title:"Purchase_Date", className:"text-center"},
 { title : "Supplier_Name"},
-{ title : "PAN_Number/TAN_Number",className:"text-uppercase"},
+{ title : "PIN_Number",className:"text-uppercase"},
 { title : "TDS_deducted_on_amount"},
 { title : "TDS_Deducted"}
 ];

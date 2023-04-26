@@ -6,55 +6,68 @@ class leave_master{
 
 ///////////// Employee request Save/////////////////////////////////////////////////////////////////////////////////////////
 
- public function leave_request_save()
+public function leave_request_save()
 
- { 	
+{ 	
 
-   $emp_id=$_POST['emp_id'];
+  $emp_id=$_POST['emp_id'];
 
-   $from_date=$_POST['from_date'];
+  $from_date=$_POST['from_date'];
 
-   $to_date=$_POST['to_date'];
+  $to_date=$_POST['to_date'];
 
-   $no_of_days=$_POST['no_of_days'];
+  $no_of_days=$_POST['no_of_days'];
 
-   $type_of_leave=$_POST['type_of_leave'];
+  $type_of_leave=$_POST['type_of_leave'];
 
-   $reason_for_leave=$_POST['reason_for_leave']; 
+  $reason_for_leave=$_POST['reason_for_leave']; 
 
-   $from_date = date('Y-m-d',strtotime($from_date));
-   $to_date = date('Y-m-d',strtotime($to_date));
+  $from_date = date('Y-m-d',strtotime($from_date));
+  $to_date = date('Y-m-d',strtotime($to_date));
 
-   $created_date = date('Y-m-d');
+  $created_date = date('Y-m-d');
 
-  //Transaction start
+//Transaction start
 
-  begin_t();
-  
- 	$row=mysqlQuery("select max(request_id) as max from leave_request");
+begin_t();
 
- 	$value=mysqli_fetch_assoc($row);
+$row=mysqlQuery("select max(request_id) as max from leave_request");
 
- 	$max=$value['max']+1;
+$value=mysqli_fetch_assoc($row);
+
+$max=$value['max']+1;
 
 
   $reason_for_leave = addslashes($reason_for_leave);
- 	$sq=mysqlQuery("insert into leave_request (request_id, emp_id, from_date, to_date, no_of_days, type_of_leave, reason_for_leave, created_date ) values ('$max', '$emp_id', '$from_date', '$to_date', '$no_of_days', '$type_of_leave', '$reason_for_leave','$created_date')");
+  $sq=mysqlQuery("insert into leave_request (request_id, emp_id, from_date, to_date, no_of_days, type_of_leave, reason_for_leave, created_date ) values ('$max', '$emp_id', '$from_date', '$to_date', '$no_of_days', '$type_of_leave', '$reason_for_leave','$created_date')");
+  
+  // For notification count
+  $sq_emp = mysqli_fetch_assoc(mysqlQuery("select branch_id from emp_master where emp_id='$emp_id'"));
+  $sq_emp1 = mysqli_fetch_assoc(mysqlQuery("select emp_id from emp_master where branch_id='$sq_emp[branch_id]' and role_id='5'"));
+  // Admin update
+  $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where role_id='1'"));
+  $notification_count = $row_emp['notification_count'] + 1;
+  $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where role_id='1'");
+   // Branchadmin update
+  $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$sq_emp1[emp_id]'"));
+  $notification_count = $row_emp['notification_count'] + 1;
+  $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$sq_emp1[emp_id]'");
+  // HR update
+  $sq_emp1 = mysqli_fetch_assoc(mysqlQuery("select emp_id from emp_master where branch_id='$sq_emp[branch_id]' and role_id='6'"));
+  $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$sq_emp1[emp_id]'"));
+  $notification_count = $row_emp['notification_count'] + 1;
+  $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$sq_emp1[emp_id]'");
 
-
- 	if($sq)
- 	{
-      commit_t();
-      echo "Request has been successfully saved.";
+  if($sq){
+    commit_t();
+    echo "Request has been successfully saved.";
+  }
+  else{
+      rollback_t();
+      echo "error-- Request Not Send!!!";
   }
 
- else
-  {
-    rollback_t();
-    echo "error-- Request Not Send!!!";
-  }  
-
- }
+  }
 
 /////////////////////////////////////////////////
 ///////////// reply/////////////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +127,10 @@ class leave_master{
      
       $sq=mysqlQuery("update leave_credits set leave_without_pay='$leaves' where emp_id='$emp_id'");
     }
+    // For notification count
+    $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$emp_id'"));
+    $notification_count = $row_emp['notification_count'] + 1;
+    $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$emp_id'");
   if($sq_u)
   {
       commit_t();
@@ -156,62 +173,59 @@ public function reply_mail($emp_id, $request_id, $from_date, $to_date)
 
 ///////////// reject/////////////////////////////////////////////////////////////////////////////////////////
 
- public function leave_request_reject()
+public function leave_request_reject(){ 
 
- {  
-   $request_id =$_POST['request_id'];
-   $emp_id=$_POST['emp_id'];
-   $comments = $_POST['comments'];
-   $from_date=$_POST['from_date'];
-   $no_of_days=$_POST['no_of_days'];
-   $status=$_POST['status'];
-   $to_date=$_POST['to_date'];
-   $from_date = date('Y-m-d',strtotime($from_date));
-   $to_date = date('Y-m-d',strtotime($to_date));
-   $reply_date = date('Y-m-d');
-   $type_of_leave=$_POST['type_of_leave'];
+    $request_id =$_POST['request_id'];
+    $emp_id=$_POST['emp_id'];
+    $comments = $_POST['comments'];
+    $from_date=$_POST['from_date'];
+    $no_of_days=$_POST['no_of_days'];
+    $status=$_POST['status'];
+    $to_date=$_POST['to_date'];
+    $from_date = date('Y-m-d',strtotime($from_date));
+    $to_date = date('Y-m-d',strtotime($to_date));
+    $reply_date = date('Y-m-d');
+    $type_of_leave=$_POST['type_of_leave'];
 
-  //Transaction start
+    //Transaction start
 
-  begin_t();
-    
-  $comments = addslashes($comments);
-  $sq_u=mysqlQuery("update leave_request set from_date='$from_date', to_date='$to_date', no_of_days='$no_of_days', comments='$comments', reply_date='$reply_date', status='Reject', type_of_leave='$type_of_leave' where request_id='$request_id'");
-  if($status == 'Approved')
-  {
-     $query =mysqli_fetch_assoc(mysqlQuery("select * from leave_credits where emp_id='$emp_id'"));
-
-    if($type_of_leave=='Casual')
+    begin_t();
+      
+    $comments = addslashes($comments);
+    $sq_u=mysqlQuery("update leave_request set from_date='$from_date', to_date='$to_date', no_of_days='$no_of_days', comments='$comments', reply_date='$reply_date', status='Reject', type_of_leave='$type_of_leave' where request_id='$request_id'");
+    if($status == 'Approved')
     {
-      $leaves = $query['casual'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set casual='$leaves' where emp_id='$emp_id'");
-    }
-    if($type_of_leave=='Paid'){
-      $leaves = $query['paid'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set paid='$leaves' where emp_id='$emp_id'");
-    }
-    if($type_of_leave=='Medical'){
-      $leaves = $query['medical'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set medical='$leaves' where emp_id='$emp_id'");
-    }
-    if($type_of_leave=='Maternity'){
-      $leaves = $query['maternity'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set maternity='$leaves' where emp_id='$emp_id'");
-    }
-    if($type_of_leave=='Paternity'){
-      $leaves = $query['paternity'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set paternity='$leaves' where emp_id='$emp_id'");
-    }
-    if($type_of_leave=='Leave without pay'){
-      $leaves = $query['leave_without_pay'] + $no_of_days;
-     
-      $sq=mysqlQuery("update leave_credits set leave_without_pay='$leaves' where emp_id='$emp_id'");
-    }
+      $query =mysqli_fetch_assoc(mysqlQuery("select * from leave_credits where emp_id='$emp_id'"));
+
+      if($type_of_leave=='Casual')
+      {
+        $leaves = $query['casual'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set casual='$leaves' where emp_id='$emp_id'");
+      }
+      if($type_of_leave=='Paid'){
+        $leaves = $query['paid'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set paid='$leaves' where emp_id='$emp_id'");
+      }
+      if($type_of_leave=='Medical'){
+        $leaves = $query['medical'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set medical='$leaves' where emp_id='$emp_id'");
+      }
+      if($type_of_leave=='Maternity'){
+        $leaves = $query['maternity'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set maternity='$leaves' where emp_id='$emp_id'");
+      }
+      if($type_of_leave=='Paternity'){
+        $leaves = $query['paternity'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set paternity='$leaves' where emp_id='$emp_id'");
+      }
+      if($type_of_leave=='Leave without pay'){
+        $leaves = $query['leave_without_pay'] + $no_of_days;
+        $sq=mysqlQuery("update leave_credits set leave_without_pay='$leaves' where emp_id='$emp_id'");
+      }
+      // For notification count
+      $row_emp = mysqli_fetch_assoc(mysqlQuery("select notification_count from emp_master where emp_id='$emp_id'"));
+      $notification_count = $row_emp['notification_count'] + 1;
+      $sq_emp = mysqlQuery("update emp_master set notification_count='$notification_count' where emp_id='$emp_id'");
   }
 
 
@@ -221,8 +235,7 @@ public function reply_mail($emp_id, $request_id, $from_date, $to_date)
       $this->reject_mail($emp_id, $request_id, $from_date, $to_date, $comments);
       echo "Remark has been successfully saved.";
   }
-
- else
+  else
   {
     rollback_t();
     echo "error-- Remark has been not saved!!!";

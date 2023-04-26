@@ -163,7 +163,7 @@ $email_id2 = $encrypt_decrypt->fnDecrypt($sq_hotel['alternative_email_2'], $secr
           </div>
 		    	<div class="row"> 
           <div class="col-md-2 mg_bt_10">
-              <input type="text" id="supp_pan" name="supp_pan" value="<?= $sq_hotel['pan_no']?>" onchange="validate_alphanumeric(this.id)" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+              <input type="text" id="supp_pan" name="supp_pan" value="<?= $sq_hotel['pan_no']?>" onchange="validate_alphanumeric(this.id)" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
             <input type="hidden" id="as_of_date1" name="as_of_date1" placeholder="*As of Date" title="As of Date" value="<?= get_date_user($sq_hotel['as_of_date']) ?>" required>
           </div>
           <div class="col-md-2 mg_bt_10">

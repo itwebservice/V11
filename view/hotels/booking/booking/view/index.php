@@ -5,8 +5,8 @@ $booking_id = $_POST['booking_id'];
 
 $sq_hotel_info = mysqli_fetch_assoc(mysqlQuery("select * from hotel_booking_master where booking_id='$booking_id' and delete_status='0'"));
 $date = $sq_hotel_info['created_at'];
-	        $yr = explode("-", $date);
-	        $year =$yr[0];
+$yr = explode("-", $date);
+$year =$yr[0];
 ?>
 <div class="modal fade profile_box_modal" id="hotel_display_modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg" role="document">

@@ -113,7 +113,7 @@ $email_id = $encrypt_decrypt->fnDecrypt($sq_vendor['email_id'], $secret_key);
               <input type="text" name="service_tax_no1" onchange="validate_alphanumeric(this.id);" id="service_tax_no1" placeholder="Tax No" title="Tax No"  value="<?= strtoupper($sq_vendor['service_tax_no']) ?>" style="text-transform: uppercase;">
           </div>
           <div class="col-md-3 col-sm-6 mg_bt_10">
-            <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" value="<?= $sq_vendor['pan_no']?>" placeholder="PAN/TAN No" title="PAN/TAN No" style="text-transform: uppercase;">
+            <input type="text" id="supp_pan" name="supp_pan" onchange="validate_alphanumeric(this.id)" value="<?= $sq_vendor['pan_no']?>" placeholder="Personal Identification No(PIN)" title="Personal Identification No(PIN)" style="text-transform: uppercase;">
             </div>
           <div class="col-md-3 col-sm-6 mg_bt_10">
             <input class="form-control" type="number" id="opening_balance" name="opening_balance" placeholder="*Opening Balance" title="Opening Balance" value="<?= $sq_vendor['opening_balance'] ?>" >

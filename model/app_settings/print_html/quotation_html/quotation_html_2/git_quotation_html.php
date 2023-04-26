@@ -244,6 +244,54 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
         </div>
       </section>
       <?php } ?>
+      <!-- hotel -->
+      <?php 
+      $sq_h_count = mysqli_fetch_assoc(mysqlQuery("select * from group_tour_hotel_entries where tour_id='$sq_quotation[tour_group_id]'"));
+      if($sq_h_count != '0'){
+      ?>
+      <section class="transportDetails main_block side_pad mg_tp_30">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="table-responsive mg_tp_30">
+              <table class="table table-bordered no-marg" id="tbl_emp_list">
+                <thead>
+                  <tr class="table-heading-row">
+                    <th>City Name</th>
+                    <th>Hotel Name</th>
+                    <th>Hotel Type</th>
+                    <th>Total Nights</th>
+                  </tr>
+                </thead>
+                  <?php
+                  $count = 0;
+                  $sq_hotel = mysqlQuery("select * from group_tour_hotel_entries where tour_id='$sq_quotation[tour_group_id]'");
+                  while($row_hotel = mysqli_fetch_assoc($sq_hotel))
+                  {
+                    ?>
+                    <tr>
+                      <td><?php
+                      $city = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id = ".$row_hotel['city_id']));
+                      echo $city['city_name'] ?></td>
+                      <td><?php
+                      $hotel = mysqli_fetch_assoc(mysqlQuery("select hotel_name from hotel_master where hotel_id = ".$row_hotel['hotel_id']));
+                      echo $hotel['hotel_name'] ?></td>
+                      <td><?= $row_hotel['hotel_type'] ?></td>
+                      <td><?= $row_hotel['total_nights'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
+              </table>
+            </div>
+          </div>  
+          <div class="col-md-4">
+            <div class="transportImg">
+              <img src="<?= BASE_URL ?>images/quotation/hotel.png" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </section>
+      <?php } ?>
       <?php
       $sq_cr_count = mysqli_num_rows(mysqlQuery("select * from group_tour_quotation_cruise_entries where quotation_id='$quotation_id'"));
       if($sq_cr_count>0){ ?>

@@ -238,7 +238,7 @@ public function vendor_csv_save()
           header("Pragma: no-cache");
           header("Expires: 0");
           $output = fopen($save, "w");
-          fputcsv($output, array('City Id' , 'DMC Name' , 'Mobile' , 'landline' ,'Email', 'Contact Person' , 'Emergency Contact No' , 'Address' , 'State Id' , 'Website' , 'Bank Name' , 'Account Type' , 'Account No' , 'Branch', 'IFSC/swift Code' , 'PAN/TAN No' , 'Tax No','Opening Balance','Balance Side'));
+          fputcsv($output, array('City Id' , 'DMC Name' , 'Mobile' , 'landline' ,'Email', 'Contact Person' , 'Emergency Contact No' , 'Address' , 'State Id' , 'Website' , 'Bank Name' , 'Account Type' , 'Account No' , 'Branch', 'IFSC/swift Code' , 'Personal Identification No(PIN)' , 'Tax No','Opening Balance','Balance Side'));
           
           foreach($unprocessedArray as $row){
             fputcsv($output, $row);  

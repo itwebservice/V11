@@ -1,6 +1,8 @@
 <?php
 include "../../../../model/model.php";
 $role = $_SESSION['role'];
+$role_id = $_SESSION['role_id'];
+$emp_id = $_SESSION['emp_id'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
 $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='visa_passport_ticket/ticket/index.php'"));
 $branch_status = $sq['branch_status'];
@@ -26,6 +28,7 @@ $branch_status = $sq['branch_status'];
                 include "../../../../model/app_settings/branchwise_filteration.php";
                 $query .= " order by ticket_id desc";
                 $sq_ticket = mysqlQuery($query);
+                echo $query;
                 while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
                   
                   $status = '';

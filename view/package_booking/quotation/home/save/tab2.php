@@ -304,7 +304,7 @@ $('#frm_tab2').validate({
             var row = table.rows[i];
             row.cells[6].childNodes[0].value = total_adult;
             row.cells[7].childNodes[0].value = children_with_bed;
-            row.cells[8].childNodes[0].value = children_with_bed;
+            row.cells[8].childNodes[0].value = children_without_bed;
             row.cells[9].childNodes[0].value = total_infant;
         }
 

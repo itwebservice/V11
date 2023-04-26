@@ -268,9 +268,7 @@ while($row_b2b = mysqli_fetch_assoc($sq_b2b)){
 		else{
 			$pending_amt=$total_purches-$total_pay['sum'] -$total_pay['sumc'];
 		}
-		$pass_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]'"));
-		$cancle_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]' and status='Cancel'"));
-		if($pass_count!=$cancle_count && $pending_amt>'0'){
+		if($pending_amt>'0'){
 		?>
 		<tr>
 		    <td class="col-md-2"><?= $count++ ?></td>
@@ -291,13 +289,9 @@ $total_amount = 0;
 $sq_visa = mysqlQuery($query);
 while($row_visa = mysqli_fetch_assoc($sq_visa)){	
 	
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id ='$row_visa[visa_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from visa_master_entries where visa_id ='$row_visa[visa_id]' and status='Cancel'"));  
-   	//Get Total visa cost
 	$sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum, sum(credit_charges) as sumc from visa_payment_master where visa_id='$row_visa[visa_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$total_paid +=$sq_payment_info['sum']+$sq_payment_info['sumc'];
     $visa_total_amount=$row_visa['visa_total_cost']+$sq_payment_info['sumc'];	   
-	//Get total refund amount
 	$cancel_amount=$row_visa['cancel_amount'];	
 
 	//Consider sale cancel amount
@@ -312,9 +306,7 @@ while($row_visa = mysqli_fetch_assoc($sq_visa)){
 	else{
 		$bal_amt = $visa_total_amount-$sq_payment_info['sum']-$sq_payment_info['sumc']; 
 	}
-	$pass_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$row_visa[visa_id]'"));
-	$cancel_count = mysqli_num_rows(mysqlQuery("select * from  visa_master_entries where visa_id='$row_visa[visa_id]' and status='Cancel'"));
-	if($pass_count!=$cancle_count && $bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0'){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -331,12 +323,9 @@ $query = "select * from ticket_master where 1 and customer_id='$customer_id' and
 $sq_ticket = mysqlQuery($query);
 while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id ='$row_ticket[ticket_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from ticket_master_entries where ticket_id ='$row_ticket[ticket_id]' and status='Cancel'"));  
 	$sq_paid_amount = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from ticket_payment_master where ticket_id='$row_ticket[ticket_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
-
-	$paid_amount = $sq_paid_amount['sum']+$sq_paid_amount['sumc'];
-	$sale_amount = $row_ticket['ticket_total_cost']+$sq_paid_amount['sumc'];
+	$paid_amount = $sq_paid_amount['sum'] + $sq_paid_amount['sumc'];
+	$sale_amount = $row_ticket['ticket_total_cost'] + $sq_paid_amount['sumc'];
 	$cancel_est = $row_ticket['cancel_amount'];
 
 	//Consider sale cancel amount
@@ -363,7 +352,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 		$bal_amount = $sale_amount - $paid_amount;
 	}
 	
-	if($bal_amount>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amount>'0'){
 	?>
 	<tr>
 		<td class="col-md-2"><?= $count++ ?></td>
@@ -380,10 +369,7 @@ $query = "select * from train_ticket_master where 1 and customer_id='$customer_i
 $sq_ticket = mysqlQuery($query);
 while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 	
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id ='$row_ticket[train_ticket_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from train_ticket_master_entries where train_ticket_id ='$row_ticket[train_ticket_id]' and status='Cancel'"));  
 	$sq_payment = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as sum_pay,sum(credit_charges) as sumc from train_ticket_payment_master where train_ticket_id='$row_ticket[train_ticket_id]' and clearance_status!='Pending' and clearance_status!='Cancelled'"));
-
 	$paid_amount = $sq_payment['sum_pay'] + $sq_payment['sumc'];
 	$sale_amount = $row_ticket['net_total'] + $sq_payment['sumc'];	
 
@@ -399,7 +385,7 @@ while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
 	else{
 		$bal = $sale_amount - $paid_amount;
 	}
-	if($bal>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal>'0'){
 	?>		
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -416,8 +402,6 @@ $query = "select * from hotel_booking_master where 1 and customer_id='$customer_
 $sq_booking = mysqlQuery($query);
 while($row_booking = mysqli_fetch_assoc($sq_booking)){
 
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id ='$row_booking[booking_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from hotel_booking_entries where booking_id ='$row_booking[booking_id]' and status='Cancel'"));  
 	$sq_payment_total = mysqli_fetch_assoc(mysqlQuery("select sum(payment_amount) as sum from hotel_booking_payment where booking_id='$row_booking[booking_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$paid_amount = $sq_payment_total['sum'];			
 	$total_paid += $sq_payment_total['sum'];
@@ -435,7 +419,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	else{
 		$total_bal = $sale_bal - $paid_amount;
 	}
-	if($total_bal>'0' && $sq_entries != $sq_entries_cancel){
+	if($total_bal>'0'){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -453,11 +437,8 @@ $query = "select * from bus_booking_master where 1 and customer_id='$customer_id
 $sq_booking = mysqlQuery($query);
 while($row_booking = mysqli_fetch_assoc($sq_booking)){
 
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from bus_booking_entries where booking_id ='$row_booking[booking_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from bus_booking_entries where booking_id ='$row_booking[booking_id]' and status='Cancel'"));  
 	$sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum, sum(credit_charges) as sumc from bus_booking_payment_master where booking_id='$row_booking[booking_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$total_purchase = $row_booking['net_total']+$sq_payment_info['sumc'];
-
 	$total_paid +=$sq_payment_info['sum']+$sq_payment_info['sumc'];
 	
 	//Consider sale cancel amount
@@ -472,7 +453,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	else{
 		$total_bal=$total_purchase-$sq_payment_info['sum']-$sq_payment_info['sumc'];
 	}
-	if($total_bal>'0' && $sq_entries != $sq_entries_cancel){	
+	if($total_bal>'0'){	
 	?>
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -485,15 +466,13 @@ while($row_booking = mysqli_fetch_assoc($sq_booking)){
 	}
 }
 //Car Rental
-$query = "select * from car_rental_booking where 1 and customer_id='$customer_id' and status!='Cancel' and delete_status='0'";
+$query = "select * from car_rental_booking where 1 and customer_id='$customer_id' and delete_status='0'";
 $sq_booking = mysqlQuery($query);
 while($row_booking = mysqli_fetch_assoc($sq_booking))
 {
 	$total_purchase=$row_booking['total_fees'];
-
 	$sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from car_rental_payment where booking_id='$row_booking[booking_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$total_paid +=$sq_payment_info['sum'];
-
 	//Consider sale cancel amount
 	if($row_booking['cancel_amount'] != '0'){ 
 		if($row_booking['cancel_amount'] <= $sq_payment_info['sum']){
@@ -521,7 +500,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking))
 }
 //Group
 $cancel_amount = 0;
-$query = "select * from tourwise_traveler_details where 1 and customer_id='$customer_id' and delete_status='0' and tour_group_status=''";
+$query = "select * from tourwise_traveler_details where 1 and customer_id='$customer_id' and delete_status='0'";
 $sq1 =mysqlQuery($query);
 while($row1 = mysqli_fetch_assoc($sq1))
 {
@@ -580,7 +559,7 @@ while($row1 = mysqli_fetch_assoc($sq1))
 			$balance_amount = $sale_total_amount - $paid_amount;
 		}
 	}
-	if($row1['tour_group_status'] != 'Cancel' && $cancel_esti_count1 == 0 && $balance_amount>'0'){
+	if($balance_amount>'0'){
 	?>
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -597,19 +576,14 @@ $query = "select * from excursion_master where 1 and customer_id='$customer_id' 
 $sq_ex = mysqlQuery($query);
 while($row_ex= mysqli_fetch_assoc($sq_ex)){
 
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id ='$row_ex[exc_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from excursion_master_entries where exc_id ='$row_ex[exc_id]' and status='Cancel'"));
     //Get Total cost
     $sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum from exc_payment_master where exc_id='$row_ex[exc_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$total_paid +=$sq_payment_info['sum'];
-
     $ex_total_amount=$row_ex['exc_total_cost'];
     
 	//Get total refund amount
 	$cancel_amount=$row_ex['cancel_amount'];
-	
     $total_ex_amount=$ex_total_amount;
-    
     $total_amount=$total_amount+$ex_total_amount;
 
 	//Consider sale cancel amount
@@ -624,7 +598,7 @@ while($row_ex= mysqli_fetch_assoc($sq_ex)){
 	else{
     	$bal_amt = $total_ex_amount - $sq_payment_info['sum'];
 	}
-	if($bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0'){
 	?>		
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>
@@ -645,13 +619,10 @@ $total_amount = 0;
 $sq_misc = mysqlQuery($query);
 while($row_msc = mysqli_fetch_assoc($sq_misc)){
 	
-	$sq_entries = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id ='$row_msc[misc_id]'"));
-	$sq_entries_cancel = mysqli_num_rows(mysqlQuery("select * from miscellaneous_master_entries where misc_id ='$row_msc[misc_id]' and status='Cancel'"));
-   //Get Total Miscellaneous cost
+    //Get Total Miscellaneous cost
     $sq_payment_info = mysqli_fetch_assoc(mysqlQuery("SELECT sum(payment_amount) as sum,sum(credit_charges) as sumc from miscellaneous_payment_master where misc_id='$row_msc[misc_id]' and clearance_status!='Pending' AND clearance_status!='Cancelled'"));
 	$total_paid +=$sq_payment_info['sum']+$sq_payment_info['sumc'];
-    $misc_total_amount=$row_msc['misc_total_cost']+$sq_payment_info['sumc'];	   
-	//Get total refund amount
+    $misc_total_amount=$row_msc['misc_total_cost']+$sq_payment_info['sumc'];
 	$cancel_amount=$row_msc['cancel_amount'];	
 
 	//Consider sale cancel amount
@@ -666,7 +637,7 @@ while($row_msc = mysqli_fetch_assoc($sq_misc)){
 	else{
 		$bal_amt = $misc_total_amount-$sq_payment_info['sum'] -$sq_payment_info['sumc']; 
 	}
-	if($bal_amt>'0' && $sq_entries != $sq_entries_cancel){
+	if($bal_amt>'0'){
 	?>	
 	<tr>
 	    <td class="col-md-2"><?= $count++ ?></td>

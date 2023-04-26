@@ -31,7 +31,6 @@ global $secret_key,$encrypt_decrypt;
 
 		// GIT Passenger
 		$sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'git_customer_passport_renewal' and date='$today' and status='Done'"));
-		echo '$exp_date : '.$exp_date;
 		if($sq_count==0)
 		{
 		$sq_pass = mysqlQuery("SELECT * from travelers_details where passport_expiry_date='$exp_date' and status!='Cancel'");

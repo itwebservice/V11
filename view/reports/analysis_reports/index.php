@@ -43,7 +43,7 @@ $branch_status = $sq['branch_status'];
                 </li> -->
               <!-- Single Menu start -->
               <li class="dropdown">
-                <a href="#">Find Reports <span class="caret"></span></a>
+                <a href="#">Statistic Reports <span class="caret"></span></a>
                 <ul class="dropdown_menu no-pad">
                   <li><span onclick="show_report_reflect('Branch Wise')">Branch Wise</span></li>
                   <li><span onclick="show_report_reflect('User Wise')">User Wise</span></li>

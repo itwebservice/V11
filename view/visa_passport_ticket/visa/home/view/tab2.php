@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Sale
 $sale_total_amount=$sq_visa_info['visa_total_cost'];
 if($sale_total_amount==""){  $sale_total_amount = 0 ;  }
