@@ -17,13 +17,13 @@ include "../../../model/model.php";
             <a><i class="fa fa-question" aria-hidden="true"></i> 2- Why Choose Us ?</a>
         </li>
         <li role="presentation" class="dropdown">
-            <a><i class="fa fa-map" aria-hidden="true"></i> 3- Amazing Destination Ideas for you!</a>
+            <a style="line-height:1.3;"><i class="fa fa-map" aria-hidden="true"></i> 3- Amazing Destination Ideas for you!</a>
         </li>
         <li role="presentation" class="dropdown">
             <a><i class="fa fa-map-pin" aria-hidden="true"></i> 4- Popular Destinations</a>
         </li>
         <li role="presentation" class="dropdown">
-            <a><i class="fa fa-copy" aria-hidden="true"></i> 5- Popular Hotels for Honeymoon</a>
+            <a style="line-height:1.3;"><i class="fa fa-copy" aria-hidden="true"></i> 5- Popular Hotels for Honeymoon</a>
         </li>
         <li role="presentation" class="dropdown">
             <a><i class="fa fa-life-ring" aria-hidden="true"></i> 6- Popular Activities</a>
@@ -35,7 +35,7 @@ include "../../../model/model.php";
             <a><i class="fa fa-building" aria-hidden="true"></i> 8- Popular Hotels</a>
         </li>
         <li role="presentation" class="dropdown">
-            <a><i class="fa fa-flag" aria-hidden="true"></i> 9- Popular Destinations for Honeymoon</a>
+            <a style="line-height:1.3;"><i class="fa fa-flag" aria-hidden="true"></i> 9- Popular Destinations for Honeymoon</a>
         </li>
         <li role="presentation" class="dropdown">
             <a><i class="fa fa-h-square" aria-hidden="true"></i> 10- Footer</a>
