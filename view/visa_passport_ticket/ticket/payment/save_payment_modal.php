@@ -28,7 +28,6 @@ $branch_status = $sq['branch_status'];
                 include "../../../../model/app_settings/branchwise_filteration.php";
                 $query .= " order by ticket_id desc";
                 $sq_ticket = mysqlQuery($query);
-                echo $query;
                 while($row_ticket = mysqli_fetch_assoc($sq_ticket)){
                   
                   $status = '';
