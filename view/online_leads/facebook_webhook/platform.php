@@ -274,20 +274,20 @@ $data = mysqli_fetch_assoc(mysqlQuery("select `facebook_appid`, `facebook_appsec
   <!--</div>-->
   <div class="col-md-12 mg_bt_10">
     <h6>App Id:</h6>
-    <input type="text" name="appId" id="formappId" value="<?= $data['facebook_appid'] ?>" placeholder="App Id">
+    <input type="text" class="form-control" name="appId" id="formappId" value="<?= $data['facebook_appid'] ?>" placeholder="App Id">
 
   </div>
   <div class="col-md-12 mg_bt_10">
 
     <h6>App Secret:</h6>
 
-    <input type="text" name="appSecret" id="formappSecret"  value="<?= $data['facebook_appsecret'] ?>" placeholder="App Secret">
+    <input type="text" class="form-control" name="appSecret" id="formappSecret" value="<?= $data['facebook_appsecret'] ?>" placeholder="App Secret">
 
   </div>
 
   <div class="col-md-12 mg_bt_10">
     <h6>Callback Url:</h6>
-    <input type="text" name="callbackUrl" id="formcallbackUrl" value="<?= $data['facebook_callback'] ?>" placeholder="Callback Url">
+    <input type="text" class="form-control" name="callbackUrl" id="formcallbackUrl" value="<?= $data['facebook_callback'] ?>" placeholder="Callback Url">
 
   </div>
 </div>
