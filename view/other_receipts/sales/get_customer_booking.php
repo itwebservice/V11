@@ -500,7 +500,7 @@ while($row_booking = mysqli_fetch_assoc($sq_booking))
 }
 //Group
 $cancel_amount = 0;
-$query = "select * from tourwise_traveler_details where 1 and customer_id='$customer_id' and delete_status='0' and tour_group_status=''";
+$query = "select * from tourwise_traveler_details where 1 and customer_id='$customer_id' and delete_status='0'";
 $sq1 =mysqlQuery($query);
 while($row1 = mysqli_fetch_assoc($sq1))
 {
