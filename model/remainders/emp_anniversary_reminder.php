@@ -4,7 +4,7 @@ include_once('../model.php');
 global $model;
  
 	$today=date('Y-m-d');
-		$sq_emplyee = mysqlQuery("SELECT * from emp_master where  (MONTH(date_of_join), DAY(date_of_join)) = (MONTH(CURDATE()),DAY(CURDATE()))");
+		$sq_emplyee = mysqlQuery("SELECT * from emp_master where active_flag='Active' and (MONTH(date_of_join), DAY(date_of_join)) = (MONTH(CURDATE()),DAY(CURDATE()))");
 		while($row_emp=mysqli_fetch_assoc($sq_emplyee))
 		{
 			$name = $row_emp['first_name']." ".$row_emp['last_name'];
@@ -12,7 +12,7 @@ global $model;
 			$contact_no = $row_emp['mobile_no'];
 
 
-			$sq_count = mysqli_num_rows(mysqlQuery("SELECT * from  remainder_status where remainder_name = 'emp_anniversary' and date='$today' and status='Done'"));
+			$sq_count = mysqli_num_rows(mysqlQuery("SELECT * from remainder_status where remainder_name = 'emp_anniversary' and date='$today' and status='Done'"));
 			if($sq_count==0)
 			{
 				 email($name,$email);

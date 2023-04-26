@@ -142,7 +142,7 @@ $today_date = $from_date;
                             }
                             if($role == 'Admin'){
                                 // Customer Birthday
-                                $sq_customer = mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no,birth_date from customer_master where DATE_FORMAT(birth_date, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                $sq_customer = mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no,birth_date from customer_master where active_flag='Active' and DATE_FORMAT(birth_date, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
                                 while($row_cust=mysqli_fetch_assoc($sq_customer)){
                                     $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
                                     $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key); 
@@ -269,32 +269,36 @@ $today_date = $from_date;
                             include "../../../model/app_settings/branchwise_filteration.php";
                             $sq_booking = mysqlQuery($query);                    
                             while($row_booking= mysqli_fetch_assoc($sq_booking)){
-                                $customer_id = $row_booking['customer_id'];
-                                $email_id = $row_booking['email_id'];
-                                $mobile_no = $row_booking['mobile_no'];
-                                $tour_name = $row_booking['tour_name'];
-                                $booking_id = $row_booking['booking_id'];
-                        
-                                $date = $row_booking['booking_date'];
-                                $yr = explode("-", $date);
-                                $year = $yr[0];        
-                                $booking_id1 = get_package_booking_id($booking_id,$year);
-                        
-                                $journey_date = date('d-m-Y',strtotime($row_booking['tour_from_date'])).' To '.date('d-m-Y',strtotime($row_booking['tour_to_date']));
-                        
-                                $row_cust = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$customer_id'"));
-                                $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key);
-                                $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
-                                ?>
-                                <tr class="<?= $bg ?>">
-                                    <td><?= ++$count ?></td>
-                                    <td>FIT Customer Feedback</td>
-                                    <td><?= 'Customer' ?></td>
-                                    <td><?= $cust_name ?></td>
-                                    <td><?= 'Package Booking ID : '.get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?></td>
-                                    <td><button class="btn btn-info btn-sm" onclick="customer_feedback_reminder('package','<?= $booking_id ?>','<?= $customer_id ?>','<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
-                                </tr>
-                            <?php
+                                $pass_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]'"));
+                                $cancle_count= mysqli_num_rows(mysqlQuery("select * from package_travelers_details where booking_id='$row_booking[booking_id]' and status='Cancel'"));
+                                if($pass_count!=$cancle_count){
+                                    $customer_id = $row_booking['customer_id'];
+                                    $email_id = $row_booking['email_id'];
+                                    $mobile_no = $row_booking['mobile_no'];
+                                    $tour_name = $row_booking['tour_name'];
+                                    $booking_id = $row_booking['booking_id'];
+                            
+                                    $date = $row_booking['booking_date'];
+                                    $yr = explode("-", $date);
+                                    $year = $yr[0];        
+                                    $booking_id1 = get_package_booking_id($booking_id,$year);
+                            
+                                    $journey_date = date('d-m-Y',strtotime($row_booking['tour_from_date'])).' To '.date('d-m-Y',strtotime($row_booking['tour_to_date']));
+                            
+                                    $row_cust = mysqli_fetch_assoc(mysqlQuery("SELECT type,first_name,last_name,company_name,contact_no from customer_master where customer_id='$customer_id'"));
+                                    $contact_no = $encrypt_decrypt->fnDecrypt($row_cust['contact_no'], $secret_key);
+                                    $cust_name = ($row_cust['type'] == 'Corporate' || $row_cust['type'] == 'B2B') ? $row_cust['company_name'] : $row_cust['first_name'].' '.$row_cust['last_name'];
+                                    ?>
+                                    <tr class="<?= $bg ?>">
+                                        <td><?= ++$count ?></td>
+                                        <td>FIT Customer Feedback</td>
+                                        <td><?= 'Customer' ?></td>
+                                        <td><?= $cust_name ?></td>
+                                        <td><?= 'Package Booking ID : '.get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?></td>
+                                        <td><button class="btn btn-info btn-sm" onclick="customer_feedback_reminder('package','<?= $booking_id ?>','<?= $customer_id ?>','<?= $contact_no ?>','<?= $cust_name ?>','<?= get_package_booking_id($booking_id,$year).' ('.$tour_name.' From '.$journey_date.')' ?>')" data-toggle="tooltip" title="Send WhatsApp Reminder"><i class="fa fa-whatsapp"></i></button></td>
+                                    </tr>
+                                <?php
+                                }
                             }
                             // Task reminder to user
                             $cur_time = date('Y-m-d H:i');
@@ -331,7 +335,7 @@ $today_date = $from_date;
                             }
                             if($role == 'Admin'){
                                 // User Birthday
-                                $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(dob, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                $sq_customer = mysqlQuery("SELECT * from emp_master where active_flag='Active' and DATE_FORMAT(dob, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
                                 while($row_cust=mysqli_fetch_assoc($sq_customer)){
                                     $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
                                     $contact_no = $row_cust['mobile_no']; 
@@ -347,7 +351,7 @@ $today_date = $from_date;
                                     <?php
                                 }
                                 // User Anniversary
-                                $sq_customer = mysqlQuery("SELECT * from emp_master where DATE_FORMAT(date_of_join, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
+                                $sq_customer = mysqlQuery("SELECT * from emp_master where active_flag='Active' and DATE_FORMAT(date_of_join, '%m-%d') = DATE_FORMAT('$today_date', '%m-%d')");
                                 while($row_cust=mysqli_fetch_assoc($sq_customer)){
                                     $cust_name = $row_cust['first_name'].' '.$row_cust['last_name'];
                                     $contact_no = $row_cust['mobile_no']; 
