@@ -34,16 +34,11 @@ $sq_task = mysqli_fetch_assoc(mysqlQuery("select * from tasks_master where task_
           <div class="col-sm-6 mg_bt_10">
             <select name="assign_to1" id="assign_to1" style="width: 100%" class="app-select2" title="Assign To">
               <?php 
-              $sq_emp = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$sq_task[emp_id]' "));
+              $sq_emp = mysqli_fetch_assoc(mysqlQuery("select emp_id,first_name,last_name from emp_master where emp_id='$sq_task[emp_id]' "));
               ?>
               <option value="<?= $sq_emp['emp_id'] ?>"><?= $sq_emp['first_name'].' '.$sq_emp['last_name'] ?></option>
               <?php
-             $query = "select * from emp_master where emp_id!='0' and active_flag='Active'";
-              if($role!='Admin' && $branch_status=='yes')
-              {
-                $query .=" and branch_id='$branch_admin_id'";
-              }
-              $sq_employee = mysqlQuery($query);
+              $sq_employee = mysqlQuery("select emp_id,first_name,last_name from emp_master where emp_id!='0' and active_flag='Active'");
               while($row_employee = mysqli_fetch_assoc($sq_employee)){
                 ?>
                 <option value="<?= $row_employee['emp_id'] ?>"><?= $row_employee['first_name'].' '.$row_employee['last_name'] ?></option>

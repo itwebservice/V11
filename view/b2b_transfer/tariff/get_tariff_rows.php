@@ -66,13 +66,8 @@
                             title="Markup Amount" onchange="validate_balance(this.id)" style="width: 140px;" /></td>
                 </tr>
                 <script>
-                $('#pickup_from,#drop_to').select2({
-                    minimumInputLength: 1
-                });
-                $('#to_date,#from_date').datetimepicker({
-                    timepicker: false,
-                    format: 'd-m-Y'
-                });
+                $('#pickup_from,#drop_to').select2({ minimumInputLength: 1 });
+                $('#to_date,#from_date').datetimepicker({ timepicker: false,format: 'd-m-Y'});
                 </script>
             </table>
         </div>

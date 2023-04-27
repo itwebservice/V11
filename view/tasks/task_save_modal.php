@@ -33,28 +33,12 @@ $cur_datetime = date('d-m-Y H:i');
             <select name="assign_to" id="assign_to" style="width: 100%" title="Assign To">
               <option value="">*Assign To</option>
               <?php
-                    if($role=='Admin' || ($branch_status!='yes' && $role=='Branch Admin')){
-                      $query = "select * from emp_master where active_flag='Active' order by first_name desc";
-                      $sq_emp = mysqlQuery($query);
-                      while($row_emp = mysqli_fetch_assoc($sq_emp)){
-                          ?>
-                          <option value="<?= $row_emp['emp_id'] ?>"><?= $row_emp['first_name'].' '.$row_emp['last_name'] ?></option>
-                          <?php
-                        }
-                    }
-                    elseif($branch_status=='yes' && $role=='Branch Admin'){
-                        $query = "select * from emp_master where active_flag='Active' and branch_id='$branch_admin_id' order by first_name asc";
-                        $sq_emp = mysqlQuery($query);
-                        while($row_emp = mysqli_fetch_assoc($sq_emp)){
-                            ?>
-                            <option value="<?= $row_emp['emp_id'] ?>"><?= $row_emp['first_name'].' '.$row_emp['last_name'] ?></option>
-                            <?php
-                          }
-                    }
-                    else{
-                      $query1 = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$emp_id' and active_flag='Active'")); ?>
-                      <option value="<?= $query1['emp_id'] ?>"><?= $query1['first_name'].' '.$query1['last_name'] ?></option>
-                <?php } ?>
+              $sq_emp = mysqlQuery("select emp_id,first_name,last_name from emp_master where active_flag='Active' order by first_name desc");
+              while($row_emp = mysqli_fetch_assoc($sq_emp)){
+                ?>
+                <option value="<?= $row_emp['emp_id'] ?>"><?= $row_emp['first_name'].' '.$row_emp['last_name'] ?></option>
+                <?php
+              } ?>
             </select>
           </div>
           <div class="col-sm-6 mg_bt_10">

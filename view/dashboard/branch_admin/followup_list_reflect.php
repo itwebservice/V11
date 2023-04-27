@@ -34,7 +34,7 @@ $branch_status1 = $sq['branch_status'];
             $count = 0;
             $rightnow = date('Y-m-d');
             $add7days = date('Y-m-d', strtotime('+7 days'));
-            $query = "SELECT * FROM `enquiry_master` where status!='Disabled' and financial_year_id='$financial_year_id'";
+            $query = "SELECT * FROM `enquiry_master` where status!='Disabled'";
             if($branch_status1 == 'yes'){
                 if($role=='Branch Admin' || $role=='Accountant' || $role_id>'7'){
                     $query .= " and branch_admin_id = '$branch_admin_id'";

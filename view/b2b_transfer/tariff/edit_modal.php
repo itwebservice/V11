@@ -1,7 +1,7 @@
 <?php
 include "../../../model/model.php";
 $tariff_id = $_POST['tariff_id'];
-$sq_tariff = mysqli_fetch_assoc(mysqlQuery("select * from b2b_transfer_tariff where tariff_id='$tariff_id'"));
+$sq_tariff = mysqli_fetch_assoc(mysqlQuery("select taxation,vehicle_id,currency_id from b2b_transfer_tariff where tariff_id='$tariff_id'"));
 $taxation = json_decode($sq_tariff['taxation']);
 ?>
 <form id="frm_tariff_update">
@@ -19,7 +19,7 @@ $taxation = json_decode($sq_tariff['taxation']);
                   <select id="vehicle_id" name="vehicle_id" style="width:100%" title="Select Vehicle" data-toggle="tooltip" required>
                     <?php
                       $sq_vehicle = mysqli_fetch_assoc(mysqlQuery("select entry_id,vehicle_name from b2b_transfer_master where entry_id='$sq_tariff[vehicle_id]'"));
-                    ?>
+                      ?>
                       <option value="<?= $sq_vehicle['entry_id'] ?>"><?= $sq_vehicle['vehicle_name'] ?></option>
                       <option value="">*Select Vehicle</option>
                       <?php
@@ -64,7 +64,7 @@ $taxation = json_decode($sq_tariff['taxation']);
                 <div class="table-responsive">
                     <table id="table_transfer_tarrif" name="table_transfer_tarrif" class="table table-bordered table-hover table-striped no-marg pd_bt_51" style="width:100%;">
                     <?php
-                    $sq_tariffentries = mysqlQuery("select * from b2b_transfer_tariff_entries where tariff_id='$tariff_id'");
+                    $sq_tariffentries = mysqlQuery("select pickup_type,pickup_location,drop_type,drop_location,service_duration,from_date,to_date,tariff_entries_id,tariff_data from b2b_transfer_tariff_entries where tariff_id='$tariff_id'");
                     $count = 0;
                     while($row_tariffentries = mysqli_fetch_assoc($sq_tariffentries)){
                       $count++;
@@ -73,9 +73,8 @@ $taxation = json_decode($sq_tariff['taxation']);
                       <tr>
                           <td><input class="css-checkbox" id="chk_transfer<?= $count ?>-u" type="checkbox" checked><label class="css-label" for="chk_ticket"> </label></td>
                           <td><input maxlength="15" value="<?= $count ?>" type="text" name="username" placeholder="Sr. No." class="form-control" disabled /></td>
-                          <td><select name="pickup_from" id="pickup_from<?= $count ?>-u" data-toggle="tooltip" style="width:150px;" title="Pickup Location" class="form-control app_minselect2">
+                          <td><select name="pickup_from" id="pickup_from<?= $count ?>-u" data-toggle="tooltip" style="width:150px;" title="Pickup Location" class="form-control app_minselect2"><!-- Pickup -->
                             <?php
-                            // Pickup
                             if($row_tariffentries['pickup_type'] == 'city'){
                               $row = mysqli_fetch_assoc(mysqlQuery("select city_id,city_name from city_master where city_id='$row_tariffentries[pickup_location]'"));
                               $html = '<optgroup value="city" label="City Name"><option value="'.$row['city_id'].'">'.$row['city_name'].'</option></optgroup>';
@@ -95,18 +94,17 @@ $taxation = json_decode($sq_tariff['taxation']);
                             ?>
                             <option value="">*Pickup Location</option>
                             <optgroup value='city' label="City Name">
-                            <?php get_cities_dropdown('1'); ?>
+                              <?php get_cities_dropdown('1'); ?>
                             </optgroup>
                             <optgroup value='airport' label="Airport Name">
-                            <?php get_airport_dropdown(); ?>
+                              <?php get_airport_dropdown(); ?>
                             </optgroup>
                             <optgroup value='hotel' label="Hotel Name">
-                            <?php get_hotel_dropdown(); ?>
+                              <?php get_hotel_dropdown(); ?>
                             </optgroup>
                           </select></td>
-                          <td><select name="drop_to" id="drop_to<?= $count ?>-u" style="width:155px;" data-toggle="tooltip" title="Drop-off Location" class="form-control app_minselect2">
+                          <td><select name="drop_to" id="drop_to<?= $count ?>-u" style="width:155px;" data-toggle="tooltip" title="Drop-off Location" class="form-control app_minselect2"><!-- Drop-off -->
                             <?php
-                            // Drop-off
                             if($row_tariffentries['drop_type'] == 'city'){
                               $row = mysqli_fetch_assoc(mysqlQuery("select city_id,city_name from city_master where city_id='$row_tariffentries[drop_location]'"));
                               $html = '<optgroup value="city" label="City Name"><option value="'.$row['city_id'].'">'.$row['city_name'].'</option></optgroup>';
@@ -132,13 +130,14 @@ $taxation = json_decode($sq_tariff['taxation']);
                             <optgroup value='hotel' label="Hotel Name">
                             <?php get_hotel_dropdown(); ?></optgroup>
                             </select></td>
-                          <td><input type="text" id="duration<?= $count ?>-u" name="duration" placeholder="Service Duration" title="Service Duration" value="<?= $row_tariffentries['service_duration'] ?>" style="width: 128px;" /></td>      
+                          <td><input type="text" id="duration<?= $count ?>-u" name="duration" placeholder="Service Duration" title="Service Duration" value="<?= $row_tariffentries['service_duration'] ?>" style="width: 128px;" /></td>
                           <td><input type="text" id="from_date<?= $count ?>-u" class="form-control" name="from_date" placeholder="*Valid From" title="Valid From" value="<?= get_date_user($row_tariffentries['from_date']) ?>"  onchange="get_to_date(this.id,'to_date<?= $count ?>-u')" style="width: 120px;" /></td>
                           <td><input type="text" id="to_date<?= $count ?>-u" class="form-control" name="to_date" placeholder="*Valid To " title="Valid To" onchange="validate_issueDate('from_date<?= $count ?>-u' ,'to_date<?= $count ?>-u')" value="<?= get_date_user($row_tariffentries['to_date']) ?>" style="width: 120px;" /></td>
                           <td><input type="text" id="luggage<?= $count ?>-u" name="luggage" placeholder="Luggage Capacity" title="Luggage Capacity" style="width: 137px;" value="<?= $tariff_data[0]->seating_capacity ?>" onkeypress="return blockSpecialChar(event)" /></td>
                           <td><input type="text" id="total_cost<?= $count ?>-u" name="total_cost" placeholder="*Total Cost" title="Total Cost" onchange="validate_balance(this.id)" style="width: 120px;" value="<?= $tariff_data[0]->total_cost ?>"/></td>
                           <td><select name="markup_in" id="markup_in<?= $count ?>-u" style="width:130px;" title="Markup In" data-toggle="tooltip" class="form-control app_select2">
-                              <option value="<?= $tariff_data[0]->markup_in ?>"><?= $tariff_data[0]->markup_in ?></option>
+                          <?php
+                          if($tariff_data[0]->markup_in!=''){ ?><option value="<?= $tariff_data[0]->markup_in ?>"><?= $tariff_data[0]->markup_in ?></option> <?php } ?>
                               <option value="">Markup In</option>
                               <option value="Percentage">Percentage</option>
                               <option value="Flat">Flat</option>
@@ -155,9 +154,7 @@ $taxation = json_decode($sq_tariff['taxation']);
                 </div>
             </div>
             </div>
-
           <?php } ?>
-
           <div class="row text-center mg_tp_20"> <div class="col-md-12">
             <button class="btn btn-sm btn-success" id="tariff_update"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Update</button>            
           </div> </div>
@@ -170,7 +167,6 @@ $taxation = json_decode($sq_tariff['taxation']);
 <script>
 $('#tariff_update_modal').modal('show');
 $('#vehicle_id,#currency_code1').select2();
-//Airport Name dropdown
 function seasonal_csv(){
     var base_url = $('#base_url').val();
     window.location = base_url+"images/csv_format/transfer_tariff_import.csv";
@@ -187,14 +183,13 @@ function transfer_tarrif_save(){
       action: 'tariff/upload_tariff_csv.php',
       name: 'uploadfile',
       onSubmit: function(file, ext){
-
-         if(!confirm('Do you want to import this file?')){
-            return false;
-         }
-         if (! (ext && /^(csv)$/.test(ext))){ 
-            error_msg_alert('Only CSV files are allowed');
-            return false;
-         }
+        if(!confirm('Do you want to import this file?')){
+          return false;
+        }
+        if (! (ext && /^(csv)$/.test(ext))){ 
+          error_msg_alert('Only CSV files are allowed');
+          return false;
+        }
         status.text('Uploading...');
       },
       onComplete: function(file, response){
