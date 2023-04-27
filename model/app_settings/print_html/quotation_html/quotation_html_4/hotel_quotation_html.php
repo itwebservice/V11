@@ -2,7 +2,7 @@
 //Generic Files
 include "../../../../model.php"; 
 include "printFunction.php";
-global $app_quot_img,$similar_text,$quot_note,$currency;
+global $app_quot_img,$similar_text,$quot_note,$currency,$tcs_note;
 
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
@@ -171,9 +171,13 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                         </thead>
                         <tbody> 
                       <?php
+                      $int_flag = '';
                       foreach($hotelDetails as $values){
                           $cityName = mysqli_fetch_assoc(mysqlQuery("SELECT `city_name` FROM `city_master` WHERE `city_id`=".$values['city_id']));
-                          $hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name` FROM `hotel_master` WHERE `hotel_id`=".$values['hotel_id']));
+                          $hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name`,`state_id` FROM `hotel_master` WHERE `hotel_id`=".$values['hotel_id']));
+                          if($hotelName['state_id'] == 1 && $int_flag == ''){
+                            $int_flag = true;
+                          }
                       ?>
                       <tr>
                           <td><?php echo $cityName['city_name']; ?></td>
@@ -280,6 +284,13 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                   <div class="icon main_block"><img src="<?= BASE_URL ?>images/quotation/p4/quotationCost.png" class="img-responsive"></div>
                   <h4 class="no-marg"><?= $currency_amount1 ?></h4>
                   <p>QUOTATION COST</p>
+                </div>
+                <div class="col-md-12 text-center">
+                      <?php
+                      $tcs_note_show = ($int_flag == true) ? $tcs_note : '';
+                      if ($tcs_note_show != '') { ?>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<h4 style="color:white;" class="costBankTitle"><?= $tcs_note_show ?></h4>
+                      <?php } ?>
                 </div>
           </div>
           

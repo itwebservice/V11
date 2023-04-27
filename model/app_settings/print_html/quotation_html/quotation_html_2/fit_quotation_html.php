@@ -2,7 +2,7 @@
 //Generic Files
 include "../../../../model.php";
 include "printFunction.php";
-global $app_quot_img, $similar_text, $quot_note, $currency;
+global $app_quot_img, $similar_text, $quot_note, $currency,$tcs_note;
 
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];

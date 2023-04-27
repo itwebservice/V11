@@ -123,7 +123,7 @@ $('#frm_tab2').validate({
                         return false;
                     }
                     if (hotel_stay_days1 == "") {
-                        error_msg_alert('Enter Hotel total days in Row ' + (i + 1) + ' of Option ' + quot);
+                        error_msg_alert('Enter Hotel total nights in Row ' + (i + 1) + ' of Option ' + quot);
                         $('.accordion_content').removeClass("indicator");
                         $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest(
                             '.accordion_content').addClass("indicator");

@@ -79,7 +79,7 @@ $nofquotation = $_REQUEST['nofquotation'];
 
                                         <td><input type="text" style="width:150px;" class="app_datepicker"
                                                 id="check_out-<?= $i ?>-1" name="check_out-<?= $i ?>-1"
-                                                placeholder="Check-Out Date" title="Check-Out Date" value="<?= date('d-m-Y') ?>"
+                                                placeholder="Check-Out Date" title="Check-Out Date" value="<?= date('d-m-Y', strtotime('+1 days', strtotime(date('d-m-Y')))) ?>"
                                                 onchange="calculate_total_nights(this.id);validate_validDates(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');">
                                         </td>
 
@@ -89,7 +89,7 @@ $nofquotation = $_REQUEST['nofquotation'];
 
                                         <td><input type="text" id="hotel_stay_days-<?= $i ?>-1" title="Total Nights"
                                                 name="hotel_stay_days-<?= $i ?>-1" placeholder="Total Nights"
-                                                onchange="validate_balance(this.id);" style="width:150px;" readonly>
+                                                onchange="validate_balance(this.id);" style="width:150px;" value="1" readonly>
                                         </td>
 
                                         <td><input type="text" id="no_of_rooms-<?= $i ?>-1" title="Total Rooms"
