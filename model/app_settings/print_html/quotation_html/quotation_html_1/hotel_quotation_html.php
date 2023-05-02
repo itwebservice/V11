@@ -219,47 +219,47 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
 
     <section class="print_sec main_block side_pad mg_tp_30">
         <div class="section_heding">
-              <h2>ACCOMMODATION</h2>
-              <div class="section_heding_img">
-                <img src="<?php echo BASE_URL.'images/heading_border.png'; ?>" class="img-responsive">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <div class="table-responsive">
-                <table class="table table-bordered no-marg" id="tbl_emp_list">
-                  <thead>
-                    <tr class="table-heading-row">
-                      <th>City</th>
-                      <th>Hotel Name</th>
-                      <th>Check_IN</th>
-                      <th>Check_OUT</th>
-                    </tr>
-                  </thead>
-                  <tbody> 
-                <?php 
-                $hotelDetails = json_decode($sq_quotation['hotel_details']);
-                $int_flag = '';
-                foreach($hotelDetails as $details){
-                  $hotel_name = mysqli_fetch_assoc(mysqlQuery("select hotel_name,state_id from hotel_master where hotel_id='$details->hotel_id'"));
-                  if($hotel_name['state_id'] == 1 && $int_flag == ''){
-                    $int_flag = true;
-                  }
-                  $city_name = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id='$details->city_id'"));
-                ?>
-                  <tr>
-                    <td><?php echo $city_name['city_name']; ?></td>
-                    <td><?php echo $hotel_name['hotel_name']; ?></td>
-                    <td><?= get_date_user($details->checkin) ?></td>
-                    <td><?= get_date_user($details->checkout) ?></td>
-                  </tr>
-                  <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            </div>
-          </section>
+          <h2>ACCOMMODATION</h2>
+          <div class="section_heding_img">
+            <img src="<?php echo BASE_URL.'images/heading_border.png'; ?>" class="img-responsive">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered no-marg" id="tbl_emp_list">
+              <thead>
+                <tr class="table-heading-row">
+                  <th>City</th>
+                  <th>Hotel Name</th>
+                  <th>Check_IN</th>
+                  <th>Check_OUT</th>
+                </tr>
+              </thead>
+              <tbody> 
+            <?php 
+            $hotelDetails = json_decode($sq_quotation['hotel_details']);
+            $int_flag = '';
+            foreach($hotelDetails as $details){
+              $hotel_name = mysqli_fetch_assoc(mysqlQuery("select hotel_name,state_id from hotel_master where hotel_id='$details->hotel_id'"));
+              if($hotel_name['state_id'] == 1 && $int_flag == ''){
+                $int_flag = true;
+              }
+              $city_name = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id='$details->city_id'"));
+            ?>
+              <tr>
+                <td><?php echo $city_name['city_name']; ?></td>
+                <td><?php echo $hotel_name['hotel_name']; ?></td>
+                <td><?= get_date_user($details->checkin) ?></td>
+                <td><?= get_date_user($details->checkout) ?></td>
+              </tr>
+              <?php } ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Costing -->
     <section class="print_sec main_block side_pad mg_tp_30">

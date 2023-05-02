@@ -12,6 +12,12 @@ $to_date1 = $_GET['to_date'];
 $from_date = get_date_db($from_date1);
 $to_date = get_date_db($to_date1);
 $count = 0;
+
+if ($branch_admin_id != 0) {
+  $branch_details = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$branch_admin_id'"));
+} else {
+  $branch_details = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='1'"));
+}
 ?>
 
 <!-- header -->
@@ -788,10 +794,12 @@ $count = 0;
 					$balance_amount = $sale_total_amount - $paid_amount;
 				}
 				if($balance_amount != 0){
+					$sq_entry = mysqli_fetch_assoc(mysqlQuery("select first_name,last_name from miscellaneous_master_entries where misc_id='$row_visa[misc_id]'"));
+					$pass_name = ($sq_entry['first_name'] != '' ) ? ' ('.$sq_entry['first_name']." ".$sq_entry['last_name'].')' : '';
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "Miscellaneous Booking"?></td>
+						<td><?= "Miscellaneous Booking".$pass_name ?></td>
 						<td><?= get_misc_booking_id($row_visa['misc_id'],$year) ?></td>
 							<td><?= get_date_user($row_visa['created_at']) ?></td>
 						<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>
