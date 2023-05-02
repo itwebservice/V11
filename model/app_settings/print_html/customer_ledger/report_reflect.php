@@ -799,8 +799,8 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "Miscellaneous Booking".$pass_name ?></td>
-						<td><?= get_misc_booking_id($row_visa['misc_id'],$year) ?></td>
+						<td><?= "Miscellaneous Booking" ?></td>
+						<td><?= get_misc_booking_id($row_visa['misc_id'],$year).$pass_name ?></td>
 							<td><?= get_date_user($row_visa['created_at']) ?></td>
 						<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>
 						<td class="success text-right"><?= number_format($paid_amount,2) ?></td>
