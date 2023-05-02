@@ -1586,8 +1586,28 @@ font-weight: 500;
 .select2-selection .tooltip.fade.bottom.in {
 opacity:0 !important;
 }
-.table{
-border-collapse: initial !important
+.table thead tr th:nth-child(1){
+border-top-left-radius: 10px;
+}
+.table thead tr th:last-child{
+border-top-right-radius: 10px;
+}
+
+table{
+border-radius: 10px;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.table tr th{
+background-color: #e2e8f0;
+padding: 9px 25px !important;
+line-height: 2.1 !important;
+}
+
+.table tbody tr td{
+border-bottom: 1px solid #e2e8f0 !important;
+line-height: 1.4;
+vertical-align: middle;
 }
 
 select option {
@@ -2409,4 +2429,26 @@ border: none;
 }
 .mCustomScrollBox {
 border-radius: 0 10px 0 0;
+}
+.avatar {
+display: inline-flex;
+flex-shrink: 0;
+height: 2.5rem;
+position: relative;
+width: 2.5rem;
+margin-right: 10px;
+}
+.mask {
+-webkit-mask-position: center;
+mask-position: center;
+-webkit-mask-repeat: no-repeat;
+mask-repeat: no-repeat;
+-webkit-mask-size: contain;
+mask-size: contain;
+border-radius: 10px;
+}
+.ava-pic{
+display: flex;
+align-items: center;
+white-space: nowrap;
 }
