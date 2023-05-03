@@ -242,7 +242,7 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
             $int_flag = '';
             foreach($hotelDetails as $details){
               $hotel_name = mysqli_fetch_assoc(mysqlQuery("select hotel_name,state_id from hotel_master where hotel_id='$details->hotel_id'"));
-              if($hotel_name['state_id'] == 1 && $int_flag == ''){
+              if($details->tour_type == 'International' && $int_flag == ''){
                 $int_flag = true;
               }
               $city_name = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id='$details->city_id'"));

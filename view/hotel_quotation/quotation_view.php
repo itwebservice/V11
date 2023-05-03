@@ -77,6 +77,7 @@ else{
 
 		<tr class="table-heading-row">
 			<th>S_No.</th>
+			<th>Tour_Type</th>
 			<th>City_Name</th>
 			<th>Hotel_Name</th>
 			<th>R_Category</th>
@@ -98,6 +99,7 @@ else{
 			?>
 			<tr>
 				<td><?= ++$count ?></td>
+				<td><?= $values['tour_type'] ?></td>
 				<td><?= $cityName['city_name'] ?></td>
 				<td><?= $hotelName['hotel_name'] ?></pre></td>
 				<td><?= $values['hotel_cat'] ?></td>

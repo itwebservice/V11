@@ -186,6 +186,7 @@ class quotation_master{
                 }
                 $content .= '<tr>
                 <table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+                <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Tour Type</td>   <td style="text-align:left;border: 1px solid #888888;">'.$hotelDetails[$i]['tour_type'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">City Name</td>   <td style="text-align:left;border: 1px solid #888888;">'.$cityName['city_name'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Hotel Name(Option-'.($i+1).')</td>   <td style="text-align:left;border: 1px solid #888888;">'.$hotelName['hotel_name'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Check In Date</td>   <td style="text-align:left;border: 1px solid #888888;">'.get_date_user($hotelDetails[$i]['checkin']).'</td></tr>
@@ -258,6 +259,7 @@ Hope you are doing great. Following are the hotel quotation details.');
             $markup_tax = explode(':',$costDetails['markup_tax']);
             $whatsapp_msg .= rawurlencode('
 *Option* : '.($i+1).'
+*Tour Type* : '.($hotelDetails[$i]['tour_type']).'
 *City Name* : '.($cityName['city_name']).'
 *Hotel Name* : '.($hotelName['hotel_name']).'
 *Check In Date* : '.get_date_user($hotelDetails[$i]['checkin']).'

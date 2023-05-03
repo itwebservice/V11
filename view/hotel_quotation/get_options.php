@@ -41,67 +41,60 @@ $nofquotation = $_REQUEST['nofquotation'];
                                                 id="chk_program-<?= $i ?>-1" type="checkbox" checked><label
                                                 class="css-label" for="chk_program-<?= $i ?>-1"> <label>
                                         </td>
-
                                         <td style="width: 50px;"><input maxlength="15" value="1" type="text"
                                                 name="username" placeholder="Sr. No." class="form-control mg_bt_10"
                                                 disabled />
                                         </td>
-
+                                        <td><select name="tour_type-<?= $i ?>-1" id="tour_type-<?= $i ?>-1" style="width:145px;" title="Tour Type" class="form-control">
+                                                <option value="Domestic">Domestic</option>
+                                                <option value="International">International</option>
+                                            </select>
+                                        </td>
                                         <td><select id="city_name-<?= $i ?>-1" name="city_name-<?= $i ?>-1"
                                                 class="city_master_dropdown" style="width:160px"
                                                 onchange="hotel_name_list_load(this.id);" title="Select City Name">
                                             </select>
                                         </td>
-
                                         <td><select id="hotel_name-<?= $i ?>-1" name="hotel_name-<?= $i ?>-1"
                                                 onchange="hotel_type_load(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');"
                                                 style="width:160px" title="Select Hotel Name">
                                                 <option value="">Hotel Name</option>
                                             </select>
                                         </td>
-
                                         <td><select name="room_cat-<?= $i ?>-1" id="room_cat-<?= $i ?>-1"
                                                 style="width:162px;" title="Room Category"
                                                 class="form-control app_select2"
                                                 onchange="get_hotel_cost('dynamic_table_list_h_<?= $i ?>');"><?php get_room_category_dropdown(); ?></select>
                                         </td>
-
                                         <td><select name="meal_plan-<?= $i ?>-1" id="meal_plan-<?= $i ?>-1"
                                                 style="width:145px;" title="Meal Plan"
                                                 class="form-control app_select2"><?php get_mealplan_dropdown(); ?></select>
                                         </td>
-
                                         <td><input type="text" style="width:150px;" class="app_datepicker"
                                                 id="check_in-<?= $i ?>-1" name="check_in-<?= $i ?>-1"
                                                 placeholder="Check-In Date" title="Check-In Date" value="<?= date('d-m-Y') ?>"
                                                 onchange="get_auto_to_date(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');">
                                         </td>
-
                                         <td><input type="text" style="width:150px;" class="app_datepicker"
                                                 id="check_out-<?= $i ?>-1" name="check_out-<?= $i ?>-1"
                                                 placeholder="Check-Out Date" title="Check-Out Date" value="<?= date('d-m-Y', strtotime('+1 days', strtotime(date('d-m-Y')))) ?>"
                                                 onchange="calculate_total_nights(this.id);validate_validDates(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');">
                                         </td>
-
                                         <td><input type="text" id="hotel_type-<?= $i ?>-1" name="hotel_type-1"
                                                 placeholder="Hotel Category" title="Hotel Category" style="width:150px"
                                                 readonly></td>
-
                                         <td><input type="text" id="hotel_stay_days-<?= $i ?>-1" title="Total Nights"
                                                 name="hotel_stay_days-<?= $i ?>-1" placeholder="Total Nights"
                                                 onchange="validate_balance(this.id);" style="width:150px;" value="1" readonly>
                                         </td>
-
                                         <td><input type="text" id="no_of_rooms-<?= $i ?>-1" title="Total Rooms"
                                                 name="no_of_rooms-<?= $i ?>-1" placeholder="*Total Rooms"
                                                 onchange="validate_balance(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');"
-                                                style="width:110px"></td>
-
+                                                style="width:120px"></td>
                                         <td><input type="text" id="extra_bed-<?= $i ?>-1" name="extra_bed-<?= $i ?>-1"
                                                 title="Extra Bed" placeholder="Extra Bed"
                                                 onchange="validate_balance(this.id);get_hotel_cost('dynamic_table_list_h_<?= $i ?>');"
                                                 style="width:100px"></td>
-
                                         <td class="hidden"><input type="hidden" id="hotel_cost-<?= $i ?>-1"
                                                 name="hotel_cost-<?= $i ?>-1" placeholder="Hotel Cost"
                                                 title="Hotel Cost" onchange="validate_balance(this.id)"

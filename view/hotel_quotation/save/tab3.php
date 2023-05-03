@@ -84,17 +84,18 @@ $('#frm_tab3').validate({
 				if(row.cells[0].childNodes[0].checked){	      
 
 					eachHotel.push({
-						city_id	:	row.cells[2].childNodes[0].value,
-						hotel_id	:	row.cells[3].childNodes[0].value,
-						hotel_cat	:	row.cells[4].childNodes[0].value,
-						meal_plan : row.cells[5].childNodes[0].value,
-						checkin	:	row.cells[6].childNodes[0].value,
-						checkout	:	row.cells[7].childNodes[0].value,
-						hotel_type : row.cells[8].childNodes[0].value,
-						hotel_stay_days	:	row.cells[9].childNodes[0].value,
-						total_rooms	:	row.cells[10].childNodes[0].value,
-						extra_bed	:	row.cells[11].childNodes[0].value,
-						hotel_cost	:	row.cells[12].childNodes[0].value
+						tour_type	:	row.cells[2].childNodes[0].value,
+						city_id	:	row.cells[3].childNodes[0].value,
+						hotel_id	:	row.cells[4].childNodes[0].value,
+						hotel_cat	:	row.cells[5].childNodes[0].value,
+						meal_plan : row.cells[6].childNodes[0].value,
+						checkin	:	row.cells[7].childNodes[0].value,
+						checkout	:	row.cells[8].childNodes[0].value,
+						hotel_type : row.cells[9].childNodes[0].value,
+						hotel_stay_days	:	row.cells[10].childNodes[0].value,
+						total_rooms	:	row.cells[11].childNodes[0].value,
+						extra_bed	:	row.cells[12].childNodes[0].value,
+						hotel_cost	:	row.cells[13].childNodes[0].value
 					});
 				}
 			}

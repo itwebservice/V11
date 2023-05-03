@@ -175,7 +175,7 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                       foreach($hotelDetails as $values){
                           $cityName = mysqli_fetch_assoc(mysqlQuery("SELECT `city_name` FROM `city_master` WHERE `city_id`=".$values['city_id']));
                           $hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name`,`state_id` FROM `hotel_master` WHERE `hotel_id`=".$values['hotel_id']));
-                          if($hotelName['state_id'] == 1 && $int_flag == ''){
+                          if($values['tour_type'] == 'International' && $int_flag == ''){
                             $int_flag = true;
                           }
                       ?>

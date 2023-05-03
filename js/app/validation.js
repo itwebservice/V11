@@ -832,19 +832,20 @@ function foo(tableID, quot_table_id, rowCounts) {
       "chk_program-" + quot_table_id + offset
     );
     row.cells[0].childNodes[1].setAttribute("for", "chk_program-" + offset);
+    row.cells[2].childNodes[0].setAttribute("id", "tour_type-" + offset);
 
-    row.cells[2].childNodes[0].setAttribute("id", "city_name-" + offset);
-    $(row.cells[2].childNodes[0]).next("span").remove();
-    row.cells[3].childNodes[0].setAttribute("id", "hotel_name-" + offset);
-    row.cells[4].childNodes[0].setAttribute("id", "room_cat-" + offset);
-    row.cells[5].childNodes[0].setAttribute("id", "meal_plan-" + offset);
-    row.cells[6].childNodes[0].setAttribute("id", "check_in-" + offset);
-    row.cells[7].childNodes[0].setAttribute("id", "check_out-" + offset);
-    row.cells[8].childNodes[0].setAttribute("id", "hotel_type-" + offset);
-    row.cells[9].childNodes[0].setAttribute("id", "hotel_stay_days-" + offset);
-    row.cells[10].childNodes[0].setAttribute("id", "no_of_rooms-" + offset);
-    row.cells[11].childNodes[0].setAttribute("id", "extra_bed-" + offset);
-    row.cells[12].childNodes[0].setAttribute("id", "hotel_cost-" + offset);
+    row.cells[3].childNodes[0].setAttribute("id", "city_name-" + offset);
+    $(row.cells[3].childNodes[0]).next("span").remove();
+    row.cells[4].childNodes[0].setAttribute("id", "hotel_name-" + offset);
+    row.cells[5].childNodes[0].setAttribute("id", "room_cat-" + offset);
+    row.cells[6].childNodes[0].setAttribute("id", "meal_plan-" + offset);
+    row.cells[7].childNodes[0].setAttribute("id", "check_in-" + offset);
+    row.cells[8].childNodes[0].setAttribute("id", "check_out-" + offset);
+    row.cells[9].childNodes[0].setAttribute("id", "hotel_type-" + offset);
+    row.cells[10].childNodes[0].setAttribute("id", "hotel_stay_days-" + offset);
+    row.cells[11].childNodes[0].setAttribute("id", "no_of_rooms-" + offset);
+    row.cells[12].childNodes[0].setAttribute("id", "extra_bed-" + offset);
+    row.cells[13].childNodes[0].setAttribute("id", "hotel_cost-" + offset);
     
     var today = new Date();
     var dd = today.getDate();
@@ -858,10 +859,10 @@ function foo(tableID, quot_table_id, rowCounts) {
       mm = "0" + mm;
     }
     var today = dd + "-" + mm + "-" + yyyy;
-    row.cells[6].childNodes[0].value = today;
     row.cells[7].childNodes[0].value = today;
+    row.cells[8].childNodes[0].value = today;
 
-    $(row.cells[12]).addClass("hidden");
+    $(row.cells[14]).addClass("hidden");
   }
   if (tableID == "dynamic_table_list_update") {
     row.cells[0].childNodes[0].setAttribute("id", "chk_program1" + foo.counter);
