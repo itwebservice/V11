@@ -55,16 +55,12 @@ if ($branch_admin_id != 0) {
     <!-- print-detail -->
 		<div class="row"> <div class="col-md-12"> <div class="table-responsive">
 
-		<table class="table table-bordered cust_table" id="tbl_list" style="padding: 0 !important; background: #fff;">
-
+		<table class="table table-bordered" id="tbl_list" style="width:1500px !important;padding: 0 !important; background: #fff;">
 			<thead>
-
 				<tr class="table-heading-row">
-
 					<th>S_No.</th>
-					<th>Service</th>
-					<th>Booking_ID</th>
-					<th>Date</th>
+					<th>Service(Date)</th>
+					<th>b_ID</th>
 					<th class="text-right info">Sale</th>
 					<th class="text-right success">Paid</th>
 					<th class="text-right danger">Cancel</th>
@@ -114,9 +110,8 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "B2C Booking".'('.$row_sale['service'].')' ?></td>
+						<td><?= "B2C Booking".'('.$row_sale['service'].')'. get_date_user($row_sale['created_at']) ?></td>
 						<td><?= get_b2c_booking_id($row_sale['booking_id'],$year) ?></td>
-						<td><?= get_date_user($row_sale['created_at']) ?></td>
 						<td class="info text-right"><?= number_format($net_total,2)?></td>
 						<td class="text-right success"><?= number_format($paid_amount,2) ?></td>
 						<td class="danger text-right"><?= number_format($cancel_amount,2)?></td>
@@ -169,9 +164,8 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "Package Booking" ?></td>
+						<td><?= "Package Booking ".' ('.get_date_user($row_booking['booking_date']).')' ?></td>
 						<td><?= get_package_booking_id($row_booking['booking_id'],$year).$pass_name ?></td>
-						<td><?= get_date_user($row_booking['booking_date']) ?></td>
 						<td class="info text-right"><?= number_format($sale_total_amount,2)?></td>
 						<td class="text-right success"><?= number_format($paid_amount,2) ?></td>
 						<td class="danger text-right"><?= number_format($cancel_amount,2)?></td>
@@ -239,9 +233,8 @@ if ($branch_admin_id != 0) {
 						?>	
 						<tr>
 							<td><?= ++$count ?></td>
-							<td><?= "Visa Booking"?></td>
+							<td><?= "Visa Booking".' ('.get_date_user($row_visa['created_at']).')'?></td>
 							<td><?= get_visa_booking_id($row_visa['visa_id'],$year).$pass_name ?></td>
-							<td><?= get_date_user($row_visa['created_at']) ?></td>
 							<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>
 							<td class="success text-right"><?= number_format($paid_amount,2) ?></td>
 							<td class="danger text-right"><?= number_format($cancel_amount,2) ?></td>
@@ -310,9 +303,8 @@ if ($branch_admin_id != 0) {
 				?>	
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "Flight Ticket" ?></td>
+						<td><?= "Flight Ticket".' ('.get_date_user($row_ticket['created_at']).')' ?></td>
 						<td><?= get_ticket_booking_id($row_ticket['ticket_id'],$year).$pass_name ?></td>
-						<td><?= get_date_user($row_ticket['created_at']) ?></td>
 						<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>
 						<td class="text-right success"><?= ($paid_amount=="") ? number_format(0,2) : number_format($paid_amount,2) ?></td>
 						<td class="danger text-right"><?= number_format($cancel_amount,2) ?></td>
@@ -378,7 +370,7 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-							<td><?= "Train Ticket Booking" ?></td>
+							<td><?= "Train Ticket Booking".' ('.get_date_user($row_ticket['created_at']).')' ?></td>
 						<td><?= get_train_ticket_booking_id($row_ticket['train_ticket_id'],$year).$pass_name ?></td>
 						<td><?= get_date_user($row_ticket['created_at']) ?></td>
 						<td class="text-right info"><?= number_format($sale_total_amount,2) ?></td>
@@ -444,7 +436,7 @@ if ($branch_admin_id != 0) {
 				?>
 				<tr>
 					<td><?= ++$count ?></td>
-					<td><?= "Hotel Booking" ?></td>
+					<td><?= "Hotel Booking".' ('.get_date_user($row_booking['created_at']).')' ?></td>
 					<td><?= get_hotel_booking_id($row_booking['booking_id'],$year).$pass_name ?></td>
 					<td><?= get_date_user($row_booking['created_at']) ?></td>
 					<td class="text-right  info"><?= number_format($sale_total_amount,2) ?></td>
@@ -511,7 +503,7 @@ if ($branch_admin_id != 0) {
 				?>
 				<tr>
 					<td><?= ++$count ?></td>
-					<td><?= "Bus Booking" ?></td>
+					<td><?= "Bus Booking".' ('.get_date_user($row_booking['created_at']).')' ?></td>
 					<td><?= get_bus_booking_id($row_booking['booking_id'],$year) ?></td>
 					<td><?= get_date_user($row_booking['created_at']) ?></td>
 					<td class="text-right info"><?= number_format($sale_total_amount,2) ?></td>
@@ -577,7 +569,7 @@ if ($branch_admin_id != 0) {
 				?>
 				<tr>
 					<td><?= $count ?></td>
-					<td><?= "Car Rental" ?></td>
+					<td><?= "Car Rental".' ('.get_date_user($row_booking['created_at']).')' ?></td>
 					<td><?= get_car_rental_booking_id($row_booking['booking_id'],$year).$pass_name ?></td>
 					<td><?= get_date_user($row_booking['created_at']) ?></td>
 					<td class="text-right info"><?= number_format($sale_total_amount, 2) ?></td>
@@ -663,7 +655,7 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?php echo $count ?></td>
-						<td><?= "Group Booking" ?></td>
+						<td><?= "Group Booking".' ('.get_date_user($row1['form_date']).')' ?></td>
 						<td><?= get_group_booking_id($row1['id'],$year).$pass_name ?></td>
 						<td><?= get_date_user($row1['form_date']) ?></td>
 						<td class="text-right info"><?= number_format($sale_total_amount,2) ?></td>
@@ -729,9 +721,8 @@ if ($branch_admin_id != 0) {
 				?>
 				<tr>
 					<td><?= ++$count ?></td>
-					<td><?= "Excursion Booking"?></td>
+					<td><?= "Excursion Booking".' ('.get_date_user($row_ex['created_at']).')'?></td>
 					<td><?= get_exc_booking_id($row_ex['exc_id'],$year) ?></td>
-					<td><?= get_date_user($row_ex['created_at']) ?></td>
 					<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>
 					<td class="success text-right"><?= number_format($paid_amount,2) ?></td>
 					<td class="danger text-right"><?= number_format($cancel_amount,2) ?></td>
@@ -799,7 +790,7 @@ if ($branch_admin_id != 0) {
 					?>
 					<tr>
 						<td><?= ++$count ?></td>
-						<td><?= "Miscellaneous Booking" ?></td>
+						<td><?= "Miscellaneous Booking".' ('.get_date_user($row_visa['created_at']).')' ?></td>
 						<td><?= get_misc_booking_id($row_visa['misc_id'],$year).$pass_name ?></td>
 							<td><?= get_date_user($row_visa['created_at']) ?></td>
 						<td class="info text-right"><?= number_format($sale_total_amount,2) ?></td>

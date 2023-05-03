@@ -70,7 +70,7 @@ $query = $conn->query("delete from ledger_master where ledger_id >= '363'");
 $query = $conn->query("UPDATE `ledger_master` SET `balance`=0 WHERE 1");
 
 $app_date=date('Y');
-$query = $conn->query("update app_settings set app_version = '$app_date' where setting_id='1'");
+$query = $conn->query("update app_settings set app_version = '$app_date',bank_name='',acc_name='',bank_branch_name='',bank_acc_no='',bank_ifsc_code='',bank_account_name='',bank_swift_code='' where setting_id='1'");
 
 $conn->close();
 
