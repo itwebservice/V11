@@ -77,22 +77,22 @@ function get_quotation_details(element){
         }
         $.each(data.hotel_details, function (i, field) {
           var row = table.rows[i];
-          $(row.cells[2].childNodes[0]).select2('destroy');
-          $(row.cells[2].childNodes[0]).append('<option value="' + field.city_id + '" selected>' + field.city_name + '</option>');
-          city_lzloading('#' + row.cells[2].childNodes[0].id);
-          $(row.cells[3].childNodes[0]).append('<option value="' + field.hotel_id + '" selected>' + field.hotel_name + '</option>');
-          row.cells[4].childNodes[0].value = field.checkin + ' 00:00';
-          row.cells[5].childNodes[0].value = field.checkout + ' 00:00';
-          row.cells[6].childNodes[0].value = field.hotel_stay_days;
-          row.cells[7].childNodes[0].value = field.total_rooms;
-          row.cells[9].childNodes[0].value = field.hotel_cat;
-          row.cells[11].childNodes[0].value = field.extra_bed;
-          row.cells[12].childNodes[0].value = field.meal_plan;
+          row.cells[2].childNodes[0].value = field.tour_type;
+          $(row.cells[3].childNodes[0]).select2('destroy');
+          $(row.cells[3].childNodes[0]).append('<option value="' + field.city_id + '" selected>' + field.city_name + '</option>');
+          city_lzloading('#' + row.cells[3].childNodes[0].id);
+          $(row.cells[4].childNodes[0]).append('<option value="' + field.hotel_id + '" selected>' + field.hotel_name + '</option>');
+          row.cells[5].childNodes[0].value = field.checkin + ' 00:00';
+          row.cells[6].childNodes[0].value = field.checkout + ' 00:00';
+          row.cells[7].childNodes[0].value = field.hotel_stay_days;
+          row.cells[8].childNodes[0].value = field.total_rooms;
+          row.cells[10].childNodes[0].value = field.hotel_cat;
+          row.cells[12].childNodes[0].value = field.extra_bed;
+          row.cells[13].childNodes[0].value = field.meal_plan;
           $('#pass_name').val(data.enquiry_details.customer_name);
           $('#adults').val(data.enquiry_details.total_adult);
           $('#childrens').val(Number(data.enquiry_details.children_without_bed) + Number(data.enquiry_details.children_with_bed));
           $('#infants').val(data.enquiry_details.total_infant);
-          console.log(data.costing_details.tax_value)
           $('#service_charge').val(data.costing_details.service_charge);
           $('#tax_apply_on').val(data.costing_details.tax_apply_on);
           $('#tax_value').val(data.costing_details.tax_value);

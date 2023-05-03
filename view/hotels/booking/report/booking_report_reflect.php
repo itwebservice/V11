@@ -43,6 +43,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 			<th>S_No.</th>
 			<th>Booking_ID</th>
 			<th>Customer_Name</th>
+			<th>Tour_type</th>
 			<th>City</th>
 			<th>Hotel_Name</th>
 			<th>Check_In&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -82,6 +83,7 @@ include "../../../../model/app_settings/branchwise_filteration.php";
 					<td><?= ++$count ?></td>
 					<td><?= get_hotel_booking_id($row_booking['booking_id'],$year)?></td>
 					<td><?= $cust_name ?></td>
+					<td><?= $row_entry['tour_type'] ?></td>
 					<td><?= $sq_city['city_name'] ?></td>
 					<td><?= $sq_hotel['hotel_name'] ?></td>
 					<td><?= date('d/m/Y H:i', strtotime($row_entry['check_in'])) ?></td>

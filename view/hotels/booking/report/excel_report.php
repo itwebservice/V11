@@ -179,16 +179,17 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$row_count, "Sr. No")
         ->setCellValue('C'.$row_count, "Booking ID")
         ->setCellValue('D'.$row_count, "Customer Name")
-        ->setCellValue('E'.$row_count, "City")
-        ->setCellValue('F'.$row_count, "Hotel Name")
-        ->setCellValue('G'.$row_count, "Check In")
-        ->setCellValue('H'.$row_count, "Check Out")
-        ->setCellValue('I'.$row_count, "Rooms")
-        ->setCellValue('J'.$row_count, "Room Type")
-        ->setCellValue('K'.$row_count, "Extra Beds");
+        ->setCellValue('E'.$row_count, "Tour Type")
+        ->setCellValue('F'.$row_count, "City")
+        ->setCellValue('G'.$row_count, "Hotel Name")
+        ->setCellValue('H'.$row_count, "Check In")
+        ->setCellValue('I'.$row_count, "Check Out")
+        ->setCellValue('J'.$row_count, "Rooms")
+        ->setCellValue('K'.$row_count, "Room Type")
+        ->setCellValue('L'.$row_count, "Extra Beds");
 
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($header_style_Array);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);    
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($header_style_Array);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($borderArray);    
 
 $row_count++;
 
@@ -215,16 +216,17 @@ $sq_booking = mysqlQuery($query);
         ->setCellValue('B'.$row_count, ++$count)
         ->setCellValue('C'.$row_count, get_hotel_booking_id($row_booking['booking_id'],$year))
         ->setCellValue('D'.$row_count, $cust_name)
-        ->setCellValue('E'.$row_count, $sq_city['city_name'])
-        ->setCellValue('F'.$row_count, $sq_hotel['hotel_name'])
-        ->setCellValue('G'.$row_count, date('d-m-Y H:i', strtotime($row_entry['check_in'])))
-        ->setCellValue('H'.$row_count, date('d-m-Y H:i', strtotime($row_entry['check_out'])))
-        ->setCellValue('I'.$row_count, $row_entry['rooms'])
-        ->setCellValue('J'.$row_count, $row_entry['room_type'])
-        ->setCellValue('K'.$row_count, $row_entry['extra_beds']);
+        ->setCellValue('E'.$row_count, $row_entry['tour_type'])
+        ->setCellValue('F'.$row_count, $sq_city['city_name'])
+        ->setCellValue('G'.$row_count, $sq_hotel['hotel_name'])
+        ->setCellValue('H'.$row_count, date('d-m-Y H:i', strtotime($row_entry['check_in'])))
+        ->setCellValue('I'.$row_count, date('d-m-Y H:i', strtotime($row_entry['check_out'])))
+        ->setCellValue('J'.$row_count, $row_entry['rooms'])
+        ->setCellValue('K'.$row_count, $row_entry['room_type'])
+        ->setCellValue('L'.$row_count, $row_entry['extra_beds']);
 
-    $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($content_style_Array);
-	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':K'.$row_count)->applyFromArray($borderArray);    
+    $objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($content_style_Array);
+	$objPHPExcel->getActiveSheet()->getStyle('B'.$row_count.':L'.$row_count)->applyFromArray($borderArray);    
 
 
 

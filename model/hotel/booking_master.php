@@ -32,7 +32,8 @@ class booking_master{
     $bank_name = $_POST['bank_name'];
     $transaction_id = $_POST['transaction_id'];
     $bank_id = $_POST['bank_id'];
-
+    
+    $tour_type_arr = $_POST['tour_type_arr'];
     $city_id_arr = $_POST['city_id_arr'];
     $hotel_id_arr = $_POST['hotel_id_arr'];
     $check_in_arr = $_POST['check_in_arr'];
@@ -123,10 +124,9 @@ class booking_master{
 
           $check_in_arr[$i] = date('Y-m-d H:i', strtotime($check_in_arr[$i]));
           $check_out_arr[$i] = date('Y-m-d H:i', strtotime($check_out_arr[$i]));
-          
           $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from hotel_booking_entries"));
           $entry_id = $sq_max['max'] + 1;
-          $sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id, '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
+          $sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id, tour_type, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id,'$tour_type_arr[$i]', '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
           if(!$sq_entry){
             $GLOBALS['flag'] = false;
             echo "error--Sorry, Some hotels are not saved!";
@@ -792,6 +792,7 @@ public function booking_update()
   $tcs_per = $_POST['tcs_per'];
   $currency_code = $_POST['currency_code'];
 
+  $tour_type_arr = $_POST['tour_type_arr'];
 	$city_id_arr = $_POST['city_id_arr'];
 	$hotel_id_arr = $_POST['hotel_id_arr'];
 	$check_in_arr = $_POST['check_in_arr'];
@@ -839,7 +840,7 @@ public function booking_update()
           $sq_max = mysqli_fetch_assoc(mysqlQuery("select max(entry_id) as max from hotel_booking_entries"));
           $entry_id = $sq_max['max'] + 1;
 
-          $sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id, '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
+          $sq_entry = mysqlQuery("insert into hotel_booking_entries (entry_id, booking_id,tour_type, city_id, hotel_id, check_in, check_out, no_of_nights, rooms, room_type, category, accomodation_type, extra_beds, meal_plan, conf_no) values('$entry_id', $booking_id,'$tour_type_arr[$i]', '$city_id_arr[$i]', '$hotel_id_arr[$i]', '$check_in_arr[$i]', '$check_out_arr[$i]', '$no_of_nights_arr[$i]', '$rooms_arr[$i]', '$room_type_arr[$i]', '$category_arr[$i]', '$accomodation_type_arr[$i]', '$extra_beds_arr[$i]', '$meal_plan_arr[$i]', '$conf_no_arr[$i]')");
           if(!$sq_entry){
             $GLOBALS['flag'] = false;
             echo "error--Sorry, Some hotels are not saved!";
@@ -848,7 +849,7 @@ public function booking_update()
 
         }
         else{
-          $sq_entry = mysqlQuery("UPDATE hotel_booking_entries set city_id='$city_id_arr[$i]', hotel_id='$hotel_id_arr[$i]', check_in='$check_in_arr[$i]', check_out='$check_out_arr[$i]', no_of_nights='$no_of_nights_arr[$i]', rooms='$rooms_arr[$i]', room_type='$room_type_arr[$i]', category='$category_arr[$i]', accomodation_type='$accomodation_type_arr[$i]', extra_beds='$extra_beds_arr[$i]', meal_plan='$meal_plan_arr[$i]', conf_no='$conf_no_arr[$i]' where entry_id='$entry_id_arr[$i]'");
+          $sq_entry = mysqlQuery("UPDATE hotel_booking_entries set tour_type='$tour_type_arr[$i]',city_id='$city_id_arr[$i]', hotel_id='$hotel_id_arr[$i]', check_in='$check_in_arr[$i]', check_out='$check_out_arr[$i]', no_of_nights='$no_of_nights_arr[$i]', rooms='$rooms_arr[$i]', room_type='$room_type_arr[$i]', category='$category_arr[$i]', accomodation_type='$accomodation_type_arr[$i]', extra_beds='$extra_beds_arr[$i]', meal_plan='$meal_plan_arr[$i]', conf_no='$conf_no_arr[$i]' where entry_id='$entry_id_arr[$i]'");
           if(!$sq_entry){
             $GLOBALS['flag'] = false;
             echo "error--Sorry, Some hotels are not updated!";
