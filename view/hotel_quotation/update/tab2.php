@@ -229,7 +229,7 @@ $('#frm_tab2').validate({
                 var city_name = row.cells[3].childNodes[0].value;
                 var hotel_id = row.cells[4].childNodes[0].value;
                 var hotel_cat = row.cells[5].childNodes[0].value;
-                var check_in = row.cells[6].childNodes[0].value;
+                var check_in = row.cells[7].childNodes[0].value;
                 var checkout = row.cells[8].childNodes[0].value;
                 var hotel_stay_days1 = row.cells[10].childNodes[0].value;
                 var total_rooms = row.cells[11].childNodes[0].value;
@@ -239,8 +239,7 @@ $('#frm_tab2').validate({
                 if (city_name == "") {
                     error_msg_alert('Select Hotel city in Row ' + (i + 1));
                     $('.accordion_content').removeClass("indicator");
-                    $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest(
-                        '.accordion_content').addClass("indicator");
+                    $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest('.accordion_content').addClass("indicator");
                     return false;
                 }
 
