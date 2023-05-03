@@ -199,13 +199,30 @@ class quotation_master{
                 ';
             }
 
-            $tax = explode(':',$costDetails['tax_amount']);
-            $markup_tax = explode(':',$costDetails['markup_tax']);
+            $service_tax_amount = 0;
+            if($costDetails['tax_amount'] !== 0.00 && ($costDetails['tax_amount']) !== ''){
+                $service_tax_subtotal1 = explode(',',$costDetails['tax_amount']);
+                for($i=0;$i<sizeof($service_tax_subtotal1);$i++){
+                    $service_tax = explode(':',$service_tax_subtotal1[$i]);
+                    $service_tax_amount +=  $service_tax[2];
+                }
+            }
+        
+            ////////////////////Markup Rules
+            $markupservice_tax_amount = 0;
+            if($costDetails['markup_tax'] !== 0.00 && $costDetails['markup_tax'] !== ""){
+                $service_tax_markup1 = explode(',',$costDetails['markup_tax']);
+                for($i=0;$i<sizeof($service_tax_markup1);$i++){
+                    $service_tax = explode(':',$service_tax_markup1[$i]);
+                    $markupservice_tax_amount += $service_tax[2];
+                }
+            }
+
             //Currency conversion
             $hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
 		    $hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
 		    $total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
-            $tax_amount = $tax[2] + $markup_tax[2];
+            $tax_amount = $service_tax_amount + $markupservice_tax_amount;
 		    $tax_amount = currency_conversion($currency,$sq_hotel['currency_code'],$tax_amount);
 
             $content .= '<tr>
@@ -275,7 +292,30 @@ Hope you are doing great. Following are the hotel quotation details.');
 $hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
 $hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
 $total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
-$tax_amount = $tax[2] + $markup_tax[2];
+$service_tax_amount = 0;
+if($costDetails['tax_amount'] !== 0.00 && ($costDetails['tax_amount']) !== ''){
+    $service_tax_subtotal1 = explode(',',$costDetails['tax_amount']);
+    for($i=0;$i<sizeof($service_tax_subtotal1);$i++){
+        $service_tax = explode(':',$service_tax_subtotal1[$i]);
+        $service_tax_amount +=  $service_tax[2];
+    }
+}
+
+////////////////////Markup Rules
+$markupservice_tax_amount = 0;
+if($costDetails['markup_tax'] !== 0.00 && $costDetails['markup_tax'] !== ""){
+    $service_tax_markup1 = explode(',',$costDetails['markup_tax']);
+    for($i=0;$i<sizeof($service_tax_markup1);$i++){
+        $service_tax = explode(':',$service_tax_markup1[$i]);
+        $markupservice_tax_amount += $service_tax[2];
+    }
+}
+
+//Currency conversion
+$hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
+$hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
+$total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
+$tax_amount = $service_tax_amount + $markupservice_tax_amount;
 $tax_amount = currency_conversion($currency,$sq_hotel['currency_code'],$tax_amount);
 
 $whatsapp_msg .= rawurlencode('

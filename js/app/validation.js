@@ -836,6 +836,7 @@ function foo(tableID, quot_table_id, rowCounts) {
 
     row.cells[3].childNodes[0].setAttribute("id", "city_name-" + offset);
     $(row.cells[3].childNodes[0]).next("span").remove();
+    row.cells[3].childNodes[0].setAttribute("title", "City Name");
     row.cells[4].childNodes[0].setAttribute("id", "hotel_name-" + offset);
     row.cells[5].childNodes[0].setAttribute("id", "room_cat-" + offset);
     row.cells[6].childNodes[0].setAttribute("id", "meal_plan-" + offset);
@@ -847,6 +848,8 @@ function foo(tableID, quot_table_id, rowCounts) {
     row.cells[12].childNodes[0].setAttribute("id", "extra_bed-" + offset);
     row.cells[13].childNodes[0].setAttribute("id", "hotel_cost-" + offset);
     
+    row.cells[10].childNodes[0].value = 1;
+
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!

@@ -35,7 +35,7 @@ $nofquotation = $_REQUEST['nofquotation'];
                             <div class="table-responsive">
                                 <table style="width: 100%" id="dynamic_table_list_h_<?= $i ?>"
                                     name="dynamic_table_list_h_<?= $i ?>"
-                                    class="table table-bordered table-hover table-striped no-marg pd_bt_51 mg_bt_0">
+                                    class="table table-bordered table-hover table-striped no-marg pd_bt_51 mg_bt_150">
                                     <tr>
                                         <td style="width: 50px;"><input class="css-checkbox mg_bt_10"
                                                 id="chk_program-<?= $i ?>-1" type="checkbox" checked><label
@@ -51,7 +51,7 @@ $nofquotation = $_REQUEST['nofquotation'];
                                             </select>
                                         </td>
                                         <td><select id="city_name-<?= $i ?>-1" name="city_name-<?= $i ?>-1"
-                                                class="city_master_dropdown" style="width:160px"
+                                                class="city_master_dropdown form-control" style="width:160px"
                                                 onchange="hotel_name_list_load(this.id);" title="Select City Name">
                                             </select>
                                         </td>

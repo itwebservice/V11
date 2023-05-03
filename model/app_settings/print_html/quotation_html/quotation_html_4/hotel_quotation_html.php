@@ -293,9 +293,16 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                       <?php } ?>
                 </div>
           </div>
-          
-        
+        </div>
 
+      </section>
+  </section>
+  <!-- Costing & Banking Page -->
+  <section class="pageSection main_block">
+      <!-- background Image -->
+      <img src="<?= BASE_URL ?>images/quotation/p4/pageBGF.jpg" class="img-responsive pageBGImg">
+      <section class="endPageSection main_block mg_tp_30 pageSectionInner">
+        <div class="row constingBankingPanelRow">
           <!-- Bank Detail -->
           <div class="col-md-12 constingBankingPanel BankingPanel">
                 <h3 class="costBankTitle text-center">Bank Details</h3>
@@ -322,7 +329,7 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                 <div class="col-md-4 text-center mg_bt_30">
                   <div class="icon"><img src="<?= BASE_URL ?>images/quotation/p4/code.png" class="img-responsive"></div>
                   <h4 class="no-marg"><?= ($bank_account_name != '') ? $bank_account_name : 'NA' ?></h4>
-          <p>BANK ACCOUNT NAME</p>
+                  <p>BANK ACCOUNT NAME</p>
                 </div>
                 <div class="col-md-4 text-center mg_bt_30">
                   <div class="icon"><img src="<?= BASE_URL ?>images/quotation/p4/code.png" class="img-responsive"></div>
@@ -330,20 +337,16 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                   <p>SWIFT CODE</p>
                 </div>
                 <?php 
-              if(check_qr()) { ?>
-                 <div class="col-md-12 text-center" style="margin-top:20px; margin-bottom:20px;">
-                        <?= get_qr('Protrait Creative') ?>
-                        <br>
-                        <h4 class="no-marg">Scan & Pay </h4>
+                if(check_qr()) { ?>
+                <div class="col-md-12 text-center" style="margin-top:20px; margin-bottom:20px;">
+                  <?= get_qr('Protrait Creative') ?>
+                  <br><h4 class="no-marg">Scan & Pay </h4>
+                </div>
+                <?php } ?>
           </div>
-          <?php } ?>
-          </div>
-          
-        
         </div>
-
       </section>
-    </section>
+  </section>
 
   <!-- Costing & Banking Page -->
   <section class="pageSection main_block">
