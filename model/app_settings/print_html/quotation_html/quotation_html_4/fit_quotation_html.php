@@ -864,11 +864,11 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
         <!-- Per Person COSTING eND -->
         <?php
         if ($tcs_note_show != '') { ?>
-        <p style="margin-left:30px!important;" class="costBankTitle mg_tp_10"><?= $tcs_note_show ?></p>
+          <h5 style="margin-left:20px!important;" class="costBankTitle mg_tp_10"><?= $tcs_note_show ?></h5>
         <?php } ?>
         <?php
         if ($sq_quotation['other_desc'] != '') { ?>
-          <p style="margin-left:30px!important;" class="costBankTitle mg_tp_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
+          <h5 style="margin-left:230px!important;" class="costBankTitle mg_tp_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></h5>
         <?php } ?>
       </div>
     </div>
