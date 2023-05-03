@@ -59,8 +59,8 @@ if ($branch_admin_id != 0) {
 			<thead>
 				<tr class="table-heading-row">
 					<th>S_No.</th>
-					<th>Service</th>
-					<th>b_ID</th>
+					<th>Service(booking_date)</th>
+					<th>booking_ID</th>
 					<th class="text-right info">Sale</th>
 					<th class="text-right success">Paid</th>
 					<th class="text-right danger">Cancel</th>
