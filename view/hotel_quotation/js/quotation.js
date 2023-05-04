@@ -187,13 +187,13 @@ function get_hotel_cost(table_id){
 	for(var i=0; i<rowCount; i++){
 
 		var row = table.rows[i];
-		var hotel_id = row.cells[3].childNodes[0].value;
-		var room_category = row.cells[4].childNodes[0].value;
-		var check_in = row.cells[6].childNodes[0].value;
-		var check_out = row.cells[7].childNodes[0].value;
-		var total_nights = row.cells[9].childNodes[0].value;
-		var total_rooms = row.cells[10].childNodes[0].value;
-		var extra_bed = row.cells[11].childNodes[0].value;
+		var hotel_id = row.cells[4].childNodes[0].value;
+		var room_category = row.cells[5].childNodes[0].value;
+		var check_in = row.cells[7].childNodes[0].value;
+		var check_out = row.cells[8].childNodes[0].value;
+		var total_nights = row.cells[10].childNodes[0].value;
+		var total_rooms = row.cells[11].childNodes[0].value;
+		var extra_bed = row.cells[12].childNodes[0].value;
 		hotel_id_arr.push(hotel_id);
 		room_cat_arr.push(room_category);
 		check_in_arr.push(check_in);
@@ -217,7 +217,7 @@ function get_hotel_cost(table_id){
 			for(var i=0; i<hotel_arr.length; i++){
 
 				var row = table.rows[i];
-				row.cells[12].childNodes[0].value = hotel_arr[i]['hotel_cost'];
+				row.cells[13].childNodes[0].value = hotel_arr[i]['hotel_cost'];
 					
 			}	
 		}

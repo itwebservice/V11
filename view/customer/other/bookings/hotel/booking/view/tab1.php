@@ -91,6 +91,7 @@
                        <thead>
 	                       <tr class="table-heading-row">
 	                       		<th>S_No.</th>
+								<th>Tour_type</th>
 								<th>City</th>
 								<th>Hotel</th>
 								<th>Check_In</th>
@@ -110,18 +111,16 @@
                        $count = 0;
                        $sq_hotel_entry = mysqlQuery("select * from hotel_booking_entries where booking_id='$booking_id'");
 
-                       while($row_entry = mysqli_fetch_assoc($sq_hotel_entry)){
+                    	while($row_entry = mysqli_fetch_assoc($sq_hotel_entry)){
 
-                       		$bg = ($row_entry['status']=="Cancel") ? "danger" : "";
-		                       
-		                       $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
-
-		                       $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select hotel_id, hotel_name from hotel_master where hotel_id='$row_entry[hotel_id]'"));
-
-		                       $count++;
-                       			?>
-								 <tr class="<?= $bg ?>">
+                			$bg = ($row_entry['status']=="Cancel") ? "danger" : "";
+		                    $sq_city = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$row_entry[city_id]'"));
+		                    $sq_hotel = mysqli_fetch_assoc(mysqlQuery("select hotel_id, hotel_name from hotel_master where hotel_id='$row_entry[hotel_id]'"));
+							$count++;
+							?>
+								<tr class="<?= $bg ?>">
 								    <td><?php echo $count; ?></td>
+								    <td><?php echo $row_entry['tour_type']; ?></td>
 								    <td><?php echo $sq_city['city_name']; ?></td>
 									<td><?php echo $sq_hotel['hotel_name']; ?></td>
 								    <td><?php echo date('d/m/Y H:i', strtotime($row_entry['check_in'])); ?></td>
@@ -134,9 +133,8 @@
 									<td><?php echo $row_entry['meal_plan'];  ?></td>
 								    <td><?php echo $row_entry['extra_beds'];  ?></td>
 								    <td><?php echo $row_entry['conf_no'];  ?></td>
-								</tr>  
-                       			<?php
-
+							</tr>
+							<?php
                        		}
 
                        

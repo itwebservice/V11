@@ -217,6 +217,50 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
       </div>
     </section>
 
+    <section class="print_sec main_block side_pad mg_tp_30">
+        <div class="section_heding">
+          <h2>ACCOMMODATION</h2>
+          <div class="section_heding_img">
+            <img src="<?php echo BASE_URL.'images/heading_border.png'; ?>" class="img-responsive">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered no-marg" id="tbl_emp_list">
+              <thead>
+                <tr class="table-heading-row">
+                  <th>City</th>
+                  <th>Hotel Name</th>
+                  <th>Check_IN</th>
+                  <th>Check_OUT</th>
+                </tr>
+              </thead>
+              <tbody> 
+            <?php 
+            $hotelDetails = json_decode($sq_quotation['hotel_details']);
+            $int_flag = '';
+            foreach($hotelDetails as $details){
+              $hotel_name = mysqli_fetch_assoc(mysqlQuery("select hotel_name,state_id from hotel_master where hotel_id='$details->hotel_id'"));
+              if($details->tour_type == 'International' && $int_flag == ''){
+                $int_flag = true;
+              }
+              $city_name = mysqli_fetch_assoc(mysqlQuery("select city_name from city_master where city_id='$details->city_id'"));
+            ?>
+              <tr>
+                <td><?php echo $city_name['city_name']; ?></td>
+                <td><?php echo $hotel_name['hotel_name']; ?></td>
+                <td><?= get_date_user($details->checkin) ?></td>
+                <td><?= get_date_user($details->checkout) ?></td>
+              </tr>
+              <?php } ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Costing -->
     <section class="print_sec main_block side_pad mg_tp_30">
       <div class="row">
@@ -241,6 +285,11 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
               <li class="col-md-12 mg_tp_10 mg_bt_10"><span>QUOTATION COST : </span><?= $currency_amount1 ?></li>
             </ul>
           </div>
+              <?php
+              $tcs_note_show = ($int_flag == true) ? $tcs_note : '';
+              if ($tcs_note_show != '') { ?>
+                <p class="costBankTitle"><?= $tcs_note_show ?></p>
+              <?php } ?>
         </div>
     
     <!-- Bank Detail -->
@@ -248,60 +297,6 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
       </div>
     </section>
 
-    <section class="print_sec main_block side_pad mg_tp_30">
-        <div class="section_heding">
-              <h2>ACCOMMODATION</h2>
-              <div class="section_heding_img">
-                <img src="<?php echo BASE_URL.'images/heading_border.png'; ?>" class="img-responsive">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <div class="table-responsive">
-                <table class="table table-bordered no-marg" id="tbl_emp_list">
-                  <thead>
-                    <tr class="table-heading-row">
-                      <th>City</th>
-                      <th>Hotel Name</th>
-                      <th>Check_IN</th>
-                      <th>Check_OUT</th>
-                    </tr>
-                  </thead>
-                  <tbody> 
-                <?php 
-                $hotelDetails = json_decode($sq_quotation['hotel_details']);
-                foreach($hotelDetails as $details){
-                  $hotel_name = mysqli_fetch_assoc(mysqlQuery("select * from hotel_master where hotel_id='$details->hotel_id'"));
-                  $city_name = mysqli_fetch_assoc(mysqlQuery("select * from city_master where city_id='$details->city_id'"));
-                ?>
-                <tr>
-                    <?php
-                    $sq_count_h = mysqli_num_rows(mysqlQuery("select * from hotel_vendor_images_entries where hotel_id='$details->city_id' "));
-                    if($sq_count_h ==0){
-                      $download_url =  BASE_URL.'images/dummy-image.jpg';
-                    }
-                    else{
-                      $sq_hotel_image = mysqlQuery("select * from hotel_vendor_images_entries where hotel_id = '$details->city_id'");
-                      while($row_hotel_image = mysqli_fetch_assoc($sq_hotel_image)){      
-                          $image = $row_hotel_image['hotel_pic_url']; 
-                          $newUrl = preg_replace('/(\/+)/','/',$image);
-                          $newUrl = explode('uploads', $newUrl);
-                          $download_url = BASE_URL.'uploads'.$newUrl[1];
-                        }
-                    }
-                    ?>
-                      <td><?php echo $city_name['city_name']; ?></td>
-                      <td><?php echo $hotel_name['hotel_name']; ?></td>
-                      <td><?= get_date_user($details->checkin) ?></td>
-                      <td><?= get_date_user($details->checkout) ?></td>
-                    </tr>
-                  <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            </div>
-          </section>
     
     <section class="print_sec main_block side_pad mg_tp_30">
     <?php if($sq_terms_cond['terms_and_conditions'] != ''){ ?>

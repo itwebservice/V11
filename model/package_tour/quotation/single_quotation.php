@@ -1,6 +1,6 @@
 <?php
 include_once('../../model.php');
-global $app_name, $app_contact_no, $app_email_id, $app_landline_no, $app_address, $app_website, $similar_text, $currency;
+global $app_name, $app_contact_no, $app_email_id, $app_landline_no, $app_address, $app_website, $similar_text, $currency,$tcs_note;
 
 $quotation_id1 = $_GET['quotation'];
 $quotation_id = base64_decode($quotation_id1);
@@ -10,6 +10,7 @@ $in = 'in';
 
 $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$quotation_id'"));
 
+$tcs_note_show = ($sq_quotation['booking_type'] != 'Domestic') ? $tcs_note : '';
 $quotation_date = $sq_quotation['quotation_date'];
 $yr = explode("-", $quotation_date);
 $year = $yr[0];
@@ -917,19 +918,6 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                                     }
                                 }
                                 $service_tax_amount_show = currency_conversion($currency, $sq_quotation['currency_code'], $service_tax_amount);
-                                // if ($bsmValues[0]->service != '') {   //inclusive service charge
-                                //     $newBasic = $tour_cost + $service_tax_amount;
-                                //     $tax_show = '';
-                                // } else {
-                                //     $tax_show =  rtrim($name, ', ') . ' : ' . ($service_tax_amount);
-                                //     $newBasic = $tour_cost;
-                                // }
-
-                                // ////////////Basic Amount Rules
-                                // if ($bsmValues[0]->basic != '') { //inclusive markup
-                                //     $newBasic = $tour_cost + $service_tax_amount;
-                                //     $tax_show = '';
-                                // }
                                 $quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
                                 ////////////////Currency conversion ////////////
                                 $currency_amount1 = currency_conversion($currency, $sq_quotation['currency_code'], $quotation_cost);
@@ -959,59 +947,60 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
                         </div>
                     </div>
                     <?php } ?>
+                    <h6 class="mg_tp_10"><?= $tcs_note_show ?></h6>
+
                 </div>
             </section>
 
-                    <?php
-                    global $currency, $bank_name_setting, $bank_branch_name, $acc_name, $bank_acc_no, $bank_ifsc_code, $bank_swift_code;
+            <?php
+            global $currency, $bank_name_setting, $bank_branch_name, $acc_name, $bank_acc_no, $bank_ifsc_code, $bank_swift_code;
+            $bank_name_setting1 = ($bank_name_setting != '') ? $bank_name_setting : 'NA';
+            $bank_branch_name1 = ($bank_branch_name != '') ? $bank_branch_name : 'NA';
+            $acc_name1 = ($acc_name != '') ? $acc_name : 'NA';
+            $bank_acc_no1 = ($bank_acc_no != '') ? $bank_acc_no : 'NA';
+            $bank_ifsc_code1 = ($bank_ifsc_code != '') ? $bank_ifsc_code : 'NA';
+            $bank_swift_code1 = ($bank_swift_code != '') ? $bank_swift_code : 'NA';
+            $bank_account_name1 = ($bank_account_name != '') ? $bank_account_name : 'NA';
 
-                    $bank_name_setting1 = ($bank_name_setting != '') ? $bank_name_setting : 'NA';
-                    $bank_branch_name1 = ($bank_branch_name != '') ? $bank_branch_name : 'NA';
-                    $acc_name1 = ($acc_name != '') ? $acc_name : 'NA';
-                    $bank_acc_no1 = ($bank_acc_no != '') ? $bank_acc_no : 'NA';
-                    $bank_ifsc_code1 = ($bank_ifsc_code != '') ? $bank_ifsc_code : 'NA';
-                    $bank_swift_code1 = ($bank_swift_code != '') ? $bank_swift_code : 'NA';
-                    $bank_account_name1 = ($bank_account_name != '') ? $bank_account_name : 'NA';
+            ?>
+            <div class="sec_heding">
 
-                    ?>
-                    <div class="sec_heding">
+                <h2>Bank Details</h2>
 
-                        <h2>Bank Details</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="adolence_info">
+                        <div class="row mg_bt_10">
+                            <ul class="main_block">
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Name :
+                                    </span><u><?= $bank_name_setting1 ?></u></li>
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Branch :
+                                    </span><u><?= $bank_branch_name1 ?>(<?= $bank_ifsc_code1 ?>)</u></li>
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Account Type:
+                                    </span><u><?= $acc_name1 ?></u></li>
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Account Number:
+                                    </span><u><?= $bank_acc_no1 ?></u></li>
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Swift Code:
+                                    </span><u><?= $bank_swift_code1 ?></u></li>
+                                <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Account Name:
+                                    </span><u><?= $bank_account_name1 ?></u></li>
+                                <?php
+                                if (check_qr()) {
+                                ?>
+                                <li class="col-md-12 text-center mg_bt_10"> <?= get_qr('general') ?>
+                                    <br>
+                                    <p class="text-center">Scan & Pay</p>
+                                </li>
+                                <?php } ?>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="adolence_info">
-                                <div class="row mg_bt_10">
-                                    <ul class="main_block">
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Name :
-                                            </span><u><?= $bank_name_setting1 ?></u></li>
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Branch :
-                                            </span><u><?= $bank_branch_name1 ?>(<?= $bank_ifsc_code1 ?>)</u></li>
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Account Type:
-                                            </span><u><?= $acc_name1 ?></u></li>
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Account Number:
-                                            </span><u><?= $bank_acc_no1 ?></u></li>
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Swift Code:
-                                            </span><u><?= $bank_swift_code1 ?></u></li>
-                                        <li class="col-md-4 col-sm-6 col-xs-12 mg_bt_10"><span>Bank Account Name:
-                                            </span><u><?= $bank_account_name1 ?></u></li>
-                                        <?php
-                                        if (check_qr()) {
-                                        ?>
-                                        <li class="col-md-12 text-center mg_bt_10"> <?= get_qr('general') ?>
-                                            <br>
-                                            <p class="text-center">Scan & Pay</p>
-                                        </li>
-                                        <?php } ?>
-
-                                    </ul>
-                                </div>
-
-                            </div>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
+            </div>
+        </div>
 
             </section>
             <!-- Excursion -->

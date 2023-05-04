@@ -27,7 +27,7 @@ include "../../../model/model.php";
                   <select name="currency_code" id="currency_code1" title="Currency" style="width:100%" data-toggle="tooltip" required>
                       <option value=''>Select Currency</option>
                       <?php
-                      $sq_currency = mysqlQuery("select * from currency_name_master order by currency_code");
+                      $sq_currency = mysqlQuery("select id,currency_code from currency_name_master order by currency_code");
                       while($row_currency = mysqli_fetch_assoc($sq_currency)){
                       ?>
                       <option value="<?= $row_currency['id'] ?>"><?= $row_currency['currency_code'] ?></option>

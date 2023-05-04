@@ -2,7 +2,7 @@
 //Generic Files
 include "../../../../model.php";
 include "printFunction.php";
-global $app_quot_img, $similar_text, $quot_note, $currency;
+global $app_quot_img, $similar_text, $quot_note, $currency,$tcs_note;
 
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
@@ -14,6 +14,7 @@ $quotation_id = $_GET['quotation_id'];
 
 $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$quotation_id'"));
 $transport_agency_id = $sq_quotation['transport_agency_id'];
+$tcs_note_show = ($sq_quotation['booking_type'] != 'Domestic') ? $tcs_note : '';
 $sq_transport1 = mysqli_fetch_assoc(mysqlQuery("select * from transport_agency_master where transport_agency_id='$transport_agency_id'"));
 $sq_package_name = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$sq_quotation[package_id]'"));
 
@@ -637,7 +638,7 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
 
     <div class="row">
       <!-- Guest Detail -->
-      <div class="col-md-12 passengerPanel endPagecenter mg_bt_30">
+      <div class="col-md-12 passengerPanel endPagecenter mg_bt_20">
         <h3 class="endingPageTitle text-center">TOTAL GUEST</h3>
         <div class="col-md-3 text-center mg_bt_30">
           <div class="icon">
@@ -814,7 +815,7 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
             </div>
             <?php
             if($sq_plane_count > 0 || $sq_train_count > 0 || $sq_cruise_count > 0){ ?>
-            <div class="travsportInfoBlock1 mg_bt_30">
+            <div class="travsportInfoBlock1 mg_bt_20">
               <div class="transportDetails_costing package_costing">
                 <div class="table-responsive">
                   <table class="table table-bordered no-marg tableTrnasp" id="tbl_emp_list">
@@ -861,11 +862,15 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
           } ?>
         <?php } ?>
         <!-- Per Person COSTING eND -->
-      </div>
+        <?php
+        if ($tcs_note_show != '') { ?>
+          <h5 style="margin-left:20px!important;" class="costBankTitle mg_tp_10"><?= $tcs_note_show ?></h5>
+        <?php } ?>
         <?php
         if ($sq_quotation['other_desc'] != '') { ?>
-          <p style="margin-left:20px!important;" class="costBankTitle mg_tp_10 mg_bt_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
+          <h5 style="margin-left:230px!important;" class="costBankTitle mg_tp_10">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></h5>
         <?php } ?>
+      </div>
     </div>
 
   </section>

@@ -3,7 +3,6 @@ include "../../model/model.php";
 /*======******Header******=======*/
 require_once('../layouts/admin_header.php');
 ?>
-
 <?= begin_panel('Visa Information',16) ?>
     <div class="header_bottom mg_bt_10">
         <div class="row">

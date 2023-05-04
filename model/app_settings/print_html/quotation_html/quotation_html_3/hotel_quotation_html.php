@@ -2,7 +2,7 @@
 //Generic Files
 include "../../../../model.php"; 
 include "printFunction.php";
-global $app_quot_img,$similar_text,$qout_note,$currency;
+global $app_quot_img,$similar_text,$qout_note,$currency,$tcs_note;
 
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
@@ -180,10 +180,14 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                       </tr>
                     </thead>
                     <tbody>
-                    <?php 
+                    <?php
+                    $int_flag = '';
                     foreach($hotelDetails as $values){
                         $cityName = mysqli_fetch_assoc(mysqlQuery("SELECT `city_name` FROM `city_master` WHERE `city_id`=".$values['city_id']));
-                        $hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name` FROM `hotel_master` WHERE `hotel_id`=".$values['hotel_id']));
+                        $hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name`,`state_id` FROM `hotel_master` WHERE `hotel_id`=".$values['hotel_id']));
+                        if($values['tour_type'] == 'International' && $int_flag == ''){
+                          $int_flag = true;
+                        }
                       ?>
                       <tr>
                           <td><?php echo $cityName['city_name']; ?></td>
@@ -268,13 +272,19 @@ $currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code']
                 <h4 class="no-marg"><?= $currency_amount1 ?></h4>
                 <p>QUOTATION COST</p>
               </div>
+              <?php
+              $tcs_note_show = ($int_flag == true) ? $tcs_note : '';
+              if ($tcs_note_show != '') { ?>
+                <div class="col-md-12 text-right" style="margin-top:10px; ">
+                  <h5 class="text-right"><?= $tcs_note_show ?></h5></div>
+              <?php } ?>
               <?php 
               if(check_qr()) { ?>
               <div class="col-md-12 text-right" style="margin-top:20px; margin-bottom:20px;">
                         <?= get_qr('Landscape Creative') ?>
-                        <br>
-                        <h4 class="no-marg">Scan & Pay </h4>
-          </div>
+                <br>
+                <h4 class="no-marg">Scan & Pay </h4>
+              </div>
               <?php } ?>
         </div>
         

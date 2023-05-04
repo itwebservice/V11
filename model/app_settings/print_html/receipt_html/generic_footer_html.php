@@ -198,6 +198,7 @@ if (mysqli_num_rows(mysqlQuery($values_query)) > 0) {
                     <th>Payment Date</th>
 
                     <th>Mode</th>
+                    <th>Cheque_NO/ID</th>
 
                     <th>Amount</th>
 
@@ -236,6 +237,11 @@ if (mysqli_num_rows(mysqlQuery($values_query)) > 0) {
                         <td>
 
                             <center><?= $rows['payment_mode'] ?></center>
+
+                        </td>
+                        <td>
+
+                            <center><?php echo ($rows['transaction_id'] == '') ? 'NA' : $rows['transaction_id']; ?></center>
 
                         </td>
 

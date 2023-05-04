@@ -69,11 +69,15 @@ else{
 </div>
 
 <div class="main_block mg_tp_30"></div>
-<h3 class="editor_title main_block">Hotel Details</h3>
-<table class="table table-bordered" style="width:100%;">
-	<thead>
+<div class="row mg_tp_30">
+<div class="col-md-12">
+<h3 class="editor_title">Hotel Details</h3>
+	<div class="table-responsive">
+	<table class="table table-hover table-bordered no-marg">
+
 		<tr class="table-heading-row">
 			<th>S_No.</th>
+			<th>Tour_Type</th>
 			<th>City_Name</th>
 			<th>Hotel_Name</th>
 			<th>R_Category</th>
@@ -95,6 +99,7 @@ else{
 			?>
 			<tr>
 				<td><?= ++$count ?></td>
+				<td><?= $values['tour_type'] ?></td>
 				<td><?= $cityName['city_name'] ?></td>
 				<td><?= $hotelName['hotel_name'] ?></pre></td>
 				<td><?= $values['hotel_cat'] ?></td>
@@ -111,11 +116,18 @@ else{
 		?>
 	</tbody>
 </table>
+	</div>
+	</div>
+	</div>
 
 
-<h3 class="editor_title main_block">Costing Details</h3>
-<table class="table table-bordered">
-	<thead>
+	<div class="main_block mg_tp_30"></div>
+<div class="row mg_tp_30">
+<div class="col-md-12">
+<h3 class="editor_title">Costing Details</h3>
+	<div class="table-responsive">
+	<table class="table table-hover table-bordered no-marg">
+
 		<tr class="table-heading-row">
 			<th>Basic_Cost</th>
 			<th>Service_Charge</th>
@@ -136,6 +148,10 @@ else{
 			</tr>
 	</tbody>
 </table>
+	</div>
+	</div>
+	</div>
+
 
 
 </div>

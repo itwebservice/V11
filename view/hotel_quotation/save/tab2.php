@@ -68,14 +68,14 @@ $('#frm_tab2').validate({
                 if (row.cells[0].childNodes[0].checked) {
 
                     hcount++;
-                    var city_name = row.cells[2].childNodes[0].value;
-                    var hotel_id = row.cells[3].childNodes[0].value;
-                    var hotel_cat = row.cells[4].childNodes[0].value;
-                    var check_in = row.cells[6].childNodes[0].value;
-                    var checkout = row.cells[7].childNodes[0].value;
-                    var hotel_stay_days1 = row.cells[9].childNodes[0].value;
-                    var total_rooms = row.cells[10].childNodes[0].value;
-                    var hotel_cost = row.cells[12].childNodes[0].value;
+                    var city_name = row.cells[3].childNodes[0].value;
+                    var hotel_id = row.cells[4].childNodes[0].value;
+                    var hotel_cat = row.cells[5].childNodes[0].value;
+                    var check_in = row.cells[7].childNodes[0].value;
+                    var checkout = row.cells[8].childNodes[0].value;
+                    var hotel_stay_days1 = row.cells[10].childNodes[0].value;
+                    var total_rooms = row.cells[11].childNodes[0].value;
+                    var hotel_cost = row.cells[13].childNodes[0].value;
                     hcostTotal += Number(hotel_cost);
 
                     if (city_name == "") {
@@ -123,7 +123,7 @@ $('#frm_tab2').validate({
                         return false;
                     }
                     if (hotel_stay_days1 == "") {
-                        error_msg_alert('Enter Hotel total days in Row ' + (i + 1) + ' of Option ' + quot);
+                        error_msg_alert('Enter Hotel total nights in Row ' + (i + 1) + ' of Option ' + quot);
                         $('.accordion_content').removeClass("indicator");
                         $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest(
                             '.accordion_content').addClass("indicator");

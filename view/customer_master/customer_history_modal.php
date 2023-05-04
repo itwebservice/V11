@@ -15,10 +15,10 @@ $customer_id = $_POST['customer_id'];
         <form id="frm_customer_history">
           <input type="hidden" id="customer_id" name="customer_id" value="<?= $customer_id ?>">
           <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-2 mg_bt_10">
-            <input type="text" id="from_date" name="from_date" class="form-control" placeholder="From Date" title="From Date" onchange="get_to_date(this.id,'to_date');">
+            <input type="text" id="from_date" name="from_date" class="form-control" placeholder="*From Date" title="From Date" onchange="get_to_date(this.id,'to_date');">
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12 mg_bt_10">
-            <input type="text" id="to_date" name="to_date" class="form-control" placeholder="To Date" title="To Date" onchange="validate_validDate('from_date','to_date')">
+            <input type="text" id="to_date" name="to_date" class="form-control" placeholder="*To Date" title="To Date" onchange="validate_validDate('from_date','to_date')">
           </div>
 
         <div class="row text-center">

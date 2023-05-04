@@ -27,12 +27,11 @@
 
 <script>
 $('#from_date_filter,#to_date_filter').datetimepicker({ timepicker:false, format:'d-m-Y' });
-function tariff_save_modal()
-{
+function tariff_save_modal(){
     $('#new_tariff_btn').button('loading');
   	$.post('tariff/save_modal.php', {}, function(data){
-      $('#new_tariff_btn').button('reset');
       $('#div_tariffsave_modal').html(data);
+      $('#new_tariff_btn').button('reset');
     });
 }
 </script>

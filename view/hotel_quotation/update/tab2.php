@@ -5,6 +5,7 @@
                 <h3 class="editor_title main_block">Hotel Details</h3>
                 <div class="row mg_bt_10" style="margin-right:0px">
                     <div class="col-xs-12 text-right text_center_xs mg_tp_10">
+                        <button type="button" class="btn btn-info btn-sm ico_left" title="Add Hotel" onclick="hotel_save_modal()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Hotel</button>
                         <button type="button" class="btn btn-excel btn-sm"
                             onClick="addRow('hotel_quotation_update');city_lzloading('.city_master_dropdown')"><i
                                 class="fa fa-plus"></i></button>
@@ -21,6 +22,11 @@
 
                             <td style="width: 50px;"><input maxlength="15" value="1" type="text" name="username"
                                     placeholder="Sr. No." class="form-control mg_bt_10" disabled />
+                            </td>
+                            <td><select name="tour_type-u_1" id="tour_type-u_1" style="width:145px;" title="Tour Type" class="form-control">
+                                    <option value="Domestic">Domestic</option>
+                                    <option value="International">International</option>
+                                </select>
                             </td>
 
                             <td><select id="city_name-u_1" name="city_name-u_1" class="city_master_dropdown"
@@ -85,87 +91,87 @@
 								$cityName = mysqli_fetch_assoc(mysqlQuery("SELECT `city_name` FROM `city_master` WHERE `city_id`=" . $values['city_id']));
 								$hotelName = mysqli_fetch_assoc(mysqlQuery("SELECT `hotel_name` FROM `hotel_master` WHERE `hotel_id`=" . $values['hotel_id']));
 							?>
-                        <tr>
-                            <td style="width: 50px;"><input class="css-checkbox mg_bt_10"
-                                    id="chk_program-u_<?= $count ?>" type="checkbox" checked><label class="css-label"
-                                    for="chk_program-u_<?= $count ?>"> <label></td>
+                            <tr>
+                                <td style="width: 50px;"><input class="css-checkbox mg_bt_10"
+                                        id="chk_program-u_<?= $count ?>" type="checkbox" checked><label class="css-label"
+                                        for="chk_program-u_<?= $count ?>"> <label></td>
 
-                            <td style="width: 50px;"><input maxlength="15" value="<?= $count ?>" type="text"
-                                    name="username" placeholder="Sr. No." class="form-control mg_bt_10" disabled />
-                            </td>
+                                <td style="width: 50px;"><input maxlength="15" value="<?= $count ?>" type="text"
+                                        name="username" placeholder="Sr. No." class="form-control mg_bt_10" disabled />
+                                </td>
+                                <td><select name="tour_type-u_<?= $count ?>" id="tour_type-u_<?= $count ?>" style="width:145px;" title="Tour Type" class="form-control">
+                                        <option value="<?= $values['tour_type'] ?>" selected><?= $values['tour_type'] ?>
+                                        <?php if($values['tour_type'] != 'Domestic'){ ?>
+                                        <option value="Domestic">Domestic</option>
+                                        <?php }
+                                        if($values['tour_type'] != 'International'){ ?>
+                                        <option value="International">International</option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td><select id="city_name-u_<?= $count ?>" name="city_name-u_<?= $count ?>"
+                                        class="city_master_dropdown" style="width:160px"
+                                        onchange="hotel_name_list_load(this.id);" title="Select City Name">
+                                        <option value="<?= $values['city_id'] ?>" selected><?= $cityName['city_name'] ?>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td><select id="hotel_name-u_<?= $count ?>" name="hotel_name-u_<?= $count ?>"
+                                        onchange="hotel_type_load(this.id);" style="width:160px" title="Select Hotel Name">
+                                        <option value="<?= $values['hotel_id'] ?>" selected><?= $hotelName['hotel_name'] ?>
+                                        </option>
+                                        <option value="">Hotel Name</option>
+                                    </select>
+                                </td>
+                                <td><select name="room_cat-u_<?= $count ?>" id="room_cat-u_<?= $count ?>"
+                                        style="width:145px;" title="Room Category" class="form-control app_select2"
+                                        onchange=""><?php get_room_category_dropdown(); ?>
+                                        <option value="<?= $values['hotel_cat'] ?>" selected><?= $values['hotel_cat'] ?>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td><select name="meal_plan-u_<?= $count ?>" id="meal_plan-u_<?= $count ?>"
+                                        style="width:145px;" title="Meal Plan" class="form-control app_select2">
+                                        <?php get_mealplan_dropdown(); ?>
+                                        <?php if ($values['meal_plan'] != '') { ?>
+                                        <option value="<?= $values['meal_plan'] ?>" selected><?= $values['meal_plan'] ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width:150px;" class="app_datepicker"
+                                        id="check_in-u_<?= $count ?>" name="check_in-u_<?= $count ?>"
+                                        placeholder="Check-In Date" title="Check-In Date"
+                                        onchange="get_auto_to_date(this.id);" value="<?= $values['checkin'] ?>">
+                                </td>
+                                <td><input type="text" style="width:150px;" class="app_datepicker"
+                                        id="check_out-u_<?= $count ?>" name="check_out-u_<?= $count ?>"
+                                        placeholder="Check-Out Date" title="Check-Out Date"
+                                        onchange="calculate_total_nights(this.id);validate_validDates(this.id);"
+                                        value="<?= $values['checkout'] ?>">
+                                </td>
+                                <td><input type="text" id="hotel_type-u_<?= $count ?>" name="hotel_type-1"
+                                        placeholder="Hotel Category" title="Hotel Category" style="width:150px"
+                                        value="<?= $values['hotel_type'] ?>" readonly>
+                                </td>
+                                <td><input type="text" id="hotel_stay_days-u_<?= $count ?>" title="Total Nights"
+                                        name="hotel_stay_days-u_<?= $count ?>" placeholder="Total Nights"
+                                        value="<?= $values['hotel_stay_days'] ?>" onchange="validate_balance(this.id);"
+                                        style="width:150px;" readonly></td>
 
-                            <td><select id="city_name-u_<?= $count ?>" name="city_name-u_<?= $count ?>"
-                                    class="city_master_dropdown" style="width:160px"
-                                    onchange="hotel_name_list_load(this.id);" title="Select City Name">
-                                    <option value="<?= $values['city_id'] ?>" selected><?= $cityName['city_name'] ?>
-                                    </option>
-                                </select>
-                            </td>
-
-                            <td><select id="hotel_name-u_<?= $count ?>" name="hotel_name-u_<?= $count ?>"
-                                    onchange="hotel_type_load(this.id);" style="width:160px" title="Select Hotel Name">
-                                    <option value="<?= $values['hotel_id'] ?>" selected><?= $hotelName['hotel_name'] ?>
-                                    </option>
-                                    <option value="">Hotel Name</option>
-                                </select>
-                            </td>
-
-                            <td><select name="room_cat-u_<?= $count ?>" id="room_cat-u_<?= $count ?>"
-                                    style="width:145px;" title="Room Category" class="form-control app_select2"
-                                    onchange=""><?php get_room_category_dropdown(); ?>
-                                    <option value="<?= $values['hotel_cat'] ?>" selected><?= $values['hotel_cat'] ?>
-                                    </option>
-                                </select>
-                            </td>
-
-                            <td><select name="meal_plan-u_<?= $count ?>" id="meal_plan-u_<?= $count ?>"
-                                    style="width:145px;" title="Meal Plan" class="form-control app_select2">
-                                    <?php get_mealplan_dropdown(); ?>
-                                    <?php if ($values['meal_plan'] != '') { ?>
-                                    <option value="<?= $values['meal_plan'] ?>" selected><?= $values['meal_plan'] ?>
-                                    </option>
-                                    <?php } ?>
-                                </select>
-                            </td>
-
-                            <td><input type="text" style="width:150px;" class="app_datepicker"
-                                    id="check_in-u_<?= $count ?>" name="check_in-u_<?= $count ?>"
-                                    placeholder="Check-In Date" title="Check-In Date"
-                                    onchange="get_auto_to_date(this.id);" value="<?= $values['checkin'] ?>">
-                            </td>
-
-                            <td><input type="text" style="width:150px;" class="app_datepicker"
-                                    id="check_out-u_<?= $count ?>" name="check_out-u_<?= $count ?>"
-                                    placeholder="Check-Out Date" title="Check-Out Date"
-                                    onchange="calculate_total_nights(this.id);validate_validDates(this.id);"
-                                    value="<?= $values['checkout'] ?>">
-                            </td>
-
-                            <td><input type="text" id="hotel_type-u_<?= $count ?>" name="hotel_type-1"
-                                    placeholder="Hotel Category" title="Hotel Category" style="width:150px"
-                                    value="<?= $values['hotel_type'] ?>" readonly>
-                            </td>
-
-                            <td><input type="text" id="hotel_stay_days-u_<?= $count ?>" title="Total Nights"
-                                    name="hotel_stay_days-u_<?= $count ?>" placeholder="Total Nights"
-                                    value="<?= $values['hotel_stay_days'] ?>" onchange="validate_balance(this.id);"
-                                    style="width:150px;" readonly></td>
-
-                            <td><input type="text" id="no_of_rooms-u_<?= $count ?>" title="Total Rooms"
-                                    name="no_of_rooms-u_<?= $count ?>" placeholder="*Total Rooms"
-                                    value="<?= $values['total_rooms'] ?>" onchange="validate_balance(this.id);"
-                                    style="width:110px"></td>
-
-                            <td><input type="text" id="extra_bed-u_<?= $count ?>" name="extra_bed-u_<?= $count ?>"
-                                    title="Extra Bed" placeholder="Extra Bed" onchange="validate_balance(this.id);"
-                                    style="width:100px" value="<?= $values['extra_bed'] ?>"></td>
-
-                            <td class="hidden"><input type="hidden" id="hotel_cost-u_<?= $count ?>"
-                                    name="hotel_cost-u_<?= $count ?>" placeholder="Hotel Cost" title="Hotel Cost"
-                                    onchange="validate_balance(this.id)" style="width:100px;"
-                                    value="<?= $values['hotel_cost'] ?>"></td>
-                        </tr>
-                        <?php
+                                <td><input type="text" id="no_of_rooms-u_<?= $count ?>" title="Total Rooms"
+                                        name="no_of_rooms-u_<?= $count ?>" placeholder="*Total Rooms"
+                                        value="<?= $values['total_rooms'] ?>" onchange="validate_balance(this.id);"
+                                        style="width:110px"></td>
+                                <td><input type="text" id="extra_bed-u_<?= $count ?>" name="extra_bed-u_<?= $count ?>"
+                                        title="Extra Bed" placeholder="Extra Bed" onchange="validate_balance(this.id);"
+                                        style="width:100px" value="<?= $values['extra_bed'] ?>"></td>
+                                <td class="hidden"><input type="hidden" id="hotel_cost-u_<?= $count ?>"
+                                        name="hotel_cost-u_<?= $count ?>" placeholder="Hotel Cost" title="Hotel Cost"
+                                        onchange="validate_balance(this.id)" style="width:100px;"
+                                        value="<?= $values['hotel_cost'] ?>"></td>
+                            </tr>
+                            <?php
 								$count++;
 							}
 						} ?>
@@ -220,21 +226,20 @@ $('#frm_tab2').validate({
             if (row.cells[0].childNodes[0].checked) {
 
                 hcount++;
-                var city_name = row.cells[2].childNodes[0].value;
-                var hotel_id = row.cells[3].childNodes[0].value;
-                var hotel_cat = row.cells[4].childNodes[0].value;
-                var check_in = row.cells[6].childNodes[0].value;
-                var checkout = row.cells[7].childNodes[0].value;
-                var hotel_stay_days1 = row.cells[9].childNodes[0].value;
-                var total_rooms = row.cells[10].childNodes[0].value;
-                var hotel_cost = row.cells[12].childNodes[0].value;
+                var city_name = row.cells[3].childNodes[0].value;
+                var hotel_id = row.cells[4].childNodes[0].value;
+                var hotel_cat = row.cells[5].childNodes[0].value;
+                var check_in = row.cells[7].childNodes[0].value;
+                var checkout = row.cells[8].childNodes[0].value;
+                var hotel_stay_days1 = row.cells[10].childNodes[0].value;
+                var total_rooms = row.cells[11].childNodes[0].value;
+                var hotel_cost = row.cells[13].childNodes[0].value;
                 hcostTotal += Number(hotel_cost);
 
                 if (city_name == "") {
                     error_msg_alert('Select Hotel city in Row ' + (i + 1));
                     $('.accordion_content').removeClass("indicator");
-                    $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest(
-                        '.accordion_content').addClass("indicator");
+                    $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest('.accordion_content').addClass("indicator");
                     return false;
                 }
 
@@ -274,7 +279,7 @@ $('#frm_tab2').validate({
                     return false;
                 }
                 if (hotel_stay_days1 == "") {
-                    error_msg_alert('Enter Hotel total days in Row ' + (i + 1));
+                    error_msg_alert('Enter Hotel total nights in Row ' + (i + 1));
                     $('.accordion_content').removeClass("indicator");
                     $('#tbl_package_tour_quotation_dynamic_hotel').parent('div').closest(
                         '.accordion_content').addClass("indicator");

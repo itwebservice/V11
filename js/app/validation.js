@@ -832,20 +832,24 @@ function foo(tableID, quot_table_id, rowCounts) {
       "chk_program-" + quot_table_id + offset
     );
     row.cells[0].childNodes[1].setAttribute("for", "chk_program-" + offset);
+    row.cells[2].childNodes[0].setAttribute("id", "tour_type-" + offset);
 
-    row.cells[2].childNodes[0].setAttribute("id", "city_name-" + offset);
-    $(row.cells[2].childNodes[0]).next("span").remove();
-    row.cells[3].childNodes[0].setAttribute("id", "hotel_name-" + offset);
-    row.cells[4].childNodes[0].setAttribute("id", "room_cat-" + offset);
-    row.cells[5].childNodes[0].setAttribute("id", "meal_plan-" + offset);
-    row.cells[6].childNodes[0].setAttribute("id", "check_in-" + offset);
-    row.cells[7].childNodes[0].setAttribute("id", "check_out-" + offset);
-    row.cells[8].childNodes[0].setAttribute("id", "hotel_type-" + offset);
-    row.cells[9].childNodes[0].setAttribute("id", "hotel_stay_days-" + offset);
-    row.cells[10].childNodes[0].setAttribute("id", "no_of_rooms-" + offset);
-    row.cells[11].childNodes[0].setAttribute("id", "extra_bed-" + offset);
-    row.cells[12].childNodes[0].setAttribute("id", "hotel_cost-" + offset);
+    row.cells[3].childNodes[0].setAttribute("id", "city_name-" + offset);
+    $(row.cells[3].childNodes[0]).next("span").remove();
+    row.cells[3].childNodes[0].setAttribute("title", "City Name");
+    row.cells[4].childNodes[0].setAttribute("id", "hotel_name-" + offset);
+    row.cells[5].childNodes[0].setAttribute("id", "room_cat-" + offset);
+    row.cells[6].childNodes[0].setAttribute("id", "meal_plan-" + offset);
+    row.cells[7].childNodes[0].setAttribute("id", "check_in-" + offset);
+    row.cells[8].childNodes[0].setAttribute("id", "check_out-" + offset);
+    row.cells[9].childNodes[0].setAttribute("id", "hotel_type-" + offset);
+    row.cells[10].childNodes[0].setAttribute("id", "hotel_stay_days-" + offset);
+    row.cells[11].childNodes[0].setAttribute("id", "no_of_rooms-" + offset);
+    row.cells[12].childNodes[0].setAttribute("id", "extra_bed-" + offset);
+    row.cells[13].childNodes[0].setAttribute("id", "hotel_cost-" + offset);
     
+    row.cells[10].childNodes[0].value = 1;
+
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -858,10 +862,10 @@ function foo(tableID, quot_table_id, rowCounts) {
       mm = "0" + mm;
     }
     var today = dd + "-" + mm + "-" + yyyy;
-    row.cells[6].childNodes[0].value = today;
     row.cells[7].childNodes[0].value = today;
+    row.cells[8].childNodes[0].value = today;
 
-    $(row.cells[12]).addClass("hidden");
+    $(row.cells[14]).addClass("hidden");
   }
   if (tableID == "dynamic_table_list_update") {
     row.cells[0].childNodes[0].setAttribute("id", "chk_program1" + foo.counter);
@@ -2856,22 +2860,26 @@ function foo(tableID, quot_table_id, rowCounts) {
     );
     row.cells[2].childNodes[0].setAttribute(
       "id",
-      "city_id" + prefix + foo.counter
+      "tour_type" + prefix + foo.counter
     );
     row.cells[3].childNodes[0].setAttribute(
+      "id",
+      "city_id" + prefix + foo.counter
+    );
+    row.cells[4].childNodes[0].setAttribute(
       "id",
       "hotel_id" + prefix + foo.counter
     );
 
-    $(row.cells[2].childNodes[0]).next("span").remove();
-    city_lzloading(row.cells[2].childNodes[0]);
-    for (var i = row.cells[4].childNodes[0].attributes.length; i-- > 0; )
-      row.cells[4].childNodes[0].removeAttributeNode(
-        row.cells[4].childNodes[0].attributes[i]
+    $(row.cells[3].childNodes[0]).next("span").remove();
+    city_lzloading(row.cells[3].childNodes[0]);
+    for (var i = row.cells[5].childNodes[0].attributes.length; i-- > 0; )
+      row.cells[5].childNodes[0].removeAttributeNode(
+        row.cells[5].childNodes[0].attributes[i]
       );
 
-    row.cells[4].childNodes[0].setAttribute("id", "check_in" + foo.counter);
-    row.cells[4].childNodes[0].setAttribute(
+    row.cells[5].childNodes[0].setAttribute("id", "check_in" + foo.counter);
+    row.cells[5].childNodes[0].setAttribute(
       "onchange",
       "get_to_datetime(this.id,'check_out" +
         foo.counter +
@@ -2884,42 +2892,7 @@ function foo(tableID, quot_table_id, rowCounts) {
         foo.counter +
         "')"
     );
-    row.cells[4].childNodes[0].placeholder = "Check-In Date Time";
-    row.cells[4].childNodes[0].title = "Check-In Date Time";
-    row.cells[4].childNodes[0].type = "text";
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    var today =
-      dd + "-" + mm + "-" + yyyy + " " + "00" + ":" + "00" + ":" + "00";
-    row.cells[4].childNodes[0].value = today;
-    dynamic_datetime(row.cells[4].childNodes[0].id);
-
-    for (var i = row.cells[5].childNodes[0].attributes.length; i-- > 0; )
-      row.cells[5].childNodes[0].removeAttributeNode(
-        row.cells[5].childNodes[0].attributes[i]
-      );
-    row.cells[5].childNodes[0].setAttribute("id", "check_out" + foo.counter);
-    row.cells[5].childNodes[0].setAttribute(
-      "onchange",
-      "calculate_total_nights('check_in" +
-        foo.counter +
-        "', 'check_out" +
-        foo.counter +
-        "','no_of_nights" +
-        prefix +
-        foo.counter +
-        "')"
-    );
-    row.cells[5].childNodes[0].placeholder = "Check-Out Date Time";
+    row.cells[5].childNodes[0].placeholder = "Check-In Date Time";
     row.cells[5].childNodes[0].title = "Check-In Date Time";
     row.cells[5].childNodes[0].type = "text";
     var today = new Date();
@@ -2937,39 +2910,74 @@ function foo(tableID, quot_table_id, rowCounts) {
       dd + "-" + mm + "-" + yyyy + " " + "00" + ":" + "00" + ":" + "00";
     row.cells[5].childNodes[0].value = today;
     dynamic_datetime(row.cells[5].childNodes[0].id);
+
+    for (var i = row.cells[6].childNodes[0].attributes.length; i-- > 0; )
+      row.cells[6].childNodes[0].removeAttributeNode(
+        row.cells[6].childNodes[0].attributes[i]
+      );
+    row.cells[6].childNodes[0].setAttribute("id", "check_out" + foo.counter);
     row.cells[6].childNodes[0].setAttribute(
+      "onchange",
+      "calculate_total_nights('check_in" +
+        foo.counter +
+        "', 'check_out" +
+        foo.counter +
+        "','no_of_nights" +
+        prefix +
+        foo.counter +
+        "')"
+    );
+    row.cells[6].childNodes[0].placeholder = "Check-Out Date Time";
+    row.cells[6].childNodes[0].title = "Check-Out Date Time";
+    row.cells[6].childNodes[0].type = "text";
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var today =
+      dd + "-" + mm + "-" + yyyy + " " + "00" + ":" + "00" + ":" + "00";
+    row.cells[6].childNodes[0].value = today;
+    dynamic_datetime(row.cells[6].childNodes[0].id);
+    row.cells[7].childNodes[0].setAttribute(
       "id",
       "no_of_nights" + prefix + foo.counter
     );
-    row.cells[7].childNodes[0].setAttribute(
+    row.cells[8].childNodes[0].setAttribute(
       "id",
       "rooms" + prefix + foo.counter
     );
-    row.cells[8].childNodes[0].setAttribute(
+    row.cells[9].childNodes[0].setAttribute(
       "id",
       "room_type" + prefix + foo.counter
     );
-    row.cells[9].childNodes[0].setAttribute(
+    row.cells[10].childNodes[0].setAttribute(
       "id",
       "category" + prefix + foo.counter
     );
-    row.cells[10].childNodes[0].setAttribute(
+    row.cells[11].childNodes[0].setAttribute(
       "id",
       "accomodation_type" + prefix + foo.counter
     );
-    row.cells[11].childNodes[0].setAttribute(
+    row.cells[12].childNodes[0].setAttribute(
       "id",
       "extra_beds" + prefix + foo.counter
     );
-    row.cells[12].childNodes[0].setAttribute(
+    row.cells[13].childNodes[0].setAttribute(
       "id",
       "meal_plan" + prefix + foo.counter
     );
-    row.cells[13].childNodes[0].setAttribute(
+    row.cells[14].childNodes[0].setAttribute(
       "id",
       "conf_no" + prefix + foo.counter
     );
-    $(row.cells[14]).addClass("hidden");
+    $(row.cells[15]).addClass("hidden");
   }
   //*******Hotel Booking table start*******//
 

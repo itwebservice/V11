@@ -3,7 +3,7 @@
 include "../../../../model.php";
 
 include "printFunction.php";
-global $app_quot_img, $similar_text, $quot_note, $currency;
+global $app_quot_img, $similar_text, $quot_note, $currency,$tcs_note;
 
 $role = $_SESSION['role'];
 $branch_admin_id = $_SESSION['branch_admin_id'];
@@ -15,6 +15,7 @@ $quotation_id = $_GET['quotation_id'];
 
 $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$quotation_id'"));
 $transport_agency_id = $sq_quotation['transport_agency_id'];
+$tcs_note_show = ($sq_quotation['booking_type'] != 'Domestic') ? $tcs_note : '';
 $sq_transport1 = mysqli_fetch_assoc(mysqlQuery("select * from transport_agency_master where transport_agency_id='$transport_agency_id'"));
 $sq_package_name = mysqli_fetch_assoc(mysqlQuery("select * from custom_package_master where package_id = '$sq_quotation[package_id]'"));
 
@@ -841,6 +842,10 @@ while ($row_itinarary = mysqli_fetch_assoc($sq_package_program)) {
           </div>
         <?php }
         } ?>
+      <?php } ?>
+      <?php
+      if ($tcs_note_show != '') { ?>
+      <p style="margin-left:10px!important;" class="costBankTitle mg_tp_10"><?= $tcs_note_show ?></h5>
       <?php } ?>
       <?php
       if ($sq_quotation['other_desc'] != '') { ?>

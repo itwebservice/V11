@@ -80,12 +80,8 @@ class quotation_email_send
 	public function quotation_email_body(){
 
 		$quotation_id_arr = $_POST['quotation_id_arr'];
-		global $currency,$bank_name_setting,$bank_branch_name,$acc_name,$bank_acc_no,$bank_ifsc_code,$bank_swift_code,$bank_account_name;
+		global $currency,$bank_name_setting,$bank_branch_name,$acc_name,$bank_acc_no,$bank_ifsc_code,$bank_swift_code,$bank_account_name,$app_cancel_pdf,$model,$quot_note,$tcs_note,$theme_color;
 		$i = 0;
-		// $whatsapp_msg = '';
-		$base_url = BASE_URL;
-		global $app_name, $app_cancel_pdf,$model,$quot_note,$currency_logo,$theme_color;
-		global $mail_em_style, $mail_font_family, $mail_strong_style, $mail_color;	
 
 		if($app_cancel_pdf == ''){	$url =  BASE_URL.'view/package_booking/quotation/cancellaion_policy_msg.php'; }
 
@@ -103,6 +99,7 @@ class quotation_email_send
 		for($i=0;$i<sizeof($quotation_id_arr);$i++)
 		{
 			$sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$quotation_id_arr[$i]'"));
+			$tcs_note_show = ($sq_quotation['booking_type'] != 'Domestic') ? $tcs_note : '';
 			$sq_cost =  mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_costing_entries where quotation_id = '$quotation_id_arr[$i]'"));
 			$sq_login = mysqli_fetch_assoc(mysqlQuery("select * from roles where id='$sq_quotation[login_id]'"));
 			$sq_emp_info = mysqli_fetch_assoc(mysqlQuery("select * from emp_master where emp_id='$sq_quotation[emp_id]'"));
@@ -772,6 +769,16 @@ class quotation_email_send
 											<td style="text-align:left;border: 1px solid #888888;width:30%">'.currency_conversion($currency, $sq_quotation['currency_code'], floatval($sq_quotation['cruise_icost'])).'</td>
 										</tr>';
 								}
+								if($tcs_note_show != ''){
+									$content .= '
+									<tr>
+										<table style="width:100%;margin-top:10px">
+											<tr>
+												<td style="padding-left: 10px;border-bottom: 1px solid #eee;"><span style="font-weight: 600; color: '.$theme_color.'">'.$tcs_note_show.'</span></td>
+											</tr>
+										</table>	
+									<tr>';
+								}
 								$content .='
 									<tbody> 
 								</table>
@@ -797,17 +804,6 @@ class quotation_email_send
 									}
 								}
 								$service_tax_amount_show = currency_conversion($currency,$sq_quotation['currency_code'],$service_tax_amount);
-								// if($bsmValues[0]->service != ''){   //inclusive service charge
-								// 	$newBasic = $tour_cost + $service_tax_amount;
-								// }
-								// else{
-								// 	$newBasic = $tour_cost;
-								// }
-								
-								// ////////////Basic Amount Rules
-								// if($bsmValues[0]->basic != ''){ //inclusive markup
-								// 	$newBasic = $tour_cost + $service_tax_amount;
-								// }
 								$quotation_cost = $basic_cost + $service_charge + $service_tax_amount + $sq_quotation['train_cost'] + $sq_quotation['cruise_cost'] + $sq_quotation['flight_cost'] + $sq_quotation['visa_cost'] + $sq_quotation['guide_cost'] + $sq_quotation['misc_cost'];
 								////////////////Currency conversion ////////////
 								$currency_amount1 = currency_conversion($currency,$sq_quotation['currency_code'],$quotation_cost);
@@ -823,9 +819,16 @@ class quotation_email_send
 										<tr><td style="text-align:left;border: 1px solid #888888;width:30%">Travel and other cost</td><td style="text-align:left;border: 1px solid #888888;">'.$travel_cost.'</td><td style="text-align:left;border: 1px solid #888888;width:30%">Quotation Cost</td> <td style="text-align:left;border: 1px solid #888888;">'.$currency_amount1.'</td></tr>
 									</table>
 								</tr>';
+								// for cond end
+								if($tcs_note_show != ''){
+									$content .= '<tr> 
+									<table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;margin: 0px auto;margin-top:10px; min-width: 100%;" role="presentation">
+									<tr><td style="text-align:left;width:30%;margin-left:30px!important;" colspan=6>'.$tcs_note_show.' </td></tr>
+									</table>
+									</tr>';
 								}
-						}			
-			// for cond end
+							}
+						}
 		} 
 		$content .= '
 		<tr>

@@ -58,9 +58,9 @@ else if($reflections[0]->tax_apply_on == '3') {
                                 <select name="customer_id1" id="customer_id1" style="width: 100%"
                                     onchange="customer_info_load('1')" disabled>
                                     <?php
-                $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
-                if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
-                ?>
+                                    $sq_customer = mysqli_fetch_assoc(mysqlQuery("select * from customer_master where customer_id='$sq_booking[customer_id]'"));
+                                    if ($sq_customer['type'] == 'Corporate' || $sq_customer['type'] == 'B2B') {
+                                    ?>
                                     <option value="<?= $sq_customer['customer_id'] ?>">
                                         <?= $sq_customer['company_name'] ?></option>
                                     <?php } else { ?>
@@ -140,6 +140,16 @@ else if($reflections[0]->tax_apply_on == '3') {
                                                     onchange="total_fun1();" checked></td>
                                             <td><input maxlength="15" type="text" name="username" value="<?= $count ?>"
                                                     placeholder="Sr. No." disabled /></td>
+                                            <td><select id="tour_type<?= $prefix . $count ?>_f" style="width:125px" name="tour_type<?= $prefix . $count ?>_f" title="Tour Type" data-toggle="tooltip" style="width:100%" onchange="get_auto_values('booking_date1','sub_total1','payment_mode','service_charge1','markup1','update','true','service_charge','discount1',true);">
+                                                <option value="<?php echo $row_entry['tour_type'] ?>"><?php echo $row_entry['tour_type'] ?></option>
+                                                <?php if($row_entry['tour_type'] != 'Domestic'){ ?>
+                                                    <option value="Domestic">Domestic</option>
+                                                <?php }
+                                                if($row_entry['tour_type'] != 'International'){ ?>
+                                                    <option value="International">International</option>
+                                                <?php } ?>
+                                                </select>
+                                            </td>
                                             <td><select id="city_id<?= $prefix . $count ?>_f" style="width:150px"
                                                     class="city_id_u" name="city_id<?= $prefix . $count ?>_f"
                                                     title="City" onchange="hotel_name_list_load(this.id)"
@@ -510,44 +520,42 @@ function total_fun1() {
     var total = total_amount.toFixed(2);
 
     var hotel_id_arr = [];
+    var tour_type_arr = [];
     var table = document.getElementById("tbl_hotel_booking_update");
     var rowCount = table.rows.length;
     for (var i = 0; i < rowCount; i++) {
         var row = table.rows[i];
 
         if (row.cells[0].childNodes[0].checked) {
-            var hotel_id = row.cells[3].childNodes[0].value;
+            var tour_type = row.cells[2].childNodes[0].value;
+            var hotel_id = row.cells[4].childNodes[0].value;
+            tour_type_arr.push(tour_type);
             hotel_id_arr.push(hotel_id);
         }
     }
-    $.post(base_url + 'view/hotels/booking/inc/get_hotel_type.php', {
-        hotel_id_arr: hotel_id_arr
-    }, function(data) {
-        var tour_type = parseInt(data);
-        if (tour_type === 1 && parseInt(tcs_apply) == 1) {
-            if (parseInt(tcs_calc) == 0) {
-                var net_total = parseFloat(total);
-                var tsc_tax = parseFloat(net_total) * (parseFloat(tcs) / 100);
-                $('#tcs_tax1').val(tsc_tax.toFixed(2));
-                document.getElementById("tcs_tax1").readOnly = true;
-            } else {
-                var tsc_tax = $('#tcs_tax1').val();
-                if (tsc_tax == '') {
-                    tsc_tax = 0;
-                }
-                document.getElementById("tcs_tax1").readOnly = false;
-            }
-        } else if (tour_type === 0 || parseInt(tcs_apply) == 0) {
-            var tsc_tax = 0;
+    if (tour_type_arr.includes("International") && parseInt(tcs_apply) == 1) {
+        if (parseInt(tcs_calc) == 0) {
+            var net_total = parseFloat(total);
+            var tsc_tax = parseFloat(net_total) * (parseFloat(tcs) / 100);
             $('#tcs_tax1').val(tsc_tax.toFixed(2));
             document.getElementById("tcs_tax1").readOnly = true;
+        } else {
+            var tsc_tax = $('#tcs_tax1').val();
+            if (tsc_tax == '') {
+                tsc_tax = 0;
+            }
+            document.getElementById("tcs_tax1").readOnly = false;
         }
-        total = parseFloat(total) + parseFloat(tsc_tax);
-        var roundoff = Math.round(total) - total;
+    } else if (!tour_type_arr.includes("International") || parseInt(tcs_apply) == 0) {
+        var tsc_tax = 0;
+        $('#tcs_tax1').val(tsc_tax.toFixed(2));
+        document.getElementById("tcs_tax1").readOnly = true;
+    }
+    total = parseFloat(total) + parseFloat(tsc_tax);
+    var roundoff = Math.round(total) - total;
 
-        $('#roundoff1').val(roundoff.toFixed(2));
-        $('#total_fee1').val(parseFloat(total) + parseFloat(roundoff));
-    });
+    $('#roundoff1').val(roundoff.toFixed(2));
+    $('#total_fee1').val(parseFloat(total) + parseFloat(roundoff));
 }
 total_fun1();
 
@@ -601,6 +609,7 @@ $(function() {
                 $('#update_btn').prop('disabled', false);
                 return false;
             }
+            var tour_type_arr = new Array();
             var city_id_arr = new Array();
             var hotel_id_arr = new Array();
             var check_in_arr = new Array();
@@ -633,26 +642,26 @@ $(function() {
             for (var i = 0; i < rowCount; i++) {
 
                 var row = table.rows[i];
-                    var city_id = row.cells[2].childNodes[0].value;
-                    var hotel_id = row.cells[3].childNodes[0].value;
-                    var check_in = row.cells[4].childNodes[0].value;
-                    var check_out = row.cells[5].childNodes[0].value;
-                    var no_of_nights = row.cells[6].childNodes[0].value;
-                    var rooms = row.cells[7].childNodes[0].value;
-                    var room_type = row.cells[8].childNodes[0].value;
-                    var category = row.cells[9].childNodes[0].value;
-                    var accomodation_type = row.cells[10].childNodes[0].value;
-                    var extra_beds = row.cells[11].childNodes[0].value;
-                    var meal_plan = row.cells[12].childNodes[0].value;
-                    var conf_no = row.cells[13].childNodes[0].value;
+                var tour_type = row.cells[2].childNodes[0].value;
+                var city_id = row.cells[3].childNodes[0].value;
+                var hotel_id = row.cells[4].childNodes[0].value;
+                var check_in = row.cells[5].childNodes[0].value;
+                var check_out = row.cells[6].childNodes[0].value;
+                var no_of_nights = row.cells[7].childNodes[0].value;
+                var rooms = row.cells[8].childNodes[0].value;
+                var room_type = row.cells[9].childNodes[0].value;
+                var category = row.cells[10].childNodes[0].value;
+                var accomodation_type = row.cells[11].childNodes[0].value;
+                var extra_beds = row.cells[12].childNodes[0].value;
+                var meal_plan = row.cells[13].childNodes[0].value;
+                var conf_no = row.cells[14].childNodes[0].value;
 
-                    if (row.cells[14]) {
-                        var entry_id = row.cells[14].childNodes[0].value;
-                    } else {
-                        var entry_id = "";
-                    }
-
-                    var msg = "";
+                if (row.cells[15]) {
+                    var entry_id = row.cells[15].childNodes[0].value;
+                } else {
+                    var entry_id = "";
+                }
+                var msg = "";
                 if (row.cells[0].childNodes[0].checked) {
 
                     if (city_id == "") {
@@ -674,28 +683,27 @@ $(function() {
                         msg += "No of Nights is required in row:" + (i + 1) + '<br>';
                     }
                 }
-
-                    if (msg != "") {
-                        error_msg_alert(msg);
-                        $('#update_btn').prop('disabled', false);
-                        return false;
-                    }
-
-                    city_id_arr.push(city_id);
-                    hotel_id_arr.push(hotel_id);
-                    check_in_arr.push(check_in);
-                    check_out_arr.push(check_out);
-                    no_of_nights_arr.push(no_of_nights);
-                    rooms_arr.push(rooms);
-                    room_type_arr.push(room_type);
-                    category_arr.push(category);
-                    accomodation_type_arr.push(accomodation_type);
-                    extra_beds_arr.push(extra_beds);
-                    meal_plan_arr.push(meal_plan);
-                    conf_no_arr.push(conf_no);
-                    entry_id_arr.push(entry_id);
-                	e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
+                if (msg != "") {
+                    error_msg_alert(msg);
+                    $('#update_btn').prop('disabled', false);
+                    return false;
                 }
+                tour_type_arr.push(tour_type);
+                city_id_arr.push(city_id);
+                hotel_id_arr.push(hotel_id);
+                check_in_arr.push(check_in);
+                check_out_arr.push(check_out);
+                no_of_nights_arr.push(no_of_nights);
+                rooms_arr.push(rooms);
+                room_type_arr.push(room_type);
+                category_arr.push(category);
+                accomodation_type_arr.push(accomodation_type);
+                extra_beds_arr.push(extra_beds);
+                meal_plan_arr.push(meal_plan);
+                conf_no_arr.push(conf_no);
+                entry_id_arr.push(entry_id);
+                e_checkbox_arr.push(row.cells[0].childNodes[0].checked);
+            }
 
             var hotel_sc = $('#hotel_sc').val();
             var hotel_markup = $('#hotel_markup').val();
@@ -756,6 +764,7 @@ $(function() {
                             discount: discount,
                             tds: tds,
                             total_fee: total_fee,
+                            tour_type_arr:tour_type_arr,
                             city_id_arr: city_id_arr,
                             hotel_id_arr: hotel_id_arr,
                             check_in_arr: check_in_arr,

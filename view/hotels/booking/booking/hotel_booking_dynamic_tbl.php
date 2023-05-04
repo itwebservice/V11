@@ -3,6 +3,11 @@
             onchange="get_auto_values('booking_date','sub_total','payment_mode','service_charge','markup','save')"
             checked></td>
     <td><input maxlength="15" type="text" name="username" value="1" placeholder="Sr. No." disabled /></td>
+    <td><select id="tour_type<?= $prefix ?>1" style="width:105px" name="tour_type<?= $prefix ?>1" title="Tour Type" data-toggle="tooltip" style="width:100%" onchange="get_auto_values('booking_date','sub_total','payment_mode','service_charge','markup','save','true','service_charge','discount');">
+                <option value="Domestic">Domestic</option>
+                <option value="International">International</option>
+        </select>
+    </td>
     <td><select id="city_id<?= $prefix ?>1" style="width:105px" name="city_id<?= $prefix ?>1" title="City"
             onchange="hotel_name_list_load(this.id);" data-toggle="tooltip" class="city_id" style="width:100%">
         </select>

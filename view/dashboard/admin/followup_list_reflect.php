@@ -28,7 +28,7 @@ $to_date = $_POST['to_date'];
             $count = 0;
             $rightnow = date('Y-m-d');
             $add7days = date('Y-m-d', strtotime('+7 days'));
-            $query = "SELECT * FROM `enquiry_master` where status!='Disabled' and financial_year_id='$financial_year_id'";
+            $query = "SELECT * FROM `enquiry_master` where status!='Disabled'";
             $sq_enquiries = mysqlQuery($query);
             while($row = mysqli_fetch_assoc($sq_enquiries)){
                 

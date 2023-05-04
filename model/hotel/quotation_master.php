@@ -186,6 +186,7 @@ class quotation_master{
                 }
                 $content .= '<tr>
                 <table width="85%" cellspacing="0" cellpadding="5" style="color: #888888;border: 1px solid #888888;margin: 0px auto;margin-top:20px; min-width: 100%;" role="presentation">
+                <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Tour Type</td>   <td style="text-align:left;border: 1px solid #888888;">'.$hotelDetails[$i]['tour_type'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">City Name</td>   <td style="text-align:left;border: 1px solid #888888;">'.$cityName['city_name'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Hotel Name(Option-'.($i+1).')</td>   <td style="text-align:left;border: 1px solid #888888;">'.$hotelName['hotel_name'].'</td></tr>
                 <tr><td style="text-align:left;border: 1px solid #888888; width:50%">Check In Date</td>   <td style="text-align:left;border: 1px solid #888888;">'.get_date_user($hotelDetails[$i]['checkin']).'</td></tr>
@@ -198,13 +199,30 @@ class quotation_master{
                 ';
             }
 
-            $tax = explode(':',$costDetails['tax_amount']);
-            $markup_tax = explode(':',$costDetails['markup_tax']);
+            $service_tax_amount = 0;
+            if($costDetails['tax_amount'] !== 0.00 && ($costDetails['tax_amount']) !== ''){
+                $service_tax_subtotal1 = explode(',',$costDetails['tax_amount']);
+                for($i=0;$i<sizeof($service_tax_subtotal1);$i++){
+                    $service_tax = explode(':',$service_tax_subtotal1[$i]);
+                    $service_tax_amount +=  $service_tax[2];
+                }
+            }
+        
+            ////////////////////Markup Rules
+            $markupservice_tax_amount = 0;
+            if($costDetails['markup_tax'] !== 0.00 && $costDetails['markup_tax'] !== ""){
+                $service_tax_markup1 = explode(',',$costDetails['markup_tax']);
+                for($i=0;$i<sizeof($service_tax_markup1);$i++){
+                    $service_tax = explode(':',$service_tax_markup1[$i]);
+                    $markupservice_tax_amount += $service_tax[2];
+                }
+            }
+
             //Currency conversion
             $hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
 		    $hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
 		    $total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
-            $tax_amount = $tax[2] + $markup_tax[2];
+            $tax_amount = $service_tax_amount + $markupservice_tax_amount;
 		    $tax_amount = currency_conversion($currency,$sq_hotel['currency_code'],$tax_amount);
 
             $content .= '<tr>
@@ -258,6 +276,7 @@ Hope you are doing great. Following are the hotel quotation details.');
             $markup_tax = explode(':',$costDetails['markup_tax']);
             $whatsapp_msg .= rawurlencode('
 *Option* : '.($i+1).'
+*Tour Type* : '.($hotelDetails[$i]['tour_type']).'
 *City Name* : '.($cityName['city_name']).'
 *Hotel Name* : '.($hotelName['hotel_name']).'
 *Check In Date* : '.get_date_user($hotelDetails[$i]['checkin']).'
@@ -273,7 +292,30 @@ Hope you are doing great. Following are the hotel quotation details.');
 $hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
 $hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
 $total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
-$tax_amount = $tax[2] + $markup_tax[2];
+$service_tax_amount = 0;
+if($costDetails['tax_amount'] !== 0.00 && ($costDetails['tax_amount']) !== ''){
+    $service_tax_subtotal1 = explode(',',$costDetails['tax_amount']);
+    for($i=0;$i<sizeof($service_tax_subtotal1);$i++){
+        $service_tax = explode(':',$service_tax_subtotal1[$i]);
+        $service_tax_amount +=  $service_tax[2];
+    }
+}
+
+////////////////////Markup Rules
+$markupservice_tax_amount = 0;
+if($costDetails['markup_tax'] !== 0.00 && $costDetails['markup_tax'] !== ""){
+    $service_tax_markup1 = explode(',',$costDetails['markup_tax']);
+    for($i=0;$i<sizeof($service_tax_markup1);$i++){
+        $service_tax = explode(':',$service_tax_markup1[$i]);
+        $markupservice_tax_amount += $service_tax[2];
+    }
+}
+
+//Currency conversion
+$hotel_cost = $costDetails['hotel_cost']+$costDetails['service_charge']+$costDetails['markup_cost']+$costDetails['roundoff'];
+$hotel_cost = currency_conversion($currency,$sq_hotel['currency_code'],$hotel_cost);
+$total_cost = currency_conversion($currency,$sq_hotel['currency_code'],$costDetails['total_amount']);
+$tax_amount = $service_tax_amount + $markupservice_tax_amount;
 $tax_amount = currency_conversion($currency,$sq_hotel['currency_code'],$tax_amount);
 
 $whatsapp_msg .= rawurlencode('

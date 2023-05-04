@@ -19,7 +19,6 @@ $to_date = $_POST['to_date'];
                 <th>Tour_Name</th>
                 <th>Mobile</th>
                 <th>Followup_D/T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <!-- <th>Followup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
                 <th>Followup_Type</th>
                 <th>History</th>
                 <th>Followup_Update</th>
@@ -30,7 +29,7 @@ $to_date = $_POST['to_date'];
             $count = 0;
             $rightnow = date('Y-m-d');
             $add7days = date('Y-m-d', strtotime('+7 days'));
-            $query = "SELECT * FROM `enquiry_master` where status!='Disabled' and financial_year_id='$financial_year_id' and assigned_emp_id='$emp_id'";
+            $query = "SELECT * FROM `enquiry_master` where status!='Disabled' and assigned_emp_id='$emp_id'";
             $sq_enquiries = mysqlQuery($query);
             while($row = mysqli_fetch_assoc($sq_enquiries)){ 
                 $assigned_emp_id = $row['assigned_emp_id'];

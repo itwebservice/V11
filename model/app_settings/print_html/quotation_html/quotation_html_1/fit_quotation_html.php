@@ -9,10 +9,11 @@ $sq = mysqli_fetch_assoc(mysqlQuery("select * from branch_assign where link='pac
 $branch_status = $sq['branch_status'];
 
 $branch_details = mysqli_fetch_assoc(mysqlQuery("select * from branches where branch_id='$branch_admin_id'"));
-global $app_quot_img, $similar_text, $quot_note, $currency;
+global $app_quot_img, $similar_text, $quot_note, $currency,$tcs_note;
 $quotation_id = $_GET['quotation_id'];
 
 $sq_quotation = mysqli_fetch_assoc(mysqlQuery("select * from package_tour_quotation_master where quotation_id='$quotation_id'"));
+$tcs_note_show = ($sq_quotation['booking_type'] != 'Domestic') ? $tcs_note : '';
 $quotation_date = $sq_quotation['quotation_date'];
 $yr = explode("-", $quotation_date);
 $year = $yr[0];
@@ -425,6 +426,10 @@ $sq_cruise_count = mysqli_num_rows(mysqlQuery("select * from package_tour_quotat
           $discount = '';
         } ?>
         <p class="costBankTitle mg_tp_10"><?= $discount ?></p>
+        <?php
+        if ($tcs_note_show != '') { ?>
+          <p class="costBankTitle"><?= $tcs_note_show ?></p>
+        <?php } ?>
         <?php
         if ($sq_quotation['other_desc'] != '') { ?>
           <p class="costBankTitle">MISCELLANEOUS DESCRIPTION: <?= $sq_quotation['other_desc'] ?></p>
